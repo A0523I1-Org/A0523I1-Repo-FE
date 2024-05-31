@@ -336,31 +336,15 @@ p, h1, h2, h3, h4, h5, h6, h7, span {
 }
 
 .animation_Img_LandingHome_left{
-
-    animation: img_LandingHome_left 4s  ease-in-out alternate forwards;
+    transition: all 1s ease;
 }
 
-@keyframes img_LandingHome_left {
-    from{
-        left: -600px;
-    }
-    to{
-        left: 0;
-    }
-}
+
 
 .animation_Img_LandingHome_right{
     right: 0;
     animation: img_LandingHome_right 4s ease-in-out alternate forwards;
 }
 
-@keyframes img_LandingHome_right {
-    from{
-        right: 0;
-    }
-    to{
-        right: -600px;
-    }
-}
 /*# sourceMappingURL=home.css.map */
 

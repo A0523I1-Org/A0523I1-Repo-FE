@@ -4,19 +4,17 @@ import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as LandingService from '../services/LandingService';
 import { toast} from 'react-toastify';
 import * as Yup from 'yup';
-import {ref,getStorage,getDownloadURL,listAll} from 'firebase/storage';
-import {storage} from "../firebase";
+
 
 const Home = () => {
     const [listLandingHome,setListLandingHome] = useState([]);
     const [page,setPage] = useState(0);
     const [totalPage,setTotalPage] = useState(0);
     const [listImgAnimation,setListImgAnimation] = useState([]);
-    const imgRef = ref(storage,"/imageHomePhungPV");
-    const [objectImg ,setObjectImg] = useState({});
+    const [objectPlanDisplay ,setObjectPlanDisplay] = useState({});
+    const [isAnimating ,setIsAnimating] = useState(false);
 
-
-
+    // Phung-PV : đối tượng khai báo để nhận thông tin của khách hàng cần tư vân
     const [infoCustomer,setInfoCustomer] = useState({
         nameCustomer : "",
         emailCustomer : "",
@@ -24,11 +22,8 @@ const Home = () => {
         descriptionCustomer : ""
     });
 
-
-
     useEffect(() => {
         showListLandingHome(page);
-
         return () => {
             console.log("clear")
         }
@@ -40,7 +35,7 @@ const Home = () => {
         const temp = await LandingService.showListLandingHome(page);
         setTotalPage(temp.totalPages)
         setListLandingHome(temp.content);
-        setObjectImg(temp.content[0]);
+        setObjectPlanDisplay(temp.content[0]);
         setListImgAnimation(temp.content.slice(0,2))
     }
 
@@ -68,25 +63,27 @@ const Home = () => {
         }
     };
 
-    const handleImg = (landing) => {
-
+    const handleImageDisplay = (landing) => {
+        setIsAnimating(true)
         if(listImgAnimation[0] !== landing){
             const listImgAnimationCopy = [...listImgAnimation]; // Sao chép mảng
             const firstItemIndex = listImgAnimationCopy[0]; // Lấy vị trí đầu tiên của mảng sao chép
             listImgAnimationCopy[0] = landing; // Gán đối tượng được click vào vị trí đầu tiên
             listImgAnimationCopy[1] = firstItemIndex; // Gán vị trí đối tượng đầu tiên vào vị trí thứ hai của mảng sao chép
             setListImgAnimation(listImgAnimationCopy);
+            setObjectPlanDisplay(landing)
         }
-
-        setObjectImg(landing);
+        setTimeout(() => {
+            setIsAnimating(false)
+        },[100])
     }
-    console.log(listImgAnimation)
-    const handleNextPage = () => {
+
+    const handleNextPageLanding = () => {
         if(page < totalPage - 1){
             setPage(page + 1);
         }
     }
-    const handlePreviousPage = () => {
+    const handlePreviousPageLanding = () => {
         if(page > 0){
             setPage(page - 1)
         }
@@ -95,31 +92,36 @@ const Home = () => {
 
     const valueCustomer = {
         handleChangeInformationCustomer,
-        handleNextPage,
-        handlePreviousPage,
         infoCustomer,
         setInfoCustomer,
         validateInfoCustomer,
+    }
+
+    const valueLanding = {
+        handleNextPageLanding,
+        handlePreviousPageLanding,
+        handleImageDisplay,
         listLandingHome,
         listImgAnimation,
-        handleImg,
         page,
         totalPage,
-        objectImg,
+        objectPlanDisplay,
+        isAnimating
     }
+
     return (
         <>
-            <Home_child customer={valueCustomer}/>
+            <Home_child customer={valueCustomer} landing={valueLanding}/>
         </>
     )
 }
-const Home_child = ({customer}) => {
+const Home_child = ({customer,landing}) => {
     return (
         <>
             <main id="main" className="overflow-hidden">
                 <Home_child_introduce_company_xls/>
                 <Home_child_introduce_service_xls />
-                <Home_child_introduce_landing_xls landing={customer}/>
+                <Home_child_introduce_landing_xls landing={landing}/>
                 <Home_child_introduce_event_xls/>
                 <Home_child_introduce_enterprise_xls/>
                 <Home_child_authentication/>
@@ -274,51 +276,50 @@ const Home_child_introduce_service_xls = () => {
 
 // Component giới thiệu mặt bằng hiện có
 const Home_child_introduce_landing_xls = ({landing}) => {
-    console.log(landing.objectImg)
-    console.log(landing.listImgAnimation[0])
+
     return (
         <>
             <div className=" h-auto mt-10 max-sm:mt-0 mr-32 max-md:mr-0 max-lg:mr-5
-            max-xl:mr-20 max-2xl:mr-30  flex gap-5 max-sm:gap-1 max-md:flex-col">
-                <div className="w-1/2 max-md:w-full h-full bg-[#FBF5F1]">
+            max-xl:mr-20 max-2xl:mr-30  flex gap-5 max-sm:gap-1 max-md:flex-col ">
+                <div className="w-1/2 max-md:w-full h-full bg-[#F2F5F4] ">
                     <div className="h-[250px] m-10 flex relative overflow-hidden">
                         {landing.listImgAnimation.length !== 0 ? (
                             <div
-                                className={`w-full h-full absolute transition-all duration-800 ease-in-out`}>
-                                <img className={"w-full h-full object-cover"} src={landing.listImgAnimation[0].firebaseUrl}
+                                className={`w-full h-full absolute left-0 duration-300 transition-all ${landing.isAnimating ? 'translate-x-[-650px] z-20 ' : 'translate-x-[0px] z-10'}`}>
+                                <img className={"w-full h-full object-cover"} src={landing.listImgAnimation[1].firebaseUrl}
                                      alt=""/>
                             </div>
                         ) :  null}
                         {landing.listImgAnimation.length !== 0 ? (
                             <div
-                                className={`w-full h-full absolute l `}>
-                                <img className={"w-full h-full object-cover"} src={landing.listImgAnimation[1].firebaseUrl}
+                                className={`w-full h-full absolute left-0 transition-all ${landing.isAnimating ? ' translate-x-[650px] z-30 ' : ' translate-x-[0px] z-20'}`}>
+                                <img className={"w-full h-full object-cover"} src={landing.listImgAnimation[0].firebaseUrl}
                                      alt=""/>
                             </div>
                         ) :  null}
                     </div>
                     <div className="h-[100px]  m-10 flex gap-3">
                         {landing.listLandingHome.map((landings, index) => (
-                            <div className={"w-1/4 h-full bg-black"} key={index}>
-                                <button className="w-full h-full bg-black"
-                                        onClick={() => landing.handleImg(landings)}>
-                                    <img className={"w-full h-full object-cover"} src={landings.firebaseUrl} alt=""/>
+                            <div className={"w-1/4 h-full"} key={index}>
+                                <button className="w-full h-full "
+                                        onClick={() => landing.handleImageDisplay(landings)}>
+                                    <img className={"w-full h-full object-cover rounded-[5px]"} src={landings.firebaseUrl} alt=""/>
                                 </button>
                             </div>
                         ))}
                     </div>
                 </div>
-                <div className="w-1/2 max-sm:w-full max-md:w-full h-full bg-[#FBF5F1] ">
-                    <h1 className="text-4xl m-10 max-sm:my-1 ">Mặt bằng {landing.objectImg.id}</h1>
+                <div className="w-1/2 max-sm:w-full max-md:w-full h-full bg-[#F2F5F4] ">
+                    <h1 className="text-4xl m-10 max-sm:my-1 ">Mặt bằng {landing.objectPlanDisplay.id}</h1>
                     <div className="m-10">
-                        <p className="py-3">Diện tích : {landing.objectImg.area}</p>
-                        <p className="py-3">Phí quan lý : {landing.objectImg.feeManager}</p>
-                        <p className="py-3">Chú thích : {landing.objectImg.description}</p>
+                        <p className="py-3">Diện tích : {landing.objectPlanDisplay.area}</p>
+                        <p className="py-3">Phí quan lý : {landing.objectPlanDisplay.feeManager}</p>
+                        <p className="py-3">Chú thích : {landing.objectPlanDisplay.description}</p>
                     </div>
                     <div className=" h-10 flex gap-5 mx-10  mb-10">
                         <button
-                            onClick={landing.handleNextPage}
-                            className=" w-[60px] h-10 bg-[#2f2b36] " style={(landing.page + 1 === landing.totalPage) ? {display : 'none'} : {display : 'block'}}>
+                            onClick={landing.handleNextPageLanding}
+                            className=" w-[60px] h-10 bg-[#2f2b36] rounded-[5px]" style={(landing.page + 1 === landing.totalPage) ? {display : 'none'} : {display : 'block'}}>
                             <span className="text-white flex items-center justify-center ">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                                      stroke="currentColor" className="size-6">
@@ -328,8 +329,8 @@ const Home_child_introduce_landing_xls = ({landing}) => {
                             </span>
                         </button>
                         <button
-                            onClick={landing.handlePreviousPage}
-                            className="w-[60px] h-10 bg-[#2f2b36]" style={landing.page === 0 ? {display : 'none'} : {display : 'block'}}>
+                            onClick={landing.handlePreviousPageLanding}
+                            className="w-[60px] h-10 bg-[#2f2b36] rounded-[5px]" style={landing.page === 0 ? {display : 'none'} : {display : 'block'}}>
                             <span className="text-white flex items-center justify-center ">
                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                                    stroke="currentColor" className="size-6">
