@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import React, {useEffect, useMemo, useState} from "react";
+import React, { useMemo} from "react";
 
 const FooterExtra = React.memo(({nameLocation}) => {
 
