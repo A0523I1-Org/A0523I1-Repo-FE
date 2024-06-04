@@ -22,7 +22,7 @@ function DefaultLayout ({children})  {
         const parts = location.pathname.split('/');
         const firstPart = parts[1]; // "employee"
         const secondPart = parts[2]; // "create-employee"
-        console.log(secondPart)
+    
         listNameLocation.forEach(e => {
             if(firstPart === e && firstPart === "contract" ){
                 setLocationPresent('Hợp đồng')
@@ -50,8 +50,6 @@ function DefaultLayout ({children})  {
            }
        }
     }
-    console.log(locationPresent)
-    console.log(locationPresent1)
 
     return (
         <>
