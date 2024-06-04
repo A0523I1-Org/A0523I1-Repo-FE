@@ -121,7 +121,7 @@ const Home_child = ({customer,landing}) => {
             <main id="main" className="overflow-hidden">
                 <Home_child_introduce_company_xls/>
                 <Home_child_introduce_service_xls />
-                <Home_child_introduce_landing_xls landing={landing}/>
+                {/*<Home_child_introduce_landing_xls landing={landing}/>*/}
                 <Home_child_introduce_event_xls/>
                 <Home_child_introduce_enterprise_xls/>
                 <Home_child_authentication/>
