@@ -22,7 +22,7 @@ function DefaultLayout ({children})  {
         const parts = location.pathname.split('/');
         const firstPart = parts[1]; // "employee"
         const secondPart = parts[2]; // "create-employee"
-        console.log(secondPart.split('-')[0])
+        console.log(secondPart)
         listNameLocation.forEach(e => {
             if(firstPart === e && firstPart === "contract" ){
                 setLocationPresent('Hợp đồng')
@@ -38,9 +38,17 @@ function DefaultLayout ({children})  {
             }
         })
 
-        if(secondPart !== "" && secondPart === "create-employee" || secondPart === ""){
-            setLocationPresent1("Thêm mới")
-        }
+       if(secondPart !== undefined){
+           if(secondPart !== "" && secondPart.split('-')[0] === "create"){
+               setLocationPresent1("Thêm mới")
+           }
+           if(secondPart !== "" && secondPart.split('-')[0] === "edit"){
+               setLocationPresent1("Cập nhật")
+           }
+           if(secondPart !== "" && secondPart.split('-')[0] === "register"){
+               setLocationPresent1("Chi tiết")
+           }
+       }
     }
     console.log(locationPresent)
     console.log(locationPresent1)
@@ -63,20 +71,35 @@ function DefaultLayout ({children})  {
                         <div className="mx-10 overflow-auto bg-[#f1f2f2] ">
                             <div className="w-full h-[40px]  relative">
                                 <div
-                                    className="absolute right-0 w-auto bg-gray-200 h-full flex items-center gap-5 justify-center">
+                                    className="absolute right-0 w-auto bg-gray-200 h-full flex items-center gap-2 justify-center">
                                     <span className={'pl-3'}>Trang chủ</span>
                                     <span>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                               strokeWidth="1.5" stroke="currentColor" className="size-4">
+                                             strokeWidth="1.5" stroke="currentColor" className="size-4">
                                         <path strokeLinecap="round" strokeLinejoin="round"
-                                            d="m8.25 4.5 7.5 7.5-7.5 7.5"/>
+                                              d="m8.25 4.5 7.5 7.5-7.5 7.5"/>
                                         </svg>
                                     </span>
-                                    <span className={'pr-3'}>{locationPresent}</span>
+                                    <span className={`${locationPresent1 === "" ? 'pr-3' : ''}`}>{locationPresent}</span>
+                                    {locationPresent1 !== "" ?
+                                            <span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                     strokeWidth="1.5" stroke="currentColor" className="size-4">
+                                                <path strokeLinecap="round" strokeLinejoin="round"
+                                                      d="m8.25 4.5 7.5 7.5-7.5 7.5"/>
+                                                </svg>
+                                            </span>
+                                        : ""
+                                    }
+                                    {locationPresent1 !== "" ?
+                                        <span className={'pr-3'}>{locationPresent1}</span>
+                                        : ""
+                                    }
+
                                 </div>
                             </div>
                             <div className="h-auto ">
-                            {children}
+                                {children}
                             </div>
                         </div>
                         <div className="mx-10 footer-extra">
