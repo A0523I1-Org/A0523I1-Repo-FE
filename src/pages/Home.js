@@ -10,9 +10,7 @@ const Home = () => {
     const [listLandingHome,setListLandingHome] = useState([]);
     const [page,setPage] = useState(0);
     const [totalPage,setTotalPage] = useState(0);
-    const [listImgAnimation,setListImgAnimation] = useState([]);
     const [objectPlanDisplay ,setObjectPlanDisplay] = useState({});
-    const [isAnimating ,setIsAnimating] = useState(false);
 
     // Phung-PV : đối tượng khai báo để nhận thông tin của khách hàng cần tư vân
     const [infoCustomer,setInfoCustomer] = useState({
@@ -29,24 +27,43 @@ const Home = () => {
         }
     },[page]);
 
-
-
+    /**
+     * Hiển thị danh sách các landing home dựa trên trang đã cho.
+     *
+     * @param {number} page Số trang cần hiển thị.
+     * @returns {Promise<void>} Một promise được resolve khi danh sách được hiển thị.
+     */
     const showListLandingHome = async (page) => {
+        // Gọi service để lấy danh sách landing home từ server
         const temp = await LandingService.showListLandingHome(page);
+
+        // Cập nhật tổng số trang
         setTotalPage(temp.totalPages)
+
+        // Cập nhật danh sách landing home
         setListLandingHome(temp.content);
+
+        // Hiển thị kế hoạch đầu tiên từ danh sách
         setObjectPlanDisplay(temp.content[0]);
-        setListImgAnimation(temp.content.slice(0,2))
+
     }
 
+    /**
+     * Schema Yup để kiểm tra thông tin khách hàng.
+     *  validate - nameCustomer
+     *  validate - emailCustomer
+     *  validate - numberPhoneCustomer
+     *  nếu có lỗi thì bắt và hiển thị lỗi cho khách hàng
+     * @type {object}
+     */
     const validateInfoCustomer = Yup.object().shape({
         nameCustomer : Yup.string().min(1,"Tên không nhỏ hơn 1 kí tự")
             .max(100,"Tên không lớn hơn 100 kí tự")
             .required("Họ và tên là bắt buộc")
             .matches(/^[^\d`~!@#$%^&*()_+=[\]{};':"\\|,.<>/?]+$/, {
                 message: "Tên không được chứa kí tự đặc biệt và số",
-                excludeEmptyString: true, // Loại bỏ chuỗi rỗng trước khi kiểm tra
-                excludeEmptyArray: true, // Loại bỏ mảng rỗng trước khi kiểm tra
+                excludeEmptyString: true,
+                excludeEmptyArray: true,
             }),
         emailCustomer : Yup.string().matches(/^[A-Z0-9._%+-]+@gmail\.com$/i,"Định dạng email không hợp lệ")
             .required("Email là bắt buộc"),
@@ -55,29 +72,37 @@ const Home = () => {
             .matches(/^[0-9]{10}$/, 'Số điện thoại phải gồm 10 chữ số và không nhập chữ')
     })
 
+    /**
+     * Xử lý sự kiện thay đổi thông tin của khách hàng.
+     *
+     * @param {object} value Giá trị của thông tin khách hàng.
+     * @param {object} resetForm Đối tượng resetForm từ formik để đặt lại giá trị của form sau khi thành công.
+     * @returns {Promise<void>} Một promise được resolve khi thông tin khách hàng được lưu thành công.
+     */
     const handleChangeInformationCustomer = async (value,{resetForm}) => {
+        // Gọi service để lưu thông tin khách hàng vào form
         const infoCustomerSuccess = await LandingService.SaveInfoCustomerForm(value);
+
+        // Nếu lưu thành công, hiển thị thông báo và reset form
         if(infoCustomerSuccess.status === 200){
             toast.success("Thêm thông tin khách hàng thành công")
             resetForm();
         }
     };
 
-    const handleImageDisplay = (landing) => {
-        setIsAnimating(true)
-        if(listImgAnimation[0] !== landing){
-            const listImgAnimationCopy = [...listImgAnimation]; // Sao chép mảng
-            const firstItemIndex = listImgAnimationCopy[0]; // Lấy vị trí đầu tiên của mảng sao chép
-            listImgAnimationCopy[0] = landing; // Gán đối tượng được click vào vị trí đầu tiên
-            listImgAnimationCopy[1] = firstItemIndex; // Gán vị trí đối tượng đầu tiên vào vị trí thứ hai của mảng sao chép
-            setListImgAnimation(listImgAnimationCopy);
-            setObjectPlanDisplay(landing)
-        }
-        setTimeout(() => {
-            setIsAnimating(false)
-        },[100])
+    /**
+     * Phung-PV
+     * Xử lý các mặt bằng hiển thị khi khách hàng lựa chọn
+     */
+    const handleLandingDisplay = (lading) => {
+        setObjectPlanDisplay(lading);
     }
 
+    /**
+     * Xử lý sự kiện chuyển đến trang tiếp theo của danh sách landing.
+     *
+     * @returns {void} Không có giá trị trả về.
+     */
     const handleNextPageLanding = () => {
         if(page < totalPage - 1){
             setPage(page + 1);
@@ -89,7 +114,6 @@ const Home = () => {
         }
     }
 
-
     const valueCustomer = {
         handleChangeInformationCustomer,
         infoCustomer,
@@ -100,13 +124,11 @@ const Home = () => {
     const valueLanding = {
         handleNextPageLanding,
         handlePreviousPageLanding,
-        handleImageDisplay,
+        handleLandingDisplay,
         listLandingHome,
-        listImgAnimation,
         page,
         totalPage,
         objectPlanDisplay,
-        isAnimating
     }
 
     return (
@@ -121,7 +143,7 @@ const Home_child = ({customer,landing}) => {
             <main id="main" className="overflow-hidden">
                 <Home_child_introduce_company_xls/>
                 <Home_child_introduce_service_xls />
-                {/*<Home_child_introduce_landing_xls landing={landing}/>*/}
+                <Home_child_introduce_landing_xls landing={landing}/>
                 <Home_child_introduce_event_xls/>
                 <Home_child_introduce_enterprise_xls/>
                 <Home_child_authentication/>
@@ -276,34 +298,24 @@ const Home_child_introduce_service_xls = () => {
 
 // Component giới thiệu mặt bằng hiện có
 const Home_child_introduce_landing_xls = ({landing}) => {
-
+    console.log(landing.listLandingHome)
     return (
         <>
             <div className=" h-auto mt-10 max-sm:mt-0 mr-32 max-md:mr-0 max-lg:mr-5
             max-xl:mr-20 max-2xl:mr-30  flex gap-5 max-sm:gap-1 max-md:flex-col ">
                 <div className="w-1/2 max-md:w-full h-full bg-[#F2F5F4] ">
                     <div className="h-[250px] m-10 flex relative overflow-hidden">
-                        {landing.listImgAnimation.length !== 0 ? (
-                            <div
-                                className={`w-full h-full absolute left-0 duration-300 transition-all ${landing.isAnimating ? 'translate-x-[-650px] z-20 ' : 'translate-x-[0px] z-10'}`}>
-                                <img className={"w-full h-full object-cover"} src={landing.listImgAnimation[1].firebaseUrl}
-                                     alt=""/>
-                            </div>
-                        ) :  null}
-                        {landing.listImgAnimation.length !== 0 ? (
-                            <div
-                                className={`w-full h-full absolute left-0 transition-all ${landing.isAnimating ? ' translate-x-[650px] z-30 ' : ' translate-x-[0px] z-20'}`}>
-                                <img className={"w-full h-full object-cover"} src={landing.listImgAnimation[0].firebaseUrl}
-                                     alt=""/>
-                            </div>
-                        ) :  null}
+                        <div
+                            className={`w-full h-full absolute left-0 duration-300 transition-all`}>
+                            <img className={"w-full h-full object-cover"} src={landing.objectPlanDisplay.firebaseUrl}
+                                 alt=""/>
+                        </div>
                     </div>
                     <div className="h-[100px]  m-10 flex gap-3">
                         {landing.listLandingHome.map((landings, index) => (
                             <div className={"w-1/4 h-full"} key={index}>
-                                <button className="w-full h-full "
-                                        onClick={() => landing.handleImageDisplay(landings)}>
-                                    <img className={"w-full h-full object-cover rounded-[5px]"} src={landings.firebaseUrl} alt=""/>
+                                <button onClick={() => landing.handleLandingDisplay(landings)} className="w-full h-full ">
+                                <img className={"w-full h-full object-cover rounded-[5px]"} src={landings.firebaseUrl} alt=""/>
                                 </button>
                             </div>
                         ))}
@@ -312,8 +324,8 @@ const Home_child_introduce_landing_xls = ({landing}) => {
                 <div className="w-1/2 max-sm:w-full max-md:w-full h-full bg-[#F2F5F4] ">
                     <h1 className="text-4xl m-10 max-sm:my-1 ">Mặt bằng {landing.objectPlanDisplay.id}</h1>
                     <div className="m-10">
-                        <p className="py-3">Diện tích : {landing.objectPlanDisplay.area}</p>
-                        <p className="py-3">Phí quan lý : {landing.objectPlanDisplay.feeManager}</p>
+                        <p className="py-3">Diện tích : {landing.objectPlanDisplay.area} <span className={'px-5'}>Thể Loại : {landing.objectPlanDisplay.type}</span></p>
+                        <p className="py-3">Phí quản lý : {landing.objectPlanDisplay.feeManager}</p>
                         <p className="py-3">Chú thích : {landing.objectPlanDisplay.description}</p>
                     </div>
                     <div className=" h-10 flex gap-5 mx-10  mb-10">

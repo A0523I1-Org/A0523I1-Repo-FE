@@ -29,9 +29,7 @@ function DefaultLayout ({children})  {
             landing: 'Mặt bằng'
         };
 
-        if(locationMapping[firstPartLocation]){
-            setLocationPresent(locationMapping[firstPartLocation]);
-        }
+        setLocationPresent(locationMapping[firstPartLocation] || "");
 
         if(secondPartLocation){
             const action = secondPartLocation.split('-')[0];
@@ -40,11 +38,9 @@ function DefaultLayout ({children})  {
                 edit: 'Cập nhật',
                 register: 'Chi tiết'
             };
-            if (actionMapping[action]) {
-                setLocationPresentOperation(actionMapping[action]);
-            }
+            setLocationPresentOperation(actionMapping[action] || "");
         }else {
-            setLocationPresentOperation("");
+            setLocationPresentOperation("Danh sách");
         }
     }
 
