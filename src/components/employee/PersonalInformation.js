@@ -1,55 +1,85 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import * as employeeService from "../../services/EmployeeService";
+import * as accountService from "../../services/AccountService";
+import '../../css/employee/PersonalInformation.css';
+import axios from "axios";
 
 const PersonalInformation = () => {
-  const [formData, setFormData] = useState({
-    fullName: 'Nguyen Thi T',
-    dob: '',
-    gender: 'nu',
-    address: '123 abc',
-    phone: '123456',
-    email: 'abc@gmail.com',
-    password: '******',
-  });
+  const [formData, setFormData] = useState();
 
-  const [passwords, setPasswords] = useState({
-    oldPassword: '',
-    newPassword: '',
-    confirmPassword: '',
-  });
+  useEffect(() => {
+    fetchProfileInfo();
+  }, []);
 
-  const handleChange = (e) => {
+  const fetchProfileInfo = async () => {
+    try {
+      const token = localStorage.getItem('token'); // Retrieve the token from localStorage
+      const response = await employeeService.getMyProfile(token);
+      setFormData(response);
+    } catch (error) {
+      console.error('Error fetching profile information:', error);
+    }
+  };
+
+    const [passwords, setPasswords] = useState({
+      oldPassword: '',
+      newPassword: '',
+      confirmPassword: '',
+    });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value
     });
   };
 
-  const handlePasswordChange = (e) => {
+  const handlePasswordChange = (event) => {
+    const { name, value } = event.target;
     setPasswords({
       ...passwords,
-      [e.target.name]: e.target.value,
+      [name]: value
     });
   };
+
+  const changePassword = async (event) => {
+    event.preventDefault();
+    console.log(passwords.oldPassword);
+    console.log(passwords.newPassword);
+    console.log(passwords.confirmPassword);
+
+    if (passwords.newPassword !== passwords.confirmPassword) {
+      alert('Mật khẩu mới không khớp');
+      return;
+    }
+
+    // try {
+      const token = localStorage.getItem('token');
+      const response = await accountService.changePassword(token, passwords.oldPassword, passwords.newPassword);
+
+      alert(response.message)
+    // }
+    // catch (error) {
+    //   alert('Đã xảy ra lỗi khi đổi mật khẩu.');
+    //   console.error(error);
+    // }
+  };
+
 
   const editPersonalInformation = (e) => {
     e.preventDefault();
     alert('Chỉnh sửa thành công');
   };
 
-  const menuSystem = (e) => {
-    e.preventDefault();
-    window.location.href = 'MenuSystem.html';
-  };
-
-  const changePassword = (e) => {
-    e.preventDefault();
-    alert('Đổi mật khẩu thành công');
-  };
+  if (formData == null) {
+    return ;
+  }
 
   return (
-    <div className="container">
+    <div className="container personal_form">
       <table className="table table-borderless">
         <thead>
           <tr>
@@ -59,7 +89,15 @@ const PersonalInformation = () => {
         <tbody>
           <tr>
             <th>Tài khoản:</th>
-            <td>ThucNT</td>
+            <td>
+              <input
+                  type="text"
+                  name="userName"
+                  value={formData.userName || ''}
+                  className="form-control"
+                  onChange={handleChange}
+              />
+            </td>
           </tr>
           <tr>
             <th>Mật khẩu:</th>
@@ -68,7 +106,7 @@ const PersonalInformation = () => {
                 <tbody>
                   <tr>
                     <td>
-                      <input type="password" value={formData.password} className="form-control" readOnly />
+                      <input type="password" value={"******"} className="form-control" readOnly />
                     </td>
                     <td>
                       <button className="btn btn-change" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Đổi mật khẩu</button>
@@ -84,7 +122,7 @@ const PersonalInformation = () => {
               <input
                 type="text"
                 name="fullName"
-                value={formData.fullName}
+                value={formData.name || ''}
                 className="form-control"
                 onChange={handleChange}
               />
@@ -96,7 +134,7 @@ const PersonalInformation = () => {
               <input
                 type="date"
                 name="dob"
-                value={formData.dob}
+                value= {formData.dob.slice(0,10)}
                 className="form-control"
                 onChange={handleChange}
               />
@@ -110,26 +148,28 @@ const PersonalInformation = () => {
                   type="radio"
                   id="nam"
                   name="gender"
-                  value="nam"
-                  checked={formData.gender === 'nam'}
+                  value="name"
+                  checked={formData.gender === 'Nam'}
                   onChange={handleChange}
                 />
                 <label htmlFor="nam">Nam</label>
+
                 <input
                   type="radio"
                   id="nu"
                   name="gender"
                   value="nu"
-                  checked={formData.gender === 'nu'}
+                  checked={formData.gender === 'Nữ'}
                   onChange={handleChange}
                 />
                 <label htmlFor="nu">Nữ</label>
+
                 <input
                   type="radio"
                   id="chua"
                   name="gender"
                   value="chua"
-                  checked={formData.gender === 'chua'}
+                  checked={formData.gender === 'Chưa xác định'}
                   onChange={handleChange}
                 />
                 <label htmlFor="chua">Chưa xác định</label>
@@ -142,7 +182,7 @@ const PersonalInformation = () => {
               <input
                 type="text"
                 name="address"
-                value={formData.address}
+                value={formData.address || ''}
                 className="form-control"
                 onChange={handleChange}
               />
@@ -152,7 +192,7 @@ const PersonalInformation = () => {
             <th>Điện thoại(<span style={{ color: 'red' }}>*</span>):</th>
             <td>
               <input
-                type="number"
+                type="text"
                 name="phone"
                 value={formData.phone}
                 className="form-control"
@@ -182,7 +222,7 @@ const PersonalInformation = () => {
                       <button className="btn btn-change" onClick={editPersonalInformation}>Chỉnh sửa</button>
                     </td>
                     <td>
-                      <button className="btn btn-cancel" onClick={menuSystem}>Hủy</button>
+                      <button className="btn btn-cancel">Hủy</button>
                     </td>
                   </tr>
                 </tbody>
@@ -211,7 +251,7 @@ const PersonalInformation = () => {
                         className="form-control"
                         id="oldPassword"
                         name="oldPassword"
-                        value={passwords.oldPassword}
+                        // value={passwords.oldPassword}
                         onChange={handlePasswordChange}
                       />
                     </div>
@@ -222,7 +262,7 @@ const PersonalInformation = () => {
                         className="form-control"
                         id="newPassword"
                         name="newPassword"
-                        value={passwords.newPassword}
+                        // value={passwords.newPassword}
                         onChange={handlePasswordChange}
                       />
                     </div>
@@ -242,7 +282,7 @@ const PersonalInformation = () => {
                   </form>
                 </div>
                 <div className="col-md-4 d-flex align-items-center">
-                  <img src="https://via.placeholder.com/150" alt="Placeholder" className="img-fluid" />
+                  <img src="https://t3.ftcdn.net/jpg/04/75/01/24/360_F_475012493_x7oLL5mrWTm25OCRluB2fZkn0onfSEqu.jpg" alt="Placeholder" className="img-fluid" />
                 </div>
               </div>
             </div>

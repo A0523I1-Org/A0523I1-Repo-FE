@@ -83,7 +83,7 @@ function Login() {
             if (userData.access_token) {
                 localStorage.setItem('token', userData.access_token)
                 localStorage.setItem('role', userData.role)
-                navigate('/contract')
+                navigate('/employee/personal-information')
             }else{
                 // setError(userData.message)
                 setError(userData.message)
