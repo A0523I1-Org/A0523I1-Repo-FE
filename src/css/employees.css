@@ -1,0 +1,104 @@
+:root {
+    --text-color-span: Roboto, -apple-system, BlinkMacSystemFont, Roboto, 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif, "Segoe UI", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+body {
+    /*background:#f5f5f5;*/
+}
+
+button  {
+    padding: 5px 14px !important;
+    border-radius: 3px;
+    border: none;
+    text-align: left;
+}
+
+table thead th {
+    background: #eeeeee;
+    font-size: 16px;
+    color: #222;
+    font-weight: 550;
+    border: 1px solid #ddd;
+}
+
+table tbody tr td {
+    font-size: 14.4px;
+    font-family: var(--text-color-span);
+    color: #333;
+    border: 1px solid #dadada;
+
+}
+
+input[type="checkbox"] {
+    width: 18px;
+    height: 16px;
+}
+
+input[type="checkbox"]:checked {
+
+}
+.box_child_menu_edc{
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+.menu_edc{
+    display: none;
+}
+
+.id-listAll {
+    text-align: center;
+    font-size: 30px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination .page-link {
+    color: black;
+    padding: 7px 14px;
+    font-family: Arial, sans-serif;
+}
+
+span {
+    font-size: .8125rem;
+    opacity: 1;
+    font-family: var(--text-color-span);
+    text-align: center;
+}
+
+input::placeholder {
+    font-size: 15px ;
+}
+
+.placeholder {
+    font-size: 15px ;
+    color: #888888;
+}
+
+table {
+    text-align: center;
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px solid #ddd;
+    background-color: white;
+}
+
+h3 {
+    text-align: center;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+button {
+    border: none;
+    font-family: Arial, sans-serif;
+    padding: 7px 14px;
+    border-radius: 3px;
+    color: white ;
+    margin: 10px;
+}
