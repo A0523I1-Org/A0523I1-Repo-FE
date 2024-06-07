@@ -187,7 +187,6 @@ const ListLanding = () => {
                             <th>Giá bán</th>
                             <th>Phí quản lý</th>
                             <th>Tầng</th>
-
                             <th>
                                 <span className="flex  justify-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
