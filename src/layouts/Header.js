@@ -29,7 +29,7 @@ const Header_child = ({menu}) => {
                         </div>
                     </div>
                     <div
-                        className="w-[50%] max-xl:w-[60%] max-lg:w-[70%] flex absolute text-slate-700 gap-8 font-semibold right-0 max-2xl:right-[10px] max-md:hidden  menu__home__slmh1 max-xl:right-[50px] max-lg:right-0 ">
+                        className="w-[50%] max-xl:w-[60%] max-lg:w-[70%] flex absolute text-slate-700 gap-8 font-semibold right-0 max-2xl:right-[10px] max-md:hidden items-center max-xl:right-[50px] max-lg:right-0 ">
                         <Link to={'/'} className="menu__item menu__item__active">Trang chủ</Link>
                         <a className="menu__item max-lg:hidden">Giới thiệu</a>
                         <a className="menu__item">Sự kiện</a>
