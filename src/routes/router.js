@@ -18,7 +18,6 @@ import routes from "../configs/routes";
 
 const publicRoutes = [
     {path : routes.login ,component : Login , layuot : null}
-
 ]
 
 const privateRoutes = [

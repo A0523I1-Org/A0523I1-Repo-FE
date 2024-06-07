@@ -1,0 +1,40 @@
+body {
+    background-color: #f2f2f2;
+    background-size: 100%;
+}
+.container {
+    background-color: #fefefe;
+    border-radius: 10px;
+    padding: 30px;
+    width: 50%;
+    margin-top: 50px;
+    height: auto;
+}
+h1 {
+    color: red;
+    font-weight: bold;
+}
+
+.bg-remove{
+    background: #f44336;
+}
+.bg-cancel{
+    background: #153448;
+}
+.btn_css {
+    padding: 7px 14px !important;
+    border-radius: 3px ;
+    border: none;
+}
+
+.ct-ct {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: left;
+    height: 150px;
+    margin: 0 50px;
+}
+button {
+    margin-right: 20px;
+}
