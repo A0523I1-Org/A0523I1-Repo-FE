@@ -23,7 +23,7 @@ function DefaultLayout ({children})  {
                         <div className="">
                             <Header/>
                         </div>
-                        <div className="mx-10 overflow-auto mt-5">
+                        <div className="mx-10 mt-5">
                             <FooterExtra nameLocation={location.pathname}/>
                             <div className="h-auto mt-5 bg-red-500">
                                 {children}
