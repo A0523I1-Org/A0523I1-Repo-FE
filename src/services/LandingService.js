@@ -47,6 +47,23 @@ export const updateLading=async(landing) =>{
         return false;
     }
 }
+export const deleteItemsByIds = async (ids) => {
+    try {
+      const response = await fetch('/api/delete-items', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ids }),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to delete items');
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 export const addNewLanding = async (landing) => {
     try {
       await axios.post("http://localhost:8080/landing/createLanding ", landing);
