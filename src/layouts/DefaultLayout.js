@@ -95,7 +95,7 @@ function DefaultLayout ({children})  {
 
                                 </div>
                             </div>
-                            <div className="h-auto mt-5 bg-red-500">
+                            <div className="h-auto mt-5">
                                 {children}
                             </div>
                         </div>
