@@ -1,0 +1,67 @@
+:root {
+
+    --text-color-span: Roboto, -apple-system, BlinkMacSystemFont, Roboto, 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif, "Segoe UI", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    display: grid;
+    place-items: center;
+    height: 150vh;
+
+}
+
+span {
+    font-size: 14px;
+    opacity: 1;
+    font-family: var(--text-color-span);
+}
+input{
+    border: 1px solid #888;
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
+    font-size: 14.5px !important;
+}
+select{
+    font-size: 14.5px !important;
+    border: 1px solid #999;
+    border-radius: 3px;
+    -webkit-appearance: none; /* Loại bỏ kiểu mặc định của trình duyệt */
+    -moz-appearance: none;
+    appearance: none;
+}
+input::placeholder {
+    /* Kiểu chữ và các thuộc tính khác ở đây */
+    font-family: Arial, sans-serif;
+    font-size: 13.4px;
+    color: #888;
+}
+.btn{
+    padding: 7px 14px ;
+    border-radius: 3px;
+    color: white ;
+    border: none;
+}
+.btn-2{
+    padding: .4375rem .875rem ;
+    background-color: #2196e3 ;
+    border-radius: 3px;
+    color: white ;
+    border: none;
+}
+.box__shadow{
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+}
+table tr th{
+    font-size: 13.5px;
+    color: #333;
+    padding: .7rem;
+    font-family: var(--text-color-span);
+
+}
+table tr td{
+    font-size: 14.5px;
+    color: #333;
+    padding: .7rem;
+
+}
