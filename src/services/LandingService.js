@@ -47,6 +47,14 @@ export const updateLading=async(landing) =>{
         return false;
     }
 }
+export const addNewLanding = async (landing) => {
+    try {
+      await axios.post("http://localhost:8080/landing/createLanding ", landing);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  };
 export const findLanding= async(id)=>{
     try {
         const res=await axios.get(`http://localhost:8080/landing/${id}`)
