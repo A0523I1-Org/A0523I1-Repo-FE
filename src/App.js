@@ -1,9 +1,12 @@
+import logo from './logo.svg';
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import './App.css';
 import { privateRoutes,publicRoutes } from './routes/router';
 import DefaultLayout from './layouts/DefaultLayout';
 import { Fragment } from 'react';
 import NotFound from './pages/NotFound';
+import ListLanding from "./components/landing/ListLanding";
+import EditLanding from "./components/landing/EditLanding";
 
 
 function App() {
@@ -15,9 +18,9 @@ function App() {
           publicRoutes.map((route,index) => {
             const Layout = route.layuot === null ? Fragment : DefaultLayout;
             const Page = route.component;
-             return <Route 
-             key={index} 
-             path={route.path} 
+             return <Route
+             key={index}
+             path={route.path}
              element = {
               <Layout>
                   <Page/>
@@ -32,19 +35,21 @@ function App() {
             const Layout = route.layuot === null ? Fragment : DefaultLayout;
             const id = route.id === ':id' ? route.id : '';
             const Page = route.component;
-             return  <Route 
-             key={index} 
-             path={route.path+id} 
+             return  <Route
+             key={index}
+             path={route.path+id}
              element = {
-              <Layout>   
-                 <Page/>   
+              <Layout>
+                 <Page/>
               </Layout>
              }
              />
           })
         }
 
-        <Route path='*' element = {<NotFound/>}/>
+
+        
+
       </Routes>
    </BrowserRouter>
    </>

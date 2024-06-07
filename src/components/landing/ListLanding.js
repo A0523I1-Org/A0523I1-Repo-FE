@@ -8,13 +8,6 @@ import "../../table/css/pagination.css"
 import ResponsivePagination from 'react-responsive-pagination';
 
 const ListLanding = () => {
-  const removeCheckedCheckboxes = () => {
-    var checked = document.querySelectorAll(".delete-checkbox:checked");
-    checked.forEach((elem) => {
-      var id = elem.parentElement.dataset.id; // Lấy ID từ thuộc tính data-id của phần tử cha
-      landingService.deleteLandingById(id); // Gọi phương thức xóa với ID tương ứng
-    });
-  };
 
     const [landing, setLanding] = useState([]);
     const [openMenu, setOpenMenu] = useState({});
