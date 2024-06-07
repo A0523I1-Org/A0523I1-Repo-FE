@@ -35,8 +35,6 @@ body{
 
 a {
     cursor: pointer;
-    text-decoration: none !important;
-    color: #2f2b36 !important;
 }
 
 p, h1, h2, h3, h4, h5, h6, h7, span {
@@ -82,7 +80,7 @@ p, h1, h2, h3, h4, h5, h6, h7, span {
     transition: color 0.3s;
 }
 .menu__home .menu__item:hover {
-    color: #FFC100 !important;
+    color: #FFC100;
 }
 .menu__home .menu_magicline {
     position: absolute;

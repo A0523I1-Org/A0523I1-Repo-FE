@@ -5,19 +5,12 @@
 
 body {
 
-    height: 150vh;
-    background-color: #F2F2F2;
-
 }
 
 select.form-control {
     border: 1px solid #8887;
 }
-span {
-    font-size: 14px;
-    opacity: 1;
-    font-family: var(--text-color-span);
-}
+
 input {
     border: 1px solid #888;
     border-bottom-right-radius: 3px;

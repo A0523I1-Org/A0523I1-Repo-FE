@@ -132,8 +132,8 @@ const EditLanding = () => {
             >
                 {({isSubmitting}) => (
                     <Form className="w-full">
-                        <div className="w-full h-auto py-10 flex flex-col gap-5">
-                            <h1 className="text-center" style={{fontSize: "40px"}}>CHỈNH SỬA MẶT BẰNG</h1>
+                        <div className="w-full h-auto pb-10 flex flex-col gap-5">
+                      
                             <div className="mx-16 h-auto flex gap-5">
                                 <div className="w-6/12 h-auto bg-white rounded-[3px] flex flex-col gap-8"
                                      style={{boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px"}}>
@@ -143,7 +143,7 @@ const EditLanding = () => {
                                         </div>
                                         <div className="w-8/12 h-full">
                                             <Field as="select" id="floor" name="floor"
-                                                   className="w-full h-full border-[#8887] form-control">
+                                                   className="w-full h-full rounded-[3px] border-[#8887] form-control">
                                                 <option value="">Chọn</option>
                                                 {floors.map((floor) => (
                                                     <option key={floor.id} value={floor.name}>
@@ -161,7 +161,7 @@ const EditLanding = () => {
                                         </div>
                                         <div className="w-8/12 h-full">
                                             <Field as="select" id="status" name="status"
-                                                   className="w-full h-full border-[#8887] form-control">
+                                                   className="w-full h-full rounded-[3px] border-[#8887] form-control">
                                                 <option value="">Chọn</option>
                                                 <option value="Chưa bàn giao">Chưa bàn giao</option>
                                                 <option value="Đang vào ở">Đang vào ở</option>
@@ -177,8 +177,8 @@ const EditLanding = () => {
                                             <span>Diện tích <span className="text-red-500 text-xl">*</span></span>
                                         </div>
                                         <div className="w-8/12 h-full">
-                                            <Field type="text" id="area" name="area"
-                                                   className="w-full h-full border-[#8887]"/>
+                                            <Field type="text" id="area"  name="area"
+                                                   className="pl-3 w-full h-full rounded-[3px] border-[#8887]"/>
                                             <ErrorMessage name="area" component="span"
                                                           className="text-[12px] text-red-500"/>
                                         </div>
@@ -215,12 +215,11 @@ const EditLanding = () => {
                                             <div className="h-auto w-9/12 mr-5 mt-5 mb-3 flex flex-col gap-8">
                                                 <div className="w-full h-[40px] flex">
                                                     <div className="w-3/12 h-full flex items-center">
-                                                        <span>Loại mặt bằng <span
-                                                            className="text-red-500 text-xl">*</span></span>
+                                                        <span>Loại mặt bằng </span>
                                                     </div>
                                                     <div className="w-9/12 h-full  items-center">
                                                         <Field as="select" id="type" name="type"
-                                                               className="w-full h-full border-[#8887] form-control">
+                                                               className="w-full h-full rounded-[3px] border-[#8887] form-control">
                                                             <option value="">Chọn</option>
                                                             <option value="Căn hộ">Căn hộ</option>
                                                             <option value="Nhà riêng">Nhà riêng</option>
@@ -245,7 +244,7 @@ const EditLanding = () => {
                                                     </div>
                                                     <div className="w-9/12 h-full">
                                                         <Field type="text" id="code" name="code"
-                                                               className="w-full h-full border-[#8887] pl-3"/>
+                                                               className="w-full h-full rounded-[3px] border-[#8887] pl-3"/>
                                                         <ErrorMessage name="code" component="span"
                                                                       className="text-[11px] text-red-500"/>
                                                     </div>
@@ -264,7 +263,7 @@ const EditLanding = () => {
                                                         <span>Giá tiền</span></div>
                                                     <div className="w-9/12 h-full">
                                                         <Field type="text" id="feePerMonth" name="feePerMonth"
-                                                               className="w-full h-full border-[#8887] pl-3"/>
+                                                               className="w-full h-full rounded-[3px] border-[#8887] pl-3"/>
                                                         <ErrorMessage name="feePerMonth" component="span"
                                                                       className="text-[11px] text-red-500"/>
                                                     </div>
@@ -275,7 +274,7 @@ const EditLanding = () => {
                                                     </div>
                                                     <div className="w-9/12 h-full">
                                                         <Field type="text" id="feeManager" name="feeManager"
-                                                               className="w-full h-full border-[#8887] pl-3"/>
+                                                               className="w-full h-full rounded-[3px] border-[#8887] pl-3"/>
                                                         <ErrorMessage name="feeManager" component="span"
                                                                       className="text-[11px] text-red-500"/>
                                                     </div>

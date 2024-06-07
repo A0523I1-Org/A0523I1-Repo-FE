@@ -121,21 +121,21 @@ const ListLanding = () => {
 
     return (
         <>
-            <h1 className="id-listAll">Danh Sách Mặt Bằng</h1>
+          
 
 
             <div className=" h-[90px]  mx-16 flex gap-5 items-center">
-                <input type="text" className="w-1/5 h-1/2  border-b-[1px] border-[#888]  rounded-tl-[3px] "
+                <input type="text" className="w-1/5 h-1/2  border-b-[1px] pl-3 border-[#888]  rounded-tl-[3px] "
                        onChange={searchAllLanding} id="nameFloor" name="nameFloor"
                        value={searchAll.nameFloor}
                        placeholder="Tìm theo tầng"/>
-                <input type="text" className="w-1/5 h-1/2 border-b-[1px] border-[#888]  rounded-tl-[3px] "
+                <input type="text" className="w-1/5 h-1/2 border-b-[1px] pl-3 border-[#888]  rounded-tl-[3px] "
                        onChange={searchAllLanding} id="codeLanding" name="codeLanding" value={searchAll.codeLanding}
                        placeholder="Tìm theo mã mặt bằng"/>
-                <input type="text" className="w-1/5 h-1/2 border-b-[1px] border-[#888]  rounded-tl-[3px] "
+                <input type="text" className="w-1/5 h-1/2 border-b-[1px] pl-3 border-[#888]  rounded-tl-[3px] "
                        onChange={searchAllLanding} name="areaLanding" id="areaLanding" value={searchAll.areaLanding}
                        placeholder="Tìm theo diện tích"/>
-                <input type="text" className="w-1/5 h-1/2 border-b-[1px] border-[#888]  rounded-tl-[3px] "
+                <input type="text" className="w-1/5 h-1/2 border-b-[1px] pl-3 border-[#888]  rounded-tl-[3px] "
                        onChange={searchAllLanding} name="typeLanding" id="typeLanding" value={searchAll.typeLanding}
                        placeholder="Tìm theo loại mặt bằng"/>
                 <div className="w-1/5 h-1/2 flex gap-3  ">
