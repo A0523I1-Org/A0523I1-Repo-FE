@@ -46,6 +46,16 @@ export const updateLading=async(landing) =>{
         return false;
     }
 }
+export const deleteLandingById=async(landing) =>{
+    try {
+        console.log(landing)
+        return await axios.put(`http://localhost:8080/landing/${landing.id}`,landing)
+
+    }catch (e) {
+
+        return false;
+    }
+}
 export const findLanding= async(id)=>{
     try {
         const res=await axios.get(`http://localhost:8080/landing/${id}`)
