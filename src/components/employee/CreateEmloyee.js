@@ -1,6 +1,6 @@
 
 
-const ListEmployee = () => {
+const CreateEmployee = () => {
 
     return (
         <>
@@ -9,4 +9,4 @@ const ListEmployee = () => {
     )
 
 }
-export default ListEmployee;
+export default CreateEmployee;

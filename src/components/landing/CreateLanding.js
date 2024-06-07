@@ -7,7 +7,7 @@ import * as Yup from "yup";
 import * as floorService from "../../services/FloorService.js";
 import * as landingService from "../../services/LandingService";
 import { toast } from "react-toastify";
-import styles from "../../css/createLanding.css"; 
+// import styles from "../../css/createLanding.css"; 
 
 const CreateLangding = () => {
   const [landing, setLanding] = useState({
