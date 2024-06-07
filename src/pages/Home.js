@@ -12,7 +12,7 @@ const Home = () => {
     const [totalPage,setTotalPage] = useState(0);
     const [objectPlanDisplay ,setObjectPlanDisplay] = useState({});
 
-    // Phung-PV : đối tượng khai báo để nhận thông tin của khách hàng cần tư vân
+    //  Đối tượng khai báo để nhận thông tin của khách hàng cần tư vân
     const [infoCustomer,setInfoCustomer] = useState({
         nameCustomer : "",
         emailCustomer : "",

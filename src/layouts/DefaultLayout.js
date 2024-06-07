@@ -8,7 +8,6 @@ import '../css/defaultLayout.css';
 function DefaultLayout ({children})  {
     const location = useLocation();
 
-
     return (
         <>
             {location.pathname === "/"
@@ -35,7 +34,6 @@ function DefaultLayout ({children})  {
             }
         </>
     )
-
 }
 
 export default DefaultLayout;

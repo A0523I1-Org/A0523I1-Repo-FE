@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+// Bản đồ để dịch tên đường dẫn và hành động sang tiếng Việt
 const locationMapping = {
     contract: 'Hợp đồng',
     customer: 'Khách hàng',
@@ -15,27 +16,35 @@ const actionMapping = {
 };
 
 const FooterExtra = React.memo(({ nameLocation }) => {
+    // Lấy phần chính của địa chỉ từ đường dẫn URL
     const returnLocation = nameLocation.trim().split("/")[1];
+
+    // Xác định xem có nên hiển thị nút quay lại hay không
     const showBackButton = !locationMapping.hasOwnProperty(nameLocation.slice(1));
     const [locationPresent, setLocationPresent] = useState("");
     const [locationPresentOperation, setLocationPresentOperation] = useState("");
 
+    // Cập nhật chi tiết vị trí khi thuộc tính nameLocation thay đổi
     useEffect(() => {
         handleLocation();
     }, [nameLocation]);
 
+    // Cập nhật chi tiết vị trí khi thuộc tính nameLocation thay đổi
     const handleLocation = () => {
         const partsLocation = nameLocation.split("/");
 
         const firstPartLocation = partsLocation[1];
         const secondPartLocation = partsLocation[2];
 
+        // Đặt vị trí hiện tại dựa trên bản đồ
         setLocationPresent(locationMapping[firstPartLocation] || "");
 
         if (secondPartLocation) {
             const action = secondPartLocation.split('-')[0];
+            // Đặt hoạt động hiện tại dựa trên bản đồ
             setLocationPresentOperation(actionMapping[action] || "");
         } else {
+            // Mặc định là "Danh sách" nếu không tìm thấy hoạt động cụ thể
             setLocationPresentOperation("Danh sách");
         }
     };
