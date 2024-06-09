@@ -4,13 +4,14 @@ import { privateRoutes,publicRoutes } from './routes/router';
 import DefaultLayout from './layouts/DefaultLayout';
 import { Fragment } from 'react';
 import NotFound from './pages/NotFound';
-import TestFirebase from "./components/employee/TestFirebase";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
   return (
    <>
-   <BrowserRouter>
+       <BrowserRouter>
       <Routes>
         {
           publicRoutes.map((route,index) => {
@@ -48,6 +49,7 @@ function App() {
         <Route path='*' element = {<NotFound/>}/>
       </Routes>
    </BrowserRouter>
+       <ToastContainer />
    </>
   );
 }

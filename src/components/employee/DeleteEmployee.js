@@ -1,5 +1,7 @@
 import "bootstrap/dist/css/bootstrap.css"
 import "../../css/employee/deleteemployee.css"
+
+
 export default function DeleteEmployee() {
     return (
         <div className="container">
@@ -39,7 +41,7 @@ export default function DeleteEmployee() {
                 <div className="col-12 d-flex justify-content-center align-items-center mt-3 row">
                     <div className="col-12 col-md-6 mb-3">
                         <span><strong>Lưu ý: </strong><span
-                            style="color:red;">Thao tác này không thể hoàn tác!</span></span>
+                            style={{color:"red"}}>Thao tác này không thể hoàn tác!</span></span>
                     </div>
                     <div className="col-12 col-md-6 text-center text-md-right">
                         <button className="btn btn-danger me-2">Xác nhận</button>
