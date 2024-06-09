@@ -19,6 +19,8 @@ import Cropper from "react-easy-crop";
 import Slider from "@material-ui/core/Slider";
 import Button from "@material-ui/core/Button";
 import getCroppedImg from "./crop/utils/cropImage"
+
+
 const CreateEmployee = () => {
     const [form, setForm] = useState(
         {
@@ -40,7 +42,33 @@ const CreateEmployee = () => {
     const [avatar, setAvatar] = useState();
     const [firebaseAvt, setFirebaseAvt] = useState("");
     const navigate = useNavigate();
+
+
     const [isOpenModal, setIsOpenModal] = useState(false);
+    const [previewAvatar, setPreviewAvatar] = useState()
+
+
+// CROP IMAGE
+    const [image, setImage] = React.useState(null);
+    const [croppedArea, setCroppedArea] = React.useState(null);
+    const [crop, setCrop] = React.useState({x: 0, y: 0});
+    const [zoom, setZoom] = React.useState(1);
+
+    const onCropComplete = (croppedAreaPercentage, croppedAreaPixels) => {
+        setCroppedArea(croppedAreaPixels);
+    };
+
+    const afterCrop = async () => {
+        const blob = await getCroppedImg(image, croppedArea);
+        const previewUrl = window.URL.createObjectURL(blob);
+        setPreviewAvatar(previewUrl);
+        setIsOpenModal(false)
+        setAvatar(blob)
+    };
+
+    const cancelCrop = () => {
+        setIsOpenModal(false)
+    }
 
     // ------------------------------
 
@@ -57,19 +85,25 @@ const CreateEmployee = () => {
         setSalaryRanks(temp)
     }
 
-    const handleChange = (e) => {
-        const file = e.target.files[0]
+    const handleChange = (event) => {
+        const file = event.target.files[0]
         file.preview = URL.createObjectURL(file)
         setAvatar(file)
         setIsOpenModal(true)
 
+        if (event.target.files && event.target.files.length > 0) {
+            const reader = new FileReader();
+            reader.readAsDataURL(event.target.files[0]);
+            reader.addEventListener("load", () => {
+                setImage(reader.result);
+            });
+        }
 
     }
 
-    useEffect(() => {
+/*    const uploadToFirebase = async () => {
         if (avatar) {
-            console.log("tai leen firebase va lay url")
-            const storageRef = ref(storage, `/avatar/${avatar.name}`);
+            const storageRef = ref(storage, `/avatar/${Date.now()}.jpeg`);
             const uploadTask = uploadBytesResumable(storageRef, avatar);
             uploadTask.on(
                 "state_changed",
@@ -86,7 +120,50 @@ const CreateEmployee = () => {
                 }
             );
         }
-    }, [avatar])
+    }*/
+        useEffect(() => {
+            if (avatar) {
+                const storageRef = ref(storage, `/avatar/${Date.now()}.jpeg`);
+                const uploadTask = uploadBytesResumable(storageRef, avatar);
+                uploadTask.on(
+                    "state_changed",
+                    (snapshot) => {
+                        const percent = Math.round(
+                            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                        );
+                    },
+                    (err) => console.log(err),
+                    () => {
+                        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+                            setFirebaseAvt(url)
+                        });
+                    }
+                );
+            }
+        }, [avatar])
+
+    const submit = async (values) => {
+        values.firebaseUrl = firebaseAvt;
+        const success = await employeeService.addEmployee(values)
+        if (success) {
+            toast.success("Thêm mơi Thành công @@")
+            navigate("/")
+        }else {
+            toast.warning("Thêm mới không thành cồng !!!")
+            navigate("/employee/create-employee")
+        }
+    }
+    const customStyles = {
+        /*        content: {
+                    background: 'red',
+                    top: '50%',
+                    left: '50%',
+                    right: 'auto',
+                    bottom: 'auto',
+                    marginRight: '-50%',
+                    transform: 'translate(-50%, -50%)',
+                },*/
+    };
 
     const validate = {
         name: Yup.string().required("Vui lòng nhập tên nhân viên !")
@@ -119,24 +196,6 @@ const CreateEmployee = () => {
         workDate: Yup.date().required("Vui lòng nhập vào làm !"),
         address: Yup.string().required("Vui lòng nhập địa chỉ nhân  viên !")
     }
-    const submit = async (values) => {
-        values.firebaseUrl = firebaseAvt;
-        await employeeService.addEmployee(values)
-        toast.success("Thêm mơi Thành công @@")
-        navigate("/employee/create-employee")
-    }
-
-    const customStyles = {
-        /*        content: {
-                    background: 'red',
-                    top: '50%',
-                    left: '50%',
-                    right: 'auto',
-                    bottom: 'auto',
-                    marginRight: '-50%',
-                    transform: 'translate(-50%, -50%)',
-                },*/
-    };
 
     return (
         <div id="main" className="box__shadow row justify-content-center  ">
@@ -145,9 +204,8 @@ const CreateEmployee = () => {
                     <div>
                         <div className="center-content">
                             <img className="avatar_preview"
-                                // src={avatar && avatar.preview ? avatar.preview : "https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png"}
-                                 src={avatar && avatar.preview ? avatar.preview : "https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png"}
-                                 alt=""/><br/>
+                                 src={previewAvatar ? previewAvatar : "https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png"}
+                                 alt="avatar"/><br/>
                         </div>
                         <div className="center-content">
                             <label htmlFor="upload_avt" className="btn btn-primary"
@@ -210,7 +268,7 @@ const CreateEmployee = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-8">
+                        <div className="col-md-4">
                             <label htmlFor="address" className="form-label">Địa chỉ<span>(*)</span></label>
                             <Field
                                 className={`form-control ${(touched.address && errors.address) ? "is-invalid" : "is-valid"}`}
@@ -268,7 +326,7 @@ const CreateEmployee = () => {
                         </div>
 
 
-                        <div className="col-md-4 center-content">
+                        <div className="col-md-12 center-content justify-content-end">
                             <button className="btn" style={{background: "#4CAF50", marginRight: "8px"}} type={"submit"}>
                                 <span><i className="fi fi-rs-disk"></i></span>
                                 <span>Lưu</span>
@@ -291,6 +349,7 @@ const CreateEmployee = () => {
                 }}
                 style={customStyles}
                 contentLabel="Example Modal"
+                // ariaHideApp={false}
             >
                 <div className='container'>
                     <div className='container-cropper'>
@@ -330,7 +389,7 @@ const CreateEmployee = () => {
                         >
                             Cancel
                         </Button>
-                        <Button variant='contained' color='secondary' onClick={uploadFirebase}>
+                        <Button variant='contained' color='secondary' onClick={afterCrop}>
                             Crop
                         </Button>
                     </div>
@@ -341,91 +400,3 @@ const CreateEmployee = () => {
     )
 }
 export default CreateEmployee;
-
-/*
-
-
-export default function App() {
-
-
-
-    const inputRef = React.useRef();
-    const triggerFileSelectPopup = () => inputRef.current.click();
-
-    const [image, setImage] = React.useState(null);
-    const [croppedArea, setCroppedArea] = React.useState(null);
-    const [crop, setCrop] = React.useState({ x: 0, y: 0 });
-    const [zoom, setZoom] = React.useState(1);
-
-    const onCropComplete = (croppedAreaPercentage, croppedAreaPixels) => {
-        setCroppedArea(croppedAreaPixels);
-    };
-
-    const onSelectFile = (event) => {
-        if (event.target.files && event.target.files.length > 0) {
-            const reader = new FileReader();
-            reader.readAsDataURL(event.target.files[0]);
-            reader.addEventListener("load", () => {
-                setImage(reader.result);
-            });
-        }
-    };
-
-    const onDownload = () => {
-        generateDownload(image, croppedArea);
-    };
-
-    return (
-        <div className='container'>
-            <div className='container-cropper'>
-                {image ? (
-                    <>
-                        <div className='cropper'>
-                            <Cropper
-                                image={image}
-                                crop={crop}
-                                zoom={zoom}
-                                aspect={1}
-                                onCropChange={setCrop}
-                                onZoomChange={setZoom}
-                                onCropComplete={onCropComplete}
-                            />
-                        </div>
-
-                        <div className='slider'>
-                            <Slider
-                                min={1}
-                                max={3}
-                                step={0.1}
-                                value={zoom}
-                                onChange={(e, zoom) => setZoom(zoom)}
-                            />
-                        </div>
-                    </>
-                ) : null}
-            </div>
-
-            <div className='container-buttons'>
-                <input
-                    type='file'
-                    accept='image/!*'
-                    ref={inputRef}
-                    onChange={onSelectFile}
-                    style={{ display: "none" }}
-                />
-                <Button
-                    variant='contained'
-                    color='primary'
-                    onClick={triggerFileSelectPopup}
-                    style={{ marginRight: "10px" }}
-                >
-                    Choose
-                </Button>
-                <Button variant='contained' color='secondary' onClick={onDownload}>
-                    Download
-                </Button>
-            </div>
-        </div>
-    );
-}
-*/

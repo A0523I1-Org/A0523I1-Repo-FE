@@ -1,20 +1,16 @@
 body {
     background-color: #f2f2f2;
     background-size: 100%;
+    display: flex;
+    justify-content: center;
 }
-.container {
+.delEmployee {
     background-color: #fefefe;
     border-radius: 10px;
     padding: 30px;
-    width: 50%;
-    margin-top: 50px;
+    width: auto;
     height: auto;
 }
-h1 {
-    color: red;
-    font-weight: bold;
-}
-
 .bg-remove{
     background: #f44336;
 }
@@ -22,7 +18,7 @@ h1 {
     background: #153448;
 }
 .btn_css {
-    padding: 7px 14px !important;
+    padding: 7px 14px;
     border-radius: 3px ;
     border: none;
 }
@@ -35,6 +31,6 @@ h1 {
     height: 150px;
     margin: 0 50px;
 }
-button {
+.de_button {
     margin-right: 20px;
 }
