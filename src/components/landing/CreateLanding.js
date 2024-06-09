@@ -2,11 +2,11 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { storage } from "../../configs/fireBaseConfig.js";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Await } from "react-router-dom";
 import * as Yup from "yup";
 import * as floorService from "../../services/FloorService.js";
 import * as landingService from "../../services/LandingService";
-import { toast } from "react-toastify";
+import { toast,ToastContainer } from "react-toastify";
 // import styles from "../../css/createLanding.css"; 
 
 const CreateLangding = () => {
@@ -52,7 +52,7 @@ const CreateLangding = () => {
   useEffect(() => {
     if (avatar) {
       console.log("tai leen firebase va lay url");
-      const storageRef = ref(storage, `/avatar/${avatar.name}`);
+      const storageRef = ref(storage, `/imgLanding/${avatar.name}`);
       const uploadTask = uploadBytesResumable(storageRef, avatar);
       uploadTask.on(
         "state_changed",
@@ -73,28 +73,28 @@ const CreateLangding = () => {
   }, [avatar]);
   const submit = async (values) => {
     values.firebaseUrl = firebaseAvt;
-    let success = landingService.addNewLanding(values)
-    toast.success("Thêm mơi Thành công @@")
-    navigate("/landing")
+    await landingService.addNewLanding(values)
+    toast.success("Thêm mặt bằng thành công")
+    navigate("/landing");
 }
 
 const validate = {
-    code: Yup.string().required("Vui lòng nhập mã nhân viên !").matches(/^MB[0-9]{3}$/, "Code có định dạng: NVVP-XXXX !"),
+    code: Yup.string().required("Vui lòng nhập mã mặt bằng !").matches(/^MB[0-9]{3}$/, "Code có định dạng: MBxxx !"),
 
 }
 
-  const createLanding = async (values) => {
-    setSubmit(true);
-    console.log(values);
-    setSubmit(false);
-    values.floor = +values.floor;
-    values.feePerMonth = +values.feePerMonth;
-    values.feeManager = +values.feeManager;
-    values.area = +values.area;
-    await landingService.addNewLanding(values);
-    toast.success("Landing added successfully");
-    navigate("/landing");
-  };
+  // const createLanding = async (values) => {
+  //   setSubmit(true);
+  //   console.log(values);
+  //   setSubmit(false);
+  //   values.floor = +values.floor;
+  //   values.feePerMonth = +values.feePerMonth;
+  //   values.feeManager = +values.feeManager;
+  //   values.area = +values.area;
+  //   await landingService.addNewLanding(values);
+  //   toast.success("Thêm mặt bằng thành công");
+  //   navigate("/landing");
+  // };
 
   if (!landing) {
     return null;

@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Modal from "react-modal";
 import * as landingService from "../../services/LandingService";
 import "../../table/css/ListOfPremises.css";
 import { Link } from "react-router-dom";
@@ -11,6 +14,8 @@ import ResponsivePagination from "react-responsive-pagination";
 const ListLanding = () => {
   const [landing, setLanding] = useState([]);
   const [openMenu, setOpenMenu] = useState({});
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [landingDelete, setLandingDelete] = useState([]);
   const [floors, setFloors] = useState([]);
   const navigate = useNavigate();
   const [totalPages, setTotalPage] = useState(0);
@@ -21,21 +26,15 @@ const ListLanding = () => {
     areaLanding: "",
     typeLanding: "",
   });
-  const [selectedItems, setSelectedItems] = useState([]);
-
-  const handleCheckboxChange = (id) => {
-    setSelectedItems((prevSelectedItems) =>
-      prevSelectedItems.includes(id)
-        ? prevSelectedItems.filter((item) => item !== id)
-        : [...prevSelectedItems, id]
-    );
-  };
-  const handleDelete = async () => {
-    await landingService.deleteItemsByIds(selectedItems); // Gửi danh sách ID để xóa
-    setLanding((prevItems) =>
-      prevItems.filter((item) => !selectedItems.includes(item.id))
-    ); // Cập nhật danh sách các mục
-    setSelectedItems([]); // Xóa danh sách các mục đã chọn
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+    },
   };
   const removeCheckedCheckboxes = () => {
     const checked = document.querySelectorAll(".delete-checkbox:checked");
@@ -104,6 +103,23 @@ const ListLanding = () => {
     } catch (e) {
       console.log(e);
     }
+  };
+
+  const deleteLanding = async () => {
+    const isSuccess = await landingService.deleteLandingById(landingDelete.id);
+    if (isSuccess) {
+      toast.success("Xóa mặt bằng thành công");
+    }
+    setIsOpen(false);
+    getListAllLanding(0);
+  };
+
+  const openModal = (landing) => {
+    setLandingDelete(landing);
+    setIsOpen(true);
+  };
+  const closeModal = () => {
+    setIsOpen(false);
   };
 
   const getListAllLanding = async (page) => {
@@ -187,11 +203,13 @@ const ListLanding = () => {
       <div className="w-full  h-20 ">
         <div className="mx-16 h-full flex items-center  ">
           <div className="id-button flex gap-3">
-            <button className=" bg-[#4CAF50] h-[36px]">
-              <span className="text-white text-[14px] font-normal">
-                Thêm mới
-              </span>
-            </button>
+            <Link to="/landing/create-landing">
+              <button className=" bg-[#4CAF50] h-[36px]">
+                <span className="text-white text-[14px] font-normal">
+                  Thêm mới
+                </span>
+              </button>
+            </Link>
             <button
               className="bg-[#f44336] h-[36px]"
               onclick="removeCheckedCheckboxes()"
@@ -278,11 +296,7 @@ const ListLanding = () => {
               {landing.map((landingItem, index) => (
                 <tr className="w-1/12 h-[76px] " key={index}>
                   <td className="text-center w-[60px]">
-                    <input
-                      type="checkbox"
-                      checked={selectedItems.includes(item.id)}
-                      onChange={() => handleCheckboxChange(item.id)}
-                    />
+                    <input type="checkbox" className="delete-checkbox" />
                   </td>
                   <td className="w-1/12 text-center ">
                     <span className="block text-[#2196f3]">
@@ -398,7 +412,9 @@ const ListLanding = () => {
                                 />
                               </svg>
                             </span>
-                            Xóa mặt
+                            <button onClick={() => openModal(landingItem)}>
+                              Xóa mặt
+                            </button>
                           </span>
                         </button>
                         <Link to={routes.editLanding + landingItem.id}>
@@ -438,6 +454,86 @@ const ListLanding = () => {
         current={currentPage}
         onPageChange={(page) => handlePageChange(page)}
       />
+      <Modal
+        isOpen={modalIsOpen}
+        // onAfterOpen={afterOpenModal}
+        onRequestClose={() => setIsOpen(false)}
+        contentLabel="Example Modal"
+        style={customStyles}
+      >
+        <Modal
+          isOpen={modalIsOpen}
+          // onAfterOpen={afterOpenModal}
+          onRequestClose={() => setIsOpen(false)}
+          contentLabel="Example Modal"
+          style={customStyles}
+        >
+          <h2>Xóa mặt bằng</h2>
+          <div class="container">
+            <div class="row justify-content-center my-3">
+              <div class="col-12 text-center mb-3">
+                <span>
+                  <i
+                    class="fa-solid fa-triangle-exclamation fa-beat-fade fa-6x"
+                    style={{ color: "#e01f1f" }}
+                  ></i>
+                </span>
+              </div>
+              <div class="col-12">
+                <h1 class="text-center text-uppercase h3">
+                  <strong>Xác nhận xóa mặt bằng</strong>
+                </h1>
+              </div>
+
+              <div class="col-12 mt-3">
+                <table class="table table-hover">
+                  <tbody>
+                    <tr>
+                      <th>Mã mặt bằng</th>
+                      <td>{landingDelete.code}</td>
+                    </tr>
+                    <tr>
+                      <th>Tầng</th>
+                      <td>{landingDelete.floor}</td>
+                    </tr>
+                    <tr>
+                      <th>Diện tích</th>
+                      <td>{landingDelete.area}</td>
+                    </tr>
+                    <tr>
+                      <th>Loại mặt bằng</th>
+                      <td>{landingDelete.type}</td>
+                    </tr>
+                    <tr>
+                      <th>Chi phí</th>
+                      <td>{landingDelete.feePerMonth}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="col-12 d-flex justify-content-center align-items-center mt-3 row">
+                <div class="col-12 col-md-6 mb-3">
+                  <span>
+                    <strong>Lưu ý: </strong>
+                    <span style={{ color: "#red" }}>
+                      Thao tác này không thể hoàn tác!
+                    </span>
+                  </span>
+                </div>
+                <div class="col-12 col-md-6 text-center text-md-right">
+                  <button class="btn btn-danger me-2" onClick={deleteLanding}>
+                    Xác nhận
+                  </button>
+                  <button class="btn btn-primary" onClick={closeModal}>Hủy</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </Modal>
+      </Modal>
+      <ToastContainer></ToastContainer>
     </>
   );
 };
