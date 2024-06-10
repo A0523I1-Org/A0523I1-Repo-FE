@@ -1,30 +1,31 @@
 
 import axios from "axios";
-export const getListAllLanding=async (page)=> {
-try{
-    const res=await axios.get(`http://localhost:8080/landing?page=${page}`)
+// export const getListAllLanding=async (page)=> {
+// try{
+//     const res=await axios.get(`http://localhost:8080/landing?page=${page}`)
 
 
-    return res.data
+//     return res.data
 
-}catch (e) {
+// }catch (e) {
 
-    return false;
+//     return false;
 
-}
+// }
 
-}
+// }
 
-//
-// export const getListAllLanding = async (page, size) => {
-//     try {
-//         const res = await axios.get(`http://localhost:8080/landing?page=${page}&size=${size}`);
-//
-//         return res.data;
-//     } catch (e) {
-//         return false;
-//     }
-// };
+export const getListAllLanding = async (searchParams) => {
+    try {
+        const res = await axios.get(`http://localhost:8080/landing?page=${searchParams.page}&size=${searchParams.size}&statusLanding=${searchParams.statusLanding}&codeLanding=${searchParams.codeLanding}&areaLanding=${searchParams.areaLanding}&typeLanding=${searchParams.typeLanding}`);
+        return res.data;
+    } catch (e) {
+        console.error(e);
+        return false;
+    }
+};
+
+
 export const getListAllFloor=async ()=>{
     try {
         const res=await axios.get("http://localhost:8080/landing/listFloor")

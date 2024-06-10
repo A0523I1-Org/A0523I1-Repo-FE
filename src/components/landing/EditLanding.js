@@ -155,6 +155,7 @@ const EditLanding = () => {
                                                           className="text-[12px] text-red-500"/>
                                         </div>
                                     </div>
+                              
                                     <div className="h-[40px] mx-5 flex items-center">
                                         <div className="w-4/12 h-full flex items-center">
                                             <span>Trạng thái <span className="text-red-500 text-xl">*</span></span>
@@ -163,10 +164,10 @@ const EditLanding = () => {
                                             <Field as="select" id="status" name="status"
                                                    className="w-full h-full rounded-[3px] border-[#8887] form-control">
                                                 <option value="">Chọn</option>
-                                                <option value="Chưa bàn giao">Chưa bàn giao</option>
-                                                <option value="Đang vào ở">Đang vào ở</option>
-                                                <option value="Đang sửa chữa">Đang sửa chữa</option>
-                                                <option value="Trống">Trống</option>
+                                                <option value="Available">Chưa bàn giao</option>
+                                                <option value="Occupied">Đang vào ở</option>
+                                                <option value="Repair">Đang sửa chữa</option>
+                                                <option value="Drum">Trống</option>
                                             </Field>
                                             <ErrorMessage name="status" component="span"
                                                           className="text-[12px] text-red-500"/>
