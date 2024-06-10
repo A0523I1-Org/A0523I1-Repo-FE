@@ -8,11 +8,7 @@ body {
 
 }
 
-span {
-    font-size: 14px;
-    opacity: 1;
-    font-family: var(--text-color-span);
-}
+
 input{
     border: 1px solid #888;
     border-bottom-right-radius: 3px;
