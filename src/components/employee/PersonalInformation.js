@@ -60,7 +60,7 @@ const PersonalInformation = () => {
     try {
       const token = localStorage.getItem('token');
       const response = await accountService.changePassword(token, passwords.oldPassword, passwords.newPassword);
-      // alert(response.message);
+      alert(response.message);
       console.log(response)
       if (response.message == "Đổi mật khẩu thất bại.") {
         setPasswordError("Mật khẩu cũ không khớp");
@@ -112,16 +112,16 @@ const PersonalInformation = () => {
           </tr>
           <tr>
             <th>Mật khẩu:</th>
-            <td>
-              <table>
-                <tbody>
-                <tr>
-                  <td><input type="password" value={"******"} className="form-control" readOnly /></td>
-                  <td className="table-cell"><button className="btn btn-change" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Đổi mật khẩu</button></td>
-                </tr>
-                </tbody>
-              </table>
-            </td>
+              <td>
+                <div className="row g-3">
+                  <div className="col-auto">
+                    <input type="password" value={"******"} className="form-control" readOnly />
+                  </div>
+                  <div className="col-auto">
+                    <button className="btn btn-change" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Đổi mật khẩu</button>
+                  </div>
+                </div>
+              </td>
           </tr>
           <tr>
             <th>Họ tên(<span style={{ color: 'red' }}>*</span>):</th>
@@ -151,35 +151,42 @@ const PersonalInformation = () => {
             <th>Giới tính:</th>
             <td>
               <div>
-                <input
-                    type="radio"
-                    id="nam"
-                    name="gender"
-                    value="nam"
-                    checked={formData.gender === 'Nam'}
-                    // onChange={handleChange}
-                />
-                <label htmlFor="nam">Nam</label>
-
-                <input
-                    type="radio"
-                    id="nu"
-                    name="gender"
-                    value="nu"
-                    checked={formData.gender === 'Nữ'}
-                    // onChange={handleChange}
-                />
-                <label htmlFor="nu">Nữ</label>
-
-                <input
-                    type="radio"
-                    id="chua"
-                    name="gender"
-                    value="chua"
-                    checked={formData.gender === 'Chưa xác định'}
-                    // onChange={handleChange}
-                />
-                <label htmlFor="chua">Chưa xác định</label>
+                <div className="form-check form-check-inline">
+                  <input
+                      type="radio"
+                      id="nam"
+                      name="gender"
+                      value="nam"
+                      checked={formData.gender === 'Nam'}
+                      className="form-check-input"
+                      // onChange={handleChange}
+                  />
+                  <label htmlFor="nam" className="form-check-label">Nam</label>
+                </div>
+                <div className="form-check form-check-inline ms-3">
+                  <input
+                      type="radio"
+                      id="nu"
+                      name="gender"
+                      value="nu"
+                      checked={formData.gender === 'Nữ'}
+                      className="form-check-input"
+                      // onChange={handleChange}
+                  />
+                  <label htmlFor="nu" className="form-check-label">Nữ</label>
+                </div>
+                <div className="form-check form-check-inline ms-3">
+                  <input
+                      type="radio"
+                      id="chua"
+                      name="gender"
+                      value="chua"
+                      checked={formData.gender === 'Chưa xác định'}
+                      className="form-check-input"
+                      // onChange={handleChange}
+                  />
+                  <label htmlFor="chua" className="form-check-label">Chưa xác định</label>
+                </div>
               </div>
             </td>
           </tr>
