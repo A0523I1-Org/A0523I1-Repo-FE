@@ -14,7 +14,7 @@ export async function changePassword(token, oldPassword, newPassword){
         const response = await axios.post('http://localhost:8080/change-password', {oldPassword, newPassword}, {
             headers: {Authorization: `Bearer ${token}`}
         })
-        console.log(response)
+        // console.log(response)
         return response.data;
     }catch(err){
         throw err;

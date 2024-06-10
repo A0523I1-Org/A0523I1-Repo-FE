@@ -8,6 +8,8 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
+    "firebase": "^10.12.1",
+    "formik": "^2.4.6",
     "formix": "^0.0.1",
     "jquery": "^3.7.1",
     "popper.js": "^1.16.1",
@@ -20,6 +22,8 @@
     "react-router": "^6.23.1",
     "react-router-dom": "^6.23.1",
     "react-scripts": "5.0.1",
+    "react-toastify": "^10.0.5",
+    "uuid": "^9.0.1",
     "web-vitals": "^2.1.4",
     "yup": "^1.4.0"
   },

@@ -2,7 +2,7 @@
     display: grid;
     place-items: center; /* Căn phần tử theo cả chiều ngang và chiều dọc */
     width: 60%;
-    height: 80vh;
+    height: 50%;
     font-family: Arial,sans-serif;
 }
 table.table{
@@ -37,4 +37,7 @@ button.btn-cancel:hover{
     background-color: #ffffff; /* Màu nền khi hover */
     color: #000000; /* Màu chữ khi hover */
     border: 1px solid #000000; /* Viền đen khi hover */
+}
+.table-cell {
+    padding: 10px 20px; /* Thêm khoảng cách bên trong các ô */
 }
