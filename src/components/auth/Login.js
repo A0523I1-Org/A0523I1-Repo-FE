@@ -84,6 +84,8 @@ function Login() {
                 localStorage.setItem('token', userData.access_token)
                 localStorage.setItem('role', userData.roles)
                 navigate('/contract')
+                localStorage.setItem('role', userData.role)
+                navigate('/employee/personal-information')
             }else{
                 // setError(userData.message)
                 setError(userData.message)
@@ -148,7 +150,7 @@ function Login() {
                             <div className="form__check">
                                 <div className="form__remember">
                                     <label htmlFor="remember-me">
-                                        <input type="checkbox" id="remember-me" name="remember-me"/>
+                                         <input type="checkbox" id="remember-me" name="remember-me"/>
                                         Ghi nhớ tôi
                                     </label>
                                 </div>
