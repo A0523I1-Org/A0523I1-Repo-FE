@@ -12,6 +12,8 @@ import "../../table/css/pagination.css";
 import ResponsivePagination from "react-responsive-pagination";
 
 const ListLanding = () => {
+  const [checkedAll, setCheckAll] = useState(false);
+  const [listIdInput, setListIdInput] = useState([]);
   const [landing, setLanding] = useState([]);
   const [openMenu, setOpenMenu] = useState({});
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -26,6 +28,12 @@ const ListLanding = () => {
     areaLanding: "",
     typeLanding: "",
   });
+
+  useEffect(() => {
+    getListAllLanding(0, 3);
+    getListAllFloor();
+  }, []);
+
   const customStyles = {
     content: {
       top: "50%",
@@ -36,20 +44,47 @@ const ListLanding = () => {
       transform: "translate(-50%, -50%)",
     },
   };
-  const removeCheckedCheckboxes = () => {
-    const checked = document.querySelectorAll(".delete-checkbox:checked");
-    checked.forEach((elem) => {
-      const id = elem.parentElement.dataset.id; // Lấy ID từ thuộc tính data-id của phần tử cha
-      landingService.deleteLandingById(id); // Gọi phương thức xóa với ID tương ứng
 
-      navigate("/landing");
+  const deleteLandingByIds = () => {
+    landing.forEach((product) => {
+      if (product.select) {
+        const isSuccess = landingService.deleteLandingById(product.id);
+        if (isSuccess) {
+          toast.success("Xóa mặt bằng " + product.code + " thành công");
+        }
+      }
+      getListAllLanding(0);
     });
   };
+  const handleDeleteAll = (e, id) => {
+    const isChecked = e.target.checked;
+    if (isChecked) {
+      setListIdInput([...listIdInput, id]);
+    } else {
+      setListIdInput(listIdInput.filter((item) => item !== id));
+    }
+  };
+  const hanleSelectAll = (e) => {
+    if (!e.target.checked) {
+      setListIdInput([]);
+    } else {
+      setCheckAll(!checkedAll);
+      !checkedAll
+        ? setListIdInput(landing.map((l) => l.id))
+        : setListIdInput([]);
+    }
+  };
 
-  useEffect(() => {
-    getListAllLanding(0, 3);
-    getListAllFloor();
-  }, []);
+  // const deleteLandingByIds = () => {
+  //   let arrayids = [];
+  //   landing.forEach((p) => {
+  //     if (p.select) {
+  //       arrayids.push(p.id);
+  //     }
+  //   });
+  //   landingService.deleteLandings(arrayids);
+  //   console.log(arrayids);
+  // };
 
   const searchAllLanding = async (e) => {
     const { name, value } = e.target;
@@ -212,7 +247,9 @@ const ListLanding = () => {
             </Link>
             <button
               className="bg-[#f44336] h-[36px]"
-              onclick="removeCheckedCheckboxes()"
+              onClick={() => {
+                deleteLandingByIds();
+              }}
             >
               <span className="text-white text-[14px]">Xóa tất cả</span>
             </button>
@@ -241,7 +278,14 @@ const ListLanding = () => {
             <thead className="border  ">
               <tr className="text-center">
                 <th className="h-[42px] tex-center border-[#ddd]">
-                  <input type="checkbox" className="delete-checkbox" />
+                  <input
+                    type="checkbox"
+                    style={{ backgroundColor: "white" }}
+                    checked={listIdInput.length > 0}
+                    indeterminate={listIdInput.length > 0}
+                    onChange={hanleSelectAll}
+                    size="small"
+                  />
                 </th>
                 <th>ID</th>
                 <th>Mã I Loại mặt bằng</th>
@@ -296,7 +340,23 @@ const ListLanding = () => {
               {landing.map((landingItem, index) => (
                 <tr className="w-1/12 h-[76px] " key={index}>
                   <td className="text-center w-[60px]">
-                    <input type="checkbox" className="delete-checkbox" />
+                    <input
+                      type="checkbox"
+                      value={landingItem.id}
+                      name={landingItem.id}
+                      checked={listIdInput.includes(landingItem.id)}
+                      onChange={(e) => {
+                        handleDeleteAll(e, landingItem.id);
+                        //xoa
+                        landingItem.select = e.target.checked;
+                        setLanding(landing);
+                      }}
+                      size="small"
+                      // onChange={(e) => {
+                      //   landingItem.select = e.target.checked;
+                      //   setLanding(landing);
+                      // }}
+                    />
                   </td>
                   <td className="w-1/12 text-center ">
                     <span className="block text-[#2196f3]">
@@ -461,77 +521,70 @@ const ListLanding = () => {
         contentLabel="Example Modal"
         style={customStyles}
       >
-        <Modal
-          isOpen={modalIsOpen}
-          // onAfterOpen={afterOpenModal}
-          onRequestClose={() => setIsOpen(false)}
-          contentLabel="Example Modal"
-          style={customStyles}
-        >
-          <h2>Xóa mặt bằng</h2>
-          <div class="container">
-            <div class="row justify-content-center my-3">
-              <div class="col-12 text-center mb-3">
+        <h2>Xóa mặt bằng</h2>
+        <div class="container">
+          <div class="row justify-content-center my-3">
+            <div class="col-12 text-center mb-3">
+              <span>
+                <i
+                  class="fa-solid fa-triangle-exclamation fa-beat-fade fa-6x"
+                  style={{ color: "#e01f1f" }}
+                ></i>
+              </span>
+            </div>
+            <div class="col-12">
+              <h1 class="text-center text-uppercase h3">
+                <strong>Xác nhận xóa mặt bằng</strong>
+              </h1>
+            </div>
+
+            <div class="col-12 mt-3">
+              <table class="table table-hover">
+                <tbody>
+                  <tr>
+                    <th>Mã mặt bằng</th>
+                    <td>{landingDelete.code}</td>
+                  </tr>
+                  <tr>
+                    <th>Tầng</th>
+                    <td>{landingDelete.floor}</td>
+                  </tr>
+                  <tr>
+                    <th>Diện tích</th>
+                    <td>{landingDelete.area}</td>
+                  </tr>
+                  <tr>
+                    <th>Loại mặt bằng</th>
+                    <td>{landingDelete.type}</td>
+                  </tr>
+                  <tr>
+                    <th>Chi phí</th>
+                    <td>{landingDelete.feePerMonth}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="col-12 d-flex justify-content-center align-items-center mt-3 row">
+              <div class="col-12 col-md-6 mb-3">
                 <span>
-                  <i
-                    class="fa-solid fa-triangle-exclamation fa-beat-fade fa-6x"
-                    style={{ color: "#e01f1f" }}
-                  ></i>
+                  <strong>Lưu ý: </strong>
+                  <span style={{ color: "#red" }}>
+                    Thao tác này không thể hoàn tác!
+                  </span>
                 </span>
               </div>
-              <div class="col-12">
-                <h1 class="text-center text-uppercase h3">
-                  <strong>Xác nhận xóa mặt bằng</strong>
-                </h1>
-              </div>
-
-              <div class="col-12 mt-3">
-                <table class="table table-hover">
-                  <tbody>
-                    <tr>
-                      <th>Mã mặt bằng</th>
-                      <td>{landingDelete.code}</td>
-                    </tr>
-                    <tr>
-                      <th>Tầng</th>
-                      <td>{landingDelete.floor}</td>
-                    </tr>
-                    <tr>
-                      <th>Diện tích</th>
-                      <td>{landingDelete.area}</td>
-                    </tr>
-                    <tr>
-                      <th>Loại mặt bằng</th>
-                      <td>{landingDelete.type}</td>
-                    </tr>
-                    <tr>
-                      <th>Chi phí</th>
-                      <td>{landingDelete.feePerMonth}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <div class="col-12 d-flex justify-content-center align-items-center mt-3 row">
-                <div class="col-12 col-md-6 mb-3">
-                  <span>
-                    <strong>Lưu ý: </strong>
-                    <span style={{ color: "#red" }}>
-                      Thao tác này không thể hoàn tác!
-                    </span>
-                  </span>
-                </div>
-                <div class="col-12 col-md-6 text-center text-md-right">
-                  <button class="btn btn-danger me-2" onClick={deleteLanding}>
-                    Xác nhận
-                  </button>
-                  <button class="btn btn-primary" onClick={closeModal}>Hủy</button>
-                </div>
+              <div class="col-12 col-md-6 text-center text-md-right">
+                <button class="btn btn-danger me-2" onClick={deleteLanding}>
+                  Xác nhận
+                </button>
+                <button class="btn btn-primary" onClick={closeModal}>
+                  Hủy
+                </button>
               </div>
             </div>
           </div>
-          
-        </Modal>
+        </div>
       </Modal>
       <ToastContainer></ToastContainer>
     </>

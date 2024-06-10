@@ -79,7 +79,70 @@ const CreateLangding = () => {
 }
 
 const validate = {
-    code: Yup.string().required("Vui lòng nhập mã mặt bằng !").matches(/^MB[0-9]{3}$/, "Code có định dạng: MBxxx !"),
+  floor:Yup.string().required("Vui lòng chọn tầng"),
+
+  status:Yup.string().required("Vui lòng trọn trạng thái"),
+
+  type:Yup.string().required("Vui lòng chọn loại mặt bằng"),
+
+  code: Yup.string()
+      .required("Mã mặt bằng không được để trống.")
+      .matches(/^[A-Za-z0-9]+$/, {
+          message: "Mã mặt bằng chỉ được chứa ký tự và số.",
+          excludeEmptyString: true,
+      })
+      .max(25, "Mã mặt bằng phải có tối đa 25 ký tự.")
+      .matches(/^MB\d{3}$/, "Mã mặt bằng phải đúng định dạng MBxxx."),
+
+  area: Yup.string()
+      .required("Vui lòng nhập diện tích.")
+      .test('is-positive', 'Diện tích không được nhỏ hơn 0.', value => {
+          // Kiểm tra xem giá trị có phải là số không
+          if (!isNaN(parseFloat(value))) {
+              // Nếu là số, kiểm tra xem giá trị có lớn hơn hoặc bằng không không
+              return parseFloat(value) >= 0;
+          }
+          // Nếu không phải là số, không áp dụng kiểm tra số dương
+          return true;
+      })
+      .test('is-valid-number', 'Diện tích phải là số và không có ký tự đặc biệt.', value => {
+          // Kiểm tra xem giá trị là số và không có ký tự đặc biệt
+          return !isNaN(parseFloat(value)) && !/[^a-zA-Z0-9]/.test(value);
+      }),
+
+  feePerMonth: Yup.string()
+      .required("Vui lòng nhập giá tiền.")
+      .test('is-positive-feePerMonth', 'Vui lòng nhập giá tiền lớn hơn 0.', value => {
+
+          if (!isNaN(parseFloat(value))) {
+
+              return parseFloat(value) >= 0;
+          }
+
+          return true;
+      })
+      .test('is-valid-number-feePerMonth', 'Giá tiền phải là số và không được có ký tự đặc biệt.', value => {
+
+          return !isNaN(parseFloat(value)) && !/[^a-zA-Z0-9]/.test(value);
+      }),
+
+  feeManager: Yup.string()
+      .required("Vui lòng nhập phí quản lí.")
+      .test('is-positive-feeManager', 'Vui lòng nhập phí quản lí lớn hơn 0.', value => {
+
+          if (!isNaN(parseFloat(value))) {
+
+              return parseFloat(value) >= 0;
+          }
+
+          return true;
+      })
+      .test('is-valid-number-feeManager', 'Phí quản lí phải là số và không được có ký tự đặc biệt.', value => {
+          // Kiểm tra xem giá trị là số và không có ký tự đặc biệt
+          return !isNaN(parseFloat(value)) && !/[^a-zA-Z0-9]/.test(value);
+      }),
+
+  description:Yup.string().max(200,"Chú thích có độ dài tối đa 200 ký tự")
 
 }
 
@@ -156,7 +219,7 @@ const validate = {
                   className="form-control is-valid"
                   name="code"
                 />
-                <div className="invalid-feedback">Error !</div>
+                <ErrorMessage name="code" className="invalid-feedback"></ErrorMessage>
               </div>
 
               <div className="col-md-6">
@@ -170,7 +233,7 @@ const validate = {
                   name="feePerMonth"
                   required
                 />
-                <div className="invalid-feedback">Error !</div>
+                <ErrorMessage name="feePerMonth" className="invalid-feedback">Error !</ErrorMessage>
               </div>
               <div className="col-md-6">
                 <label htmlFor="employeeCode" className="form-label">
@@ -195,7 +258,7 @@ const validate = {
                   <option value="Phòng trọ">Phòng trọ</option>
                   <option value="Nhà hàng">Nhà hàng</option>
                 </Field>
-                <div className="invalid-feedback">Error !</div>
+                <ErrorMessage name="type" className="invalid-feedback">Error !</ErrorMessage>
               </div>
               <div className="col-md-6">
                 <label htmlFor="employeeCode" className="form-label">
@@ -208,7 +271,7 @@ const validate = {
                   name="feeManager"
                   required
                 />
-                <div className="invalid-feedback">Error !</div>
+                <ErrorMessage className="invalid-feedback">Error !</ErrorMessage>
               </div>
 
               <div className="col-md-6">
@@ -222,7 +285,7 @@ const validate = {
                   name="area"
                   required
                 />
-                <div className="invalid-feedback">Error !</div>
+                <ErrorMessage className="invalid-feedback">Error !</ErrorMessage>
               </div>
               <div className="col-md-6">
                 <label htmlFor="employeeCode" className="form-label">
@@ -240,7 +303,7 @@ const validate = {
                   <option value="3">Tầng 3</option>
                   <option value="4">Tầng 4</option>
                 </Field>
-                <div className="invalid-feedback">Error !</div>
+                <ErrorMessage className="invalid-feedback">Error !</ErrorMessage>
               </div>
               <div className="col-md-6">
                 <label htmlFor="employeeCode" className="form-label">
@@ -253,7 +316,7 @@ const validate = {
                 >
                   ok
                 </Field>
-                <div className="invalid-feedback">Error !</div>
+                <ErrorMessage className="invalid-feedback">Error !</ErrorMessage>
               </div>
               <div className="col-md-6">
                 <label htmlFor="dob" className="form-label">
@@ -271,7 +334,7 @@ const validate = {
                   <option value="Đang sửa chữa">Đang sửa chữa</option>
                   <option value="Trống">Trống</option>
                 </Field>
-                <div className="invalid-feedback">Error !</div>
+                <ErrorMessage name="status" className="invalid-feedback">Error !</ErrorMessage>
               </div>
 
               <div className="col-md-9"></div>
