@@ -79,10 +79,10 @@ function Login() {
         try {
             const userData = await accountService.login(account.username, account.password)
             console.log(userData)
-            console.log(userData.access_token)
+
             if (userData.access_token) {
                 localStorage.setItem('token', userData.access_token)
-                localStorage.setItem('role', userData.role)
+                localStorage.setItem('role', userData.roles)
                 navigate('/contract')
             }else{
                 // setError(userData.message)
@@ -114,7 +114,7 @@ function Login() {
                     <div className="shape2"/>
 
                     <div className="form">
-                        <Form action="" className="form__content">
+                        <Form className="form__content">
                             <h1 className="form__title">Đăng nhập</h1>
 
                             <div className="form__div form__div-one">
@@ -145,15 +145,15 @@ function Login() {
                                 </div>
                             </div>
 
-                            {/*<div className="form__check">*/}
-                            {/*    <div className="form__remember">*/}
-                            {/*        <label htmlFor="check">*/}
-                            {/*            <input type="checkbox" id="check"/>*/}
-                            {/*            Ghi nhớ tôi*/}
-                            {/*        </label>*/}
-                            {/*    </div>*/}
-                            {/*    <a href="#" className="form__forgot">Quên mật khẩu?</a>*/}
-                            {/*</div>*/}
+                            <div className="form__check">
+                                <div className="form__remember">
+                                    <label htmlFor="remember-me">
+                                        <input type="checkbox" id="remember-me" name="remember-me"/>
+                                        Ghi nhớ tôi
+                                    </label>
+                                </div>
+                                {/*<a href="#" className="form__forgot">Quên mật khẩu?</a>*/}
+                            </div>
 
                             <button type="submit" className="form__button">ĐĂNG NHẬP</button>
 
