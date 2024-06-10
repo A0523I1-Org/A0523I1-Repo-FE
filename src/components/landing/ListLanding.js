@@ -514,6 +514,7 @@ const ListLanding = () => {
         current={currentPage}
         onPageChange={(page) => handlePageChange(page)}
       />
+      <div style={{height: '300px'}}>
       <Modal
         isOpen={modalIsOpen}
         // onAfterOpen={afterOpenModal}
@@ -586,6 +587,7 @@ const ListLanding = () => {
           </div>
         </div>
       </Modal>
+      </div>
       <ToastContainer></ToastContainer>
     </>
   );

@@ -60,7 +60,7 @@ export const deleteLandingById=async(id) =>{
 export const deleteLandings=async(ids) =>{
     try {
         console.log(ids)
-        return await axios.put(`http://localhost:8080/landing/delete/${ids}`)
+        return await axios.put(`http://localhost:8080/landing/deleteLanding/${ids}`)
 
     }catch (e) {
 
