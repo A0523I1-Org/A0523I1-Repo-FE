@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Modal from "react-modal";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../../configs/routes";
 import routes from "../../configs/routes";
 import "../../table/css/pagination.css";
@@ -42,16 +43,26 @@ const ListLanding = () => {
   }, []);
 
   const deleteLandingByIds = () => {
-      landing.content.forEach((ld) => {
-        if (ld.select) {
-          const isSuccess = landingService.deleteLandingById(ld.id);
-          if (isSuccess) {
-            toast.success("Xóa mặt bằng " + ld.code + " thành công");
-          }
+    landing.content.forEach((ld) => {
+      if (ld.select) {
+        const isSuccess = landingService.deleteLandingById(ld.id);
+        if (isSuccess) {
+          toast.success("Xóa mặt bằng " + ld.code + " thành công");
         }
-        getListAllLanding(searchParams);
-      });
+      }
+      getListAllLanding(searchParams);
+    });
   };
+
+  const deleteLanding = async () => {
+    const isSuccess = await landingService.deleteLandingById(landingDelete.id);
+    if (isSuccess) {
+      toast.success("Xóa mặt bằng thành công");
+    }
+    setIsOpen(false);
+    getListAllLanding(searchParams);
+  };
+
   const customStyles = {
     content: {
       top: "50%",
@@ -81,14 +92,6 @@ const ListLanding = () => {
     }
   };
 
-  const deleteLanding = async () => {
-    const isSuccess = await landingService.deleteLandingById(parseInt(landingDelete.id));
-    if (isSuccess) {
-      toast.success("Xóa mặt bằng thành công");
-    }
-    setIsOpen(false);
-    getListAllLanding(0);
-  };
   const openModal = (landing) => {
     setLandingDelete(landing);
     setIsOpen(true);
@@ -212,12 +215,13 @@ const ListLanding = () => {
       <div className="w-full  h-20 ">
         <div className="mx-16 h-full flex items-center  ">
           <div className="id-button flex gap-3">
-            <button className=" bg-[#4CAF50] h-[36px]">
-              <span className="text-white text-[14px] font-normal">
-                Thêm mới
-              </span>
-            </button>
-
+            <Link to={routes.createLanding}>
+              <button className=" bg-[#4CAF50] h-[36px]">
+                <span className="text-white text-[14px] font-normal">
+                  Thêm mới
+                </span>
+              </button>
+            </Link>
             <select
               className="h-[36px] w-[80px] border-[#2196e3]"
               name="nameFloor"
@@ -437,7 +441,10 @@ const ListLanding = () => {
                             Chi tiết
                           </span>
                         </button>
-                        <button className="w-full h-1/3 border-t-[1px] px-3 flex  hover:bg-[#fafafa]" onClick={() => openModal(landingItem)}>
+                        <button
+                          className="w-full h-1/3 border-t-[1px] px-3 flex  hover:bg-[#fafafa]"
+                          onClick={() => openModal(landingItem)}
+                        >
                           <span className="flex py-1 text-[#f44366]">
                             <span className="mt-0.5 pr-3">
                               <svg
@@ -491,9 +498,12 @@ const ListLanding = () => {
         </div>
       </div>
       <div className=" h-[40px] my-5 relative mx-16 flex  ">
-        <button className="left-0 relative w-[40px] h-[40px] bg-red-500 flex items-center justify-center rounded-full"  onClick={() => {
-                deleteLandingByIds();
-              }}>
+        <button
+          className="left-0 relative w-[40px] h-[40px] bg-red-500 flex items-center justify-center rounded-full"
+          onClick={() => {
+            deleteLandingByIds();
+          }}
+        >
           <span className="text-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -603,6 +613,7 @@ const ListLanding = () => {
           </div>
         </div>
       </Modal>
+      <ToastContainer></ToastContainer>
     </>
   );
 };

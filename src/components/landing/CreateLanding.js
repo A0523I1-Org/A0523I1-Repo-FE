@@ -318,7 +318,7 @@ const CreateLangding = () => {
               className="form-select is-invalid"
               name="floor"
               required
-            >
+            >````````````````````````````````````````````````````
               <option value="">Chọn</option>
               {floors.map((floor, index) => (
                 <option key={index} value={floor.id}>
