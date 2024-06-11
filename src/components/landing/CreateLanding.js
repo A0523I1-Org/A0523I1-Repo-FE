@@ -21,7 +21,7 @@ const CreateLangding = () => {
     floor: "",
     firebaseUrl: "",
   });
-  const [floors, setFloors] = useState();
+  const [floors, setFloors] = useState([]);
   const [avatar, setAvatar] = useState();
   const [percent, setPercent] = useState(0);
   const [firebaseAvt, setFirebaseAvt] = useState("");
