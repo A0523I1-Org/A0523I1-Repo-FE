@@ -3,19 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.5",
-    "@flaticon/flaticon-uicons": "^3.2.1",
-    "@mui/icons-material": "^5.15.19",
-    "@mui/material": "^5.15.19",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
-    "firebase": "^10.12.2",
-    "font-awesome": "^4.7.0",
+    "firebase": "^10.12.1",
     "formik": "^2.4.6",
+    "formix": "^0.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-easy-crop": "^5.0.7",
@@ -24,6 +19,7 @@
     "react-router-dom": "^6.23.1",
     "react-scripts": "5.0.1",
     "react-toastify": "^10.0.5",
+    "uuid": "^9.0.1",
     "web-vitals": "^2.1.4",
     "yup": "^1.4.0"
   },
@@ -50,8 +46,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@material-ui/core": "^4.12.4"
   }
 }
