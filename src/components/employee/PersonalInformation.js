@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min';
 import * as employeeService from "../../services/EmployeeService";
 import * as accountService from "../../services/AccountService";
 import '../../css/employee/PersonalInformation.css';
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const PersonalInformation = () => {
 
   const [formData, setFormData] = useState();
+
+  const notify = () => {
+    toast.success("Đổi mật khẩu thành công");
+  };
+
 
   useEffect(() => {
     fetchProfileInfo();
@@ -60,23 +68,17 @@ const PersonalInformation = () => {
     try {
       const token = localStorage.getItem('token');
       const response = await accountService.changePassword(token, passwords.oldPassword, passwords.newPassword);
-      alert(response.message);
-      console.log(response)
       if (response.message == "Đổi mật khẩu thất bại.") {
         setPasswordError("Mật khẩu cũ không khớp");
+      } else {
+        // alert(response.message);
+        notify();
+        closeModal();
       }
 
     } catch (error) {
       console.log(error)
-      // if (error.response && error.response.data.message) {
-      //   if (error.response.data.message.includes("Đổi mật khẩu thất bại.")) {
-      //     setPasswordError("Mật khẩu cũ không khớp");
-      //   } else {
-      //     setPasswordError(error.response.data.message);
-      //   }
-      // } else {
         setPasswordError('Có lỗi xảy ra. Vui lòng thử lại.');
-      // }
     }
   };
 
@@ -84,6 +86,13 @@ const PersonalInformation = () => {
     e.preventDefault();
     alert('Chỉnh sửa thành công');
   };
+
+  const closeModal = () => {
+    const modalElement = document.getElementById('changePasswordModal');
+    const modal = bootstrap.Modal.getInstance(modalElement);
+    modal.hide();
+  };
+
 
   if (formData == null) {
     return null;
@@ -305,7 +314,10 @@ const PersonalInformation = () => {
           </div>
         </div>
       </div>
+
   );
 };
+
+
 
 export default PersonalInformation;
