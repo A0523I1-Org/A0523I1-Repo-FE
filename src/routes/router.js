@@ -19,6 +19,7 @@ import DeleteEmployee from "../components/employee/DeleteEmployee";
 
 const publicRoutes = [
     {path : routes.login ,component : Login , layuot : null}
+
 ]
 
 const privateRoutes = [

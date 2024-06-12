@@ -10,12 +10,11 @@ import {toast} from 'react-toastify'
 export default function DeleteEmployee() {
     const {id} = useParams();
     const [employeeDel, setEmployeeDel] = useState();
-
     const navigate = useNavigate();
 
     useEffect(() => {
         getEmployeeDel(id);
-    }, [])
+    }, [id])
 
     const getEmployeeDel = async () => {
         let temp = await employeeService.findEmployeeById(id);
@@ -24,21 +23,20 @@ export default function DeleteEmployee() {
     const cancelDelete = () => {
         navigate("/")
     }
-
     const deleteEmployee = async () => {
         let success = await employeeService.deleteEmployeeById(id)
         if (success) {
-            toast.success("Bạn đã xóa thành công nhân viên " + employeeDel.name)
+            toast.success("Bạn đã xóa thành công nhân viên: " + employeeDel.name)
             navigate("/")
-        }else {
-            toast.warning("Qúa trình xóa thất bại, vui lòng kiểm tra lại !!!");
+        } else {
+            toast.warning("Qúa trình xóa thất bại, vui lòng kiểm tra lại !");
             navigate("/")
         }
     }
 
     function formatDate(dateString) {
         const date = new Date(dateString);
-        const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+        const options = {day: '2-digit', month: '2-digit', year: 'numeric'};
         return date.toLocaleDateString('en-GB', options);
     }
 
@@ -47,7 +45,7 @@ export default function DeleteEmployee() {
         return null;
     }
     return (
-        <div className="delEmployee bg-secondary.bg-gradient ">
+        <div id="de_main">
             <div className="row justify-content-center my-3">
 
                 <div className="col-12 text-center mb-3">
@@ -55,7 +53,8 @@ export default function DeleteEmployee() {
                              style={{color: "#e01f1f"}}></i></span>
                 </div>
                 <div className="col-12">
-                    <h1 className="text-center text-uppercase h3"><strong style={{color: "red"}}>Xác nhận xóa nhân viên</strong></h1>
+                    <h1 className="text-center text-uppercase h3"><strong style={{color: "red"}}>Xác nhận xóa nhân
+                        viên</strong></h1>
                 </div>
 
                 <div className="col-12 mt-3">

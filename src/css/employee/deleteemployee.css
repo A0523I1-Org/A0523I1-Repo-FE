@@ -1,36 +1,22 @@
-body {
-    background-color: #f2f2f2;
-    background-size: 100%;
-    display: flex;
-    justify-content: center;
-}
-.delEmployee {
-    background-color: #fefefe;
+#de_main {
     border-radius: 10px;
-    padding: 30px;
+    padding: 50px;
     width: auto;
     height: auto;
 }
-.bg-remove{
+#de_main .bg-remove {
     background: #f44336;
 }
-.bg-cancel{
+
+#de_main .bg-cancel {
     background: #153448;
 }
-.btn_css {
-    padding: 7px 14px;
-    border-radius: 3px ;
-    border: none;
-}
 
-.ct-ct {
+#de_main .ct-ct {
     display: flex;
     justify-content: center;
     align-items: center;
     float: left;
     height: 150px;
     margin: 0 50px;
-}
-.de_button {
-    margin-right: 20px;
 }

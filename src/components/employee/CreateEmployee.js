@@ -16,8 +16,8 @@ import 'react-toastify/dist/ReactToastify.css';
 // CROP IMAGE
 import Modal from 'react-modal'
 import Cropper from "react-easy-crop";
-import Slider from "@material-ui/core/Slider";
-import Button from "@material-ui/core/Button";
+// import Slider from "@material-ui/core/Slider";
+// import Button from "@material-ui/core/Button";
 import getCroppedImg from "./crop/utils/cropImage"
 
 
@@ -40,14 +40,9 @@ const CreateEmployee = () => {
     const [departments, setDepartments] = useState([])
     const [salaryRanks, setSalaryRanks] = useState([])
     const [avatar, setAvatar] = useState();
-    const [firebaseAvt, setFirebaseAvt] = useState("");
     const navigate = useNavigate();
-
-
     const [isOpenModal, setIsOpenModal] = useState(false);
     const [previewAvatar, setPreviewAvatar] = useState()
-
-
 // CROP IMAGE
     const [image, setImage] = React.useState(null);
     const [croppedArea, setCroppedArea] = React.useState(null);
@@ -57,7 +52,6 @@ const CreateEmployee = () => {
     const onCropComplete = (croppedAreaPercentage, croppedAreaPixels) => {
         setCroppedArea(croppedAreaPixels);
     };
-
     const afterCrop = async () => {
         const blob = await getCroppedImg(image, croppedArea);
         const previewUrl = window.URL.createObjectURL(blob);
@@ -65,13 +59,9 @@ const CreateEmployee = () => {
         setIsOpenModal(false)
         setAvatar(blob)
     };
-
     const cancelCrop = () => {
         setIsOpenModal(false)
     }
-
-    // ------------------------------
-
     useEffect(() => {
         getDepartments();
         getSalaryRanks();
@@ -86,25 +76,20 @@ const CreateEmployee = () => {
     }
 
     const handleChange = (event) => {
-        const file = event.target.files[0]
-        file.preview = URL.createObjectURL(file)
-        setAvatar(file)
-        setIsOpenModal(true)
-
         if (event.target.files && event.target.files.length > 0) {
             const reader = new FileReader();
             reader.readAsDataURL(event.target.files[0]);
             reader.addEventListener("load", () => {
                 setImage(reader.result);
             });
+            setIsOpenModal(true)
         }
-
     }
 
-/*    const uploadToFirebase = async () => {
+    const submit =  (values) => {
         if (avatar) {
             const storageRef = ref(storage, `/avatar/${Date.now()}.jpeg`);
-            const uploadTask = uploadBytesResumable(storageRef, avatar);
+            const uploadTask =  uploadBytesResumable(storageRef, avatar);
             uploadTask.on(
                 "state_changed",
                 (snapshot) => {
@@ -112,66 +97,34 @@ const CreateEmployee = () => {
                         (snapshot.bytesTransferred / snapshot.totalBytes) * 100
                     );
                 },
-                (err) => console.log(err),
+                (err) => console.log("Eror at CreateEmployee/uploadfirebase and get link avatar: " + err),
                 () => {
                     getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-                        setFirebaseAvt(url)
+                        values.firebaseUrl = url;
+                        const success =  employeeService.addEmployee(values)
+                        if (success) {
+                            toast.success("Thêm mới nhân viên thành công.")
+                            navigate("/")
+                        } else {
+                            toast.warning("Đã xãy ra lỗi trong quá trình thêm mới !")
+                            navigate("/employee/create-employee")
+                        }
                     });
                 }
             );
         }
-    }*/
-        useEffect(() => {
-            if (avatar) {
-                const storageRef = ref(storage, `/avatar/${Date.now()}.jpeg`);
-                const uploadTask = uploadBytesResumable(storageRef, avatar);
-                uploadTask.on(
-                    "state_changed",
-                    (snapshot) => {
-                        const percent = Math.round(
-                            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                        );
-                    },
-                    (err) => console.log(err),
-                    () => {
-                        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-                            setFirebaseAvt(url)
-                        });
-                    }
-                );
-            }
-        }, [avatar])
 
-    const submit = async (values) => {
-        values.firebaseUrl = firebaseAvt;
-        const success = await employeeService.addEmployee(values)
-        if (success) {
-            toast.success("Thêm mơi Thành công @@")
-            navigate("/")
-        }else {
-            toast.warning("Thêm mới không thành cồng !!!")
-            navigate("/employee/create-employee")
-        }
     }
-    const customStyles = {
-        /*        content: {
-                    background: 'red',
-                    top: '50%',
-                    left: '50%',
-                    right: 'auto',
-                    bottom: 'auto',
-                    marginRight: '-50%',
-                    transform: 'translate(-50%, -50%)',
-                },*/
-    };
-
     const validate = {
         name: Yup.string().required("Vui lòng nhập tên nhân viên !")
             .max(100, "Họ và tên không được quá 100 ký tự !")
-            .min(5, "Họ và tên không được it hơn 5 ký tự !")
-            .matches(/^[A-Z][a-z]+(\s[A-Z][a-z]+)*$/, "Họ và tên không được chứa ký tự đặc biệt và phải viết hoa chữ cái đầu tiên !"),
-        dob: Yup.date().required("Vui lòng nhập Ngày sinh !")
-            .test('dob', 'Ngày sinh phải là một ngày trong quá khứ và phải trên 18 tuổi',
+            .min(5, "Họ và tên không được ít hơn 5 ký tự !")
+            .matches(/^[A-Za-zÀ-ỹ]+(\s[A-Za-zÀ-ỹ]+)*$/
+                , "Họ và tên không được chứa ký tự đặc biệt và phải viết hoa chữ cái đầu tiên !"),
+        // .matches(/^[A-Z][a-z]+(\s[A-Z][a-z]+)*$/, "Họ và tên không được chứa ký tự đặc biệt và phải viết hoa chữ cái đầu tiên !"),
+        dob: Yup.date().required("Vui lòng nhập ngày sinh của nhân viên !")
+            .max(new Date(), "Ngày sinh phải là một ngày trong quá khứ !")
+            .test('dob', 'Nhân viên phải trên 18 tuổi !',
                 function (value, ctx) {
                     const valid = new Date().getFullYear() - new Date(value).getFullYear();
                     if (valid > 18) {
@@ -192,57 +145,47 @@ const CreateEmployee = () => {
         phone: Yup.string().required("Vui lòng nhập số điện thoại nhân viên !")
             .matches(/^0\d{9}$/, "Số điện thoại bao gồm 10 chữ số bắt đầu bằng số 0 !"),
         email: Yup.string().required("Vui lòng nhập email !")
-            .matches(/^[a-zA-Z0-9]+@gmail.com$/, "Email không đúng định dạng: *********@gmail.com !"),
+            .matches(/^[a-zA-Z0-9._]+@gmail.com$/, "Email không đúng định dạng: *********@gmail.com !"),
         workDate: Yup.date().required("Vui lòng nhập vào làm !"),
         address: Yup.string().required("Vui lòng nhập địa chỉ nhân  viên !")
     }
-
     return (
-        <div id="main" className="box__shadow row justify-content-center  ">
+        <div id="ce_main" className="row">
             <div className="row justify-content-around">
-                <div id="avatarFrame" className="col-md-3">
-                    <div>
-                        <div className="center-content">
-                            <img className="avatar_preview"
-                                 src={previewAvatar ? previewAvatar : "https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png"}
-                                 alt="avatar"/><br/>
-                        </div>
-                        <div className="center-content">
-                            <label htmlFor="upload_avt" className="btn btn-primary"
-                                   style={{background: "#2196e3"}}>Chọn avatar</label>
-                            <input type="file" hidden id="upload_avt" accept="image/*"
-                                   onChange={handleChange}/>
-                        </div>
+                <div className="col-md-4 justify-content-end">
+                    <div className="center_vh">
+                        <img className="avatar_preview"
+                             src={previewAvatar ? previewAvatar : "https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png"}
+                             alt="avatar"/><br/>
+                    </div>
+                    <div className="center_vh">
+                        <label htmlFor="upload_avt" className="btn btn-primary"
+                               style={{background: "#2196e3"}}>Chọn avatar</label>
+                        <input type="file" hidden id="upload_avt" accept="image/*"
+                               onChange={handleChange}/>
                     </div>
                 </div>
-                <div className="col-md-6 center-content">
+                <div className="col-md-8 justify-content-start align-content-center">
                     <h2><strong>THÊM MỚI NHÂN VIÊN VĂN PHÒNG</strong></h2>
                 </div>
             </div>
             <Formik initialValues={form} onSubmit={submit} validationSchema={Yup.object(validate)}>
                 {({errors, touched}) => (
                     <Form className="row justify-content-center">
-                        <Field hidden type="text" name="firebaseUrl"/>
-
-                        <div className="col-md-4" hidden>
-                            <label htmlFor="code" className="form-label">Mã nhân viên <span>(*)</span></label>
-                            <Field
-                                className={`form-control ${(touched.code && errors.code) ? "is-invalid" : "is-valid"}`}
-                                name="code" id="code"/>
-                            <ErrorMessage name="code" component="span" className="invalid-feedback errorMessage"/>
-                        </div>
+                        <Field hidden name="firebaseUrl"/>
+                        <Field hidden name="code"/>
 
                         <div className="col-md-4">
-                            <label htmlFor="name" className="form-label">Họ và Tên <span>(*)</span></label>
+                            <label htmlFor="name" className="form-label">Họ và tên <span>(*)</span></label>
                             <Field
-                                className={`form-control ${(touched.name && errors.name) ? "is-invalid" : "is-valid"}`}
+                                className={`form-control ${touched.name ? (errors.name ? "is-invalid" : "is-valid") : ""}`}
                                 id="name" name="name"/>
                             <ErrorMessage name="name" component="span" className="invalid-feedback errorMessage"/>
                         </div>
                         <div className="col-md-4">
                             <label htmlFor="dob" className="form-label">Ngày sinh <span>(*)</span></label>
                             <Field type="date"
-                                   className={`form-control ${(touched.dob && errors.dob) ? "is-invalid" : "is-valid"}`}
+                                   className={`form-control ${touched.dob ? (errors.dob ? "is-invalid" : "is-valid") : ""}`}
                                    id="dob" name="dob"/>
                             <ErrorMessage name="dob" component="span" className="invalid-feedback errorMessage"/>
                         </div>
@@ -269,30 +212,30 @@ const CreateEmployee = () => {
                             </div>
                         </div>
                         <div className="col-md-4">
-                            <label htmlFor="address" className="form-label">Địa chỉ<span>(*)</span></label>
+                            <label htmlFor="address" className="form-label">Địa chỉ <span>(*)</span></label>
                             <Field
-                                className={`form-control ${(touched.address && errors.address) ? "is-invalid" : "is-valid"}`}
+                                className={`form-control ${touched.address ? (errors.address ? "is-invalid" : "is-valid") : ""}`}
                                 id="address" name="address"/>
                             <ErrorMessage name="address" component="span" className="invalid-feedback errorMessage"/>
                         </div>
                         <div className="col-md-4">
                             <label htmlFor="phone" className="form-label">Điện thoại <span>(*)</span></label>
                             <Field
-                                className={`form-control ${(touched.phone && errors.phone) ? "is-invalid" : "is-valid"}`}
+                                className={`form-control ${touched.phone ? (errors.phone ? "is-invalid" : "is-valid") : ""}`}
                                 id="phone" name="phone"/>
                             <ErrorMessage name="phone" component="span" className="invalid-feedback errorMessage"/>
                         </div>
                         <div className="col-md-4">
                             <label htmlFor="email" className="form-label">Email <span>(*)</span></label>
                             <Field
-                                className={`form-control ${(touched.email && errors.email) ? "is-invalid" : "is-valid"}`}
-                                id="email" name="email"/>
+                                className={`form-control ${touched.email ? (errors.email ? "is-invalid" : "is-valid") : ""}`}
+                                id="email" name="email" placeholder="...@gmail.com"/>
                             <ErrorMessage name="email" component="span" className="invalid-feedback errorMessage"/>
                         </div>
                         <div className="col-md-4">
                             <label htmlFor="workDate" className="form-label">Ngày vào làm <span>(*)</span></label>
                             <Field type="date"
-                                   className={`form-control ${(touched.workDate && errors.workDate) ? "is-invalid" : "is-valid"}`}
+                                   className={`form-control ${touched.workDate ? (errors.workDate ? "is-invalid" : "is-valid") : ""}`}
                                    id="workDate" name="workDate"/>
                             <ErrorMessage name="workDate" component="span" className="invalid-feedback errorMessage"/>
                         </div>
@@ -325,20 +268,25 @@ const CreateEmployee = () => {
                                           className="invalid-feedback errorMessage"/>
                         </div>
 
-
-                        <div className="col-md-12 center-content justify-content-end">
-                            <button className="btn" style={{background: "#4CAF50", marginRight: "8px"}} type={"submit"}>
-                                <span><i className="fi fi-rs-disk"></i></span>
-                                <span>Lưu</span>
-                            </button>
-                            <button type={"reset"} className="btn btn-primary" style={{background: "#2196e3"}}>
-                                <span><i className="fi fi-rr-eraser"></i></span>
-                                <span onClick={() => {
-                                    setAvatar()
-                                }}>Làm mới</span>
-                            </button>
+                        <div className="col-md-12 row center_vh">
+                            <div className="col-md-6">
+                                <span><i className="fa-solid fa-bullhorn fa-shake fa-lg"></i> </span>
+                                Lưu ý: Bạn phải nhập đầy đủ các ô được đánh dấu (*)
+                            </div>
+                            <div className="col-md-6 center_vh">
+                                <button className="btn" style={{background: "#4CAF50", marginRight: "8px"}}
+                                        type={"submit"}>
+                                    <span><i className="fi fi-rs-disk"/></span>
+                                    <span> Lưu</span>
+                                </button>
+                                <button type={"reset"} className="btn btn-primary" style={{background: "#2196e3"}}>
+                                    <span><i className="fi fi-rr-eraser"></i></span>
+                                    <span onClick={() => {
+                                        setAvatar()
+                                    }}> Làm mới</span>
+                                </button>
+                            </div>
                         </div>
-                        <p className="mt-2"> Bạn phải nhập tất các các trường được đánh dấu (*)</p>
                     </Form>
                 )}
             </Formik>
@@ -347,9 +295,9 @@ const CreateEmployee = () => {
                 onRequestClose={() => {
                     setIsOpenModal(false)
                 }}
-                style={customStyles}
                 contentLabel="Example Modal"
                 // ariaHideApp={false}
+                id="ce_modal"
             >
                 <div className='container'>
                     <div className='container-cropper'>
@@ -360,38 +308,40 @@ const CreateEmployee = () => {
                                         image={image}
                                         crop={crop}
                                         zoom={zoom}
-                                        aspect={3 / 4}
+                                        aspect={1}
                                         onCropChange={setCrop}
                                         onZoomChange={setZoom}
                                         onCropComplete={onCropComplete}
                                     />
                                 </div>
 
-                                <div className='slider'>
-                                    <Slider
+                                <div hidden>
+                                    {/*                       <Slider
                                         min={1}
                                         max={3}
                                         step={0.1}
                                         value={zoom}
                                         onChange={(e, zoom) => setZoom(zoom)}
+                                    />*/}
+                                    <input className="slider"
+                                           type="range"
+                                           min={1}
+                                           max={3}
+                                           step={0.1}
+                                           value={zoom}
+                                           onChange={(e, zoom) => setZoom(zoom)}
                                     />
                                 </div>
                             </>
                         ) : null}
                     </div>
-
-                    <div className='container-buttons'>
-                        <Button
-                            variant='contained'
-                            color='primary'
-                            onClick={cancelCrop}
-                            style={{marginRight: "10px"}}
-                        >
-                            Cancel
-                        </Button>
-                        <Button variant='contained' color='secondary' onClick={afterCrop}>
-                            Crop
-                        </Button>
+                    <div className="col-md-6 justify-content-center">
+                        <button className="btn" style={{background: "#4CAF50", marginRight: "8px", color: "white"}}
+                                onClick={afterCrop}>
+                            <span>Crop</span>
+                        </button>
+                        <button onClick={cancelCrop} className="btn btn-primary" style={{background: "#2196e3"}}>Cancel
+                        </button>
                     </div>
                 </div>
 
