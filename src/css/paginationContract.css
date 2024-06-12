@@ -1,4 +1,6 @@
 .pagination {
+  /* position: fixed;
+  bottom: 5vh; */
     justify-content: center;
     display: flex;
     padding-left: 0;

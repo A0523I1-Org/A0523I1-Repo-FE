@@ -30,3 +30,11 @@ export const showListLandingHome = async (page = 0, size = 4) => {
         };
     }
 }
+export const getAllLandingSpace = async() => {
+    try {
+        const res = await axios.get("http://localhost:8080/api/landing/landing-space");
+        return res.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
