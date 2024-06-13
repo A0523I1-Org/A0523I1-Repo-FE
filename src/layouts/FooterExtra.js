@@ -16,6 +16,8 @@ const actionMapping = {
 };
 
 const FooterExtra = React.memo(({ nameLocation }) => {
+
+    console.log(locationMapping.hasOwnProperty("contract"))
     // Lấy phần chính của địa chỉ từ đường dẫn URL
     const returnLocation = nameLocation.trim().split("/")[1];
 

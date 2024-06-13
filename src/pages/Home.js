@@ -4,6 +4,7 @@ import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as LandingService from '../services/LandingService';
 import { toast} from 'react-toastify';
 import * as Yup from 'yup';
+import {Link} from "react-router-dom";
 
 
 const Home = () => {
@@ -91,7 +92,7 @@ const Home = () => {
     };
 
     /**
-     * Phung-PV
+     *
      * Xử lý các mặt bằng hiển thị khi khách hàng lựa chọn
      */
     const handleLandingDisplay = (lading) => {
@@ -140,10 +141,10 @@ const Home = () => {
 const Home_child = ({customer,landing}) => {
     return (
         <>
-            <main id="main" className="overflow-hidden">
+            <main id="main" className=" relative">
                 <Home_child_introduce_company_xls/>
                 <Home_child_introduce_service_xls />
-                {/*<Home_child_introduce_landing_xls landing={landing}/>*/}
+                <Home_child_introduce_landing_xls landing={landing}/>
                 <Home_child_introduce_event_xls/>
                 <Home_child_introduce_enterprise_xls/>
                 <Home_child_authentication/>
@@ -176,39 +177,16 @@ const Home_child_introduce_company_xls = () => {
                         quý khách</p>
                 </div>
                 <button className="w-[119px] h-12 bg-white rounded-[40px] hover:text-white hover:bg-[#2f2b36]"><span>Bắt đầu</span></button>
+                <ModalMenuQTHT/>
 
-                <div className="absolute  max-md:block hidden w-[400px] h-[400px] border-[1px] right-[-500px] rotate-45 bg-white z-10  menu-animation">
-                    <div className="w-full h-full  top-[-100px] flex flex-col rotate-[-45deg] text-center pt-[70px]  gap-3 ml-10">
-                        <div className="w-1/3 h-[40px] py-2 bg-[#eee] relative">
-                            <a className="menu__item menu__item__active">Trang chủ</a>
-                            <div className="triangle absolute left-[-19px] top-[-5px] rotate-[-45deg]"></div>
-                        </div>
-                        <div className="w-3/6 h-[40px] py-2 bg-[#eee] relative ml-[-50px]">
-                            <a className="menu__item inline-flex items-center pl-8">
-                                Quản trị - hệ thống
-                                <span className="ml-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 22 22" strokeWidth="1.5"
-                                         stroke="currentColor" className="w-3.5 h-3.5">
-                                      <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
-                                    </svg>
-                                </span>
-                            </a>
-                            <div className="triangle absolute left-[-19px] top-[-5px] rotate-[-45deg]"></div>
-                        </div>
-
-                        <div className="w-3/6 h-[40px] py-2 bg-[#eee] relative ml-[-50px] ">
-                            <a className="menu__item w-1/3 py-2  pl-8">Sự kiện - Giới thiệu</a>
-                            <div className="triangle absolute left-[-19px] top-[16px] rotate-[-135deg]"></div>
-                        </div>
-                        <div className="w-1/3 h-[40px] py-2 bg-[#eee] relative  ">
-                            <a className="menu__item w-1/3 py-2 ">Liên hệ</a>
-
-                            <div className="triangle absolute left-[-19px] top-[16px] rotate-[-135deg]"></div>
-                        </div>
-
-                    </div>
-                </div>
             </div>
+        </>
+    )
+}
+const ModalMenuQTHT = () => {
+    return (
+        <>
+
         </>
     )
 }
@@ -216,7 +194,7 @@ const Home_child_introduce_company_xls = () => {
 const Home_child_introduce_service_xls = () => {
     return (
         <>
-            <div className=" w-full h-[800px] max-sm:h-[1020px] my-[100px] relative bg-[#F2F5F4] ">
+            <div className=" w-full h-[800px] max-sm:h-[1020px] my-[100px] relative bg-[#F2F5F4] z-30">
                 <h1 className="text-6xl h-1/6 py-5 text-center max-sm:h-[150px] max-sm:text-5xl max-sm:py-5">Dịch
                     vụ</h1>
                 <div className="h-5/6  mx-40 max-2xl:mx-30 max-xl:mx-20 max-lg:mx-2 flex  flex-col">
@@ -230,8 +208,10 @@ const Home_child_introduce_service_xls = () => {
                                 vấn bất động
                                 sản</h1>
                             <p className="pt-5 max-xl:pt-5 px-10 max-xl:px-6 max-lg:px-2">Nhóm của chúng tôi cung cấp
-                                các dịch vụ tư vấn bất động sản toàn diện để giúp khách hàng đưa ra quyết định sáng suốt về khoản đầu tư của họ. Chúng tôi phân tích xu hướng thị trường,
-                                đánh giá tài sản và cung cấp hướng dẫn chuyên môn để giúp khách hàng đạt được mục tiêu tài sản
+                                các dịch vụ tư vấn bất động sản toàn diện để giúp khách hàng đưa ra quyết định sáng suốt
+                                về khoản đầu tư của họ. Chúng tôi phân tích xu hướng thị trường,
+                                đánh giá tài sản và cung cấp hướng dẫn chuyên môn để giúp khách hàng đạt được mục tiêu
+                                tài sản
                                 của họ.</p>
                         </div>
                         <div className="w-1/3 h-full max-sm:hidden">
