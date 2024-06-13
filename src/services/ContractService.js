@@ -11,13 +11,13 @@ export const findAllContract = async(page,customeName,landingCode,startDate,endD
         return error
     }
 }
-export const createContract = async(contract,confirmPassword="a123456") => {
+export const createContract = async(contract,confirmPassword) => {
     console.log(contract);
     try {
         await axios.post(`http://localhost:8080/api/contract?confirmPassword=${confirmPassword}`,contract);
         return true ;
     } catch (error) {
-        console.log(error.response.data);;
+        return error.response.data;
     }
 
 }

@@ -8,6 +8,10 @@ import * as contractService from "../../services/ContractService";
 import { storage } from "../../configs/firebase";
 import { ref,uploadBytes,getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import routes from "../../configs/routes";
+import 'react-toastify/dist/ReactToastify.css';
 
 const CreateContract = () => {
   const [contract, setContract] = useState({
@@ -24,15 +28,19 @@ const CreateContract = () => {
   });
   const [landings, setLandings] = useState([]);
   const [customers, setCustomers] = useState([]);
-  // const [customerNameSearch, setCustomerNameSearch] = useState("");
-  // const [customerId, setCustomerId] = useState("");
+  
   const [term,setTerm] = useState(0);
   const [deposit,setDeposit] = useState(0);
   const [currentFee,setCurrentFee] = useState(0)
   const [startDate,setStartDate] = useState("");
   const [landing,setLanding] = useState({});
   const[imgUpload,setImgUpload] = useState(null);
-  const [url,setUrl] = useState("");
+  const navigate = useNavigate();
+  const [isOpenModalLoading,setIsOpenModalLoading] = useState(false);
+  const [confirmPassword,setConfirmPassword] = useState("");
+  const [isOpenModalConfirmPassword,setIsOpenModalConfirmPassword] = useState(false)
+  const [valuesContract,setValuesContract] = useState({});
+  
  
   
   const contractValidate = {
@@ -73,34 +81,44 @@ const CreateContract = () => {
                    .min(50,"Nhập nội dung tối thiểu 50 kí tự !")   
   };
 
-  const uploadImage = (values,setFieldValue) => {
-    
-    if(imgUpload == null) return;
-    const imageRef = ref(storage,`imgContract/${imgUpload.name + v4() }`);
-    uploadBytes(imageRef,imgUpload).then(snapshot => getDownloadURL(snapshot.ref)
-    .then((url) => createContract(url,values,setFieldValue) )
-    )
+  const uploadImage = (values) => {
+     
+      
+        if(imgUpload == null) return;
+        const imageRef = ref(storage,`imgContract/${imgUpload.name + v4() }`);
+        uploadBytes(imageRef,imgUpload).then(snapshot => getDownloadURL(snapshot.ref)
+        .then((url) => createContract(url,values) )
+        )
+  
+  }
+  
+  
+  const openModalConfirm = (values) => {
+    setIsOpenModalConfirmPassword(true);
+    setValuesContract(values);
+   
+
   }
 
-
   const createContract = async (url,values,setFieldValue) => {
+    setIsOpenModalLoading(true);
     values.firebaseUrl = url;
     values.term = +values.term;
     values.deposit = +values.deposit;
     values.customerId = +values.customerId;
     values.landingId = +landing.id
-    console.log(values);
-    const isSucsecc = await contractService.createContract(values);
+    const isSucsecc = await contractService.createContract(values,confirmPassword);
 
-    
-    
-    if(isSucsecc){
-      alert("thanh cong")
+    if(isSucsecc === true){
+        toast.success("Tạo hợp đồng thành công !");
+        navigate(routes.listContract);
       
     }else{
-      setFieldValue("firebaseUrl",imgUpload.name)
-      
-      alert("that bai")
+      setIsOpenModalLoading(false);
+      values.firebaseUrl = imgUpload.name
+      toast.error(isSucsecc.message, {
+        position: 'top-center',
+      });
     }
   };
   const handleChangeLanding = (e,setFieldValue) => {
@@ -110,9 +128,10 @@ const CreateContract = () => {
     setFieldValue('currentFee',JSON.parse(e.target.value).feeManager+JSON.parse(e.target.value).feePerMonth)
     setCurrentFee(JSON.parse(e.target.value).feeManager+JSON.parse(e.target.value).feePerMonth)
     setFieldValue('landingId',e.target.value);
+  
   }
   const handleChangeFirebaseUrl = (e,setFieldValue) => {
-   
+
       setImgUpload(e.target.files[0]);
       
       e.target.value ? setFieldValue('firebaseUrl',e.target.files[0].name)
@@ -171,7 +190,10 @@ const CreateContract = () => {
   }
   
   
-
+const handleSubmitPassword = () => {
+setIsOpenModalConfirmPassword(false);
+uploadImage(valuesContract);
+}
 
 
   useEffect(() => {
@@ -188,20 +210,17 @@ const CreateContract = () => {
   useEffect(() => {
     const getCustomers = async () => {
       const result = await customerService.getCustomers();
-      // console.log(result);
-      // const listCustomerBySearchName = result.filter((customer) =>
-      //   customer.name.includes(customerNameSearch)
-      // );
+     
       setCustomers(result);
     };
     getCustomers();
   }, []);
 
 
-  // console.log(customerId);
+  
   return (
     <>
-      <div className="w-full h-[600px] mt-[20px] ">
+      <div style={{position : 'relative'}} className="w-full h-[600px] mt-[20px] ">
         <div className="h-full mx-16  flex gap-3">
           <div className="w-full h-full box__shadow ">
             <div className="w-full h-1/6 bg-[#fafafa] border-b-[1px] flex items-center ">
@@ -231,7 +250,7 @@ const CreateContract = () => {
             <Formik
               initialValues={contract}
               validationSchema={Yup.object(contractValidate)}
-              onSubmit={(values,actions)=>uploadImage(values,actions.setFieldValue)}
+              onSubmit={(values,actions)=>openModalConfirm(values)}
             > 
                 {({ setFieldValue }) => {
            return   <div className="w-full h-full  flex flex-col">
@@ -685,7 +704,50 @@ const CreateContract = () => {
             </Formik>
           </div>
         </div>
+                {
+                  isOpenModalLoading ? <div  style={{
+                    position : 'absolute',
+                    display : "block",
+                    top: '50%',
+                    left: '47%',
+                    right: 'auto',
+                    bottom: 'auto',
+                    marginRight: '-50%',
+                    
+                    }} class="border-gray-300 h-20 w-20 animate-spin rounded-full border-8 border-t-blue-600" /> : null
+                }
+       
+                {
+                  isOpenModalConfirmPassword ? <form style={{
+                    position : 'absolute',
+                    display : "block",
+                    top: '50%',
+                    left: '33%',
+                    right: 'auto',
+                    bottom: 'auto',
+                    marginRight: '-50%',
+                   
+                    height : '50px'
+                    }} class="w-full max-w-sm">
+                  <div style={ {backgroundColor : '#f2f2f2'}} class="flex items-center border-b border-teal-700 py-10">
+                  <input type="password" onChange={(e)=>setConfirmPassword(e.target.value)}  class="appearance-none bg-transparent  w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"  placeholder="Vui lòng nhập mật khẩu !" aria-label="Full name"/>
+                  <button type="submit" onClick={()=>handleSubmitPassword()} class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded" >
+                    Xác Nhận
+                  </button>
+                  <button onClick={()=>setIsOpenModalConfirmPassword(false)} class="flex-shrink-0 border-transparent border-4 text-teal-500 hover:text-teal-800 text-sm py-1 px-2 rounded" type="submit">
+                    Quay Về
+                  </button>
+                </div>
+              </form> : null
+                }
+       
+        
       </div>
+      
+      
+
+      
+      
     </>
   );
 };
