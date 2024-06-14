@@ -49,6 +49,7 @@ const ListLanding = () => {
   const [checkedAll, setCheckAll] = useState(false);
   const [listIdInput, setListIdInput] = useState([]);
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [modalDeleteMultiIsOpen, setModalDeleteMultiIsOpen] = useState(false);
   const [landingDelete, setLandingDelete] = useState([]);
   const navigate = useNavigate();
 
@@ -125,6 +126,7 @@ const ListLanding = () => {
   };
 
   const deleteLandingByIds = () => {
+    setModalDeleteMultiIsOpen(false);
     landing.content.forEach((ld) => {
       if (ld.select) {
         const isSuccess = landingService.deleteLandingById(ld.id);
@@ -133,6 +135,7 @@ const ListLanding = () => {
         }
       }
       getListAllLanding(searchParams);
+      setListIdInput([]);
     });
   };
 
@@ -163,15 +166,19 @@ const ListLanding = () => {
       setListIdInput(listIdInput.filter((item) => item !== id));
     }
   };
-  const hanleSelectAll = (e) => {
+  const handleSelectAll = (e) => {
     if (!e.target.checked) {
-      setListIdInput([]);
-    } else {
-      setCheckAll(!checkedAll);
-      !checkedAll
-        ? setListIdInput(landing.map((l) => l.id))
-        : setListIdInput([]);
-    }
+        setListIdInput([]);
+      } else {
+        setCheckAll(!checkedAll);
+        if (Array.isArray(landing)) {
+          !checkedAll
+            ? setListIdInput(landing.map((l) => l.id))
+            : setListIdInput([]);
+        } else {
+          console.error("landing is not an array", landing);
+        }
+      }
   };
 
   const openModal = (landing) => {
@@ -180,6 +187,13 @@ const ListLanding = () => {
   };
   const closeModal = () => {
     setIsOpen(false);
+  };
+
+  const openModalMultiDelete = () => {
+    setModalDeleteMultiIsOpen(true);
+  };
+  const closeModalMultiDelete = () => {
+    setModalDeleteMultiIsOpen(false);
   };
 
   if (!landing) return <div>Loading...</div>;
@@ -298,7 +312,7 @@ const ListLanding = () => {
                     style={{ backgroundColor: "white" }}
                     checked={listIdInput.length > 0}
                     indeterminate={listIdInput.length > 0}
-                    onChange={hanleSelectAll}
+                    onChange={handleSelectAll}
                     size="small"
                   />
                 </th>
@@ -555,32 +569,34 @@ const ListLanding = () => {
         </div>
       </div>
       <div className=" h-[40px] my-5 relative mx-16 flex  ">
-        <button
-          className="left-0 relative w-[40px] h-[40px] bg-red-500 flex items-center justify-center rounded-full"
-          onClick={() => {
-            deleteLandingByIds();
-          }}
-        >
-          <span className="text-white">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="size-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
-              />
-            </svg>
-          </span>
-          <span className="absolute top-0 right-[-5px] w-[15px] h-[15px] text-black font-bold text-[10px]">
-            10
-          </span>
-        </button>
+        {listIdInput.length > 0 && (
+            <button
+            className="left-0 relative w-[40px] h-[40px] bg-red-500 flex items-center justify-center rounded-full"
+            onClick={() => {
+              setModalDeleteMultiIsOpen(true);
+            }}
+          >
+            <span className="text-white">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                />
+              </svg>
+            </span>
+            <span className="absolute top-0 right-[-5px] w-[15px] h-[15px] text-black font-bold text-[10px]">
+              {listIdInput.length}
+            </span>
+          </button>
+        )}
         <div className="absolute h-full  right-0 ">
           <ResponsivePagination
             total={landing.totalPages}
@@ -605,8 +621,7 @@ const ListLanding = () => {
         contentLabel="Example Modal"
         style={customStyles}
       >
-        <h2>Xóa mặt bằng</h2>
-        <div class="container">
+        <div class="container-fluid" style={{ width: "650px" }}>
           <div class="row justify-content-center my-3">
             <div class="col-12 text-center mb-3">
               <span>
@@ -670,6 +685,63 @@ const ListLanding = () => {
           </div>
         </div>
       </Modal>
+      <Modal
+        isOpen={modalDeleteMultiIsOpen}
+        // onAfterOpen={afterOpenModal}
+        onRequestClose={() => setModalDeleteMultiIsOpen(false)}
+        contentLabel="Example Modal"
+        style={customStyles}
+      >
+        <div class="container-fluid" style={{ width: "650px" }}>
+          <div class="row justify-content-center my-3">
+            <div class="col-12 text-center mb-3">
+              <span>
+                <i
+                  class="fa-solid fa-triangle-exclamation fa-beat-fade fa-6x"
+                  style={{ color: "#e01f1f" }}
+                ></i>
+              </span>
+            </div>
+            <div class="col-12">
+              <h1 class="text-center text-uppercase h3">
+                <strong>Xác nhận xóa mặt bằng đã chọn?</strong>
+              </h1>
+            </div>
+
+            <div class="col-12 mt-3">
+              <table class="table table-hover">
+                <tbody>
+                  <tr>
+                    {listIdInput.map((id, index) => (
+                        <td>ID: {id}</td>
+                    ))}
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="col-12 d-flex justify-content-center align-items-center mt-3 row">
+              <div class="col-12 col-md-6 mb-3">
+                <span>
+                  <strong>Lưu ý: </strong>
+                  <span style={{ color: "#red" }}>
+                    Thao tác này không thể hoàn tác!
+                  </span>
+                </span>
+              </div>
+              <div class="col-12 col-md-6 text-center text-md-right">
+                <button class="btn btn-danger me-2" onClick={deleteLandingByIds}>
+                  Xác nhận
+                </button>
+                <button class="btn btn-primary" onClick={closeModalMultiDelete}>
+                  Hủy
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Modal>
+
       <ToastContainer></ToastContainer>
     </>
   );
