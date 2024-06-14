@@ -11,7 +11,6 @@ export const getContractById =  async (contractId) =>{
 
 }
 export const updateContract = (contractId,contract) =>{
-    console.log(contract)
     return axios.put(`${API_ENDPOINT.BASE_URL}${API_ENDPOINT.CONTRACTS}/${contractId}`,contract);
 }
 export const deleteContract = (contractId) =>{

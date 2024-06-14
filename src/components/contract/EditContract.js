@@ -44,6 +44,7 @@ const EditContract = () => {
         setFieldValue('endDate', end.format('YYYY-MM-DD'))
         console.timeEnd('calculateEndDate');
     }
+
     const numberFormatter = new Intl.NumberFormat('vi-VN', {
         style: 'decimal',
         useGrouping: true,
@@ -66,39 +67,45 @@ const EditContract = () => {
         taxCode: contract.taxCode ? contract.taxCode : '',
         content: contract.content ? contract.content : '',
         fireBaseUrl: contract.fireBaseUrl ? contract.fireBaseUrl : '',
+        img: null
     }
+
     useEffect(() => {
         fetchContractById(id);
     },[id])
 
-    useEffect(() => {
-        const UploadFile = () => {
-            const storageRef = ref(storage,`imagesContracts/${file.name + v4()}`);
-            const uploadTask = uploadBytesResumable(storageRef,file);
-            uploadTask.on('state_changed',(snapshot) => {
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                setProgress(progress);
-                switch (snapshot.state) {
-                    case  'paused':
-                        console.log("Upload is paused")
-                        break;
-                    case 'running':
-                        console.log("Upload is running")
-                        break;
-                    default:
-                        console.log("Upload is unknown")
-                        break
-                }
-            },(error) => {
-                console.log(error)
-            },() => {
-                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>{
-                    setUrl((prev) => ({...prev,image:downloadURL}))
-                })
-            })
-        }
-        file && UploadFile();
-    },[file])
+    // useEffect(() => {
+    //     const UploadFile = () => {
+    //         const storageRef = ref(storage,`imagesContracts/${file.name + v4()}`);
+    //         const uploadTask = uploadBytesResumable(storageRef,file);
+    //         uploadTask.on('state_changed',(snapshot) => {
+    //             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    //             setProgress(progress);
+    //             switch (snapshot.state) {
+    //                 case  'paused':
+    //                     console.log("Upload is paused")
+    //                     break;
+    //                 case 'running':
+    //                     console.log("Upload is running")
+    //                     break;
+    //                 default:
+    //                     console.log("Upload is unknown")
+    //                     break
+    //             }
+    //         },(error) => {
+    //             console.log(error)
+    //         },() => {
+    //             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>{
+    //                 setUrl((prev) => ({...prev,image:downloadURL}))
+    //             })
+    //         })
+    //     }
+    //
+    //     file && UploadFile();
+    // },[file])
+
+
+
 
     const fetchContractById = async (id) => {
         try{
@@ -109,25 +116,46 @@ const EditContract = () => {
             console.log('Error fetching contract ',e);
         }
     }
-
-    const onSubmit = async (values) => {
-        let valueMerge = {...values}
-        if(url){
-            valueMerge = {...valueMerge, fireBaseUrl: url.image}
-        }else{
-            valueMerge = {...valueMerge,fireBaseUrl:contract.fireBaseUrl}
+    const UploadFile = async (file) => {
+        try {
+            const storageRef = ref(storage,`imagesContracts/${file.name + v4()}`);
+            const uploadTask = uploadBytesResumable(storageRef,file);
+            uploadTask.on('state_changed',(snapshot) => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                setProgress(progress);
+            })
+            await uploadTask;
+            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+            return downloadURL;
+        }catch (e) {
+            console.log(e)
         }
+    }
+    const onSubmit =  async (values) => {
         try{
+        let valueMerge = {...values}
+        if(valueMerge.img){
+            const img  = await UploadFile(valueMerge.img)
+            console.log(img)
+                valueMerge = {...valueMerge, fireBaseUrl: img}
+                console.log('142',valueMerge)
+        }else{
+            valueMerge = {...valueMerge, fireBaseUrl:contract.fireBaseUrl}
+            console.log('144',valueMerge)
+        }
+            console.log('146',valueMerge)
             await updateContract(id,valueMerge);
             setIsUpdate(true)
         }catch (e) {
             console.log('Error updating contract ',e);
         }
     }
+    console.log(progress)
 
     const handleClosePopup = () => {
         setIsUpdate(false)
     }
+
 
     if (!initialValue) return <div>Loading...</div>
     return (
@@ -290,8 +318,15 @@ const EditContract = () => {
                                                 <p className="w-4/12 h-full text-sm">H/A Hợp Đồng <span
                                                     className="text-lg text-red-500">*</span></p>
                                                 <div className="w-8/12 h-full flex ">
-                                                    <Field type="file" name="img" className="border-none pt-1 h-full" onChange={(e) => setFile(e.target.files[0])}/>
-                                                    <ErrorMessage name="fireBaseUrl" component="span" style={{color: "red"}}/>
+                                                    {/*<Field type="file" name="img" className="border-none pt-1 h-full" onChange={(e) => setFile(e.target.files[0])}/>*/}
+                                                    <input type="file"
+                                                           className="border-none pt-1 h-full"
+                                                           onChange={(e) => {
+                                                               setFieldValue("img", e.target.files[0]);
+
+                                                           }}
+                                                    />
+                                                    <ErrorMessage name="img" component="span" style={{color: "red"}}/>
                                                 </div>
                                             </div>
 
@@ -309,13 +344,6 @@ const EditContract = () => {
                                                             d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z"/>
                                                </svg>
                                              </span>
-                                                    {/*<select   class="w-full h-full border-[#8887] px-3" >*/}
-                                                    {/*    <option    hidden="" >Chọn Mặt Bằng</option>*/}
-                                                    {/*    <option selected  style="font-family: Arial, sans-serif;font-size: 13.4px; color: #888;">MB-01</option>-->*/}
-                                                    {/*    <option>MB-02</option>*/}
-                                                    {/*    <option>MB-03</option>*/}
-                                                    {/*    <option>MB-04</option>*/}
-                                                    {/*</select>*/}
                                                     <Field type="text"
                                                            className="w-full  border-[#8887] px-3"
                                                            style={{
@@ -478,6 +506,7 @@ const EditContract = () => {
                                                 <span className="pr-1"><i className="fi fi-rs-disk"/></span>
                                                 <span className="pb-10" > Update</span>
                                             </button>
+
                                             <button className="btn-2">
                                                 <span className="pr-1"><i className="fi fi-rr-eraser"/></span>
                                                 <span>Cancel</span>

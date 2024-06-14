@@ -52,20 +52,22 @@ export const contractSchema = Yup.object().shape({
         .required("content is not empty")
         .min(10, "Vui lòng cung cấp nội dung hợp lệ có ít nhất 10 ký tự")
         .max(255, "Vui lòng cung cấp nội dung hợp lệ tối đa 255 ký tự"),
-    // fireBaseUrl :Yup.mixed()
-    //     .test(
-    //         "FILE_FORMAT",
-    //         "Định dạng tải lên không được hỗ trợ",
-    //         (value) => {
-    //             console.log('value',value);
-    //             !value || (value && SUPPORTED_FORMATS.includes(value?.type))
-    //         }
-    //
-    //     )
-    //     .test(
-    //         'FILE_SIZE',
-    //         "Kích thước tệp quá lớn (tối đa 2MB)",
-    //         (value)=> !value || (value && value.size <= 2048 * 1024)
-    //     )
+    img: Yup.mixed()
+        .nullable()
+        .test(
+            "FILE_FORMAT",
+            "Định dạng tải lên không được hỗ trợ",
+            (value) => {
+                if (!value) {
+                    return true; // Nếu value là null, test sẽ trả về true
+                }
+                return SUPPORTED_FORMATS.includes(value.type);
+            }
+        )
+        .test(
+            'FILE_SIZE',
+            "Kích thước tệp quá lớn (tối đa 2MB)",
+            (value) => !value || (value && value.size <= 2048 * 1024)
+        )
 })
 

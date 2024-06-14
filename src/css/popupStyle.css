@@ -16,7 +16,7 @@ section {
     height: 100%;
     width: 100%;
 }
-button {
+.btns {
     font-size: 18px;
     font-weight: 400;
     color: #fff;
@@ -34,10 +34,10 @@ button {
     background: #c12f27;
     cursor: pointer;
 }
-button:hover{
+.btns:hover{
     background: #3859bd;
 }
-button.show-modal,
+.btns.show-modal,
 .modal-box {
     position: fixed;
     left: 50%;
