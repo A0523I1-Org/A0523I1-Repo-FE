@@ -1,19 +1,164 @@
 import {Link} from "react-router-dom";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
+
+// LOGIN-DatCT
+import { RiUserLine, RiLockLine, RiEyeOffLine, RiEyeLine, RiFacebookLine, RiGoogleLine } from 'react-icons/ri';
+import '../css/auth/login.css'; // Import your custom CSS
+import Modal from "react-modal";
+import {ErrorMessage, Field, Form, Formik} from "formik";
+import * as Yup from "yup"
+import * as accountService from "../services/AccountService";
+import {useNavigate} from "react-router";
+import * as authService from "../services/Authenticate/AuthService"
 
 const Header = () => {
     const [showMenuSelect, setShowMenuSelect] = useState(false);
-    const valueMenu = {
-        showMenuSelect,setShowMenuSelect
+
+    // LOGIN-DatCT
+    const [loginModalIsOpen, setLoginModalIsOpen] = useState(false)
+    const [passwordVisible, setPasswordVisible] = useState(false)
+    const [error, setError] = useState('')
+    const [account, setAccount] = useState({username:"", password:""});
+    const [isAdmin, setIsAdmin] = useState(false);
+    const navigate = useNavigate()
+
+    const validateAccount = {
+        username : Yup.string().required("Vui lòng điền tên đăng nhập.").min(2).max(1000),
+        password : Yup.string().required("Vui lòng điền tên mật khẩu.").min(2).max(1000)
     }
+
+    const togglePasswordVisibility = () => {
+        setPasswordVisible(!passwordVisible);
+    };
+
+    const openLoginModal = () => {
+        setLoginModalIsOpen(true);
+    };
+
+
+    useEffect(() => {
+        if(localStorage.token && loginModalIsOpen) {
+            navigate('/employee/personal-information')
+        }
+    }, [loginModalIsOpen])
+
+    // ===================================== LOGIN ======================================
+    const login = async (account) => {
+        try {
+            const userData = await authService.login(account.username, account.password)
+            if (userData.authenticated === true) {
+
+                if (userData.access_token) {
+
+                    localStorage.setItem('token', userData.access_token);
+
+                    navigate('/employee/personal-information');
+
+                } else {
+                    setError(userData.message);
+                }
+
+            }
+        } catch (error) {
+            setError("Đăng nhập thất bại.")
+        }
+    }
+
+    // ===================================== LOGOUT ======================================
+    const handleLogoutClick = async () => {
+        const token = localStorage.getItem('token');
+        await authService.logout(token);
+
+        navigate("/")
+    }
+
+
+    const valueMenu = {
+        showMenuSelect,setShowMenuSelect,
+        openLoginModal
+    }
+
 
     return (
         <>
             <Header_child menu={valueMenu}/>
+
+            {/*    LOGIN - DatCT*/}
+            <Modal
+                appElement={document.getElementById('root')}
+                isOpen={loginModalIsOpen}
+                onRequestClose={() => setLoginModalIsOpen(false)}
+                className="modal-content z-100"
+            >
+                <Formik initialValues={account}
+                        onSubmit={login}
+                        validationSchema={Yup.object(validateAccount)}>
+
+                    <div className="l-form">
+                        <div className="shape1"/>
+                        <div className="shape2"/>
+
+                        <div className="form">
+                            <Form className="form__content">
+                                <h1 className="form__title">Đăng nhập</h1>
+
+                                <div className="form__div form__div-one">
+
+                                    {error && <div className="login__fail_message">{error}</div>}
+
+                                    <div className="form__icon">
+                                        <RiUserLine />
+                                    </div>
+                                    <div className="form__div-input">
+                                        <label htmlFor="" className="form__label"/>
+                                        <Field type="text" className="form__input" placeholder="Tên đăng nhập" name="username"/>
+                                        <ErrorMessage className="error__message" name="username" component="div"/>
+                                    </div>
+                                </div>
+
+                                <div className="form__div">
+                                    <div className="form__icon">
+                                        <RiLockLine />
+                                    </div>
+                                    <div className="form__div-input">
+                                        <label htmlFor="" className="form__label"/>
+                                        <Field type={passwordVisible ? "text" : "password"} placeholder="Mật khẩu" className="form__input" id="password" name="password"/>
+                                        <div className="form__icon login__eye" onClick={togglePasswordVisibility}>
+                                            {passwordVisible ? <RiEyeLine /> : <RiEyeOffLine />}
+                                        </div>
+                                        <ErrorMessage className="error__message" name="password" component="div"/>
+                                    </div>
+                                </div>
+
+                                <div className="form__check">
+                                    <div className="form__remember">
+                                        <label htmlFor="remember-me">
+                                            <input type="checkbox" id="remember-me" name="remember-me"/>
+                                            Ghi nhớ tôi
+                                        </label>
+                                    </div>
+                                    {/*<a href="#" className="form__forgot">Quên mật khẩu?</a>*/}
+                                </div>
+
+                                <button type="submit" className="form__button">ĐĂNG NHẬP</button>
+
+                            </Form>
+                        </div>
+                    </div>
+
+                </Formik>
+            </Modal>
+
+            {authService.isAuthenticated() && <button className="btn btn-danger" onClick={handleLogoutClick}>
+                Logout
+            </button>}
+
         </>
     )
 }
 const Header_child = ({menu}) => {
+
+
     return (
         <>
             <header className="h-16 bg-white border  " id="header">
@@ -34,7 +179,8 @@ const Header_child = ({menu}) => {
                         <a className="menu__item max-lg:hidden">Giới thiệu</a>
                         <a className="menu__item">Sự kiện</a>
                         <a className="menu__item">Liên hệ</a>
-                        <button onClick={() => menu.setShowMenuSelect(!menu.showMenuSelect)} className=" inline-flex items-center relative ">
+
+                        {authService.isAuthenticated() && <button onClick={() => menu.setShowMenuSelect(!menu.showMenuSelect)} className=" inline-flex items-center relative ">
                             Quản trị - hệ thống
                             <span className={`ml-1 transition ${menu.showMenuSelect ? 'rotate-[180deg]' : 'rotate-[0deg]'}`}>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 22 22" strokeWidth="1.5"
@@ -73,7 +219,8 @@ const Header_child = ({menu}) => {
                                         className="absolute w-full h-[1px] bg-yellow-500 bottom-0 right-[-180px] group-hover:right-0 transition-all duration-1000"></span>
                                 </div>
                             </div>
-                        </button>
+                        </button>}
+
                     </div>
                     <button className="absolute hidden right-[150px] max-md:block " id="btn__animation_menu_header">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
@@ -83,13 +230,15 @@ const Header_child = ({menu}) => {
                         </svg>
                     </button>
 
-                    <button className="absolute w-[119px] h-12 bg-[#2f2b36] hover:bg-white hover:text-black hover:border-[1px] hover:border-black rounded-[40px] flex items-center justify-center mr-[20px] right-5 text-white  button-animation
-                        max-xl:right-8 max-lg:right-10 max-md:right-0"
-                            id="button_open_menu_lilu">
-                    <span>
-                        Đăng nhập
-                    </span>
-                    </button>
+                    {!authService.isAuthenticated() && <button className="absolute w-[119px] h-12 bg-[#2f2b36] hover:bg-white hover:text-black hover:border-[1px] hover:border-black rounded-[40px] flex items-center justify-center mr-[20px] right-5 text-white  button-animation
+                        max-xl:right-8 max-lg:right-10 max-md:right-0" onClick={menu.openLoginModal}
+                            id="button_open_menu_lilu open-login-modal">
+                        <span>
+                            Đăng nhập
+                        </span>
+                    </button>}
+
+
                 </nav>
             </header>
         </>

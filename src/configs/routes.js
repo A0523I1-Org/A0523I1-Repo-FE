@@ -3,7 +3,6 @@ const routes = {
 
     home : '/',
     login : '/login',
-   
 
     listContract : '/contract',
     createContract : '/contract/create-contract',
