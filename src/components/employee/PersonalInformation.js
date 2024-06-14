@@ -5,7 +5,7 @@ import bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min';
 import * as employeeService from "../../services/EmployeeService";
 import * as accountService from "../../services/AccountService";
 import '../../css/employee/PersonalInformation.css';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
 const PersonalInformation = () => {
@@ -39,11 +39,30 @@ const PersonalInformation = () => {
 
   const [passwordError, setPasswordError] = useState('');
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: value
+
+  const validatePassword = (pwd) => {
+    if (pwd === '') {
+      return 'Mật khẩu không được để trống';
+    }
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,18}$/;
+    if (!passwordRegex.test(pwd)) {
+      return 'Mật khẩu bắt đầu bằng chữ in hoa, 6 - 8 kí tự và có ít nhất 1 chữ số.';
+    }
+    return '';
+  };
+
+  // const handleChange = (event) => {
+  //   const { name, value } = event.target;
+  //   setFormData({
+  //     ...formData,
+  //     [name]: value
+  //   });
+  // };
+
+  const handleChangeOldPassword = (event) => {
+    const { value } = event.target;
+    setPasswords({
+      oldPassword: value
     });
   };
 
@@ -53,13 +72,21 @@ const PersonalInformation = () => {
       ...passwords,
       [name]: value
     });
+
+    const validationError = validatePassword(value);
+    setPasswordError(validationError);
   };
 
   const changePassword = async (event) => {
     event.preventDefault();
-
     setPasswordError('');
-
+    setPasswords(
+        {
+          oldPassword: '',
+          newPassword: '',
+          confirmPassword: '',
+        }
+    );
     if (passwords.newPassword !== passwords.confirmPassword) {
       setPasswordError('Mật khẩu mới không khớp');
       return;
@@ -68,10 +95,9 @@ const PersonalInformation = () => {
     try {
       const token = localStorage.getItem('token');
       const response = await accountService.changePassword(token, passwords.oldPassword, passwords.newPassword);
-      if (response.message == "Đổi mật khẩu thất bại.") {
+      if (response.message === "Đổi mật khẩu thất bại.") {
         setPasswordError("Mật khẩu cũ không khớp");
       } else {
-        // alert(response.message);
         notify();
         closeModal();
       }
@@ -271,7 +297,7 @@ const PersonalInformation = () => {
                             id="oldPassword"
                             name="oldPassword"
                             value={passwords.oldPassword}
-                            onChange={handlePasswordChange}
+                            onChange={handleChangeOldPassword}
                         />
                       </div>
                       <div className="mb-3">
@@ -295,8 +321,10 @@ const PersonalInformation = () => {
                             value={passwords.confirmPassword}
                             onChange={handlePasswordChange}
                         />
+
                       </div>
                       {passwordError && <div className="alert alert-danger" role="alert">{passwordError}</div>}
+
                       <table>
                         <tr>
                           <td><button type="submit" className="btn btn-change">Đổi mật khẩu</button></td>
