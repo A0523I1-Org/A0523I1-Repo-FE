@@ -30,9 +30,11 @@ export const showListLandingHome = async (page = 0, size = 4) => {
         };
     }
 }
-export const getAllLandingSpace = async() => {
+export const getAllLandingSpace = async(token) => {
     try {
-        const res = await axios.get("http://localhost:8080/api/landing/landing-space");
+        const res = await axios.get("http://localhost:8080/api/landing/landing-space", {
+            header: {Authorization : `Bearer ${token}`}
+        });
         return res.data;
     } catch (error) {
         console.log(error);

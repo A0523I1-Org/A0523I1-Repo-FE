@@ -101,13 +101,14 @@ const CreateContract = () => {
   }
 
   const createContract = async (url,values,setFieldValue) => {
+    const token = localStorage.getItem('token');
     setIsOpenModalLoading(true);
     values.firebaseUrl = url;
     values.term = +values.term;
     values.deposit = +values.deposit;
     values.customerId = +values.customerId;
     values.landingId = +landing.id
-    const isSucsecc = await contractService.createContract(values,confirmPassword);
+    const isSucsecc = await contractService.createContract(values,confirmPassword, token);
 
     if(isSucsecc === true){
         toast.success("Tạo hợp đồng thành công !");
@@ -131,9 +132,7 @@ const CreateContract = () => {
   
   }
   const handleChangeFirebaseUrl = (e,setFieldValue) => {
-
       setImgUpload(e.target.files[0]);
-      
       e.target.value ? setFieldValue('firebaseUrl',e.target.files[0].name)
                       : setFieldValue('firebaseUrl',"")
    
@@ -197,27 +196,28 @@ uploadImage(valuesContract);
 
 
   useEffect(() => {
-    const getLandings = async () => {
-      const result = await landingService.getAllLandingSpace();
-
-      setLandings(result);
-    };
-    getLandings();
+    const token = localStorage.getItem('token');
+    console.log(token);
+    getLandings(token);
+    getCustomers(token);
   }, []);
 
   
+  const getCustomers = async (token) => {
+    
+    const result = await customerService.getCustomers(token);
+    setCustomers(result);
+  };
 
-  useEffect(() => {
-    const getCustomers = async () => {
-      const result = await customerService.getCustomers();
-     
-      setCustomers(result);
-    };
-    getCustomers();
-  }, []);
+  const getLandings = async (token) => {
+    
+    const result = await landingService.getAllLandingSpace(token);
 
-
+    setLandings(result);
+  };
   
+
+
   return (
     <>
       <div style={{position : 'relative'}} className="w-full h-[600px] mt-[20px] ">

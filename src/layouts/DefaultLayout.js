@@ -1,10 +1,11 @@
-import Footer from "./Footer";
-import Header from "./Header";
+import Footer from "./Footer"
+import Header from "./Header"
 import {useLocation} from "react-router-dom";
 import '../layouts/FooterExtra';
 import FooterExtra from "./FooterExtra";
 import '../css/defaultLayout.css';
 import {useEffect, useState} from "react";
+
 
 
 function DefaultLayout ({children})  {
