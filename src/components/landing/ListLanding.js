@@ -13,6 +13,19 @@ const locationMapping = {
     Repair: "Đang sửa chữa",
     Drum: "Trống",
 }
+const typeMapping = {
+    "Apartment": "Căn hộ",
+    "Home": "Nhà riêng",
+    "Shop": "Cửa hàng",
+    "Office": "Văn phòng",
+    "Warehouse": "Kho xưởng",
+    "VacantLand": "Đất trống",
+    "Villa": "Biệt thự",
+    "Kiot": "Kiot",
+    "Serviced": "Chung cư dịch vụ",
+    "MotelRoom": "Phòng trọ",
+    "Restaurant": "Nhà hàng"
+};
 const init_param = {
     page: 0,
     size: 3,
@@ -20,7 +33,10 @@ const init_param = {
     codeLanding: "",
     areaLanding: "",
     typeLanding: "",
+    floorLanding: ""
 }
+
+
 const ListLanding = () => {
     const [landing, setLanding] = useState();
     const [openMenu, setOpenMenu] = useState({});
@@ -28,9 +44,14 @@ const ListLanding = () => {
     const [currentPage, setCurrentPage] = useState(1)
     const [searchParams, setSearchParams] = useState(init_param);
 
+
     useEffect(() => {
         getListAllLanding(searchParams);
         getListAllFloor();
+        document.addEventListener('click', handleClickOutside);
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
     }, []);
 
     const handlePageChange = (page) => {
@@ -46,6 +67,14 @@ const ListLanding = () => {
             [id]: !prevOpenMenu[id],
         }));
     };
+    const handleClickOutside = (event) => {
+        if (!event.target.closest('.menu') && !event.target.closest('.menu-button')) {
+            setOpenMenu({});
+        }
+    };
+    const handleDetailClick = () => {
+        setOpenMenu({});
+    };
 
     const getListAllFloor = async () => {
         try {
@@ -57,7 +86,6 @@ const ListLanding = () => {
     };
 
     const getListAllLanding = async (searchParams) => {
-        console.log(searchParams);
         try {
             const res = await landingService.getListAllLanding(searchParams);
             setLanding(res);
@@ -70,6 +98,7 @@ const ListLanding = () => {
         setSearchParams({ ...searchParams, [e.target.name]: e.target.value });
     };
 
+
     const handleSubmit = () => {
         const param = {
             ...searchParams, page: 0
@@ -78,14 +107,11 @@ const ListLanding = () => {
     };
 
     const handleReset = () => {
-        setSearchParams({
-            statusLanding: "",
-            codeLanding: "",
-            areaLanding: "",
-            typeLanding: "",
-        });
+        setSearchParams(init_param);
+        getListAllLanding(init_param);
 
-        setCurrentPage(1);
+
+
     };
 
     if (!landing) return <div>Loading...</div>
@@ -93,18 +119,38 @@ const ListLanding = () => {
     return (
         <>
             <div className=" h-[90px]  mx-16 flex gap-5 items-center">
-                <input type="text" className="w-1/5 h-1/2  border-b-[1px] pl-3 border-[#888]  rounded-tl-[3px] "
+                <select type="select" className="w-1/5 h-1/2  border-b-[1px] pl-3 border-[#888]  rounded-tl-[3px] "
                     id="statusLanding" name="statusLanding" value={searchParams.statusLanding} onChange={handleChange}
-                    placeholder="Tìm theo trạng thái" />
+                    placeholder="Tìm theo trạng thái" >
+                    <option value="">Tìm theo trạng thái</option>
+                    <option value='Available'>Chưa bàn giao</option>
+                    <option value='Occupied'>Đang vào ở</option>
+                    <option value='Repair'>Đang sửa chữa</option>
+                    <option value='Drum'>Trống</option>
+
+                </select>
                 <input type="text" className="w-1/5 h-1/2 border-b-[1px] pl-3 border-[#888]  rounded-tl-[3px] "
                     id="codeLanding" name="codeLanding" value={searchParams.codeLanding} onChange={handleChange}
                     placeholder="Tìm theo mã mặt bằng" />
                 <input type="text" className="w-1/5 h-1/2 border-b-[1px] pl-3 border-[#888]  rounded-tl-[3px] "
                     name="areaLanding" id="areaLanding" value={searchParams.areaLanding} onChange={handleChange}
                     placeholder="Tìm theo diện tích" />
-                <input type="text" className="w-1/5 h-1/2 border-b-[1px] pl-3 border-[#888]  rounded-tl-[3px] "
+                <select type="select" className="w-1/5 h-1/2 border-b-[1px] pl-3 border-[#888]  rounded-tl-[3px] "
                     name="typeLanding" id="typeLanding" value={searchParams.typeLanding} onChange={handleChange}
-                    placeholder="Tìm theo loại mặt bằng" />
+                    placeholder="Tìm theo loại mặt bằng" >
+                    <option value="">Tìm theo loại mặt bằng</option>
+                    <option value="Apartment">Căn hộ</option>
+                    <option value="Home">Nhà riêng</option>
+                    <option value="Shop">Cửa hàng</option>
+                    <option value="Office">Văn phòng</option>
+                    <option value="Warehouse">Kho xưởng</option>
+                    <option value="VacantLand">Đất trống</option>
+                    <option value="Villa">Biệt thự</option>
+                    <option value="Kiot">Kiot</option>
+                    <option value="Serviced">Chung cư dịch vụ</option>
+                    <option value="MotelRoom">Phòng trọ</option>
+                    <option value="Restaurant">Nhà hàng</option>
+                    </select>
                 <div className="w-1/5 h-1/2 flex gap-3  ">
                     <button onClick={handleSubmit} className="rounded-full bg-[#26a69a] w-11 h-11"><i
                         className="fa fa-search text-white"></i>
@@ -124,12 +170,12 @@ const ListLanding = () => {
 
                         <select
                             className="h-[36px] w-[80px] border-[#2196e3]"
-                            name="nameFloor"
+                            name="floorLanding" value={searchParams.floorLanding} onChange={handleChange}
 
                         >
                             <option value="">Tầng</option>
                             {floors.map((floor, index) => (
-                                <option key={index} value={floor.id}>{floor.name}</option>
+                                <option key={index} value={floor.name}>{floor.name}</option>
                             ))}index
                         </select>
                     </div>
@@ -184,7 +230,7 @@ const ListLanding = () => {
                                     </td>
                                     <td className=" w-2/12 text-center">
                                         <span className="block ">{landingItem.code}</span>
-                                        <span className="text-[#f44336]">{landingItem.type}</span>
+                                        <span className="text-[#f44336]">{typeMapping[landingItem.type]}</span>
                                     </td>
                                     <td className="w-1/12 text-center">
                                         <span>{landingItem.area}
@@ -227,61 +273,50 @@ const ListLanding = () => {
 
                                     </td>
                                     <td className="w-[76px] relative">
-                                        <button onClick={() => handleMenuSelect(landingItem.id)}
-                                            className="flex justify-center  w-full"
-                                            id="button-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M3 4.5h14.25M3 9h9.75M3 13.5h9.75m4.5-4.5v12m0 0-3.75-3.75M17.25 21 21 17.25" />
+                                        <button
+                                            onClick={() => handleMenuSelect(landingItem.id)}
+                                            className="flex justify-center w-full menu-button"
+                                            id="button-1"
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M3 4.5h14.25M3 9h9.75M3 13.5h9.75m4.5-4.5v12m0 0-3.75-3.75M17.25 21 21 17.25" />
                                             </svg>
                                         </button>
                                         <div
                                             style={{ display: openMenu[landingItem.id] ? 'block' : 'none' }}
-
-                                            className="w-[200px] h-auto absolute rounded-[3px] bg-white right-7 menu-shadow z-30">
-
+                                            className="w-[200px] h-auto absolute rounded-[3px] bg-white right-7 menu-shadow z-30 menu"
+                                        >
                                             <div className="w-full h-full py-2">
-                                                <button className="w-full h-1/3 px-3 flex items-center hover:bg-[#fafafa]">
+                                                <button onClick={handleDetailClick} className="w-full h-1/3 px-3 flex items-center hover:bg-[#fafafa]">
                                                     <span className="flex py-1">
                                                         <span className="mt-0.5 pr-3">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                                stroke-width="1.5" stroke="currentColor" className="w-4 h-4">
-                                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                                    d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
                                                             </svg>
                                                         </span>
                                                         Chi tiết
                                                     </span>
                                                 </button>
-                                                <button
-                                                    className="w-full h-1/3 border-t-[1px] px-3 flex  hover:bg-[#fafafa]">
+                                                <button onClick={handleDetailClick} className="w-full h-1/3 border-t-[1px] px-3 flex hover:bg-[#fafafa]">
                                                     <span className="flex py-1 text-[#f44366]">
                                                         <span className="mt-0.5 pr-3">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                                stroke-width="1.5" stroke="currentColor" className="w-4 h-4">
-                                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                                    d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                                                             </svg>
                                                         </span>
                                                         Xóa mặt
                                                     </span>
                                                 </button>
                                                 <Link to={routes.editLanding + landingItem.id}>
-
-                                                    <button
-                                                        className="w-full h-1/3 border-t-[1px] px-3 flex items-center hover:bg-[#fafafa]">
+                                                    <button onClick={handleDetailClick} className="w-full h-1/3 border-t-[1px] px-3 flex items-center hover:bg-[#fafafa]">
                                                         <span className="flex py-1">
                                                             <span className="mt-0.5 pr-3">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                                    stroke-width="1.5" stroke="currentColor" className="w-4 h-4">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                                        d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z" />
+                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
+                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z" />
                                                                 </svg>
                                                             </span>
                                                             Sửa mặt bằng
                                                         </span>
-
                                                     </button>
                                                 </Link>
                                             </div>
@@ -307,7 +342,7 @@ const ListLanding = () => {
                 <div className="absolute h-full  right-0 ">
                     <ResponsivePagination
                         total={landing.totalPages}
-                        current={landing.number+1}
+                        current={landing.number + 1}
                         onPageChange={page => handlePageChange(page)}
                     />
                     {/* <nav aria-label="Page navigation example">

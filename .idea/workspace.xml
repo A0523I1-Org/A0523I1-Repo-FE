@@ -23,8 +23,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2da3bac0-6e81-44a1-8458-96e1d162a3df" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/landing/EditLanding.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/landing/EditLanding.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/landing/ListLanding.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/landing/ListLanding.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/FloorService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/FloorService.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/services/LandingService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/LandingService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -88,6 +91,9 @@
       <workItem from="1717762865776" duration="14000" />
       <workItem from="1717762881415" duration="1206000" />
       <workItem from="1717909997189" duration="158000" />
+      <workItem from="1718188930273" duration="2000" />
+      <workItem from="1718337493278" duration="1049000" />
+      <workItem from="1718361206538" duration="4000" />
     </task>
     <servers />
   </component>

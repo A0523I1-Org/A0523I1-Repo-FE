@@ -1,16 +1,30 @@
 import "../../table/css/EditOfPremises.css";
-import {ErrorMessage, Field, Form, Formik} from "formik";
-import {useEffect, useState} from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import * as landingService from "../../services/LandingService";
-import * as floorService from "../../services/FloorService"
+import * as floorService from "../../services/FloorService";
 import * as Yup from "yup";
+import { ref, uploadBytesResumable, getDownloadURL, uploadBytes } from "firebase/storage";
+import { storage } from "../../configs/fireBaseConfig.js";
+import routes from "../../configs/routes.js";
+
 
 const EditLanding = () => {
+    const [imageUrl,setImageUrl]=useState("")
+    
+    const [imageUrlUpload,setImageUrlUpload]=useState("")
     const [landing, setLanding] = useState(null);
     const [floors, setFloors] = useState([]);
+   
+ 
     const navigator = useNavigate();
-    const {id} = useParams();
+    const { id } = useParams();
+    const imgRef = ref(storage,"imgLanding/");
+    
+    
+
+   
 
     useEffect(() => {
         findLanding(id);
@@ -20,30 +34,69 @@ const EditLanding = () => {
     const getAllFloor = async () => {
         try {
             const foundFloor = await floorService.getAllFloor();
+    
             setFloors(foundFloor);
         } catch (error) {
             console.error("Error fetching floor:", error);
         }
     };
-    console.log(floors);
+    
 
     const findLanding = async (id) => {
         const res = await landingService.findLanding(id);
         setLanding(res);
+        setImageUrl(res.firebaseUrl)
+
     };
+
 
     const submitUpdateLanding = async (values) => {
-        values.floor = +values.floor;
-        await landingService.updateLading(values);
-        alert("Update thành công");
+        if (imageUrlUpload !== null) {
+            const imgRef = ref(storage, `imgLanding/${imageUrlUpload.name}`);
+            try {
+                const snapshot = await uploadBytes(imgRef, imageUrlUpload);
+                const urlFireBase = await getDownloadURL(snapshot.ref);
+                values.firebaseUrl = urlFireBase;
+            } catch (error) {
+                console.error("Error uploading image: ", error);
+                return; // Có thể thông báo lỗi cho người dùng tại đây nếu cần
+            }
+        }
+    
+        console.log(values.firebaseUrl);
+        if (values.firebaseUrl !== "") {
+            values.floor = +values.floor;
+            try {
+                await landingService.updateLading(values);
+                alert("Update thành công");
+            } catch (error) {
+                console.error("Error updating landing: ", error);
+                // Có thể thông báo lỗi cho người dùng tại đây nếu cần
+            }
+        }
     };
+    
+    
+    const handleChangeFileImg=(e)=>{
+        const file=e.target.files[0];
+      
+        if(!file) return;
+        const reader=new FileReader();
+        reader.onloadend=()=>{
+            setImageUrl(reader.result)
+        }
+        reader.readAsDataURL(file)
+        setImageUrlUpload(file)
+       
+    }
+
 
     const validationSchema = Yup.object().shape({
-        floor:Yup.string().required("Vui lòng chọn tầng"),
+        floor: Yup.string().required("Vui lòng chọn tầng"),
 
-        status:Yup.string().required("Vui lòng trọn trạng thái"),
+        status: Yup.string().required("Vui lòng trọn trạng thái"),
 
-        type:Yup.string().required("Vui lòng chọn loại mặt bằng"),
+        type: Yup.string().required("Vui lòng chọn loại mặt bằng"),
 
         code: Yup.string()
             .required("Mã mặt bằng không được để trống.")
@@ -102,7 +155,8 @@ const EditLanding = () => {
                 return !isNaN(parseFloat(value)) && !/[^a-zA-Z0-9]/.test(value);
             }),
 
-        description:Yup.string().max(200,"Chú thích có độ dài tối đa 200 ký tự")
+        description: Yup.string().required("Vui lòng nhập chú thích").
+        max(200, "Chú thích có độ dài tối đa 200 ký tự")
     });
 
     if (!landing) {
@@ -118,8 +172,11 @@ const EditLanding = () => {
         id: landing.id || '',
         status: landing.status || '',
         type: landing.type || '',
+      firebaseUrl: landing.firebaseUrl || '',
+      description:landing.description || '',
     };
-    console.log(initialValues);
+  
+   
 
     return (
         <>
@@ -130,20 +187,21 @@ const EditLanding = () => {
                 validateOnChange={false}
                 validateOnBlur={false}
             >
-                {({isSubmitting}) => (
+                {({ isSubmitting }) => (
                     <Form className="w-full">
-                        <div className="w-full h-auto pb-10 flex flex-col gap-5">
-                      
+
+                        <div className="row justify-content-around">
+
                             <div className="mx-16 h-auto flex gap-5">
                                 <div className="w-6/12 h-auto bg-white rounded-[3px] flex flex-col gap-8"
-                                     style={{boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px"}}>
+                                    style={{ boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px" }}>
                                     <div className="h-[40px] mx-5 mt-3 flex items-center">
                                         <div className="w-4/12 h-full flex items-center">
                                             <span>Tầng <span className="text-red-500 text-xl">*</span></span>
                                         </div>
                                         <div className="w-8/12 h-full">
                                             <Field as="select" id="floor" name="floor"
-                                                   className="w-full h-full rounded-[3px] border-[#8887] form-control">
+                                                className="w-full h-full rounded-[3px] border-[#8887] form-control">
                                                 <option value="">Chọn</option>
                                                 {floors.map((floor) => (
                                                     <option key={floor.id} value={floor.name}>
@@ -152,17 +210,17 @@ const EditLanding = () => {
                                                 ))}
                                             </Field>
                                             <ErrorMessage name="floor" component="span"
-                                                          className="text-[12px] text-red-500"/>
+                                                className="text-[12px] text-red-500" />
                                         </div>
                                     </div>
-                              
+
                                     <div className="h-[40px] mx-5 flex items-center">
                                         <div className="w-4/12 h-full flex items-center">
                                             <span>Trạng thái <span className="text-red-500 text-xl">*</span></span>
                                         </div>
                                         <div className="w-8/12 h-full">
                                             <Field as="select" id="status" name="status"
-                                                   className="w-full h-full rounded-[3px] border-[#8887] form-control">
+                                                className="w-full h-full rounded-[3px] border-[#8887] form-control">
                                                 <option value="">Chọn</option>
                                                 <option value="Available">Chưa bàn giao</option>
                                                 <option value="Occupied">Đang vào ở</option>
@@ -170,7 +228,7 @@ const EditLanding = () => {
                                                 <option value="Drum">Trống</option>
                                             </Field>
                                             <ErrorMessage name="status" component="span"
-                                                          className="text-[12px] text-red-500"/>
+                                                className="text-[12px] text-red-500" />
                                         </div>
                                     </div>
                                     <div className="h-[40px] mx-5 flex items-center">
@@ -178,10 +236,10 @@ const EditLanding = () => {
                                             <span>Diện tích <span className="text-red-500 text-xl">*</span></span>
                                         </div>
                                         <div className="w-8/12 h-full">
-                                            <Field type="text" id="area"  name="area"
-                                                   className="pl-3 w-full h-full rounded-[3px] border-[#8887]"/>
+                                            <Field type="text" id="area" name="area"
+                                                className="pl-3 w-full h-full rounded-[3px] border-[#8887]" />
                                             <ErrorMessage name="area" component="span"
-                                                          className="text-[12px] text-red-500"/>
+                                                className="text-[12px] text-red-500" />
                                         </div>
                                     </div>
                                     <div className="h-[90px] mx-5   flex items-center ">
@@ -190,24 +248,45 @@ const EditLanding = () => {
                                         </div>
                                         <div className="w-8/12 h-full ">
                                             <Field type="text" name="description" id="description"
-                                                   className="w-full h-full border border-[#8887] "/>
+                                                className="w-full h-full border border-[#8887] " />
                                             <ErrorMessage name="description" component="span"
-                                                          className="text-[12px] text-red-500"/>
+                                                className="text-[12px] text-red-500" />
                                         </div>
                                     </div>
                                     <div className="h-[40px] mx-5 flex items-center">
                                         <div className="w-4/12 h-full flex items-center">
                                             <span>File ảnh <span className="text-red-500 text-xl">*</span></span>
                                         </div>
-                                        <div className="h-full">
-                                            <Field type="file" id="firebaseUrl" name="firebaseUrl" className="w-auto"/>
-                                            <ErrorMessage name="firebaseUrl" component="span"
-                                                          className="text-[12px] text-red-500"/>
+                                        <div className="h-full w-8/12 gap-8 flex ">
+                                            <div className="center-content ">
+                                                <label
+                                                    htmlFor="upload_avt"
+                                                    className="btn btn-primary"
+                                                    style={{ background: "#2196e3" }}
+                                                >
+                                                    Chọn avatar
+                                                </label>
+                                                <input
+                                                    type="file"
+                                                    hidden
+                                                    id="upload_avt"
+                                                    onChange={(e)=>handleChangeFileImg(e)}
+                                                 
+                                                />
+                                            </div>
+                                            <div className="w-[100px] h-[100px] mt-[-10px]">
+                                                <img name="firebaseUrl" id="firebaseUrl"
+                                                    className="w-full h-full object-cover"
+                                                    src={imageUrl}
+                                                    alt="anh ko hien thi"
+                                                />
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
                                 <div className="w-6/12 h-full bg-white rounded-[3px]"
-                                     style={{boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px"}}>
+                                    style={{ boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px" }}>
                                     <div className="w-full h-1/2">
                                         <div className="w-full h-full flex">
                                             <div className="h-[80px] w-3/12 mr-5 mt-5 mb-3 flex items-center">
@@ -220,22 +299,22 @@ const EditLanding = () => {
                                                     </div>
                                                     <div className="w-9/12 h-full  items-center">
                                                         <Field as="select" id="type" name="type"
-                                                               className="w-full h-full rounded-[3px] border-[#8887] form-control">
-                                                            <option value="">Chọn</option>
-                                                            <option value="Căn hộ">Căn hộ</option>
-                                                            <option value="Nhà riêng">Nhà riêng</option>
-                                                            <option value="Cửa hàng">Cửa hàng</option>
-                                                            <option value="Văn phòng">Văn phòng</option>
-                                                            <option value="Kho xưởng">Kho xưởng</option>
-                                                            <option value="Đất trống">Đất trống</option>
-                                                            <option value="Biệt thự">Biệt thự</option>
+                                                            className="w-full h-full rounded-[3px] border-[#8887] form-control">
+                                                            <option value="">Tìm theo loại mặt bằng</option>
+                                                            <option value="Apartment">Căn hộ</option>
+                                                            <option value="Home">Nhà riêng</option>
+                                                            <option value="Shop">Cửa hàng</option>
+                                                            <option value="Office">Văn phòng</option>
+                                                            <option value="Warehouse">Kho xưởng</option>
+                                                            <option value="VacantLand">Đất trống</option>
+                                                            <option value="Villa">Biệt thự</option>
                                                             <option value="Kiot">Kiot</option>
-                                                            <option value="Chung cư dịch vụ">Chung cư dịch vụ</option>
-                                                            <option value="Phòng trọ">Phòng trọ</option>
-                                                            <option value="Nhà hàng">Nhà hàng</option>
+                                                            <option value="Serviced">Chung cư dịch vụ</option>
+                                                            <option value="MotelRoom">Phòng trọ</option>
+                                                            <option value="Restaurant">Nhà hàng</option>
                                                         </Field>
                                                         <ErrorMessage name="type" component="span"
-                                                                      className="text-[12px] text-red-500"/>
+                                                            className="text-[12px] text-red-500" />
                                                     </div>
                                                 </div>
                                                 <div className="w-full h-[40px] flex">
@@ -245,9 +324,9 @@ const EditLanding = () => {
                                                     </div>
                                                     <div className="w-9/12 h-full">
                                                         <Field type="text" id="code" name="code"
-                                                               className="w-full h-full rounded-[3px] border-[#8887] pl-3"/>
+                                                            className="w-full h-full rounded-[3px] border-[#8887] pl-3" />
                                                         <ErrorMessage name="code" component="span"
-                                                                      className="text-[11px] text-red-500"/>
+                                                            className="text-[11px] text-red-500" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -264,9 +343,9 @@ const EditLanding = () => {
                                                         <span>Giá tiền</span></div>
                                                     <div className="w-9/12 h-full">
                                                         <Field type="text" id="feePerMonth" name="feePerMonth"
-                                                               className="w-full h-full rounded-[3px] border-[#8887] pl-3"/>
+                                                            className="w-full h-full rounded-[3px] border-[#8887] pl-3" />
                                                         <ErrorMessage name="feePerMonth" component="span"
-                                                                      className="text-[11px] text-red-500"/>
+                                                            className="text-[11px] text-red-500" />
                                                     </div>
                                                 </div>
                                                 <div className="w-full h-[40px] flex">
@@ -275,9 +354,9 @@ const EditLanding = () => {
                                                     </div>
                                                     <div className="w-9/12 h-full">
                                                         <Field type="text" id="feeManager" name="feeManager"
-                                                               className="w-full h-full rounded-[3px] border-[#8887] pl-3"/>
+                                                            className="w-full h-full rounded-[3px] border-[#8887] pl-3" />
                                                         <ErrorMessage name="feeManager" component="span"
-                                                                      className="text-[11px] text-red-500"/>
+                                                            className="text-[11px] text-red-500" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -286,12 +365,12 @@ const EditLanding = () => {
                                     <div className="w-full h-1/3">
                                         <div className="h-[40px] mx-5 mt-5 mb-3">
                                             <button className="btn bg-[#4CAF50] mr-2" type="submit"
-                                                    disabled={isSubmitting}>
-                                                <span className="pr-1"><i className="fi fi-rs-disk"/></span>
+                                                disabled={isSubmitting}>
+                                                <span className="pr-1"><i className="fi fi-rs-disk" /></span>
                                                 <span className="pb-10">Lưu</span>
                                             </button>
                                             <button className="btn-2" type="reset">
-                                                <span className="pr-1"><i className="fi fi-rr-eraser"/></span>
+                                                <span className="pr-1"><i className="fi fi-rr-eraser" /></span>
                                                 <span>Làm mới</span>
                                             </button>
                                         </div>
