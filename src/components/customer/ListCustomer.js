@@ -9,7 +9,8 @@ const ListCustomer = () => {
     const getListCustomers = async () => {
         try {
             const proList = await customerService.gettAllCustomers();
-            setCustomers(proList);
+            console.log(proList)
+            setCustomers(proList.content);
         } catch (e) {
             console.log(e);
         }
@@ -29,7 +30,7 @@ const ListCustomer = () => {
     };
 
     const handleSearch = async () => {
-        const nameSearch = document.getElementById("nameSerach").value;
+        const nameSearch = document.getElementById("nameSearch").value;
         if (!nameSearch) {
             document.getElementById("nameSearch").classList.add("is-invalid");
         } else {

@@ -1,95 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba72b43a-c2b1-4ff5-8f84-ab2d5ccee82c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/customer/create.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/customer/list.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="e8a00f42-9c9d-41b8-9819-a1b566e3f2ea" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/customer/CreateCustomer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/customer/CreateCustomer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/customer/EditCustomer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/customer/EditCustomer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/customer/ListCustomer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/customer/ListCustomer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/layouts/DefaultLayout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/DefaultLayout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/CustomerService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/CustomerService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="CSS File" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 6
-}</component>
-  <component name="ProjectId" id="2hSRP0zsDi3CE454w3SHS9CoD3l" />
+  <component name="ProjectId" id="2hmTYsiisy8yWwK3XwW8uNVyuzg" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/workspace/A0523I1-Org/A0523I1-Repo-FE",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.standard": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.standard": "",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
-  }
-}]]></component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-WS-241.14494.235" />
-      </set>
-    </attachedChunks>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Module_6\Project_House\A0523I1-Repo-FE\public" />
+      <recent name="D:\Module_6\Project_House\A0523I1-Repo-FE\src" />
+      <recent name="D:\Module_6\Project_House\A0523I1-Repo-FE\src\layouts" />
+      <recent name="D:\Module_6\Project_House\A0523I1-Repo-FE\src\components\customer" />
+    </key>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="ba72b43a-c2b1-4ff5-8f84-ab2d5ccee82c" name="Changes" comment="" />
-      <created>1717585463801</created>
+      <changelist id="e8a00f42-9c9d-41b8-9819-a1b566e3f2ea" name="Default Changelist" comment="" />
+      <created>1718198303922</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1717585463801</updated>
-      <workItem from="1717585465010" duration="11560000" />
-      <workItem from="1717735595941" duration="11149000" />
-      <workItem from="1717853344969" duration="1118000" />
-      <workItem from="1717854547344" duration="8386000" />
+      <updated>1718198303922</updated>
+      <workItem from="1718198325432" duration="4646000" />
+      <workItem from="1718351815512" duration="596000" />
+      <workItem from="1718356613167" duration="1229000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
+    <option name="version" value="2" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/layouts/Header.js</url>
-          <line>10</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+  <component name="WindowStateProjectService">
+    <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1718198387220">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1718198387220" />
   </component>
 </project>
