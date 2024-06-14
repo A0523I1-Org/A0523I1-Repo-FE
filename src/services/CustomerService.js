@@ -48,3 +48,8 @@ export const searchByName = async (nameSearch) => {
         console.log(e);
     }
 };
+
+export const getPage = async (page) => {
+    const response = await axios.get(`http://localhost:8080/api/customer/list?page=${page}`);
+    return response.data;
+};
