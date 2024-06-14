@@ -46,7 +46,7 @@ const CreateLangding = () => {
   };
 
 
-  const submitUpdateLanding = async (values) => {
+  const submitCreateLanding = async (values) => {
     if (imageUrlUpload !== null) {
         const imgRef = ref(storage, `imgLanding/${imageUrlUpload.name}`);
         try {
@@ -65,6 +65,7 @@ const CreateLangding = () => {
         try {
             await landingService.addNewLanding(values);
             toast.success("Thêm mặt bằng thành công");
+            navigate("/landing")
         } catch (error) {
             console.error("Error updating landing: ", error);
             // Có thể thông báo lỗi cho người dùng tại đây nếu cần
@@ -181,18 +182,18 @@ const handleChangeFileImg=(e)=>{
   //   navigate("/landing");
   // };
 
-  const initialValues = {
-    code: landing.code || '',
-    area: landing.area || '',
-    feeManager: landing.feeManager || '',
-    feePerMonth: landing.feePerMonth || '',
-    floor: landing.floor || '',
-    id: landing.id || '',
-    status: landing.status || '',
-    type: landing.type || '',
-  firebaseUrl: landing.firebaseUrl || '',
-  description:landing.description || '',
-};
+   const initialValues = {
+        code: landing.code || '',
+        area: landing.area || '',
+        feeManager: landing.feeManager || '',
+        feePerMonth: landing.feePerMonth || '',
+        floor: landing.floor || '',
+        id: landing.id || '',
+        status: landing.status || '',
+        type: landing.type || '',
+      firebaseUrl: landing.firebaseUrl || '',
+      description:landing.description || '',
+    };
 
   if (!landing) {
     return null;
@@ -200,11 +201,9 @@ const handleChangeFileImg=(e)=>{
   return (
     <>
        <Formik
-                initialValues={initialValues}
-                onSubmit={submitUpdateLanding}
-                validationSchema={validate}
-                validateOnChange={false}
-                validateOnBlur={false}
+                initialValues={landing}
+                onSubmit={submitCreateLanding}
+                validationSchema={Yup.object(validate)}
             >
                 {({ isSubmitting }) => (
                     <Form className="w-full">

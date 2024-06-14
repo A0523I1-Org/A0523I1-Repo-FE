@@ -139,7 +139,7 @@ const ListLanding = () => {
   const deleteLanding = async () => {
     const isSuccess = await landingService.deleteLandingById(landingDelete.id);
     if (isSuccess) {
-      toast.success("Xóa mặt bằng "+landingDelete.code+" thành công");
+      toast.success("Xóa mặt bằng " + landingDelete.code + " thành công");
     }
     setIsOpen(false);
     getListAllLanding(searchParams);
@@ -261,7 +261,7 @@ const ListLanding = () => {
       <div className="w-full  h-20 ">
         <div className="mx-16 h-full flex items-center  ">
           <div className="id-button flex gap-3">
-          <Link to={routes.createLanding}>
+            <Link to={routes.createLanding}>
               <button className=" bg-[#4CAF50] h-[36px]">
                 <span className="text-white text-[14px] font-normal">
                   Thêm mới
@@ -355,7 +355,8 @@ const ListLanding = () => {
               {landing.content.map((landingItem, index) => (
                 <tr className="w-1/12 h-[76px] " key={index}>
                   <td className="text-center w-[60px]">
-                    <input type="checkbox"
+                    <input
+                      type="checkbox"
                       value={landingItem.id}
                       name={landingItem.id}
                       checked={listIdInput.includes(landingItem.id)}
@@ -365,7 +366,8 @@ const ListLanding = () => {
                         landingItem.select = e.target.checked;
                         setLanding(landing);
                       }}
-                      size="small" />
+                      size="small"
+                    />
                   </td>
                   <td className="w-1/12 text-center ">
                     <span className="block text-[#2196f3]">
@@ -553,7 +555,12 @@ const ListLanding = () => {
         </div>
       </div>
       <div className=" h-[40px] my-5 relative mx-16 flex  ">
-        <button className="left-0 relative w-[40px] h-[40px] bg-red-500 flex items-center justify-center rounded-full">
+        <button
+          className="left-0 relative w-[40px] h-[40px] bg-red-500 flex items-center justify-center rounded-full"
+          onClick={() => {
+            deleteLandingByIds();
+          }}
+        >
           <span className="text-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
