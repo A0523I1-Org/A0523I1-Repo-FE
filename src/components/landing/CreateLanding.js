@@ -1,7 +1,7 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { storage } from "../../configs/fireBaseConfig.js";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytesResumable, getDownloadURL,uploadBytes } from "firebase/storage";
 import { useNavigate, useLocation, Await } from "react-router-dom";
 import * as Yup from "yup";
 import * as floorService from "../../services/FloorService.js";
@@ -22,7 +22,8 @@ const CreateLangding = () => {
     firebaseUrl: "",
   });
   const [floors, setFloors] = useState([]);
-  const [avatar, setAvatar] = useState();
+  const [imageUrl,setImageUrl]=useState("")
+    const [imageUrlUpload,setImageUrlUpload]=useState("")
   const [percent, setPercent] = useState(0);
   const [firebaseAvt, setFirebaseAvt] = useState("");
   const navigate = useNavigate();
@@ -44,39 +45,46 @@ const CreateLangding = () => {
     }
   };
 
-  const handleChange = (e) => {
-    const file = e.target.files[0];
-    file.preview = URL.createObjectURL(file);
-    setAvatar(file);
-  };
-  useEffect(() => {
-    if (avatar) {
-      console.log("tai leen firebase va lay url");
-      const storageRef = ref(storage, `/imgLanding/${avatar.name}`);
-      const uploadTask = uploadBytesResumable(storageRef, avatar);
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const percent = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          );
-          setPercent(percent);
-        },
-        (err) => console.log(err),
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-            setFirebaseAvt(url);
-          });
+
+  const submitUpdateLanding = async (values) => {
+    if (imageUrlUpload !== null) {
+        const imgRef = ref(storage, `imgLanding/${imageUrlUpload.name}`);
+        try {
+            const snapshot = await uploadBytes(imgRef, imageUrlUpload);
+            const urlFireBase = await getDownloadURL(snapshot.ref);
+            values.firebaseUrl = urlFireBase;
+        } catch (error) {
+            console.error("Error uploading image: ", error);
+            return; // Có thể thông báo lỗi cho người dùng tại đây nếu cần
         }
-      );
     }
-  }, [avatar]);
-  const submit = async (values) => {
-    values.firebaseUrl = firebaseAvt;
-    await landingService.addNewLanding(values);
-    toast.success("Thêm mặt bằng thành công");
-    navigate("/landing");
-  };
+
+    console.log(values.firebaseUrl);
+    if (values.firebaseUrl !== "") {
+        values.floor = +values.floor;
+        try {
+            await landingService.addNewLanding(values);
+            toast.success("Thêm mặt bằng thành công");
+        } catch (error) {
+            console.error("Error updating landing: ", error);
+            // Có thể thông báo lỗi cho người dùng tại đây nếu cần
+        }
+    }
+};
+
+
+const handleChangeFileImg=(e)=>{
+    const file=e.target.files[0];
+  
+    if(!file) return;
+    const reader=new FileReader();
+    reader.onloadend=()=>{
+        setImageUrl(reader.result)
+    }
+    reader.readAsDataURL(file)
+    setImageUrlUpload(file)
+   
+}
 
   const validate = {
     floor: Yup.string().required("Vui lòng chọn tầng"),
@@ -173,227 +181,225 @@ const CreateLangding = () => {
   //   navigate("/landing");
   // };
 
+  const initialValues = {
+    code: landing.code || '',
+    area: landing.area || '',
+    feeManager: landing.feeManager || '',
+    feePerMonth: landing.feePerMonth || '',
+    floor: landing.floor || '',
+    id: landing.id || '',
+    status: landing.status || '',
+    type: landing.type || '',
+  firebaseUrl: landing.firebaseUrl || '',
+  description:landing.description || '',
+};
+
   if (!landing) {
     return null;
   }
   return (
     <>
-      <div className="row justify-content-around">
-        <div id="avatarFrame" className="col-md-3">
-          <div>
-            <div className="center-content">
-              <img
-                src={
-                  avatar && avatar.preview
-                    ? avatar.preview
-                    : "https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png"
-                }
-                alt=""
-              />
-              <br />
-            </div>
-            <div className="center-content">
-              <label
-                htmlFor="upload_avt"
-                className="btn btn-primary"
-                style={{ background: "#2196e3" }}
-              >
-                Chọn avatar
-              </label>
-              <input
-                type="file"
-                hidden
-                id="upload_avt"
-                accept="image/*"
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="col-md-6 center-content">
-          <h2>
-            <strong>THÊM MỚI MẶT BẰNG</strong>
-          </h2>
-        </div>
-      </div>
-      <Formik
-        initialValues={landing}
-        onSubmit={submit}
-        validationSchema={Yup.object(validate)}
-      >
-        <Form className="row justify-content-center">
-          <Field hidden type="text" name="firebaseUrl" />
+       <Formik
+                initialValues={initialValues}
+                onSubmit={submitUpdateLanding}
+                validationSchema={validate}
+                validateOnChange={false}
+                validateOnBlur={false}
+            >
+                {({ isSubmitting }) => (
+                    <Form className="w-full">
 
-          <div className="col-md-6">
-            <label htmlFor="employeeCode" className="form-label">
-              Mã mặt bằng <span>(*)</span>
-            </label>
-            <Field type="text" className="form-control is-valid" name="code" />
-            <ErrorMessage
-              name="code"
-              className="invalid-feedback"
-            ></ErrorMessage>
-          </div>
+                        <div className="row justify-content-around">
 
-          <div className="col-md-6">
-            <label htmlFor="employeeCode" className="form-label">
-              Giá tiền/Tháng <span>(*)</span>
-            </label>
-            <Field
-              type="text"
-              className="form-control is-valid is-invalid"
-              id="feePerMonth"
-              name="feePerMonth"
-              required
-            />
-            <ErrorMessage name="feePerMonth" className="invalid-feedback">
-              Error !
-            </ErrorMessage>
-          </div>
-          <div className="col-md-6">
-            <label htmlFor="employeeCode" className="form-label">
-              Loại mặt bằng <span>(*)</span>
-            </label>
-            <Field
-              as="select"
-              className="form-select is-invalid"
-              name="type"
-              required
-            >
-              <option value="">Chọn</option>
-              <option value="Căn hộ">Căn hộ</option>
-              <option value="Nhà riêng">Nhà riêng</option>
-              <option value="Cửa hàng">Cửa hàng</option>
-              <option value="Văn phòng">Văn phòng</option>
-              <option value="Kho xưởng">Kho xưởng</option>
-              <option value="Đất trống">Đất trống</option>
-              <option value="Biệt thự">Biệt thự</option>
-              <option value="Kiot">Kiot</option>
-              <option value="Chung cư dịch vụ">Chung cư dịch vụ</option>
-              <option value="Phòng trọ">Phòng trọ</option>
-              <option value="Nhà hàng">Nhà hàng</option>
-            </Field>
-            <ErrorMessage name="type" className="invalid-feedback">
-              Error !
-            </ErrorMessage>
-          </div>
-          <div className="col-md-6">
-            <label htmlFor="employeeCode" className="form-label">
-              Phí quản lý <span>(*)</span>
-            </label>
-            <Field
-              type="text"
-              className="form-control is-valid is-invalid"
-              id="feeManager"
-              name="feeManager"
-              required
-            />
-            <ErrorMessage
-              name="feeManager"
-              className="invalid-feedback"
-            ></ErrorMessage>
-          </div>
+                            <div className="mx-16 h-auto flex gap-5">
+                                <div className="w-6/12 h-auto bg-white rounded-[3px] flex flex-col gap-8"
+                                    style={{ boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px" }}>
+                                    <div className="h-[40px] mx-5 mt-3 flex items-center">
+                                        <div className="w-4/12 h-full flex items-center">
+                                            <span>Tầng <span className="text-red-500 text-xl">*</span></span>
+                                        </div>
+                                        <div className="w-8/12 h-full">
+                                            <Field as="select" id="floor" name="floor"
+                                                className="w-full h-full rounded-[3px] border-[#8887] form-control">
+                                                <option value="">Chọn</option>
+                                                {floors.map((floor) => (
+                                                    <option key={floor.id} value={floor.name}>
+                                                        {floor.name}
+                                                    </option>
+                                                ))}
+                                            </Field>
+                                            <ErrorMessage name="floor" component="span"
+                                                className="text-[12px] text-red-500" />
+                                        </div>
+                                    </div>
 
-          <div className="col-md-6">
-            <label htmlFor="name" className="form-label">
-              Diện tích <span>(*)</span>
-            </label>
-            <Field
-              type="text"
-              className="form-control is-valid"
-              id="area"
-              name="area"
-              required
-            />
-            <ErrorMessage name="area" className="invalid-feedback">
-              Error !
-            </ErrorMessage>
-          </div>
-          <div className="col-md-6">
-            <label htmlFor="employeeCode" className="form-label">
-              Tầng <span>(*)</span>
-            </label>
-            <Field
-              as="select"
-              className="form-select is-invalid"
-              name="floor"
-              required
-            >````````````````````````````````````````````````````
-              <option value="">Chọn</option>
-              {floors.map((floor, index) => (
-                <option key={index} value={floor.id}>
-                  Tầng {floor.name}
-                </option>
-              ))}
-              index
-            </Field>
-            <ErrorMessage name="floor" className="invalid-feedback">
-              Error !
-            </ErrorMessage>
-          </div>
-          <div className="col-md-6">
-            <label htmlFor="employeeCode" className="form-label">
-              Chú thích
-            </label>
-            <Field
-              as="textarea"
-              className="form-control is-valid"
-              name="description"
-            >
-              ok
-            </Field>
-            <ErrorMessage name="description" className="invalid-feedback">
-              Error !
-            </ErrorMessage>
-          </div>
-          <div className="col-md-6">
-            <label htmlFor="dob" className="form-label">
-              Trạng thái <span>(*)</span>
-            </label>
-            <Field
-              as="select"
-              className="form-select is-invalid"
-              name="status"
-              required
-            >
-              <option value="">Chọn</option>
-              <option value="Chưa bàn giao">Chưa bàn giao</option>
-              <option value="Đang vào ở">Đang vào ở</option>
-              <option value="Đang sửa chữa">Đang sửa chữa</option>
-              <option value="Trống">Trống</option>
-            </Field>
-            <ErrorMessage name="status" className="invalid-feedback">
-              Error !
-            </ErrorMessage>
-          </div>
+                                    <div className="h-[40px] mx-5 flex items-center">
+                                        <div className="w-4/12 h-full flex items-center">
+                                            <span>Trạng thái <span className="text-red-500 text-xl">*</span></span>
+                                        </div>
+                                        <div className="w-8/12 h-full">
+                                            <Field as="select" id="status" name="status"
+                                                className="w-full h-full rounded-[3px] border-[#8887] form-control">
+                                                <option value="">Chọn</option>
+                                                <option value="Available">Chưa bàn giao</option>
+                                                <option value="Occupied">Đang vào ở</option>
+                                                <option value="Repair">Đang sửa chữa</option>
+                                                <option value="Drum">Trống</option>
+                                            </Field>
+                                            <ErrorMessage name="status" component="span"
+                                                className="text-[12px] text-red-500" />
+                                        </div>
+                                    </div>
+                                    <div className="h-[40px] mx-5 flex items-center">
+                                        <div className="w-4/12 h-full flex items-center">
+                                            <span>Diện tích <span className="text-red-500 text-xl">*</span></span>
+                                        </div>
+                                        <div className="w-8/12 h-full">
+                                            <Field type="text" id="area" name="area"
+                                                className="pl-3 w-full h-full rounded-[3px] border-[#8887]" />
+                                            <ErrorMessage name="area" component="span"
+                                                className="text-[12px] text-red-500" />
+                                        </div>
+                                    </div>
+                                    <div className="h-[90px] mx-5   flex items-center ">
+                                        <div className="w-4/12 h-full flex items-center">
+                                            <span>Chú thích</span>
+                                        </div>
+                                        <div className="w-8/12 h-full ">
+                                            <Field type="text" name="description" id="description"
+                                                className="w-full h-full border border-[#8887] " />
+                                            <ErrorMessage name="description" component="span"
+                                                className="text-[12px] text-red-500" />
+                                        </div>
+                                    </div>
+                                    <div className="h-[40px] mx-5 flex items-center">
+                                        <div className="w-4/12 h-full flex items-center">
+                                            <span>File ảnh <span className="text-red-500 text-xl">*</span></span>
+                                        </div>
+                                        <div className="h-full w-8/12 gap-8 flex ">
+                                            <div className="center-content ">
+                                                <label
+                                                    htmlFor="upload_avt"
+                                                    className="btn btn-primary"
+                                                    style={{ background: "#2196e3" }}
+                                                >
+                                                    Chọn avatar
+                                                </label>
+                                                <input
+                                                    type="file"
+                                                    hidden
+                                                    id="upload_avt"
+                                                    onChange={(e)=>handleChangeFileImg(e)}
+                                                 
+                                                />
+                                            </div>
+                                            <div className="w-[100px] h-[100px] mt-[-10px]">
+                                                <img name="firebaseUrl" id="firebaseUrl"
+                                                    className="w-full h-full object-cover"
+                                                    src={imageUrl}
+                                                    alt="anh ko hien thi"
+                                                />
+                                            </div>
 
-          <div className="col-md-9"></div>
-          <div className="col-md-3">
-            <button
-              className="btn btn-success"
-              id="btn-1"
-              style={{ background: "#4CAF50", marginRight: "8px" }}
-              type="submit"
-            >
-              <span>
-                <i className="fi fi-rs-disk"></i>
-              </span>
-              <span>Lưu</span>
-            </button>
-            <button
-              className="btn btn-primary"
-              style={{ background: "#2196e3" }}
-              type="reset"
-              id="btn-2"
-            >
-              <span>
-                <i className="fi fi-rr-eraser"></i>
-              </span>
-              <span>Làm mới</span>
-            </button>
-          </div>
-        </Form>
-      </Formik>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="w-6/12 h-full bg-white rounded-[3px]"
+                                    style={{ boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px" }}>
+                                    <div className="w-full h-1/2">
+                                        <div className="w-full h-full flex">
+                                            <div className="h-[80px] w-3/12 mr-5 mt-5 mb-3 flex items-center">
+                                                <h1 className="text-xl pl-5">Mặt bằng</h1>
+                                            </div>
+                                            <div className="h-auto w-9/12 mr-5 mt-5 mb-3 flex flex-col gap-8">
+                                                <div className="w-full h-[40px] flex">
+                                                    <div className="w-3/12 h-full flex items-center">
+                                                        <span>Loại mặt bằng </span>
+                                                    </div>
+                                                    <div className="w-9/12 h-full  items-center">
+                                                        <Field as="select" id="type" name="type"
+                                                            className="w-full h-full rounded-[3px] border-[#8887] form-control">
+                                                            <option value="">Tìm theo loại mặt bằng</option>
+                                                            <option value="Apartment">Căn hộ</option>
+                                                            <option value="Home">Nhà riêng</option>
+                                                            <option value="Shop">Cửa hàng</option>
+                                                            <option value="Office">Văn phòng</option>
+                                                            <option value="Warehouse">Kho xưởng</option>
+                                                            <option value="VacantLand">Đất trống</option>
+                                                            <option value="Villa">Biệt thự</option>
+                                                            <option value="Kiot">Kiot</option>
+                                                            <option value="Serviced">Chung cư dịch vụ</option>
+                                                            <option value="MotelRoom">Phòng trọ</option>
+                                                            <option value="Restaurant">Nhà hàng</option>
+                                                        </Field>
+                                                        <ErrorMessage name="type" component="span"
+                                                            className="text-[12px] text-red-500" />
+                                                    </div>
+                                                </div>
+                                                <div className="w-full h-[40px] flex">
+                                                    <div className="w-3/12 h-full flex items-center">
+                                                        <span>Mã mặt bằng <span
+                                                            className="text-red-500 text-xl">*</span></span>
+                                                    </div>
+                                                    <div className="w-9/12 h-full">
+                                                        <Field type="text" id="code" name="code"
+                                                            className="w-full h-full rounded-[3px] border-[#8887] pl-3" />
+                                                        <ErrorMessage name="code" component="span"
+                                                            className="text-[11px] text-red-500" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="w-full h-2/3">
+                                        <div className="w-full h-full flex">
+                                            <div className="h-[80px] w-3/12 mr-5 mt-5 mb-3 flex items-center">
+                                                <h1 className="text-xl pl-5">Chi phí</h1>
+                                            </div>
+                                            <div className="h-auto w-9/12 mr-5 mt-5 mb-3 flex flex-col gap-8">
+                                                <div className="w-full h-[40px] flex">
+                                                    <div className="w-3/12 h-full flex items-center">
+                                                        <span>Giá tiền</span></div>
+                                                    <div className="w-9/12 h-full">
+                                                        <Field type="text" id="feePerMonth" name="feePerMonth"
+                                                            className="w-full h-full rounded-[3px] border-[#8887] pl-3" />
+                                                        <ErrorMessage name="feePerMonth" component="span"
+                                                            className="text-[11px] text-red-500" />
+                                                    </div>
+                                                </div>
+                                                <div className="w-full h-[40px] flex">
+                                                    <div className="w-3/12 h-full flex items-center">
+                                                        <span>Phí quản lý</span>
+                                                    </div>
+                                                    <div className="w-9/12 h-full">
+                                                        <Field type="text" id="feeManager" name="feeManager"
+                                                            className="w-full h-full rounded-[3px] border-[#8887] pl-3" />
+                                                        <ErrorMessage name="feeManager" component="span"
+                                                            className="text-[11px] text-red-500" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="w-full h-1/3">
+                                        <div className="h-[40px] mx-5 mt-5 mb-3">
+                                            <button className="btn bg-[#4CAF50] mr-2" type="submit"
+                                                disabled={isSubmitting}>
+                                                <span className="pr-1"><i className="fi fi-rs-disk" /></span>
+                                                <span className="pb-10">Lưu</span>
+                                            </button>
+                                            <button className="btn-2" type="reset">
+                                                <span className="pr-1"><i className="fi fi-rr-eraser" /></span>
+                                                <span>Làm mới</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </Form>
+                )}
+            </Formik>
     </>
   );
 };
