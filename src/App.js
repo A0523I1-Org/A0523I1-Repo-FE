@@ -5,6 +5,8 @@ import { privateRoutes,publicRoutes } from './routes/router';
 import DefaultLayout from './layouts/DefaultLayout';
 import { Fragment } from 'react';
 import NotFound from './pages/NotFound';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
@@ -47,10 +49,9 @@ function App() {
 
         <Route path='*' element = {<NotFound/>}/>
 
-        
-
       </Routes>
    </BrowserRouter>
+   <ToastContainer/>
    </>
   );
 }
