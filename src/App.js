@@ -9,6 +9,7 @@ import ListLanding from "./components/landing/ListLanding";
 import EditLanding from "./components/landing/EditLanding";
 
 
+
 function App() {
   return (
    <>
@@ -52,6 +53,7 @@ function App() {
 
       </Routes>
    </BrowserRouter>
+   
    </>
   );
 }

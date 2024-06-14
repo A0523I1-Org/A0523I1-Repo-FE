@@ -71,6 +71,35 @@ export const SaveInfoCustomerForm = async (dataInfo) => {
     }
 }
 
+export const deleteLandingById=async(id) =>{
+    try {
+        console.log(id)
+        return await axios.put(`http://localhost:8080/landing/deleteLanding/${id}`)
+
+    }catch (e) {
+
+        return false;
+    }
+}
+export const deleteLandings=async(ids) =>{
+    try {
+        console.log(ids)
+        return await axios.put(`http://localhost:8080/landing/deleteLanding/${ids}`)
+
+    }catch (e) {
+
+        return false;
+    }
+}
+export const addNewLanding = async (landing) => {
+    try {
+      await axios.post("http://localhost:8080/landing/createLanding ", landing);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  };
+
 export const showListLandingHome = async (page = 0, size = 4) => {
     try {
         const listLandingHome = await axios.get("http://localhost:8080/landing",{
