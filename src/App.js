@@ -5,13 +5,11 @@ import DefaultLayout from './layouts/DefaultLayout';
 import React, { Fragment } from 'react';
 import NotFound from './pages/NotFound';
 import {ToastContainer} from "react-toastify";
-import {AdminProvider} from "./services/Authenticate/AdminContext";
 
 function App() {
   return (
    <>
-       <AdminProvider>
-       <BrowserRouter>
+   <BrowserRouter>
           <Routes>
             {
               publicRoutes.map((route,index) => {
@@ -55,7 +53,6 @@ function App() {
 
         <ToastContainer/>
 
-        </AdminProvider>
    </>
   );
 }

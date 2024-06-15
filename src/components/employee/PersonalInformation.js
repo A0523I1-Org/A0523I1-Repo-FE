@@ -6,14 +6,13 @@ import * as accountService from "../../services/AccountService";
 import '../../css/employee/PersonalInformation.css';
 import {useNavigate} from "react-router";
 import {toast} from "react-toastify";
-import * as authService from "../../services/Authenticate/AuthService";
-import {useAdmin} from "../../services/Authenticate/AdminContext";
+import * as authService from "../../services/Authenticate/AuthService"
+
 
 const PersonalInformation = () => {
 
     const [formData, setFormData] = useState();
-    const navigate = useNavigate()
-    const isAdmin = useAdmin();
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -98,7 +97,7 @@ const PersonalInformation = () => {
     return (
         <div className="container">
 
-            {isAdmin && <h1>HELLO ADMIN</h1>}
+            {authService.isAdmin() && <h1>HELLO ADMIN</h1>}
 
 
             <table className="table table-borderless">

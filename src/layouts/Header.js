@@ -7,7 +7,6 @@ import '../css/auth/login.css'; // Import your custom CSS
 import Modal from "react-modal";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from "yup"
-import * as accountService from "../services/AccountService";
 import {useNavigate} from "react-router";
 import * as authService from "../services/Authenticate/AuthService"
 
@@ -51,6 +50,7 @@ const Header = () => {
                 if (userData.access_token) {
 
                     localStorage.setItem('token', userData.access_token);
+                    localStorage.setItem('role', JSON.stringify(userData.roles));
 
                     navigate('/employee/personal-information');
 
