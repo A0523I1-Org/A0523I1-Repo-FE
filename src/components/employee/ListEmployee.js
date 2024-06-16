@@ -5,6 +5,7 @@ import {AddIcon, DeleteAllIcon} from "./Icons";
 import {fetchEmployees} from "../../services/EmployeeService";
 import EmployeeTable from "./EmployeeTable";
 import {Link} from "react-router-dom";
+import EmployeeDetail from "./EmployeeDetail";
 
 const ListEmployee = () => {
 
@@ -23,6 +24,14 @@ const ListEmployee = () => {
                     : employee
             )
         );
+    };
+
+    //Modal xem chi tiết nhân viên
+    const handleOpenModal = (employee) => {
+        setSelectedEmployee(employee);
+    };
+
+    const handleCloseModal = () => {
         setSelectedEmployee(null);
     };
 
@@ -59,6 +68,17 @@ const ListEmployee = () => {
         fetchData(currentPage, searchCriteria);
     }, [currentPage]);
 
+    // Sử dụng useEffect để theo dõi selectedEmployee và cập nhật isOpen
+    useEffect(() => {
+        // Nếu selectedEmployee có giá trị, mở modal
+        // Ngược lại, đóng modal
+        if (selectedEmployee) {
+            console.log("Opening modal with employee:", selectedEmployee);
+        } else {
+            console.log("Closing modal");
+        }
+    }, [selectedEmployee]);
+
     return (
         <>
             <div className="flex justify-between mb-4">
@@ -79,7 +99,11 @@ const ListEmployee = () => {
 
             <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md p-4">
                 {/* Table */}
-                <EmployeeTable employees={employees} handleUserRegistration={handleUserRegistration} />
+                <EmployeeTable
+                    employees={employees}
+                    handleUserRegistration={handleUserRegistration}
+                    handleOpenModal={handleOpenModal}
+                />
 
                 {/* Pagination */}
                 <div>
@@ -92,6 +116,14 @@ const ListEmployee = () => {
                     />
                 </div>
             </div>
+
+            {selectedEmployee && (
+                <EmployeeDetail
+                    employee={selectedEmployee}
+                    isOpen={!!selectedEmployee}
+                    onClose={handleCloseModal}
+                />
+            )}
         </>
     );
 };
