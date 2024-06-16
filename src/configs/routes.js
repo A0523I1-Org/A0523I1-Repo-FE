@@ -15,6 +15,7 @@ const routes = {
 
     listEmployee : '/employee',
     createEmployee : '/employee/create-employee',
+    deleteEmployee : '/employee/delete-employee/',
     editEmployee : '/employee/edit-employee/',
     register : '/employee/register-an-account/',
 

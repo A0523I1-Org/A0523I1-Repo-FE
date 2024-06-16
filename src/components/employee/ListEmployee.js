@@ -1,11 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import Register from "./Register";
 import Search from "./Search";
 import Pagination from "./Pagination";
-import {AddIcon, DeleteAllIcon, DeleteIcon, EditIcon} from "./icons";
-import {capitalizeFirstLetter} from "./utils";
+import {AddIcon, DeleteAllIcon} from "./Icons";
 import {fetchEmployees} from "../../services/EmployeeService";
 import EmployeeTable from "./EmployeeTable";
+import {Link} from "react-router-dom";
 
 const ListEmployee = () => {
 
@@ -70,9 +69,11 @@ const ListEmployee = () => {
                     <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                         <DeleteAllIcon />
                     </button>
-                    <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                        <AddIcon />
-                    </button>
+                    <Link to="/employee/create-employee">
+                        <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                            <AddIcon />
+                        </button>
+                    </Link>
                 </div>
             </div>
 

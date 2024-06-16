@@ -1,7 +1,8 @@
 import React from 'react';
-import {capitalizeFirstLetter} from "./utils";
-import {DeleteIcon, EditIcon} from "./icons";
+import {capitalizeFirstLetter} from "./Utils";
+import {DeleteIcon, EditIcon} from "./Icons";
 import Register from "./Register";
+import {Link} from "react-router-dom";
 
 const EmployeeTable = ({employees, handleUserRegistration}) => {
     return (
@@ -66,10 +67,10 @@ const EmployeeTable = ({employees, handleUserRegistration}) => {
                         </div>
                     </td>
                     <td className="px-6 py-4 md:border md:border-grey-500 text-left block md:table-cell">
-                        {employee.account ? (
+                        {employee.username ? (
                             <span className="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600">
                                 <span className="h-1.5 w-1.5 rounded-full bg-green-600"></span>
-                                {employee.account.username}
+                                {employee.username}
                             </span>
                         ) : (
                             <Register employeeId={employee.id} onUserRegistered={handleUserRegistration}/>
@@ -84,18 +85,21 @@ const EmployeeTable = ({employees, handleUserRegistration}) => {
                     </td>
                     <td className="px-6 py-4 md:border md:border-grey-500 text-left block md:table-cell">
                         <span className="inline-block w-1/3 md:hidden font-bold">Department</span>
-                        <div>{capitalizeFirstLetter(employee.department.name)}</div>
+                        <div>{capitalizeFirstLetter(employee.department)}</div>
                     </td>
                     <td className="px-6 py-4 md:border md:border-grey-500 text-left block md:table-cell">
                         <span className="inline-block w-1/3 md:hidden font-bold">Salary Rank</span>
-                        {employee.salaryRank.salaryRank}
+                        {employee.salaryRank}
                     </td>
                     <td className="px-6 py-4 md:border md:border-grey-500 text-left block md:table-cell">
                         <div className="flex justify-end gap-4">
-                            <a x-data="{ tooltip: 'Delete' }" href="#">
-                                <DeleteIcon/>
-                            </a>
-                            <a x-data="{ tooltip: 'Edite' }" href="#">
+                            {/*<a x-data="{ tooltip: 'Delete' }" href="#">*/}
+                            {/*    <DeleteIcon/>*/}
+                            {/*</a>*/}
+                            <Link to={`/employee/delete-employee/${employee.id}`} x-data="{ tooltip: 'Delete' }">
+                                <DeleteIcon />
+                            </Link>
+                            <a x-data="{ tooltip: 'Edit' }" href="#">
                                 <EditIcon/>
                             </a>
                         </div>
