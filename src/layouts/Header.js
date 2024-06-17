@@ -1,126 +1,108 @@
-import {Link} from "react-router-dom";
-import {useState} from "react";
+import {Link, useLocation} from "react-router-dom";
+import {useEffect, useState} from "react";
 import "../css/header.css"
 
 const Header = () => {
     const [showMenuSelect, setShowMenuSelect] = useState(false);
     const [isNavigation,setIsNavigation] = useState(false);
-    const valueMenu = {
-        showMenuSelect,setShowMenuSelect,isNavigation
-    }
+    const [isNavigationChild,setIsNavigationChild] = useState(false);
+    const location = useLocation();
 
+    useEffect(() => {
+        setIsNavigation(false)
+    }, [location.pathname]);
+
+    const valueMenu = {
+        showMenuSelect,setShowMenuSelect,setIsNavigation,isNavigation
+    }
+    const navigation = {
+        isNavigationChild,setIsNavigationChild,isNavigation
+    }
     return (
         <>
                 <Header_child menu={valueMenu}/>
-                <Navigate isNavigation={isNavigation}/>
+                <Navigate isNavigation={navigation}/>
         </>
     )
 }
 const Navigate = ({isNavigation}) => {
+
     return (
         <>
-            <div className="absolute z-30 right-[-256px] bg-gray-800 text-white w-64 min-h-screen p-4">
+            <div className={`max-lg:block hidden ${isNavigation.isNavigation ? "-translate-x-0" : "-translate-x-[-256px]"} right-0 ease-in-out duration-300 transition absolute z-30 bg-[#2f2b36] text-white w-64 min-h-screen p-4`}>
                 <nav>
                     <ul className="space-y-2">
                         <li className="opcion-con-desplegable">
                             <div className="flex items-center justify-between p-2 hover:bg-gray-700">
                                 <div className="flex items-center">
-                                    <i className="fas fa-calendar-alt mr-2"></i>
-                                    <span>Agenda</span>
+                                    <i className="fa-solid fa-house"></i>
+                                    <Link to={"/"} className={"px-2"}>Trang chủ</Link>
                                 </div>
-                                <i className="fas fa-chevron-down text-xs"></i>
                             </div>
-                            <ul className="desplegable ml-4 hidden">
-                                <li>
-                                    <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
-                                        <i className="fas fa-chevron-right mr-2 text-xs"></i>
-                                        Gestion de citas
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
-                                        <i className="fas fa-chevron-right mr-2 text-xs"></i>
-                                        Polizas
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                         <li className="opcion-con-desplegable">
                             <div className="flex items-center justify-between p-2 hover:bg-gray-700">
                                 <div className="flex items-center">
                                     <i className="fas fa-money-bill-wave mr-2"></i>
-                                    <span>Contabilidad</span>
+                                    <span>Giới thiệu</span>
                                 </div>
-                                <i className="fas fa-chevron-down text-xs"></i>
                             </div>
-                            <ul className="desplegable ml-4 hidden">
-                                <li>
-                                    <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
-                                        <i className="fas fa-chevron-right mr-2 text-xs"></i>
-                                        Tratamientos
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
-                                        <i className="fas fa-chevron-right mr-2 text-xs"></i>
-                                        Gastos
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
-                                        <i className="fas fa-chevron-right mr-2 text-xs"></i>
-                                        Facturas
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                         <li className="opcion-con-desplegable">
                             <div className="flex items-center justify-between p-2 hover:bg-gray-700">
                                 <div className="flex items-center">
-                                    <i className="fas fa-chart-bar mr-2"></i>
-                                    <span>Informes</span>
+                                    <i className="fa-solid fa-calendar-days"></i>
+                                    <span className={"px-2"}>Sự kiện</span>
                                 </div>
-                                <i className="fas fa-chevron-down text-xs"></i>
                             </div>
-                            <ul className="desplegable ml-4 hidden">
-                                <li>
-                                    <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
-                                        <i className="fas fa-chevron-right mr-2 text-xs"></i>
-                                        Presupuestos
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
-                                        <i className="fas fa-chevron-right mr-2 text-xs"></i>
-                                        Informe médico
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                         <li className="opcion-con-desplegable">
                             <div className="flex items-center justify-between p-2 hover:bg-gray-700">
-                                <div className="flex items-center">
-                                    <i className="fas fa-file-alt mr-2"></i>
-                                    <span>Documentación</span>
-                                </div>
-                                <i className="fas fa-chevron-down text-xs"></i>
-                            </div>
-                            <ul className="desplegable ml-4 hidden">
-                                <li>
-                                    <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
-                                        <i className="fas fa-chevron-right mr-2 text-xs"></i>
-                                        Firmas pendientes
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
-                                        <i className="fas fa-chevron-right mr-2 text-xs"></i>
-                                        Documentos
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                                <button className={"flex items-center"}
+                                    onClick={() => isNavigation.setIsNavigationChild(!isNavigation.isNavigationChild)}>
+                                    <div className="pr-5">
+                                        <i className="fas fa-file-alt mr-2"></i>
+                                        <span>Quản trị - hệ thống</span>
+                                    </div>
+                                    <i className="fas fa-chevron-down text-xs"></i>
+                                </button>
 
+                            </div>
+                            <ul className={`${isNavigation.isNavigationChild ? "block" : "hidden"} ml-4 `}>
+                                <li>
+                                    <Link  to={'/employee'} className="block p-2 text-white hover:bg-gray-700 flex items-center">
+                                        <i className="fas fa-chevron-right mr-2 text-xs"></i>
+                                        Nhân viên
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={"/contract"} className="block p-2 hover:bg-gray-700 flex items-center">
+                                        <i className="fas fa-chevron-right mr-2 text-xs"></i>
+                                        Hợp đồng
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={"/landing"} className="block p-2 hover:bg-gray-700 flex items-center">
+                                        <i className="fas fa-chevron-right mr-2 text-xs"></i>
+                                        Mặt bằng
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={"/customer"} className="block p-2 hover:bg-gray-700 flex items-center">
+                                        <i className="fas fa-chevron-right mr-2 text-xs"></i>
+                                        Khách hàng
+                                    </Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="opcion-con-desplegable">
+                            <div className="flex items-center justify-between p-2 hover:bg-gray-700">
+                                <div className="flex items-center">
+                                    <i className="fa-solid fa-headphones"></i>
+                                    <span className={"px-2"}> Liên hệ</span>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -198,7 +180,7 @@ const Header_child = ({menu}) => {
                         <a className="menu__item">Liên hệ</a>
 
                     </div>
-                    <button 
+                    <button onClick={() => menu.setIsNavigation(!menu.isNavigation)}
                             className="absolute hidden max-md:right-[150px] max-lg:right-[200px] max-lg:block "
                             id="btn__animation_menu_header">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"

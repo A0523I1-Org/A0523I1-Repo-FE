@@ -166,7 +166,7 @@ const Home_child_introduce_company_xls = () => {
                 <div className="absolute  z-0 left-0 animation__m1__left max-sm:z-0"></div>
 
                 <div className="main__part1__distance max-lg:w-[600px]">
-                    <h1><span className="max-lg:text-3xl max-sm:text-4xl">Công ty XLS</span></h1>
+                    <h1><span className="max-lg:text-[50px] max-sm:text-4xl">Công ty XLS</span></h1>
                 </div>
                 <div className="main__part1__distance max-xl:w-[600px] z-0 ">
                     <p>Công ty XLS là một trong những đơn vị hàng đầu trong lĩnh vực bất động sản và cho thuê mặt bằng

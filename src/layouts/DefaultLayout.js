@@ -12,7 +12,7 @@ function DefaultLayout ({children})  {
         <>
             {location.pathname === "/"
                 ?
-                <div className={"overflow-hidden w-full h-auto bg-red-500 relative"}>
+                <div className={"overflow-hidden w-full h-auto  relative"}>
                     <Header/>
                     {children}
                     <Footer/>
