@@ -1,5 +1,6 @@
 import '../css/home.css'
 <<<<<<< HEAD
+<<<<<<< HEAD
 import '../css/root_common.css'
 import {useEffect, useRef, useState} from "react";
 import {ErrorMessage, Field, Form, Formik} from "formik";
@@ -19,6 +20,9 @@ const Home = () => {
 
 =======
 import {useEffect, useState} from "react";
+=======
+import React, {useEffect, useState} from "react";
+>>>>>>> List/CreateContract-HoaiNT
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as LandingService from '../services/LandingService';
 import { toast} from 'react-toastify';

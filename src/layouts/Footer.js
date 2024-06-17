@@ -1,10 +1,15 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import '../css/root_common.css';
 import '../css/home.css'
 =======
 import '../css/home.css'
 
 >>>>>>> f251697f32330ced84df97760bd60393a2eea290
+=======
+
+import '../css/home.css'
+>>>>>>> List/CreateContract-HoaiNT
 const Footer = () => {
 
     return (

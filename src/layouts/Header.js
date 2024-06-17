@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import {Link, useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
@@ -17,6 +18,35 @@ const Header = () => {
 
     const valueMenu = {
         showMenuSelect,setShowMenuSelect,setIsNavigation,isNavigation
+=======
+import {Link} from "react-router-dom";
+import React, {useEffect, useState} from "react";
+
+// LOGIN-DatCT
+import { RiUserLine, RiLockLine, RiEyeOffLine, RiEyeLine, RiFacebookLine, RiGoogleLine } from 'react-icons/ri';
+import '../css/auth/login.css'; // Import your custom CSS
+import Modal from "react-modal";
+import {ErrorMessage, Field, Form, Formik} from "formik";
+import * as Yup from "yup"
+import * as accountService from "../services/AccountService";
+import {useNavigate} from "react-router";
+import * as authService from "../services/Authenticate/AuthService"
+
+const Header = () => {
+    const [showMenuSelect, setShowMenuSelect] = useState(false);
+
+    // LOGIN-DatCT
+    const [loginModalIsOpen, setLoginModalIsOpen] = useState(false)
+    const [passwordVisible, setPasswordVisible] = useState(false)
+    const [error, setError] = useState('')
+    const [account, setAccount] = useState({username:"", password:""});
+    const [isAdmin, setIsAdmin] = useState(false);
+    const navigate = useNavigate()
+
+    const validateAccount = {
+        username : Yup.string().required("Vui lòng điền tên đăng nhập.").min(2).max(1000),
+        password : Yup.string().required("Vui lòng điền tên mật khẩu.").min(2).max(1000)
+>>>>>>> List/CreateContract-HoaiNT
     }
     const navigation = {
         isNavigationChild,setIsNavigationChild,isNavigation
@@ -82,8 +112,61 @@ const Header_child = () => {
 }
 const Navigate = ({isNavigation}) => {
 
+    const togglePasswordVisibility = () => {
+        setPasswordVisible(!passwordVisible);
+    };
+
+    const openLoginModal = () => {
+        setLoginModalIsOpen(true);
+    };
+
+
+    useEffect(() => {
+        if(localStorage.token && loginModalIsOpen) {
+            navigate('/employee/personal-information')
+        }
+    }, [loginModalIsOpen])
+
+    // ===================================== LOGIN ======================================
+    const login = async (account) => {
+        try {
+            const userData = await authService.login(account.username, account.password)
+            if (userData.authenticated === true) {
+
+                if (userData.access_token) {
+
+                    localStorage.setItem('token', userData.access_token);
+
+                    navigate('/employee/personal-information');
+
+                } else {
+                    setError(userData.message);
+                }
+
+            }
+        } catch (error) {
+            setError("Đăng nhập thất bại.")
+        }
+    }
+
+    // ===================================== LOGOUT ======================================
+    const handleLogoutClick = async () => {
+        const token = localStorage.getItem('token');
+        await authService.logout(token);
+
+        navigate("/")
+    }
+
+
+    const valueMenu = {
+        showMenuSelect,setShowMenuSelect,
+        openLoginModal
+    }
+
+
     return (
         <>
+<<<<<<< HEAD
             <div className={`max-lg:block hidden ${isNavigation.isNavigation ? "-translate-x-0" : "-translate-x-[-256px]"} right-0 ease-in-out duration-300 transition absolute z-30 bg-[#2f2b36] text-white w-64 min-h-screen p-4`}>
                 <nav>
                     <ul className="space-y-2">
@@ -161,10 +244,86 @@ const Navigate = ({isNavigation}) => {
                     </ul>
                 </nav>
             </div>
+=======
+            <Header_child menu={valueMenu}/>
+
+            {/*    LOGIN - DatCT*/}
+            <Modal
+                appElement={document.getElementById('root')}
+                isOpen={loginModalIsOpen}
+                onRequestClose={() => setLoginModalIsOpen(false)}
+                className="modal-content z-100"
+            >
+                <Formik initialValues={account}
+                        onSubmit={login}
+                        validationSchema={Yup.object(validateAccount)}>
+
+                    <div className="l-form">
+                        <div className="shape1"/>
+                        <div className="shape2"/>
+
+                        <div className="form">
+                            <Form className="form__content">
+                                <h1 className="form__title">Đăng nhập</h1>
+
+                                <div className="form__div form__div-one">
+
+                                    {error && <div className="login__fail_message">{error}</div>}
+
+                                    <div className="form__icon">
+                                        <RiUserLine />
+                                    </div>
+                                    <div className="form__div-input">
+                                        <label htmlFor="" className="form__label"/>
+                                        <Field type="text" className="form__input" placeholder="Tên đăng nhập" name="username"/>
+                                        <ErrorMessage className="error__message" name="username" component="div"/>
+                                    </div>
+                                </div>
+
+                                <div className="form__div">
+                                    <div className="form__icon">
+                                        <RiLockLine />
+                                    </div>
+                                    <div className="form__div-input">
+                                        <label htmlFor="" className="form__label"/>
+                                        <Field type={passwordVisible ? "text" : "password"} placeholder="Mật khẩu" className="form__input" id="password" name="password"/>
+                                        <div className="form__icon login__eye" onClick={togglePasswordVisibility}>
+                                            {passwordVisible ? <RiEyeLine /> : <RiEyeOffLine />}
+                                        </div>
+                                        <ErrorMessage className="error__message" name="password" component="div"/>
+                                    </div>
+                                </div>
+
+                                <div className="form__check">
+                                    <div className="form__remember">
+                                        <label htmlFor="remember-me">
+                                            <input type="checkbox" id="remember-me" name="remember-me"/>
+                                            Ghi nhớ tôi
+                                        </label>
+                                    </div>
+                                    {/*<a href="#" className="form__forgot">Quên mật khẩu?</a>*/}
+                                </div>
+
+                                <button type="submit" className="form__button">ĐĂNG NHẬP</button>
+
+                            </Form>
+                        </div>
+                    </div>
+
+                </Formik>
+            </Modal>
+
+            {authService.isAuthenticated() && <button className="btn btn-danger" onClick={handleLogoutClick}>
+                Logout
+            </button>}
+
+>>>>>>> List/CreateContract-HoaiNT
         </>
     )
 }
 const Header_child = ({menu}) => {
+
+
     return (
         <>
             <header className="h-16 bg-white border " id="header">
@@ -184,8 +343,14 @@ const Header_child = ({menu}) => {
                         <Link to={'/'} className="menu__item menu__item__active">Trang chủ</Link>
                         <a className="menu__item max-lg:hidden">Giới thiệu</a>
                         <a className="menu__item">Sự kiện</a>
+<<<<<<< HEAD
                         <button onClick={() => menu.setShowMenuSelect(!menu.showMenuSelect)}
                                 className=" inline-flex items-center relative ">
+=======
+                        <a className="menu__item">Liên hệ</a>
+
+                        {authService.isAuthenticated() && <button onClick={() => menu.setShowMenuSelect(!menu.showMenuSelect)} className=" inline-flex items-center relative ">
+>>>>>>> List/CreateContract-HoaiNT
                             Quản trị - hệ thống
                             <span
                                 className={`ml-1 transition ${menu.showMenuSelect ? 'rotate-[180deg]' : 'rotate-[0deg]'}`}>
@@ -231,8 +396,12 @@ const Header_child = ({menu}) => {
                                         className="absolute w-full h-[1px] bg-yellow-500 bottom-0 right-[-180px] group-hover:right-0 transition-all duration-1000"></span>
                                 </div>
                             </div>
+<<<<<<< HEAD
                         </button>
                         <a className="menu__item">Liên hệ</a>
+=======
+                        </button>}
+>>>>>>> List/CreateContract-HoaiNT
 
                     </div>
                     <button onClick={() => menu.setIsNavigation(!menu.isNavigation)}
@@ -245,6 +414,7 @@ const Header_child = ({menu}) => {
                         </svg>
                     </button>
 
+<<<<<<< HEAD
                     {/*<button*/}
                     {/*    className={"absolute w-[50px] h-[50px] transition rounded-full hover:border-[1px] flex items-center justify-center mr-[50px] right-5 "}>*/}
                     {/*    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"*/}
@@ -274,6 +444,17 @@ const Header_child = ({menu}) => {
                         </span>
 >>>>>>> f251697f32330ced84df97760bd60393a2eea290
                     </button>
+=======
+                    {!authService.isAuthenticated() && <button className="absolute w-[119px] h-12 bg-[#2f2b36] hover:bg-white hover:text-black hover:border-[1px] hover:border-black rounded-[40px] flex items-center justify-center mr-[20px] right-5 text-white  button-animation
+                        max-xl:right-8 max-lg:right-10 max-md:right-0" onClick={menu.openLoginModal}
+                            id="button_open_menu_lilu open-login-modal">
+                        <span>
+                            Đăng nhập
+                        </span>
+                    </button>}
+
+
+>>>>>>> List/CreateContract-HoaiNT
                 </nav>
             </header>
         </>

@@ -1,0 +1,43 @@
+.personal_form {
+    display: grid;
+    place-items: center; /* Căn phần tử theo cả chiều ngang và chiều dọc */
+    width: 60%;
+    height: 50%;
+    font-family: Arial,sans-serif;
+}
+table.table{
+    border: 2px solid white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+.abc {
+    text-align: center;
+    font-size: xx-large;
+}
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+button.btn-change{
+    background-color: #FFC100;
+    color: white;
+}
+button.btn-change:hover{
+    background-color: #ffffff; /* Màu nền khi hover */
+    color: #000000; /* Màu chữ khi hover */
+    border: 1px solid #000000; /* Viền đen khi hover */
+}
+
+button.btn-cancel{
+    background-color: #039bE5;
+    color: white;
+}
+button.btn-cancel:hover{
+    background-color: #ffffff; /* Màu nền khi hover */
+    color: #000000; /* Màu chữ khi hover */
+    border: 1px solid #000000; /* Viền đen khi hover */
+}
+.table-cell {
+    padding: 10px 20px; /* Thêm khoảng cách bên trong các ô */
+}
