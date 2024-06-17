@@ -8,7 +8,13 @@ import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
+<<<<<<< HEAD
     <App />
+=======
+      <>
+          <App />
+      </>
+>>>>>>> f251697f32330ced84df97760bd60393a2eea290
   // </React.StrictMode>
 );
 
