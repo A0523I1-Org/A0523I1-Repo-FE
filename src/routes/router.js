@@ -15,6 +15,7 @@ import ListLanding from "../components/landing/ListLanding";
 import Login from "../components/auth/Login";
 import Register from "../components/employee/Register";
 import routes from "../configs/routes";
+import DetailCustomer from "../components/customer/DetailCustomer";
 
 const publicRoutes = [
     {path : routes.login ,component : Login , layuot : null}
@@ -33,6 +34,7 @@ const privateRoutes = [
     {path : routes.listCustomer, component : ListCustomer},
     {path : routes.createCustomer, component : CreateCustomer},
     {path : routes.editCustomer, component : EditCustomer , id : ':id' },
+    {path : routes.detailCustomer, component : DetailCustomer , id : ':id' },
 
     {path : routes.listEmployee, component : ListEmployee},
     {path : routes.createEmployee, component : CreateEmployee},
