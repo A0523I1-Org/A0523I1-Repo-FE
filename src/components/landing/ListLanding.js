@@ -170,17 +170,13 @@ const ListLanding = () => {
   };
   const handleSelectAll = (e) => {
     if (!e.target.checked) {
-        setListIdInput([]);
-      } else {
-        setCheckAll(!checkedAll);
-        if (Array.isArray(landing)) {
-          !checkedAll
-            ? setListIdInput(landing.map((l) => l.id))
-            : setListIdInput([]);
-        } else {
-          console.error("landing is not an array", landing);
-        }
-      }
+      setListIdInput([]);
+    } else {
+    setCheckAll(!checkedAll);
+      !checkedAll
+        ? setListIdInput(landing.content.map((l) => l.id))
+        : setListIdInput([]);
+    }
   };
 
   const openModal = (landing) => {
@@ -318,7 +314,7 @@ const ListLanding = () => {
                     size="small"
                   />
                 </th>
-                <th>ID</th>
+                <th>STT</th>
                 <th>Mã I Loại mặt bằng</th>
                 <th>Diện tích</th>
                 <th>Giá bán</th>
@@ -387,7 +383,7 @@ const ListLanding = () => {
                   </td>
                   <td className="w-1/12 text-center ">
                     <span className="block text-[#2196f3]">
-                      ID - {landingItem.id}
+                      {index+1}
                     </span>
                   </td>
                   <td className=" w-2/12 text-center">

@@ -13,7 +13,7 @@ import routes from "../../configs/routes.js";
 const EditLanding = () => {
     const [imageUrl,setImageUrl]=useState("")
     
-    const [imageUrlUpload,setImageUrlUpload]=useState("")
+    const [imageUrlUpload,setImageUrlUpload]=useState(null)
     const [landing, setLanding] = useState(null);
     const [floors, setFloors] = useState([]);
    
