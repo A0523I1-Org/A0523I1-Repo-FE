@@ -127,7 +127,7 @@ const DetailCustomer = () => {
                                             Email <span style={{color: "red"}}>(*)</span>
                                         </label>
                                         <Field
-                                            type="email"
+                                            type="text"
                                             name="email"
                                             id="email"
                                             placeholder="Mời nhập vào"
