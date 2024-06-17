@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c6101b39-f511-4397-81ca-c5e5366dbc08" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_6_5_2024_6_48_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_6_5_2024_6_48_PM__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -39,6 +40,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Node.js.Header.js.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;Home/ListLanding-PhungPV&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/e-commerce-Image&quot;,
@@ -108,6 +110,7 @@
       <workItem from="1718620762493" duration="7459000" />
       <workItem from="1718632972487" duration="78000" />
       <workItem from="1718633064912" duration="339000" />
+      <workItem from="1718633837259" duration="80000" />
     </task>
     <servers />
   </component>
