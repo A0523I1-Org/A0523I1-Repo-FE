@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/js/bootstrap.bundle.min';
 import * as employeeService from "../../services/EmployeeService";
 import * as accountService from "../../services/AccountService";
-import '../../css/employee/PersonalInformation.css';
+// import '../../css/employee/PersonalInformation.css';
 import {useNavigate} from "react-router";
 import {toast} from "react-toastify";
 import * as authService from "../../services/Authenticate/AuthService";

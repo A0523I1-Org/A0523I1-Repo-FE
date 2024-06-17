@@ -1,16 +1,16 @@
 
-import '../../css/listContract.css'
+import '../../css/contract/listContract.css'
 import ResponsivePagination from 'react-responsive-pagination';
 import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import * as contractService from '../../services/ContractService.js'
-import '../../css/paginationContract.css'
+import '../../css/contract/paginationContract.css'
 import '../../configs/routes.js'
 import routes from '../../configs/routes.js';
 import { Formik,Field,Form } from 'formik';
 
 const ListContract = () => {
-    const [contracts,setContract] = useState();
+    const [contracts,setContract] = useState([]);
     const [totalPages,setTotalPage] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [openMenu,setOpenMenu] = useState({});
@@ -20,27 +20,54 @@ const ListContract = () => {
     const [landingCodeSearch,setLandingCodeSearch] = useState('');
     const [startDateSearch,setStartDateSearch] = useState('')
     const [endDateSearch,setEndDateSearch] = useState('')
+    const [totalContract,setTotalContract] = useState();
+    const [resultSearch,setResultSearch] = useState(null);
+    const {state} = useLocation();
+    
+
+    
+   
 
     useEffect(()=>{
-        // if(contracts.length === 0){
-            
-     
+
             getAllContract(0,customerNameSearch,landingCodeSearch,startDateSearch,endDateSearch);
-        // }
+        
     },[]);
+    
+  
+
+
     
     
     const getAllContract = async(page,customeName,landingCode,startDate,endDate) => {
+        console.log(customeName);
+        console.log(startDate);
+        console.log(landingCode);
+        console.log(startDate);
+        console.log(endDate);
+        
         const token = localStorage.getItem('token');
         const result = await  contractService.findAllContract(page,customeName,landingCode,startDate,endDate,token)
-            console.log(result.content);
+           
             setContract(result.content)
             setTotalPage(result.totalPages)
             setSizePage(result.size)
-        
+            if(resultSearch === null){
+                setTotalContract(result.content.length);
+            }
+            setResultSearch(result.content.length);
+           
+           
+
     };
+    const setLocationLandingCode = () => {
+        if(state !== null){
+            state.landingCode = "";
+        }
+    }
 
     const handleReset = () => {
+        setLocationLandingCode()
         setCustomerNameSearch("");
         setLandingCodeSearch("");
         setStartDateSearch("");
@@ -50,42 +77,18 @@ const ListContract = () => {
     }
     
 
-    const handleSubmit = (values) => {
+    const handleSubmitSearch = (values) => {
+        setLocationLandingCode()
+        setCustomerNameSearch(values.customerName);
+        setLandingCodeSearch(values.landingCode);
+        setStartDateSearch(values.startDate);
+        setEndDateSearch(values.endDate);
+         getAllContract(0,values.customerName,values.landingCode,values.startDate,values.endDate)
+        setCurrentPage(1);
         
-            getAllContract(0,customerNameSearch,landingCodeSearch,startDateSearch,endDateSearch)
-            setCurrentPage(1);
-        
 
     }
-    const handleChangeCustomerName = (e,setFieldValue) => {
-        setCustomerNameSearch(e.target.value);
-        setFieldValue("customerName",e.target.value)
-    }
 
-    const handleChangeLandingCode = (e,setFieldValue) => {
-        setLandingCodeSearch(e.target.value);
-        setFieldValue("landingCode",e.target.value)
-    }
-    const handleChangeStartDate = (e,setFieldValue) => {
-        setStartDateSearch(e.target.value);
-        setFieldValue("startDate",e.target.value)
-    }
-    const handleChangeEndDate = (e,setFieldValue) => {
-        setEndDateSearch(e.target.value);
-        setFieldValue("endDate",e.target.value)
-    }
-    
-
-    const customStyles = {
-        content: {
-          top: '50%',
-          left: '50%',
-          right: 'auto',
-          bottom: 'auto',
-          marginRight: '-50%',
-          transform: 'translate(-50%, -50%)',
-        },
-      };
 
     const handleSelectMenu = (id) => {
         setOpenMenu((prevOpenMenu)=>({
@@ -97,17 +100,27 @@ const ListContract = () => {
 
     
     const handlePageChange = (page) => {
+        setLocationLandingCode()
         setCurrentPage(page)
         getAllContract((page-1),customerNameSearch,landingCodeSearch,startDateSearch,endDateSearch);
 
     };
+   
+   if(totalContract === 0){
+    return (
+    <>
+    <div
+                        style={{textAlign: 'center',marginTop: '10vh'}}
+                        ><i style={{fontSize: '30px',color : 'red'}}>
+                             <span style={{fontSize: '35px',color : 'black'}}>*</span> Hiện tại bạn chưa làm bất kỳ hợp đồng nào ..... ! 
+                             </i>
+                            <p style={{fontSize: '25px'}}>Nhấn &nbsp; 
+                    <button  id="create-error"><Link style={{color : 'white'}}  to={routes.createContract}>Thêm Mới</Link> </button>
+                    &nbsp;  để tạo hợp đồng</p>
+                        </div>
+    </>
+      )
 
-   if(contracts ==null){
-    return(
-        <>
-        <div>Loading...</div>
-        </>
-    )
    }else{
     return (
         <>
@@ -116,7 +129,7 @@ const ListContract = () => {
         
                
                     <Formik
-                        onSubmit={handleSubmit}
+                        onSubmit={handleSubmitSearch}
                         initialValues={{
                             customerName : "",
                             landingCode : "",
@@ -128,28 +141,26 @@ const ListContract = () => {
                        return  <div class="mx-16 search">
                         <Form>
                         <Field
-                           onChange={(e) =>handleChangeCustomerName(e,setFieldValue)}
+                          
                           name='customerName' 
                           style={{width: '15%'}} 
                           type="text"
                            placeholder="Tên Khách Hàng"/>
                         <Field
-                        onChange={(e) =>handleChangeLandingCode(e,setFieldValue)}
+                        
                          name='landingCode' 
                          style={{width: '15%'}}  
                          type="text"
                           placeholder="Mã Mặt Bằng"/>
                         <Field
-                         onChange={(e) =>handleChangeStartDate(e,setFieldValue)}
+                        
                          name='startDate' 
                          placeholder="Ngày Bắt Đầu"
-        
                             type="text"
                             onFocus={(e) => (e.target.type = "date")}
                              onBlur={(e) => (e.target.type = "text")}
                             />
                         <Field 
-                         onChange={(e) =>handleChangeEndDate(e,setFieldValue)}
                          name='endDate'
                           placeholder="Ngày Kết Thúc"
                             type="text"
@@ -158,7 +169,7 @@ const ListContract = () => {
                             />
                         <button id='search-bt1' type='submit' ><i class="fa fa-search"></i></button>
                         <button id='search-bt2' onClick={handleReset} type='reset'><i class="fa fa-refresh"></i></button>
-                        
+
                         </Form>
                     </div>
                     }
@@ -170,12 +181,21 @@ const ListContract = () => {
                 
                 <br></br>
                 <div class="mx-16 create-reset">
-                        <button id="create"><Link  to={routes.createContract}>Thêm Mới</Link> </button>
+                <button id="create"><Link style={{color : 'white'}}  to={routes.createContract}>Thêm Mới</Link> </button>
                 </div>
                 <br></br>
             
                 <div class="mx-16 h-full  ">
-                    <table class="table-auto  w-full h-full">
+
+                    {
+                        resultSearch === 0 ? <div
+                        style={{textAlign: 'center',marginTop: '10vh'}}
+                        ><i style={{fontSize: '30px',color : 'red'}}>
+                             <span style={{fontSize: '35px',color : 'black'}}>*</span> Không tìm thấy bất kỳ kết quả nào cho nội dung tìm kiếm này ..... ! 
+                             </i>
+                            <p style={{fontSize: '25px'}}>Thử nhập các từ khóa khác</p>
+                        </div> :
+                        <table class="table-auto  w-full h-full">
                         <thead class="border ">
                             <tr>
                                 <th> STT </th>
@@ -197,7 +217,7 @@ const ListContract = () => {
                         </thead>
                         <tbody>
                             {contracts.map((contract,index) =>(
-                                <tr key={contract.id} class=" h-[50px] ">
+                                <tr style={{backgroundColor : state !== null && state.landingCode === contract.landingCode ? 'red' : 'white'}} key={contract.id} class=" h-[50px] ">
                                 <td class="w-1/12 text-center">
                                    
                                     <span class="block text-[#2196f3]">{(index+1)+(currentPage-1)*sizePage}</span>
@@ -273,7 +293,9 @@ const ListContract = () => {
                             ))}
                             
                         </tbody>
-                    </table>
+                    </table>    
+                    }
+                    
                     <br></br>
         
                    
@@ -283,29 +305,14 @@ const ListContract = () => {
                         onPageChange={page => handlePageChange(page)}
                     />
         
-            {/* <             Modal 
-                        isOpen={isModalOpen}
-                        // onAfterOpen={afterOpenModal}
-                        onRequestClose={() => setIsModalOpen(false)}
-                        style={customStyles}
-                        contentLabel="Example Modal"
-                    >
-                        <div style={{borderStyle : '-moz-initial'}}>
-                        <h3>Delete Company</h3>
-                        <i>You Want Delete Company  </i>
-                        <br></br>
-                        <br></br>
-                        <button style={{marginRight: '5px'}} className="btn btn-danger" >Confirm</button>
-                        <button className="btn btn-primary" onClick={()=>setIsModalOpen(false)}>Cancle</button>
-                        </div>
-         
-                    </Modal> */}
                      
             </div>
-        </div>
-                </>
+            </div>
+         </>
             )
    }
+    
+   
    
    
     }

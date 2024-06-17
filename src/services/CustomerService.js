@@ -4,8 +4,8 @@ export  const getCustomers = async(token) => {
 
     try {
         const res = await axios.get("http://localhost:8080/api/customer",{
-            header: {Authorization : `Bearer ${token}`}
-        })
+            headers: {Authorization: `Bearer ${token}`}
+        });
         // console.log(res.data);
         return res.data;
         

@@ -1,12 +1,12 @@
 import axios from "axios";
 
 export const findAllContract = async(page,customeName,landingCode,startDate,endDate,token) => {
-    console.log(customeName);
+    
     try {
         const res = await axios.get(`http://localhost:8080/api/contract?page=${page}&customerName=${customeName}
             &landingCode=${landingCode}&startDate=${startDate}&endDate=${endDate}`,
             {
-                headers: {Authorization : `Bearer ${token}`}
+                headers: {Authorization: `Bearer ${token}`}
             }
         );
             console.log(res.data);
