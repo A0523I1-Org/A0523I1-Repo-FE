@@ -14,6 +14,12 @@ const PersonalInformation = () => {
 
   const notify = () => {
     toast.success("Đổi mật khẩu thành công");
+    setPasswords({
+      ...passwords,
+      oldPassword: '',
+      newPassword: '',
+      confirmPassword: ''
+    });
   };
 
 
@@ -51,13 +57,6 @@ const PersonalInformation = () => {
     return '';
   };
 
-  // const handleChange = (event) => {
-  //   const { name, value } = event.target;
-  //   setFormData({
-  //     ...formData,
-  //     [name]: value
-  //   });
-  // };
 
   const handleChangeOldPassword = (event) => {
     const { value } = event.target;
@@ -80,15 +79,24 @@ const PersonalInformation = () => {
   const changePassword = async (event) => {
     event.preventDefault();
     setPasswordError('');
-    setPasswords(
-        {
-          oldPassword: '',
-          newPassword: '',
-          confirmPassword: '',
-        }
-    );
+
     if (passwords.newPassword !== passwords.confirmPassword) {
       setPasswordError('Mật khẩu mới không khớp');
+      return;
+    } else if (passwords.newPassword === passwords.oldPassword) {
+      setPasswordError('Mật khẩu mới trùng với mật khẩu hiện tại');
+      setPasswords({
+        ...passwords,
+        newPassword: '',
+        confirmPassword: ''
+      });
+      return;
+    }
+
+    // Kiểm tra passwordError trước khi đổi mật khẩu
+    const validationError = validatePassword(passwords.newPassword);
+    if (validationError) {
+      setPasswordError(validationError);
       return;
     }
 
@@ -101,10 +109,9 @@ const PersonalInformation = () => {
         notify();
         closeModal();
       }
-
     } catch (error) {
       console.log(error)
-        setPasswordError('Có lỗi xảy ra. Vui lòng thử lại.');
+      setPasswordError('Có lỗi xảy ra. Vui lòng thử lại.');
     }
   };
 
