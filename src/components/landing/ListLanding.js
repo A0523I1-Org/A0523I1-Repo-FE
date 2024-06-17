@@ -41,8 +41,8 @@ const init_param = {
 };
 
 const ListLanding = () => {
-   const [detailModalIsOpen, setDetailModalIsOpen] = useState(false);
-const [landingDetail, setLandingDetail] = useState({});
+  const [detailModalIsOpen, setDetailModalIsOpen] = useState(false);
+  const [landingDetail, setLandingDetail] = useState({});
   const [landing, setLanding] = useState();
   const [openMenu, setOpenMenu] = useState({});
   const [floors, setFloors] = useState([]);
@@ -53,7 +53,9 @@ const [landingDetail, setLandingDetail] = useState({});
   const [modalIsOpen, setIsOpen] = useState(false);
   const [landingDelete, setLandingDelete] = useState([]);
   const navigate = useNavigate();
+ 
 
+  // lấy danh sách đầu sessionStorage là giúp để lưu trữ trang hiện tại khi chuyển trang từ edit về danh sách (lê chí thiện)
   useEffect(() => {
     const savedPage = sessionStorage.getItem('currentPage');
     const savedSearchParams = JSON.parse(sessionStorage.getItem('searchParams'));
@@ -71,12 +73,16 @@ const [landingDetail, setLandingDetail] = useState({});
     };
   }, []);
 
+  // hàm chuyển trang trên react khi bấm vào từng trang (lê chí thiện)
+
   const handlePageChange = (page) => {
     sessionStorage.setItem('currentPage', page - 1);
-    const param = { ...searchParams, page: page - 1};
+    const param = { ...searchParams, page: page - 1 };
     setSearchParams(param);
     getListAllLanding(param);
   };
+
+  // hàm chọn để tắt bật menu chi tiết,sửa mặt bằng,xóa mặt bằng (lê chí thiện)
 
   const handleMenuSelect = (id) => {
     setOpenMenu((prevOpenMenu) => ({
@@ -84,6 +90,7 @@ const [landingDetail, setLandingDetail] = useState({});
       [id]: !prevOpenMenu[id],
     }));
   };
+  // hàm khi chúng ta chọn bên ngoài menu thì nó sẽ tắt đi tất cả menu đã được mở(lê chí thiện)
   const handleClickOutside = (event) => {
     if (
       !event.target.closest(".menu") &&
@@ -92,13 +99,11 @@ const [landingDetail, setLandingDetail] = useState({});
       setOpenMenu({});
     }
   };
+  //hàm giúp để khi chúng ta bấm vào chi tiết thì menu nó sẽ tự tắt(lê chí thiện)
   const handleDetailClick = () => {
     setOpenMenu({});
   };
-  const handleDeleteClick = (landing) => {
-    handleDetailClick();
-    openModal(landing);
-  };
+
   const openModal = (landing) => {
     setLandingDelete(landing);
     setIsOpen(true);
@@ -106,6 +111,7 @@ const [landingDetail, setLandingDetail] = useState({});
   const closeModal = () => {
     setIsOpen(false);
   };
+  //Hàm lấy tất cả danh sách của tầng(lê chí thiện)
 
   const getListAllFloor = async () => {
     try {
@@ -115,6 +121,7 @@ const [landingDetail, setLandingDetail] = useState({});
       console.log(e);
     }
   };
+  //hàm lấy tất cả danh sách mặt bằng(lê chí thiện)
 
   const getListAllLanding = async (searchParams) => {
     try {
@@ -124,33 +131,38 @@ const [landingDetail, setLandingDetail] = useState({});
       console.error(error);
     }
   };
+  //hàm giúp giúp phân biệt các trường khi chúng ta nhập(lê chí thiện)
 
   const handleChange = (e) => {
     setSearchParams({ ...searchParams, [e.target.name]: e.target.value });
   };
 
+  //Hàm gửi dữ liệu khi nhập vào tìm kiếm(lê chí thiện)
+
   const handleSubmit = () => {
     sessionStorage.setItem('searchParams', JSON.stringify(searchParams));
-    sessionStorage.setItem('currentPage', 0); 
+    sessionStorage.setItem('currentPage', 0);
     const param = {
       ...searchParams,
       page: 0,
     };
     setSearchParams(param)
     getListAllLanding(param);
-   
+
   };
+
+  //hàm reset lại để lấy lại danh sách tổng(lê chí thiện)
 
   const handleReset = () => {
     sessionStorage.removeItem('currentPage')
     sessionStorage.removeItem('searchParams');
-    const param={
+    const param = {
       ...init_param,
-      page:0,
+      page: 0,
     }
     setSearchParams(param);
     getListAllLanding(param);
-    
+
   };
 
   const deleteLandingByIds = () => {
@@ -163,6 +175,10 @@ const [landingDetail, setLandingDetail] = useState({});
       }
       getListAllLanding(searchParams);
     });
+  };
+  const handleDeleteClick = (landing) => {
+    handleDetailClick();
+    openModal(landing);
   };
 
   const deleteLanding = async () => {
@@ -202,19 +218,19 @@ const [landingDetail, setLandingDetail] = useState({});
         : setListIdInput([]);
     }
   };
-  const openDetailModal=(landing)=>{
+  const openDetailModal = (landing) => {
     handleDetailClick()
-   setModalDetail(landing)
-    
+    setModalDetail(landing)
+
   }
-  const setModalDetail=(landing)=>{
+  const setModalDetail = (landing) => {
     setDetailModalIsOpen(true)
     setLandingDetail(landing)
 
   }
 
- 
-  const closeModalDetail=(landing)=>{
+
+  const closeModalDetail = (landing) => {
     setDetailModalIsOpen(false)
   }
 
@@ -443,26 +459,24 @@ const [landingDetail, setLandingDetail] = useState({});
                     {locationMapping.hasOwnProperty(landingItem.status) ? (
                       <button
                         className={`
-                                    ${
-                                      locationMapping[
-                                        landingItem.status
-                                      ].trim() === "Chưa bàn giao" ||
-                                      locationMapping[
-                                        landingItem.status
-                                      ].trim() === "Trống"
-                                        ? "bg-green-500"
-                                        : ""
-                                    }
-                                     ${
-                                       locationMapping[
-                                         landingItem.status
-                                       ].trim() === "Đã vào ở" ||
-                                       locationMapping[
-                                         landingItem.status
-                                       ].trim() === "Đang sửa chữa"
-                                         ? "bg-red-500"
-                                         : ""
-                                     }
+                                    ${locationMapping[
+                            landingItem.status
+                          ].trim() === "Chưa bàn giao" ||
+                            locationMapping[
+                              landingItem.status
+                            ].trim() === "Trống"
+                            ? "bg-green-500"
+                            : ""
+                          }
+                                     ${locationMapping[
+                            landingItem.status
+                          ].trim() === "Đã vào ở" ||
+                            locationMapping[
+                              landingItem.status
+                            ].trim() === "Đang sửa chữa"
+                            ? "bg-red-500"
+                            : ""
+                          }
                                    
                                         
                                      
@@ -508,7 +522,7 @@ const [landingDetail, setLandingDetail] = useState({});
                     >
                       <div className="w-full h-full py-2">
                         <button
-                          onClick={()=>openDetailModal(landingItem)}
+                          onClick={() => openDetailModal(landingItem)}
                           className="w-full h-1/3 px-3 flex items-center hover:bg-[#fafafa]"
                         >
                           <span className="flex py-1">
@@ -623,7 +637,7 @@ const [landingDetail, setLandingDetail] = useState({});
             current={landing.number + 1}
             onPageChange={(page) => handlePageChange(page)}
           />
-      
+
         </div>
       </div>
       <Modal
@@ -633,8 +647,8 @@ const [landingDetail, setLandingDetail] = useState({});
         contentLabel="Example Modal"
         style={customStyles}
       >
-       
-        <div class="container-fluid" style={{width:"650px"}}>
+
+        <div class="container-fluid" style={{ width: "650px" }}>
           <div class="row justify-content-center my-3">
             <div class="col-12 text-center mb-3">
               <span>
@@ -705,20 +719,20 @@ const [landingDetail, setLandingDetail] = useState({});
         contentLabel="Example Modal"
         style={customStyles}
       >
-       
-        <div class="container-fluid" style={{width:"650px"}}>
+
+        <div class="container-fluid" style={{ width: "650px" }}>
           <div class="row justify-content-center my-3">
-          <div class="col-12">
+            <div class="col-12">
               <h1 class="text-center text-uppercase h3">
                 <strong>Xem chi tiết</strong>
               </h1>
             </div>
             <div class="col-12 text-center mb-3">
               <span>
-              <img  className="w-45 h-28 object-cover mx-auto" src={landingDetail.firebaseUrl}/>
+                <img className="w-45 h-28 object-cover mx-auto" src={landingDetail.firebaseUrl} />
               </span>
             </div>
-          
+
 
             <div class="col-12 mt-3">
               <table class="table table-hover">
@@ -734,7 +748,7 @@ const [landingDetail, setLandingDetail] = useState({});
                   <tr>
                     <th>Diện tích</th>
                     <td>{landingDetail.area}</td>
-                  </tr>               
+                  </tr>
                   <tr>
                     <th>Chú thích</th>
                     <td>{landingDetail.description}</td>
@@ -760,9 +774,9 @@ const [landingDetail, setLandingDetail] = useState({});
             </div>
 
             <div class="col-12 d-flex justify-content-center align-items-center mt-3 row">
-             
+
               <div class="col-12 col-md-6 text-center text-md-right">
-              
+
                 <button class="btn btn-primary" onClick={closeModalDetail}>
                   Đã rõ
                 </button>
@@ -771,9 +785,9 @@ const [landingDetail, setLandingDetail] = useState({});
           </div>
         </div>
       </Modal>
-      
-      
-      
+
+
+
       <ToastContainer></ToastContainer>
     </>
   );
