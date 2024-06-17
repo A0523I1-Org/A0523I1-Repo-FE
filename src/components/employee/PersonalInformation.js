@@ -16,9 +16,9 @@ const PersonalInformation = () => {
 
 
     useEffect(() => {
-        if (!localStorage.token) {
-            navigate("/")
-        }
+        // if (!localStorage.token) {
+        //     navigate("/")
+        // }
 
         fetchProfileInfo();
     }, []);
@@ -29,6 +29,7 @@ const PersonalInformation = () => {
             const response = await employeeService.getMyProfile(token);
             setFormData(response);
         } catch (error) {
+            if (error.response.status === 401) navigate("/")
             console.error('Error fetching profile information:', error);
         }
     };

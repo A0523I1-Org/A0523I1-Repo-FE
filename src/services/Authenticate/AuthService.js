@@ -4,7 +4,7 @@ import axios from "axios";
 export async function login(username, password){
     try {
         const response = await axios.post(`http://localhost:8080/login`, {username, password})
-        console.log(response.data)
+        console.log(response)
         return response.data;
     } catch(err) {
         throw err;
@@ -40,7 +40,6 @@ export function isAdmin() {
     }
     return role.includes('ADMIN');
 }
-
 
 
 
