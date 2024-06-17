@@ -6,7 +6,6 @@ import './create.css';
 import {toast} from "react-toastify";
 
 const CreateCustomer = () => {
-
     const  navigate = useNavigate();
     const  handleCreate = async (customer)=>{
         try{
@@ -17,17 +16,6 @@ const CreateCustomer = () => {
                 position: "bottom-left",
                 autoClose: 1000
             })
-
-    const navigate = useNavigate();
-
-    const  handleCreate = async (customer)=>{
-        try{
-            console.log(customer)
-            await customerService.createCustomer(customer).
-            then(res =>{
-                navigate("/customer")
-            });
-
         }catch (e){
             console.log(e)
         }
@@ -71,7 +59,7 @@ const CreateCustomer = () => {
                         <Formik validationSchema={Yup.object(validate)} initialValues={customerInit}
                                 onSubmit={handleCreate}>
                             <Form >
-                                <div class="-mx-3 flex flex-wrap">
+<div class="-mx-3 flex flex-wrap">
                                     <div class="w-full px-3 sm:w-1/2 ">
                                         <div class="mb-5">
                                             <label
@@ -114,7 +102,7 @@ const CreateCustomer = () => {
 
                                 <div className="-mx-3 flex flex-wrap">
                                     <div className="w-full px-3 sm:w-1/2">
-                                        <div className="mb-5">
+<div className="mb-5">
                                             <label
                                                 htmlFor="date"
                                                 className="mb-3 block text-base font-medium text-[#07074D]"
@@ -152,7 +140,7 @@ const CreateCustomer = () => {
                                                 name="phone"
                                                 id="lName"
                                                 placeholder="Mời nhập vào"
-                                                className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                                             />
                                             <ErrorMessage name='phone' component='span' style={{color: 'red',fontStyle:'italic'}}></ErrorMessage>
 
@@ -193,7 +181,7 @@ const CreateCustomer = () => {
                                                 name="idCard"
                                                 id="lName"
                                                 placeholder="Mời nhập vào"
-                                                className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                                             />
                                             <ErrorMessage name='idCard' component='span' style={{color: 'red',fontStyle:'italic'}}></ErrorMessage>
 
@@ -234,7 +222,7 @@ const CreateCustomer = () => {
                                                 name="website"
                                                 id="lName"
                                                 placeholder="Mời nhập vào"
-                                                className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                                             />
                                             <ErrorMessage name='website' component='span' style={{color: 'red',fontStyle:'italic'}}></ErrorMessage>
 
@@ -264,6 +252,58 @@ const CreateCustomer = () => {
                                         </div>
                                     </div>
                                 </div>
+
+                                {/*<div className="flex items-center space-x-6">*/}
+                                {/*    <div className="flex items-center">*/}
+                                {/*        <Field*/}
+                                {/*            value="Nam"*/}
+                                {/*            type="radio"*/}
+                                {/*            name="gender"*/}
+                                {/*            id="radioButton1"*/}
+                                {/*            className="h-5 w-5"*/}
+                                {/*        />*/}
+                                {/*        <label*/}
+                                {/*            htmlFor="radioButton1"*/}
+                                {/*            className="pl-3 text-base font-medium text-[#07074D]"*/}
+{/*        >*/}
+                                {/*            Nam*/}
+                                {/*        </label>*/}
+                                {/*    </div>*/}
+
+                                {/*    <div className="flex items-center">*/}
+                                {/*        <Field*/}
+                                {/*            value="Nữ"*/}
+                                {/*            type="radio"*/}
+                                {/*            name="gender"*/}
+                                {/*            id="radioButton2"*/}
+                                {/*            className="h-5 w-5"*/}
+                                {/*        />*/}
+                                {/*        <label*/}
+                                {/*            htmlFor="radioButton1"*/}
+                                {/*            className="pl-3 text-base font-medium text-[#07074D]"*/}
+                                {/*        >*/}
+                                {/*            Nữ*/}
+                                {/*        </label>*/}
+                                {/*    </div>*/}
+
+                                {/*    <div className="flex items-center">*/}
+                                {/*        <Field*/}
+                                {/*            value="Khác"*/}
+                                {/*            type="radio"*/}
+                                {/*            name="gender"*/}
+                                {/*            id="radioButton3"*/}
+                                {/*            className="h-5 w-5"*/}
+                                {/*        />*/}
+                                {/*        <label*/}
+                                {/*            htmlFor="radioButton2"*/}
+                                {/*            className="pl-3 text-base font-medium text-[#07074D]"*/}
+                                {/*        >*/}
+                                {/*            Khác*/}
+                                {/*        </label>*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
+                    {/*</div>*/}
+
                     <div>
                         <button
                             type="submit"
