@@ -1,15 +1,19 @@
 import axios from "axios";
+
 const API_URL = 'http://localhost:8080/api';
 
 
 // VTTR
-
 export const addEmployee = async (employeeReqDTO) => {
     try {
-        await axios.post("http://localhost:8080/api/employee/add", employeeReqDTO)
-        return true;
+        const response = await axios.post("http://localhost:8080/api/employee/add", employeeReqDTO);
+        return response.status === 201;
     } catch (e) {
-        console.log("Error at EmployeeService/addEmployee:" + e)
+        if (e.response && e.response.status === 400) {
+            console.log("BadRequest error at EmployeeService/addEmployee:", e.response.data);
+        } else {
+            console.log("Error at EmployeeService/addEmployee:", e.message);
+        }
         return false;
     }
 }
@@ -17,20 +21,18 @@ export const addEmployee = async (employeeReqDTO) => {
 
 export const findEmployeeById = async (id) => {
     try {
-
         let employee = await axios.get(`http://localhost:8080/api/employee/${id}`)
         return employee.data
-    }catch (e) {
+    } catch (e) {
         console.log("Error at EmployeeService/findEmployeeById:" + e)
     }
 }
 
 export const deleteEmployeeById = async (id) => {
     try {
-
-        await axios.delete(`http://localhost:8080/api/employee/delete/${id}`)
+        await axios.put(`http://localhost:8080/api/employee/${id}`)
         return true
-    }catch (e) {
+    } catch (e) {
         console.log("Error at EmployeeService/deleteEmployeeById:" + e)
         return false
     }
@@ -38,26 +40,6 @@ export const deleteEmployeeById = async (id) => {
 
 
 // Nguyen Van Vu
-
-export const getAllDepartments = async () => {
-    try {
-        const response = await axios.get(`${API_URL}/department`);
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching departments:', error);
-        return [];
-    }
-};
-
-export const getAllSalaryRanks = async () => {
-    try {
-        const response = await axios.get(`${API_URL}/salary-rank`);
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching salary ranks:', error);
-        return [];
-    }
-};
 
 export const fetchEmployees = async (page, criteria = null) => {
     try {
@@ -72,6 +54,6 @@ export const fetchEmployees = async (page, criteria = null) => {
         return response.data;
     } catch (error) {
         console.error('Error fetching employee data:', error);
-        return { content: [], totalPages: 1 };
+        return {content: [], totalPages: 1};
     }
 };

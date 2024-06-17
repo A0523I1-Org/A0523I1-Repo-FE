@@ -18,7 +18,7 @@ import Modal from 'react-modal'
 import Cropper from "react-easy-crop";
 // import Slider from "@material-ui/core/Slider";
 // import Button from "@material-ui/core/Button";
-import getCroppedImg from "./crop/utils/cropImage"
+import getCroppedImg from "./utils/cropImage"
 
 
 const CreateEmployee = () => {
@@ -67,11 +67,11 @@ const CreateEmployee = () => {
         getSalaryRanks();
     }, [])
     const getDepartments = async () => {
-        let temp = await departmentService.getDepartmentList();
+        let temp = await departmentService.getAllDepartments();
         setDepartments(temp)
     }
     const getSalaryRanks = async () => {
-        let temp = await salaryRankService.getSalaryRankList();
+        let temp = await salaryRankService.getAllSalaryRanks();
         setSalaryRanks(temp)
     }
 
@@ -86,10 +86,10 @@ const CreateEmployee = () => {
         }
     }
 
-    const submit =  (values) => {
+    const submit = (values) => {
         if (avatar) {
             const storageRef = ref(storage, `/avatar/${Date.now()}.jpeg`);
-            const uploadTask =  uploadBytesResumable(storageRef, avatar);
+            const uploadTask = uploadBytesResumable(storageRef, avatar);
             uploadTask.on(
                 "state_changed",
                 (snapshot) => {
@@ -97,23 +97,26 @@ const CreateEmployee = () => {
                         (snapshot.bytesTransferred / snapshot.totalBytes) * 100
                     );
                 },
-                (err) => console.log("Eror at CreateEmployee/uploadfirebase and get link avatar: " + err),
+                (err) => {
+                    console.log("Eror at CreateEmployee/uploadFirebase and get link avatar: " + err)
+                    toast.warning("Đã xãy ra lỗi trong quá trình tải ảnh lên fire base !")
+                },
                 () => {
                     getDownloadURL(uploadTask.snapshot.ref).then((url) => {
                         values.firebaseUrl = url;
-                        const success =  employeeService.addEmployee(values)
-                        if (success) {
-                            toast.success("Thêm mới nhân viên thành công.")
-                            navigate("/")
-                        } else {
-                            toast.warning("Đã xãy ra lỗi trong quá trình thêm mới !")
-                            navigate("/employee/create-employee")
-                        }
+                        employeeService.addEmployee(values).then((success) => {
+                            if (success) {
+                                toast.success("Thêm mới nhân viên thành công.")
+                                navigate("/")
+                            } else {
+                                toast.warning("Đã xãy ra lỗi trong quá trình thêm mới !")
+                                navigate("/employee/create-employee")
+                            }
+                        })
                     });
                 }
             );
         }
-
     }
     const validate = {
         name: Yup.string().required("Vui lòng nhập tên nhân viên !")
@@ -151,7 +154,7 @@ const CreateEmployee = () => {
     }
     return (
         <div id="ce_main" className="row">
-            <div className="row justify-content-around">
+            {/*            <div className="row justify-content-around">
                 <div className="col-md-4 justify-content-end">
                     <div className="center_vh">
                         <img className="avatar_preview"
@@ -168,10 +171,29 @@ const CreateEmployee = () => {
                 <div className="col-md-8 justify-content-start align-content-center">
                     <h2><strong>THÊM MỚI NHÂN VIÊN VĂN PHÒNG</strong></h2>
                 </div>
-            </div>
+            </div>*/}
             <Formik initialValues={form} onSubmit={submit} validationSchema={Yup.object(validate)}>
                 {({errors, touched}) => (
                     <Form className="row justify-content-center">
+                        <div className="row justify-content-around">
+                            <div className="col-md-4 justify-content-end">
+                                <div className="center_vh">
+                                    <img className="avatar_preview"
+                                         src={previewAvatar ? previewAvatar : "https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png"}
+                                         alt="avatar"/><br/>
+                                </div>
+                                <div className="center_vh">
+                                    <label htmlFor="upload_avt" className="btn btn-primary"
+                                           style={{background: "#2196e3"}}>Chọn avatar</label>
+                                    <input type="file" hidden id="upload_avt" accept="image/*"
+                                           onChange={handleChange}/>
+                                </div>
+                            </div>
+                            <div className="col-md-8 justify-content-start align-content-center">
+                                <h2><strong>THÊM MỚI NHÂN VIÊN VĂN PHÒNG</strong></h2>
+                            </div>
+                        </div>
+
                         <Field hidden name="firebaseUrl"/>
                         <Field hidden name="code"/>
 
@@ -279,11 +301,12 @@ const CreateEmployee = () => {
                                     <span><i className="fi fi-rs-disk"/></span>
                                     <span> Lưu</span>
                                 </button>
-                                <button type={"reset"} className="btn btn-primary" style={{background: "#2196e3"}}>
+                                <button type={"reset"} className="btn btn-primary" style={{background: "#2196e3"}}
+                                        onClick={() => {
+                                            setAvatar()
+                                        }}>
                                     <span><i className="fi fi-rr-eraser"></i></span>
-                                    <span onClick={() => {
-                                        setAvatar()
-                                    }}> Làm mới</span>
+                                    <span> Làm mới</span>
                                 </button>
                             </div>
                         </div>
@@ -338,7 +361,7 @@ const CreateEmployee = () => {
                     <div className="col-md-6 justify-content-center">
                         <button className="btn" style={{background: "#4CAF50", marginRight: "8px", color: "white"}}
                                 onClick={afterCrop}>
-                            <span>Crop</span>
+                            Crop
                         </button>
                         <button onClick={cancelCrop} className="btn btn-primary" style={{background: "#2196e3"}}>Cancel
                         </button>

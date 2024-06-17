@@ -4,9 +4,10 @@ import Register from "./Register";
 import Search from "./Search";
 import Pagination from "./Pagination";
 import {AddIcon, DeleteAllIcon, DeleteIcon, EditIcon} from "./Icons";
-import {capitalizeFirstLetter} from "./Util";
+import {capitalizeFirstLetter} from "./utils/Util";
 import {fetchEmployees} from "../../services/EmployeeService";
 import EmployeeTable from "./EmployeeTable";
+import {useNavigate} from 'react-router-dom'
 
 const ListEmployee = () => {
 
@@ -15,6 +16,8 @@ const ListEmployee = () => {
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(1);
     const [selectedEmployee, setSelectedEmployee] = useState(null);
+
+    const navigate = useNavigate();
 
     // Cập nhật hiển thị cho tài khoản đăng ký thành công
     const handleUserRegistration = (employeeId, username) => {
@@ -71,13 +74,13 @@ const ListEmployee = () => {
                     <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                         <DeleteAllIcon />
                     </button>
-                    <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                    <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onClick={()=>navigate("/employee/create-employee")}>
                         <AddIcon />
                     </button>
                 </div>
             </div>
 
-            <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md p-4">
+            <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md p-4">np
                 {/* Table */}
                 <EmployeeTable employees={employees} handleUserRegistration={handleUserRegistration} />
 

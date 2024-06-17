@@ -61,6 +61,7 @@
     --text-color-span: Roboto, -apple-system, BlinkMacSystemFont, Roboto, 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif, "Segoe UI", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 #ce_main .errorMessage {
+    box-sizing: border-box;
     font-size: 8pt;
     position: absolute;
 }

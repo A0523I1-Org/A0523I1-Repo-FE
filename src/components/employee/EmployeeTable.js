@@ -1,5 +1,5 @@
 import React from 'react';
-import {capitalizeFirstLetter} from "./Util";
+import {capitalizeFirstLetter} from "./utils/Util";
 import {DeleteIcon, EditIcon} from "./Icons";
 import Register from "./Register";
 
