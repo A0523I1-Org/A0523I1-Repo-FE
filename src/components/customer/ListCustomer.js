@@ -64,7 +64,7 @@ const ListCustomer = () => {
         }
     };
 
-  
+
     const formatDate = (input) => {
         const date = (input instanceof Date) ? input : new Date(input);
         const options = { day: "2-digit", month: "2-digit", year: "numeric" };
