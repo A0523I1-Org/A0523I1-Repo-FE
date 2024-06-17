@@ -56,7 +56,15 @@ const ListLanding = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getListAllLanding(searchParams);
+    const savedPage = sessionStorage.getItem('currentPage');
+    const savedSearchParams = JSON.parse(sessionStorage.getItem('searchParams'));
+    console.log(savedSearchParams)
+    const params = savedSearchParams ? savedSearchParams : searchParams;
+    if (savedPage) {
+      params.page = parseInt(savedPage, 10);
+    }
+    setSearchParams(params)
+    getListAllLanding(params);
     getListAllFloor();
     document.addEventListener("click", handleClickOutside);
     return () => {
@@ -147,8 +155,6 @@ const ListLanding = () => {
       toast.success("Xóa mặt bằng " + landingDelete.code + " thành công");
     }
     setIsOpen(false);
-    console.log(landing.content.length);
-
     getListAllLanding(searchParams);
   };
 
@@ -226,7 +232,7 @@ const ListLanding = () => {
         >
           <option value="">Tìm theo trạng thái</option>
           <option value="Available">Chưa bàn giao</option>
-          <option value="Occupied">Đang vào ở</option>
+          <option value="Occupied">Đã vào ở</option>
           <option value="Repair">Đang sửa chữa</option>
           <option value="Drum">Trống</option>
         </select>
