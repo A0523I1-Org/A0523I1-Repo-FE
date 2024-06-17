@@ -41,6 +41,8 @@ const init_param = {
 };
 
 const ListLanding = () => {
+   const [detailModalIsOpen, setDetailModalIsOpen] = useState(false);
+const [landingDetail, setLandingDetail] = useState({});
   const [landing, setLanding] = useState();
   const [openMenu, setOpenMenu] = useState({});
   const [floors, setFloors] = useState([]);
@@ -53,7 +55,15 @@ const ListLanding = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getListAllLanding(searchParams);
+    const savedPage = sessionStorage.getItem('currentPage');
+    const savedSearchParams = JSON.parse(sessionStorage.getItem('searchParams'));
+    console.log(savedSearchParams)
+    const params = savedSearchParams ? savedSearchParams : searchParams;
+    if (savedPage) {
+      params.page = parseInt(savedPage, 10);
+    }
+    setSearchParams(params)
+    getListAllLanding(params);
     getListAllFloor();
     document.addEventListener("click", handleClickOutside);
     return () => {
@@ -62,7 +72,8 @@ const ListLanding = () => {
   }, []);
 
   const handlePageChange = (page) => {
-    const param = { ...searchParams, page: page - 1 };
+    sessionStorage.setItem('currentPage', page - 1);
+    const param = { ...searchParams, page: page - 1};
     setSearchParams(param);
     getListAllLanding(param);
   };
@@ -88,6 +99,13 @@ const ListLanding = () => {
     handleDetailClick();
     openModal(landing);
   };
+  const openModal = (landing) => {
+    setLandingDelete(landing);
+    setIsOpen(true);
+  };
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
   const getListAllFloor = async () => {
     try {
@@ -112,16 +130,27 @@ const ListLanding = () => {
   };
 
   const handleSubmit = () => {
+    sessionStorage.setItem('searchParams', JSON.stringify(searchParams));
+    sessionStorage.setItem('currentPage', 0); 
     const param = {
       ...searchParams,
       page: 0,
     };
+    setSearchParams(param)
     getListAllLanding(param);
+   
   };
 
   const handleReset = () => {
-    setSearchParams(init_param);
-    getListAllLanding(init_param);
+    sessionStorage.removeItem('currentPage')
+    sessionStorage.removeItem('searchParams');
+    const param={
+      ...init_param,
+      page:0,
+    }
+    setSearchParams(param);
+    getListAllLanding(param);
+    
   };
 
   const deleteLandingByIds = () => {
@@ -173,14 +202,21 @@ const ListLanding = () => {
         : setListIdInput([]);
     }
   };
+  const openDetailModal=(landing)=>{
+    handleDetailClick()
+   setModalDetail(landing)
+    
+  }
+  const setModalDetail=(landing)=>{
+    setDetailModalIsOpen(true)
+    setLandingDetail(landing)
 
-  const openModal = (landing) => {
-    setLandingDelete(landing);
-    setIsOpen(true);
-  };
-  const closeModal = () => {
-    setIsOpen(false);
-  };
+  }
+
+ 
+  const closeModalDetail=(landing)=>{
+    setDetailModalIsOpen(false)
+  }
 
   if (!landing) return <div>Loading...</div>;
 
@@ -198,7 +234,7 @@ const ListLanding = () => {
         >
           <option value="">Tìm theo trạng thái</option>
           <option value="Available">Chưa bàn giao</option>
-          <option value="Occupied">Đang vào ở</option>
+          <option value="Occupied">Đã vào ở</option>
           <option value="Repair">Đang sửa chữa</option>
           <option value="Drum">Trống</option>
         </select>
@@ -472,7 +508,7 @@ const ListLanding = () => {
                     >
                       <div className="w-full h-full py-2">
                         <button
-                          onClick={handleDetailClick}
+                          onClick={()=>openDetailModal(landingItem)}
                           className="w-full h-1/3 px-3 flex items-center hover:bg-[#fafafa]"
                         >
                           <span className="flex py-1">
@@ -581,21 +617,13 @@ const ListLanding = () => {
             10
           </span>
         </button>
-        <div className="absolute h-full  right-0 ">
+        <div className={`absolute h-full right-0 ${modalIsOpen || detailModalIsOpen ? "blurred" : ""}`}>
           <ResponsivePagination
             total={landing.totalPages}
             current={landing.number + 1}
             onPageChange={(page) => handlePageChange(page)}
           />
-          {/* <nav aria-label="Page navigation example">
-                    <ul className="pagination">
-                        <li className="page-item"><a className="page-link" href="#">Previous</a></li>
-                        <li className="page-item"><a className="page-link" href="#">1</a></li>
-                        <li className="page-item"><a className="page-link" href="#">2</a></li>
-                        <li className="page-item"><a className="page-link" href="#">3</a></li>
-                        <li className="page-item"><a className="page-link" href="#">Next</a></li>
-                    </ul>
-                </nav> */}
+      
         </div>
       </div>
       <Modal
@@ -670,6 +698,81 @@ const ListLanding = () => {
           </div>
         </div>
       </Modal>
+      <Modal
+        isOpen={detailModalIsOpen}
+        // onAfterOpen={afterOpenModal}
+        onRequestClose={() => setDetailModalIsOpen(false)}
+        contentLabel="Example Modal"
+        style={customStyles}
+      >
+       
+        <div class="container-fluid" style={{width:"650px"}}>
+          <div class="row justify-content-center my-3">
+          <div class="col-12">
+              <h1 class="text-center text-uppercase h3">
+                <strong>Xem chi tiết</strong>
+              </h1>
+            </div>
+            <div class="col-12 text-center mb-3">
+              <span>
+              <img  className="w-45 h-28 object-cover mx-auto" src={landingDetail.firebaseUrl}/>
+              </span>
+            </div>
+          
+
+            <div class="col-12 mt-3">
+              <table class="table table-hover">
+                <tbody>
+                  <tr>
+                    <th>Tầng</th>
+                    <td>{landingDetail.floor}</td>
+                  </tr>
+                  <tr>
+                    <th>Trạng thái</th>
+                    <td>{locationMapping[landingDetail.status]}</td>
+                  </tr>
+                  <tr>
+                    <th>Diện tích</th>
+                    <td>{landingDetail.area}</td>
+                  </tr>               
+                  <tr>
+                    <th>Chú thích</th>
+                    <td>{landingDetail.description}</td>
+                  </tr>
+                  <tr>
+                    <th>Loại mặt bằng</th>
+                    <td>{typeMapping[landingDetail.type]}</td>
+                  </tr>
+                  <tr>
+                    <th>Mã mặt bằng</th>
+                    <td>{landingDetail.code}</td>
+                  </tr>
+                  <tr>
+                    <th>Giá tiền</th>
+                    <td>{landingDetail.feePerMonth}</td>
+                  </tr>
+                  <tr>
+                    <th>Phí quản lí</th>
+                    <td>{landingDetail.feeManager}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="col-12 d-flex justify-content-center align-items-center mt-3 row">
+             
+              <div class="col-12 col-md-6 text-center text-md-right">
+              
+                <button class="btn btn-primary" onClick={closeModalDetail}>
+                  Đã rõ
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Modal>
+      
+      
       
       <ToastContainer></ToastContainer>
     </>
