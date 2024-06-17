@@ -4,13 +4,126 @@ import "../css/header.css"
 
 const Header = () => {
     const [showMenuSelect, setShowMenuSelect] = useState(false);
+    const [isNavigation,setIsNavigation] = useState(false);
     const valueMenu = {
-        showMenuSelect,setShowMenuSelect
+        showMenuSelect,setShowMenuSelect,isNavigation
     }
 
     return (
         <>
-            <Header_child menu={valueMenu}/>
+                <Header_child menu={valueMenu}/>
+                <Navigate isNavigation={isNavigation}/>
+        </>
+    )
+}
+const Navigate = ({isNavigation}) => {
+    return (
+        <>
+            <div className="absolute z-30 right-[-256px] bg-gray-800 text-white w-64 min-h-screen p-4">
+                <nav>
+                    <ul className="space-y-2">
+                        <li className="opcion-con-desplegable">
+                            <div className="flex items-center justify-between p-2 hover:bg-gray-700">
+                                <div className="flex items-center">
+                                    <i className="fas fa-calendar-alt mr-2"></i>
+                                    <span>Agenda</span>
+                                </div>
+                                <i className="fas fa-chevron-down text-xs"></i>
+                            </div>
+                            <ul className="desplegable ml-4 hidden">
+                                <li>
+                                    <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
+                                        <i className="fas fa-chevron-right mr-2 text-xs"></i>
+                                        Gestion de citas
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
+                                        <i className="fas fa-chevron-right mr-2 text-xs"></i>
+                                        Polizas
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="opcion-con-desplegable">
+                            <div className="flex items-center justify-between p-2 hover:bg-gray-700">
+                                <div className="flex items-center">
+                                    <i className="fas fa-money-bill-wave mr-2"></i>
+                                    <span>Contabilidad</span>
+                                </div>
+                                <i className="fas fa-chevron-down text-xs"></i>
+                            </div>
+                            <ul className="desplegable ml-4 hidden">
+                                <li>
+                                    <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
+                                        <i className="fas fa-chevron-right mr-2 text-xs"></i>
+                                        Tratamientos
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
+                                        <i className="fas fa-chevron-right mr-2 text-xs"></i>
+                                        Gastos
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
+                                        <i className="fas fa-chevron-right mr-2 text-xs"></i>
+                                        Facturas
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="opcion-con-desplegable">
+                            <div className="flex items-center justify-between p-2 hover:bg-gray-700">
+                                <div className="flex items-center">
+                                    <i className="fas fa-chart-bar mr-2"></i>
+                                    <span>Informes</span>
+                                </div>
+                                <i className="fas fa-chevron-down text-xs"></i>
+                            </div>
+                            <ul className="desplegable ml-4 hidden">
+                                <li>
+                                    <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
+                                        <i className="fas fa-chevron-right mr-2 text-xs"></i>
+                                        Presupuestos
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
+                                        <i className="fas fa-chevron-right mr-2 text-xs"></i>
+                                        Informe médico
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="opcion-con-desplegable">
+                            <div className="flex items-center justify-between p-2 hover:bg-gray-700">
+                                <div className="flex items-center">
+                                    <i className="fas fa-file-alt mr-2"></i>
+                                    <span>Documentación</span>
+                                </div>
+                                <i className="fas fa-chevron-down text-xs"></i>
+                            </div>
+                            <ul className="desplegable ml-4 hidden">
+                                <li>
+                                    <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
+                                        <i className="fas fa-chevron-right mr-2 text-xs"></i>
+                                        Firmas pendientes
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" className="block p-2 hover:bg-gray-700 flex items-center">
+                                        <i className="fas fa-chevron-right mr-2 text-xs"></i>
+                                        Documentos
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </nav>
+            </div>
         </>
     )
 }
@@ -46,7 +159,8 @@ const Header_child = ({menu}) => {
                                 </svg>
                             </span>
 
-                            <div className={`w-[180px]  h-auto absolute  bg-white border overflow-hidden  top-12 rounded-[3px] z-30 ${menu.showMenuSelect ? '' : 'hidden'}`}>
+                            <div
+                                className={`w-[180px]  h-auto absolute  bg-white border overflow-hidden  top-12 rounded-[3px] z-30 ${menu.showMenuSelect ? '' : 'hidden'}`}>
                                 <div
                                     className="w-full h-[40px] relative group flex justify-center items-center font-normal text-black text-[15px]">
                                     <Link to={'/employee'}>
@@ -84,7 +198,9 @@ const Header_child = ({menu}) => {
                         <a className="menu__item">Liên hệ</a>
 
                     </div>
-                    <button className="absolute hidden max-md:right-[150px] max-lg:right-[200px] max-lg:block " id="btn__animation_menu_header">
+                    <button 
+                            className="absolute hidden max-md:right-[150px] max-lg:right-[200px] max-lg:block "
+                            id="btn__animation_menu_header">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                              stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round"

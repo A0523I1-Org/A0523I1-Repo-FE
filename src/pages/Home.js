@@ -116,6 +116,7 @@ const Home = () => {
         }
     }
 
+
     const valueCustomer = {
         handleChangeInformationCustomer,
         infoCustomer,
@@ -133,17 +134,17 @@ const Home = () => {
         objectPlanDisplay,
     }
 
+
     return (
         <>
-            <Home_child customer={valueCustomer} landing={valueLanding}/>
+            <Home_child customer={valueCustomer} landing={valueLanding} />
         </>
     )
 }
-const Home_child = ({customer,landing}) => {
+const Home_child = ({customer,landing,isNavigation}) => {
     return (
         <>
             <main id="main" className="w-full h-auto relative overflow-hidden">
-                <ModalMenuQTHT/>
                 <Home_child_introduce_company_xls/>
                 <Home_child_introduce_service_xls />
                 <Home_child_introduce_landing_xls landing={landing}/>
@@ -179,51 +180,11 @@ const Home_child_introduce_company_xls = () => {
                         quý khách</p>
                 </div>
                 <button className="w-[119px] h-12 bg-white rounded-[40px] hover:text-white hover:bg-[#2f2b36]"><span>Bắt đầu</span></button>
-                <ModalMenuQTHT/>
-
             </div>
         </>
     )
 }
-const ModalMenuQTHT = () => {
-    return (
-        <>
-            <div className=" absolute w-auto  bg-white z-100 top-10 h-auto px-5">
-                <a className="block pt-5 pb-2 hover:border-b-[1px] border-gray-300">Trang chủ</a>
-                <a className="block p-2 hover:border-b-[1px] border-gray-300">Giới thiệu</a>
-                <a className="block p-2 hover:border-b-[1px] border-gray-300">Sự kiện</a>
-                <a className="block relative group p-2 hover:border-b-[1px] border-gray-300 hover:text-white">
-                    Quản trị - hệ thống
-                    <div
-                        className={`w-[180px] h-auto group-hover:block p-2 absolute  bg-white border overflow-hidden  right-44 rounded-[3px] flex flex-col  `}>
-                        <div className="py-2 hover:border-b-[1px] border-gray-300">
-                            <Link to={'/employee'}>
-                                Nhân viên
-                            </Link>
-                        </div>
 
-                        <div className="py-2 hover:border-b-[1px] border-gray-300">
-                            <Link to={'/contract'}>
-                            Hợp đồng
-                            </Link>
-                        </div>
-                        <div className="py-2 hover:border-b-[1px] border-gray-300">
-                            <Link to={'/landing'}>
-                                Mặt bằng
-                            </Link>
-                        </div>
-                        <div className="py-2 hover:border-b-[1px] border-gray-300">
-                            <Link to={'/customer'}>
-                                Khách hàng
-                            </Link>
-                        </div>
-                    </div>
-                </a>
-                <a className="block pb-5 pt-2 hover:border-b-[1px] border-gray-300">Liên hệ</a>
-            </div>
-        </>
-    )
-}
 // Component giới thiệu dịch vụ
 const Home_child_introduce_service_xls = () => {
     return (
@@ -273,9 +234,11 @@ const Home_child_introduce_service_xls = () => {
                             <h1 className="text-3xl max-lg:text-2xl text-center pt-16 max-xl:pt-5  px-10 max-xl:px-0">Giới
                                 thiệu địa
                                 điểm</h1>
-                            <p className="pt-5 px-10 max-xl:px-5 max-lg:px-5">Chúng tôi cung cấp thông tin chi tiết về các địa điểm khác nhau,
+                            <p className="pt-5 px-10 max-xl:px-5 max-lg:px-5">Chúng tôi cung cấp thông tin chi tiết về
+                                các địa điểm khác nhau,
                                 bao gồm nhân khẩu học, xu hướng thị trường và tiềm năng phát triển. Nhóm của chúng tôi
-                                giúp khách hàng đưa ra quyết định sáng suốt về đầu tư bất động sản của họ dựa trên thông tin
+                                giúp khách hàng đưa ra quyết định sáng suốt về đầu tư bất động sản của họ dựa trên thông
+                                tin
                                 này.
                             </p>
                         </div>
