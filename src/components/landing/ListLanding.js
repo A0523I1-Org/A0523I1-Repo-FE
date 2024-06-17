@@ -134,8 +134,8 @@ const ListLanding = () => {
           toast.success("Xóa mặt bằng " + ld.code + " thành công");
         }
       }
-      getListAllLanding(searchParams);
       setListIdInput([]);
+      getListAllLanding(searchParams);
     });
   };
 
@@ -145,6 +145,8 @@ const ListLanding = () => {
       toast.success("Xóa mặt bằng " + landingDelete.code + " thành công");
     }
     setIsOpen(false);
+    console.log(landing.content.length);
+
     getListAllLanding(searchParams);
   };
 

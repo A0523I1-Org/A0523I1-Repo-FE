@@ -13,6 +13,7 @@
     "formik": "^2.4.6",
     "formix": "^0.0.1",
     "react": "^18.3.1",
+    "react-bootstrap": "^2.10.2",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.51.5",
     "react-modal": "^3.16.1",
