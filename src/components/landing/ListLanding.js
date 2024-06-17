@@ -50,6 +50,8 @@ const ListLanding = () => {
   const [listIdInput, setListIdInput] = useState([]);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [modalDeleteMultiIsOpen, setModalDeleteMultiIsOpen] = useState(false);
+  const [detailModalIsOpen, setDetailModalIsOpen] = useState(false);
+  const [landingDetail, setLandingDetail] = useState({});
   const [landingDelete, setLandingDelete] = useState([]);
   const navigate = useNavigate();
 
@@ -172,7 +174,7 @@ const ListLanding = () => {
     if (!e.target.checked) {
       setListIdInput([]);
     } else {
-    setCheckAll(!checkedAll);
+      setCheckAll(!checkedAll);
       !checkedAll
         ? setListIdInput(landing.content.map((l) => l.id))
         : setListIdInput([]);
@@ -192,6 +194,20 @@ const ListLanding = () => {
   };
   const closeModalMultiDelete = () => {
     setModalDeleteMultiIsOpen(false);
+  };
+
+  const setModalDetail = (landing) => {
+    setDetailModalIsOpen(true);
+    setLandingDetail(landing);
+  };
+  const openDetailModal=(landing)=>{
+    handleDetailClick()
+   setModalDetail(landing)
+    
+  }
+
+  const closeModalDetail = (landing) => {
+    setDetailModalIsOpen(false);
   };
 
   if (!landing) return <div>Loading...</div>;
@@ -382,9 +398,7 @@ const ListLanding = () => {
                     />
                   </td>
                   <td className="w-1/12 text-center ">
-                    <span className="block text-[#2196f3]">
-                      {index+1}
-                    </span>
+                    <span className="block text-[#2196f3]">{index + 1}</span>
                   </td>
                   <td className=" w-2/12 text-center">
                     <span className="block ">{landingItem.code}</span>
@@ -484,7 +498,7 @@ const ListLanding = () => {
                     >
                       <div className="w-full h-full py-2">
                         <button
-                          onClick={handleDetailClick}
+                          onClick={()=>openDetailModal(landingItem)}
                           className="w-full h-1/3 px-3 flex items-center hover:bg-[#fafafa]"
                         >
                           <span className="flex py-1">
@@ -568,7 +582,7 @@ const ListLanding = () => {
       </div>
       <div className=" h-[40px] my-5 relative mx-16 flex  ">
         {listIdInput.length > 0 && (
-            <button
+          <button
             className="left-0 relative w-[40px] h-[40px] bg-red-500 flex items-center justify-center rounded-full"
             onClick={() => {
               setModalDeleteMultiIsOpen(true);
@@ -711,7 +725,7 @@ const ListLanding = () => {
                 <tbody>
                   <tr>
                     {listIdInput.map((id, index) => (
-                        <td>ID: {id}</td>
+                      <td>ID: {id}</td>
                     ))}
                   </tr>
                 </tbody>
@@ -728,11 +742,86 @@ const ListLanding = () => {
                 </span>
               </div>
               <div class="col-12 col-md-6 text-center text-md-right">
-                <button class="btn btn-danger me-2" onClick={deleteLandingByIds}>
+                <button
+                  class="btn btn-danger me-2"
+                  onClick={deleteLandingByIds}
+                >
                   Xác nhận
                 </button>
                 <button class="btn btn-primary" onClick={closeModalMultiDelete}>
                   Hủy
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Modal>
+      <Modal
+        isOpen={detailModalIsOpen}
+        // onAfterOpen={afterOpenModal}
+        onRequestClose={() => setDetailModalIsOpen(false)}
+        contentLabel="Example Modal"
+        style={customStyles}
+      >
+        <div class="container-fluid" style={{ width: "650px" }}>
+          <div class="row justify-content-center my-3">
+            <div class="col-12">
+              <h1 class="text-center text-uppercase h3">
+                <strong>Xem chi tiết</strong>
+              </h1>
+            </div>
+            <div class="col-12 text-center mb-3">
+              <span>
+                <img
+                  className="w-45 h-28 object-cover mx-auto"
+                  src={landingDetail.firebaseUrl}
+                />
+              </span>
+            </div>
+
+            <div class="col-12 mt-3">
+              <table class="table table-hover">
+                <tbody>
+                  <tr>
+                    <th>Tầng</th>
+                    <td>{landingDetail.floor}</td>
+                  </tr>
+                  <tr>
+                    <th>Trạng thái</th>
+                    <td>{locationMapping[landingDetail.status]}</td>
+                  </tr>
+                  <tr>
+                    <th>Diện tích</th>
+                    <td>{landingDetail.area}</td>
+                  </tr>
+                  <tr>
+                    <th>Chú thích</th>
+                    <td>{landingDetail.description}</td>
+                  </tr>
+                  <tr>
+                    <th>Loại mặt bằng</th>
+                    <td>{typeMapping[landingDetail.type]}</td>
+                  </tr>
+                  <tr>
+                    <th>Mã mặt bằng</th>
+                    <td>{landingDetail.code}</td>
+                  </tr>
+                  <tr>
+                    <th>Giá tiền</th>
+                    <td>{landingDetail.feePerMonth}</td>
+                  </tr>
+                  <tr>
+                    <th>Phí quản lí</th>
+                    <td>{landingDetail.feeManager}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="col-12 d-flex justify-content-center align-items-center mt-3 row">
+              <div class="col-12 col-md-6 text-center text-md-right">
+                <button class="btn btn-primary" onClick={closeModalDetail}>
+                  Đã rõ
                 </button>
               </div>
             </div>
