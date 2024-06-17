@@ -3,6 +3,7 @@ import axios from "axios";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {useState, useEffect} from "react";
 import {useNavigate, useParams} from "react-router-dom";
+import {format,parseISO} from 'date-fns';
 
 const DetailCustomer = () => {
 
@@ -17,14 +18,16 @@ const DetailCustomer = () => {
             .catch(err => console.log("Error fetching customer:", err));
     }, [id]);
 
-
+    const formatDate = (input) =>{
+        return format(parseISO(input),"yyyy-MM-dd");
+    }
 
     if (!customer) return <div>Loading...</div>;
 
     const initialValues = {
         name: customer.name || '',
         address: customer.address || '',
-        dob: customer.dob|| '06/12/2022',
+        dob: customer.dob ? formatDate(customer.dob) : '',
         phone: customer.phone || '',
         email: customer.email || '',
         idCard: customer.idCard || '',

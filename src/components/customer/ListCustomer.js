@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 import * as customerService from "../../services/CustomerService";
 import { useNavigate } from "react-router-dom";
 import ReactPaginate from "react-paginate";
-import {getPage} from "../../services/CustomerService";
+// import {getPage} from "../../services/CustomerService";
 
 
 const ListCustomer = () => {
     const [customers, setCustomers] = useState([]);
+    const [selectedIds, setSelectedIds] = useState([]);
     const navigate = useNavigate();
 
     const [totalCustomers, setTotalCustomers] = useState(0);
@@ -55,6 +56,7 @@ const ListCustomer = () => {
     }
 
 
+
     const getListCustomers = async () => {
         try {
             const proList = await customerService.gettAllCustomers();
@@ -63,6 +65,7 @@ const ListCustomer = () => {
             console.log(e);
         }
     };
+
 
 
     const formatDate = (input) => {
@@ -90,18 +93,46 @@ const ListCustomer = () => {
         }
     };
     const handleDelete = async (id) => {
-        if (window.confirm("Are you sure you want to delete this customer?")) {
+        if (window.confirm("Bạn có muốn xóa khách hàng ?")) {
             try {
-                let resPage = await customerService.getPage(0);
-                setTotalCustomers(resPage.totalElements);
+                // Xóa khách hàng
                 await customerService.deleteCustomer(id);
-                await navigate("/customer");
                 console.log(`Customer with id ${id} has been deleted successfully.`);
+
+                // Cập nhật lại danh sách khách hàng trong state
+                setCustomers((prevCustomers) => prevCustomers.filter(customer => customer.id !== id));
+
+                // Giảm số lượng khách hàng tổng cộng
+                setTotalCustomers(prevTotal => prevTotal - 1);
+                window.alert("Xoá thành công!")
             } catch (error) {
                 console.error(`Error deleting customer with id ${id}:`, error);
             }
         }
     };
+    const toggleSelect = (id)=>{
+        setSelectedIds(prev =>
+        prev.includes(id)?prev.filter(i => i !== id) :[...prev,id]
+    );
+    }
+    const handleDeleteSelect = async () => {
+        if (window.confirm("Bạn có muốn xóa những khách hàng đã chọn?")) {
+            try {
+                await customerService.deleteCustomers(selectedIds);
+                console.log("Selected customers have been deleted successfully.");
+                setCustomers((prevCustomers) =>
+                    prevCustomers.filter((customer) => !selectedIds.includes(customer.id))
+                );
+                setTotalCustomers((prevTotal) => prevTotal - selectedIds.length);
+                setSelectedIds([]);
+                window.alert("Xoá thành công!");
+            } catch (error) {
+                console.error("Error deleting selected customers:", error);
+            }
+        }
+    };
+
+
 
 
     return <>
@@ -182,7 +213,8 @@ const ListCustomer = () => {
                         </svg>
                     </button>
 
-                    <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                    <button onClick={handleDeleteSelect}
+                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -264,6 +296,8 @@ const ListCustomer = () => {
                             <input
                                 type="checkbox"
                                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
+                                checked={selectedIds.includes(customer.id)}
+                                onChange={()=> toggleSelect(customer.id)}
                             />
                         </td>
                         <td className="px-6 py-4 md:border md:border-grey-500 text-left block md:table-cell">

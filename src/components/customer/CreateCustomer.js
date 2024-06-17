@@ -6,6 +6,7 @@ import './create.css';
 import {toast} from "react-toastify";
 
 const CreateCustomer = () => {
+
     const  navigate = useNavigate();
     const  handleCreate = async (customer)=>{
         try{
@@ -16,6 +17,17 @@ const CreateCustomer = () => {
                 position: "bottom-left",
                 autoClose: 1000
             })
+
+    const navigate = useNavigate();
+
+    const  handleCreate = async (customer)=>{
+        try{
+            console.log(customer)
+            await customerService.createCustomer(customer).
+            then(res =>{
+                navigate("/customer")
+            });
+
         }catch (e){
             console.log(e)
         }
@@ -252,58 +264,6 @@ const CreateCustomer = () => {
                                         </div>
                                     </div>
                                 </div>
-
-                                {/*<div className="flex items-center space-x-6">*/}
-                                {/*    <div className="flex items-center">*/}
-                                {/*        <Field*/}
-                                {/*            value="Nam"*/}
-                                {/*            type="radio"*/}
-                                {/*            name="gender"*/}
-                                {/*            id="radioButton1"*/}
-                                {/*            className="h-5 w-5"*/}
-                                {/*        />*/}
-                                {/*        <label*/}
-                                {/*            htmlFor="radioButton1"*/}
-                                {/*            className="pl-3 text-base font-medium text-[#07074D]"*/}
-                                {/*        >*/}
-                                {/*            Nam*/}
-                                {/*        </label>*/}
-                                {/*    </div>*/}
-
-                                {/*    <div className="flex items-center">*/}
-                                {/*        <Field*/}
-                                {/*            value="Nữ"*/}
-                                {/*            type="radio"*/}
-                                {/*            name="gender"*/}
-                                {/*            id="radioButton2"*/}
-                                {/*            className="h-5 w-5"*/}
-                                {/*        />*/}
-                                {/*        <label*/}
-                                {/*            htmlFor="radioButton1"*/}
-                                {/*            className="pl-3 text-base font-medium text-[#07074D]"*/}
-                                {/*        >*/}
-                                {/*            Nữ*/}
-                                {/*        </label>*/}
-                                {/*    </div>*/}
-
-                                {/*    <div className="flex items-center">*/}
-                                {/*        <Field*/}
-                                {/*            value="Khác"*/}
-                                {/*            type="radio"*/}
-                                {/*            name="gender"*/}
-                                {/*            id="radioButton3"*/}
-                                {/*            className="h-5 w-5"*/}
-                                {/*        />*/}
-                                {/*        <label*/}
-                                {/*            htmlFor="radioButton2"*/}
-                                {/*            className="pl-3 text-base font-medium text-[#07074D]"*/}
-                                {/*        >*/}
-                                {/*            Khác*/}
-                                {/*        </label>*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
-                    {/*</div>*/}
-
                     <div>
                         <button
                             type="submit"
