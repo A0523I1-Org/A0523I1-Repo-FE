@@ -38,6 +38,7 @@ const Home = () => {
         // Gọi service để lấy danh sách landing home từ server
         const temp = await LandingService.showListLandingHome(page);
 
+
         // Cập nhật tổng số trang
         setTotalPage(temp.totalPages)
 

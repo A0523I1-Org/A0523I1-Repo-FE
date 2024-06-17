@@ -9,7 +9,7 @@ export const SaveInfoCustomerForm = async (dataInfo) => {
     }
 }
 
-export const showListLandingHome = async (page = 0, size = 4) => {
+export const showListLandingHome = async (page, size = 4) => {
     try {
         const listLandingHome = await axios.get("http://localhost:8080/landingHome/listLadingHome?",{
             params : {
