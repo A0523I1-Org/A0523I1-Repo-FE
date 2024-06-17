@@ -3,8 +3,21 @@ import {useNavigate} from "react-router-dom";
 import * as customerService from "../../services/CustomerService"
 import * as Yup from "yup";
 import './create.css';
+import {toast} from "react-toastify";
 
 const CreateCustomer = () => {
+
+    const  navigate = useNavigate();
+    const  handleCreate = async (customer)=>{
+        try{
+            console.log(customer)
+            await customerService.createCustomer(customer);
+            navigate("/customer");
+            toast.success("Thêm mới khách hàng thành công", {
+                position: "bottom-left",
+                autoClose: 1000
+            })
+
     const navigate = useNavigate();
 
     const  handleCreate = async (customer)=>{
@@ -14,6 +27,7 @@ const CreateCustomer = () => {
             then(res =>{
                 navigate("/customer")
             });
+
         }catch (e){
             console.log(e)
         }
@@ -49,16 +63,16 @@ const CreateCustomer = () => {
 
     return (
         <>
-            <div className="boss max-w-[1000px] max-h-[900px]  mx-auto">
+            <div className="boss max-w-[1000px] max-h-[900px]  mx-auto ">
                 <h1 className=" text-center text-amber-700 text-4xl font-bold py-3 shadow-2xl text-shadow">Thêm Mới Khách Hàng</h1>
 
-                <div class="flex items-center justify-center p-12">
+                <div class="flex items-center justify-center p-12 ">
                     <div class="mx-auto w-full max-w-[800px]">
                         <Formik validationSchema={Yup.object(validate)} initialValues={customerInit}
                                 onSubmit={handleCreate}>
-                            <Form>
+                            <Form >
                                 <div class="-mx-3 flex flex-wrap">
-                                    <div class="w-full px-3 sm:w-1/2">
+                                    <div class="w-full px-3 sm:w-1/2 ">
                                         <div class="mb-5">
                                             <label
                                                 for="fName"
@@ -73,7 +87,7 @@ const CreateCustomer = () => {
                                                 placeholder="Mời nhập vào..."
                                                 class="w-full rounded-md border border-[#000x] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                                             />
-                                            <ErrorMessage name='name' component='span'
+                                            <ErrorMessage  name='name' component='span'
                                                           style={{color: 'red',fontStyle:'italic'}}></ErrorMessage>
                                         </div>
                                     </div>
@@ -234,18 +248,19 @@ const CreateCustomer = () => {
                                         Vui lòng chọn giới tính của bạn <span style={{color: "red"}}>(*)</span>
                                     </label>
                                     <div className="flex items-center space-x-6">
-                                        <div className="flex items-center">
+                                        <div className="flex flex-col w-full">
                                             <Field
                                                 as="select"
                                                 name="gender"
-                                                className="w-32 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                className="w-48 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                             >
-                                                <option value="Nam">Nam</option>
-                                                <option value="Nữ">Nữ</option>
-                                                <option value="Khác">Khác</option>
+                                                <option value="">Chọn giới tính</option>
+                                                <option className="font-bold" value="Nam">Nam</option>
+                                                <option className="font-bold" value="Nữ">Nữ</option>
+                                                <option className="font-bold" value="Khác">Khác</option>
                                             </Field>
-                                            <ErrorMessage name='gender' component='span' style={{color: 'red',fontStyle:'italic'}}></ErrorMessage>
-
+                                            <ErrorMessage name='gender' component='div' className="w-full mt-2"
+                                                          style={{color: 'red', fontStyle: 'italic'}}></ErrorMessage>
                                         </div>
                                     </div>
                                 </div>

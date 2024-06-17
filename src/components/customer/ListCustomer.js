@@ -22,7 +22,7 @@ const ListCustomer = () => {
 
     const getListPage = async (page)=>{
         let resPage = await  customerService.getPage(page);
-        console.log(resPage)
+        // console.log(resPage)
         setCustomers(resPage.content);
         setTotalPage(resPage.totalPages)
     }
@@ -31,11 +31,43 @@ const ListCustomer = () => {
         getListPage(0);
     }, []);
 
+    const [isFirstRun, setIsFirstRun] = useState(true);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            let resPage = await customerService.getPage(0);
+            setTotalCustomers(resPage.totalElements);
+        };
+
+        fetchData();
+
+        // Clean up function
+        return () => {
+            // Clean up any resources here
+        };
+    }, [totalCustomers]);
+
+
+
   const handleCheckSumCustomer= async () =>{
       let resPage = await customerService.getPage(0);
       setTotalCustomers(resPage.totalElements);
       alert(`Số khách hàng ${totalCustomers}`);
     }
+
+
+
+    const getListCustomers = async () => {
+        try {
+            const proList = await customerService.gettAllCustomers();
+            setCustomers(proList);
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+
+
     const formatDate = (input) => {
         const date = (input instanceof Date) ? input : new Date(input);
         const options = { day: "2-digit", month: "2-digit", year: "numeric" };
