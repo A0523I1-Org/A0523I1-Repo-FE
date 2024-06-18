@@ -1,27 +1,7 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
 import {Link, useLocation} from "react-router-dom";
-import {useEffect, useState} from "react";
 import "../css/header.css"
->>>>>>> f251697f32330ced84df97760bd60393a2eea290
-
-const Header = () => {
-    const [showMenuSelect, setShowMenuSelect] = useState(false);
-    const [isNavigation,setIsNavigation] = useState(false);
-    const [isNavigationChild,setIsNavigationChild] = useState(false);
-    const location = useLocation();
-
-    useEffect(() => {
-        setIsNavigation(false)
-    }, [location.pathname]);
-
-    const valueMenu = {
-        showMenuSelect,setShowMenuSelect,setIsNavigation,isNavigation
-=======
-import {Link} from "react-router-dom";
 import React, {useEffect, useState} from "react";
-
 // LOGIN-DatCT
 import { RiUserLine, RiLockLine, RiEyeOffLine, RiEyeLine, RiFacebookLine, RiGoogleLine } from 'react-icons/ri';
 import '../css/auth/login.css'; // Import your custom CSS
@@ -34,82 +14,99 @@ import * as authService from "../services/Authenticate/AuthService"
 
 const Header = () => {
     const [showMenuSelect, setShowMenuSelect] = useState(false);
+    const [isNavigation, setIsNavigation] = useState(false);
+    const [isNavigationChild, setIsNavigationChild] = useState(false);
+    const location = useLocation();
 
     // LOGIN-DatCT
     const [loginModalIsOpen, setLoginModalIsOpen] = useState(false)
     const [passwordVisible, setPasswordVisible] = useState(false)
     const [error, setError] = useState('')
-    const [account, setAccount] = useState({username:"", password:""});
+    const [account, setAccount] = useState({username: "", password: ""});
     const [isAdmin, setIsAdmin] = useState(false);
     const navigate = useNavigate()
 
     const validateAccount = {
-        username : Yup.string().required("Vui lòng điền tên đăng nhập.").min(2).max(1000),
-        password : Yup.string().required("Vui lòng điền tên mật khẩu.").min(2).max(1000)
->>>>>>> List/CreateContract-HoaiNT
+        username: Yup.string().required("Vui lòng điền tên đăng nhập.").min(2).max(1000),
+        password: Yup.string().required("Vui lòng điền tên mật khẩu.").min(2).max(1000)
+
     }
     const navigation = {
-        isNavigationChild,setIsNavigationChild,isNavigation
+        isNavigationChild, setIsNavigationChild, isNavigation
     }
-    return (
-        <>
-<<<<<<< HEAD
-            <Header_child/>
-        </>
-    )
-}
-const Header_child = () => {
-    return (
-        <>
-            <header className="h-16 bg-white border overflow-hidden " id="header">
-                <nav className="relative overflow-hidden h-full flex items-center flex-wrap antialiased menu__home"
-                     id="menu__home">
-                    <div className="absolute left-0 w-1/6  ml-[20px]">
-                        <div className=" h-auto px-24 max-sm:px-0 max-lg:px-10 max-md:px-5 max-xl:px-18 ">
-                            <a href="" className="w-[100px] rotate-45 h-[100px]  absolute  bg-white mt-[-35px] ">
-                                <img className="rotate-[-45deg]"
-                                     src='/img/Gold_Black_Modern_Real_Estate_Logo-removebg-preview.png'
-                                     alt="anh dai dien"/>
-                            </a>
-                        </div>
-                    </div>
-                    <div
-                        className="w-[50%] max-xl:w-[60%] max-lg:w-[70%] flex absolute text-slate-700 gap-8 font-semibold right-0 max-2xl:right-[10px] max-md:hidden  menu__home__slmh1 max-xl:right-[50px] max-lg:right-0 ">
-                        <a className="menu__item menu__item__active">Trang chủ</a>
-                        <a className="menu__item max-lg:hidden">Giới thiệu</a>
-                        <a className="menu__item">Sự kiện</a>
-                        <a className="menu__item">Liên hệ</a>
-                        <a className="menu__item inline-flex items-center ">
-                            Quản trị - hệ thống
-                            <span className="ml-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 22 22" strokeWidth="1.5"
-                                     stroke="currentColor" className="w-3.5 h-3.5">
-                                  <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
-                                </svg>
-                            </span>
-                        </a>
-                    </div>
-                    <button className="absolute hidden right-[150px] max-md:block " id="btn__animation_menu_header">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-                             stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round"
-                                  d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25"/>
-                        </svg>
-                    </button>
 
-                    <button className="absolute w-[119px] h-12 bg-[#2f2b36] rounded-[40px] flex items-center justify-center mr-[20px] right-5 text-white  button-animation
-                        max-xl:right-8 max-lg:right-10 max-md:right-0
-                    "
-                            id="button_open_menu_lilu">
-                    <span>
-                        Đăng nhập
-                    </span>
-=======
-                <Header_child menu={valueMenu}/>
-                <Navigate isNavigation={navigation}/>
+    useEffect(() => {
+        setIsNavigation(false)
+    }, [location.pathname]);
+
+    const valueMenu = {
+        showMenuSelect, setShowMenuSelect, setIsNavigation, isNavigation
+    }
+
+    return (
+        <>
+
+            <Header_child/>
+            <Navigate isNavigation={navigation}/>
+            <Header_child menu={valueMenu}/>
+
         </>
     )
 }
+
+
+// const Header_child = () => {
+//     return (
+//         <>
+//             <header className="h-16 bg-white border overflow-hidden " id="header">
+//                 <nav className="relative overflow-hidden h-full flex items-center flex-wrap antialiased menu__home"
+//                      id="menu__home">
+//                     <div className="absolute left-0 w-1/6  ml-[20px]">
+//                         <div className=" h-auto px-24 max-sm:px-0 max-lg:px-10 max-md:px-5 max-xl:px-18 ">
+//                             <a href="" className="w-[100px] rotate-45 h-[100px]  absolute  bg-white mt-[-35px] ">
+//                                 <img className="rotate-[-45deg]"
+//                                      src='/img/Gold_Black_Modern_Real_Estate_Logo-removebg-preview.png'
+//                                      alt="anh dai dien"/>
+//                             </a>
+//                         </div>
+//                     </div>
+//                     <div
+//                         className="w-[50%] max-xl:w-[60%] max-lg:w-[70%] flex absolute text-slate-700 gap-8 font-semibold right-0 max-2xl:right-[10px] max-md:hidden  menu__home__slmh1 max-xl:right-[50px] max-lg:right-0 ">
+//                         <a className="menu__item menu__item__active">Trang chủ</a>
+//                         <a className="menu__item max-lg:hidden">Giới thiệu</a>
+//                         <a className="menu__item">Sự kiện</a>
+//                         <a className="menu__item">Liên hệ</a>
+//                         <a className="menu__item inline-flex items-center ">
+//                             Quản trị - hệ thống
+//                             <span className="ml-1">
+//                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 22 22" strokeWidth="1.5"
+//                                      stroke="currentColor" className="w-3.5 h-3.5">
+//                                   <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+//                                 </svg>
+//                             </span>
+//                         </a>
+//                     </div>
+//                     <button className="absolute hidden right-[150px] max-md:block " id="btn__animation_menu_header">
+//                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+//                              stroke="currentColor" className="w-6 h-6">
+//                             <path strokeLinecap="round" strokeLinejoin="round"
+//                                   d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25"/>
+//                         </svg>
+//                     </button>
+//
+//                     <button className="absolute w-[119px] h-12 bg-[#2f2b36] rounded-[40px] flex items-center justify-center mr-[20px] right-5 text-white  button-animation
+//                         max-xl:right-8 max-lg:right-10 max-md:right-0
+//                     "
+//                             id="button_open_menu_lilu">
+//                     <span>
+//                         Đăng nhập
+//                     </span>
+//              <Navigate isNavigation={navigation}/>
+//             <Header_child menu={valueMenu}/>
+//         </>
+//     )
+// }
+
 const Navigate = ({isNavigation}) => {
 
     const togglePasswordVisibility = () => {
@@ -122,7 +119,7 @@ const Navigate = ({isNavigation}) => {
 
 
     useEffect(() => {
-        if(localStorage.token && loginModalIsOpen) {
+        if (localStorage.token && loginModalIsOpen) {
             navigate('/employee/personal-information')
         }
     }, [loginModalIsOpen])
@@ -159,14 +156,14 @@ const Navigate = ({isNavigation}) => {
 
 
     const valueMenu = {
-        showMenuSelect,setShowMenuSelect,
+        showMenuSelect, setShowMenuSelect,
         openLoginModal
     }
 
 
     return (
         <>
-<<<<<<< HEAD
+
             <div className={`max-lg:block hidden ${isNavigation.isNavigation ? "-translate-x-0" : "-translate-x-[-256px]"} right-0 ease-in-out duration-300 transition absolute z-30 bg-[#2f2b36] text-white w-64 min-h-screen p-4`}>
                 <nav>
                     <ul className="space-y-2">
@@ -244,7 +241,7 @@ const Navigate = ({isNavigation}) => {
                     </ul>
                 </nav>
             </div>
-=======
+
             <Header_child menu={valueMenu}/>
 
             {/*    LOGIN - DatCT*/}
@@ -317,12 +314,12 @@ const Navigate = ({isNavigation}) => {
                 Logout
             </button>}
 
->>>>>>> List/CreateContract-HoaiNT
+
         </>
     )
 }
-const Header_child = ({menu}) => {
 
+const Header_child = ({menu}) => {
 
     return (
         <>
@@ -343,68 +340,71 @@ const Header_child = ({menu}) => {
                         <Link to={'/'} className="menu__item menu__item__active">Trang chủ</Link>
                         <a className="menu__item max-lg:hidden">Giới thiệu</a>
                         <a className="menu__item">Sự kiện</a>
-<<<<<<< HEAD
-                        <button onClick={() => menu.setShowMenuSelect(!menu.showMenuSelect)}
-                                className=" inline-flex items-center relative ">
-=======
+                        {authService.isAuthenticated() &&
+                            <button onClick={() => menu.setShowMenuSelect(!menu.showMenuSelect)}
+                                    className=" inline-flex items-center relative ">
+                                Quản trị - hệ thống
+                                <span
+                                    className={`ml-1 transition ${menu.showMenuSelect ? 'rotate-[180deg]' : 'rotate-[0deg]'}`}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 22 22"
+                                             strokeWidth="1.5"
+                                             stroke="currentColor" className="w-3.5 h-3.5">
+                                          <path strokeLinecap="round" strokeLinejoin="round"
+                                                d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
+                                        </svg>
+                                    </span>
+
+                                <div
+                                    className={`w-[180px]  h-auto absolute  bg-white border overflow-hidden  top-12 rounded-[3px] z-30 ${menu.showMenuSelect ? '' : 'hidden'}`}>
+                                    <div
+                                        className="w-full h-[40px] relative group flex justify-center items-center font-normal text-black text-[15px]">
+                                        <Link to={'/employee'}>
+                                            Nhân viên
+                                        </Link>
+                                        <span
+                                            className="absolute w-full h-[1px] bg-yellow-500 bottom-0 left-[-180px] group-hover:left-0 transition-all duration-1000"></span>
+                                    </div>
+                                    <div
+                                        className="w-full h-[40px] relative group flex justify-center items-center font-normal text-black text-[15px]">
+                                        <Link to={'/contract'}>
+                                            Hợp đồng
+                                        </Link>
+                                        <span
+                                            className="absolute w-full h-[1px] bg-yellow-500 bottom-0 right-[-180px] group-hover:right-0 transition-all duration-1000"></span>
+                                    </div>
+                                    <div
+                                        className="w-full h-[40px] relative group flex items-center justify-center font-normal text-black text-[15px]">
+                                        <Link to={'/landing'}>
+                                            Mặt bằng
+                                        </Link>
+                                        <span
+                                            className="absolute w-full h-[1px] bg-yellow-500 bottom-0 left-[-180px] group-hover:left-0 transition-all duration-1000"></span>
+                                    </div>
+                                    <div
+                                        className="w-full h-[40px] relative group flex justify-center items-center font-normal text-black text-[15px]">
+                                        <Link to={'/customer'}>
+                                            Khách hàng
+                                        </Link>
+                                        <span
+                                            className="absolute w-full h-[1px] bg-yellow-500 bottom-0 right-[-180px] group-hover:right-0 transition-all duration-1000"></span>
+                                    </div>
+                                </div>
+
+                            </button>
+                        }
                         <a className="menu__item">Liên hệ</a>
-
-                        {authService.isAuthenticated() && <button onClick={() => menu.setShowMenuSelect(!menu.showMenuSelect)} className=" inline-flex items-center relative ">
->>>>>>> List/CreateContract-HoaiNT
-                            Quản trị - hệ thống
-                            <span
-                                className={`ml-1 transition ${menu.showMenuSelect ? 'rotate-[180deg]' : 'rotate-[0deg]'}`}>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 22 22"
-                                     strokeWidth="1.5"
-                                     stroke="currentColor" className="w-3.5 h-3.5">
-                                  <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
-                                </svg>
-                            </span>
-
-                            <div
-                                className={`w-[180px]  h-auto absolute  bg-white border overflow-hidden  top-12 rounded-[3px] z-30 ${menu.showMenuSelect ? '' : 'hidden'}`}>
-                                <div
-                                    className="w-full h-[40px] relative group flex justify-center items-center font-normal text-black text-[15px]">
-                                    <Link to={'/employee'}>
-                                        Nhân viên
-                                    </Link>
-                                    <span
-                                        className="absolute w-full h-[1px] bg-yellow-500 bottom-0 left-[-180px] group-hover:left-0 transition-all duration-1000"></span>
-                                </div>
-                                <div
-                                    className="w-full h-[40px] relative group flex justify-center items-center font-normal text-black text-[15px]">
-                                    <Link to={'/contract'}>
-                                        Hợp đồng
-                                    </Link>
-                                    <span
-                                        className="absolute w-full h-[1px] bg-yellow-500 bottom-0 right-[-180px] group-hover:right-0 transition-all duration-1000"></span>
-                                </div>
-                                <div
-                                    className="w-full h-[40px] relative group flex items-center justify-center font-normal text-black text-[15px]">
-                                    <Link to={'/landing'}>
-                                        Mặt bằng
-                                    </Link>
-                                    <span
-                                        className="absolute w-full h-[1px] bg-yellow-500 bottom-0 left-[-180px] group-hover:left-0 transition-all duration-1000"></span>
-                                </div>
-                                <div
-                                    className="w-full h-[40px] relative group flex justify-center items-center font-normal text-black text-[15px]">
-                                    <Link to={'/customer'}>
-                                        Khách hàng
-                                    </Link>
-                                    <span
-                                        className="absolute w-full h-[1px] bg-yellow-500 bottom-0 right-[-180px] group-hover:right-0 transition-all duration-1000"></span>
-                                </div>
-                            </div>
-<<<<<<< HEAD
-                        </button>
-                        <a className="menu__item">Liên hệ</a>
-=======
-                        </button>}
->>>>>>> List/CreateContract-HoaiNT
-
                     </div>
-                    <button onClick={() => menu.setIsNavigation(!menu.isNavigation)}
+
+
+                {!authService.isAuthenticated() && <button className="absolute w-[119px] h-12 bg-[#2f2b36] hover:bg-white hover:text-black hover:border-[1px] hover:border-black rounded-[40px] flex items-center justify-center mr-[20px] right-5 text-white  button-animation
+                        max-xl:right-8 max-lg:right-10 max-md:right-0" onClick={menu.openLoginModal}
+                                                           id="button_open_menu_lilu open-login-modal">
+                        <span>
+                            Đăng nhập
+                        </span>
+                </button>}
+
+                <button onClick={() => menu.setIsNavigation(!menu.isNavigation)}
                             className="absolute hidden max-md:right-[150px] max-lg:right-[200px] max-lg:block "
                             id="btn__animation_menu_header">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
@@ -414,7 +414,6 @@ const Header_child = ({menu}) => {
                         </svg>
                     </button>
 
-<<<<<<< HEAD
                     {/*<button*/}
                     {/*    className={"absolute w-[50px] h-[50px] transition rounded-full hover:border-[1px] flex items-center justify-center mr-[50px] right-5 "}>*/}
                     {/*    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"*/}
@@ -436,28 +435,13 @@ const Header_child = ({menu}) => {
                     {/*        </div>*/}
                     {/*    </div>*/}
                     {/*</button>*/}
-                    <button className="absolute w-[119px] h-12 bg-[#2f2b36] hover:bg-white hover:text-black hover:border-[1px] hover:border-black rounded-[40px] flex items-center justify-center mr-[20px] right-5 text-white  button-animation
-                        max-xl:right-8 max-lg:right-10 max-md:right-0"
-                            id="button_open_menu_lilu">
-                        <span>
-                            Đăng nhập
-                        </span>
->>>>>>> f251697f32330ced84df97760bd60393a2eea290
-                    </button>
-=======
-                    {!authService.isAuthenticated() && <button className="absolute w-[119px] h-12 bg-[#2f2b36] hover:bg-white hover:text-black hover:border-[1px] hover:border-black rounded-[40px] flex items-center justify-center mr-[20px] right-5 text-white  button-animation
-                        max-xl:right-8 max-lg:right-10 max-md:right-0" onClick={menu.openLoginModal}
-                            id="button_open_menu_lilu open-login-modal">
-                        <span>
-                            Đăng nhập
-                        </span>
-                    </button>}
 
 
->>>>>>> List/CreateContract-HoaiNT
+
+
                 </nav>
             </header>
         </>
-    )
+)
 }
 export default Header;
