@@ -56,14 +56,16 @@ const ListLanding = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const savedPage = sessionStorage.getItem('currentPage');
-    const savedSearchParams = JSON.parse(sessionStorage.getItem('searchParams'));
-    console.log(savedSearchParams)
+    const savedPage = sessionStorage.getItem("currentPage");
+    const savedSearchParams = JSON.parse(
+      sessionStorage.getItem("searchParams")
+    );
+    console.log(savedSearchParams);
     const params = savedSearchParams ? savedSearchParams : searchParams;
     if (savedPage) {
       params.page = parseInt(savedPage, 10);
     }
-    setSearchParams(params)
+    setSearchParams(params);
     getListAllLanding(params);
     getListAllFloor();
     document.addEventListener("click", handleClickOutside);
@@ -144,9 +146,9 @@ const ListLanding = () => {
           toast.success("Xóa mặt bằng " + ld.code + " thành công");
         }
       }
-      setListIdInput([]);
       getListAllLanding(searchParams);
     });
+    setListIdInput([]);
   };
 
   const deleteLanding = async () => {
@@ -206,11 +208,10 @@ const ListLanding = () => {
     setDetailModalIsOpen(true);
     setLandingDetail(landing);
   };
-  const openDetailModal=(landing)=>{
-    handleDetailClick()
-   setModalDetail(landing)
-    
-  }
+  const openDetailModal = (landing) => {
+    handleDetailClick();
+    setModalDetail(landing);
+  };
 
   const closeModalDetail = (landing) => {
     setDetailModalIsOpen(false);
@@ -504,7 +505,7 @@ const ListLanding = () => {
                     >
                       <div className="w-full h-full py-2">
                         <button
-                          onClick={()=>openDetailModal(landingItem)}
+                          onClick={() => openDetailModal(landingItem)}
                           className="w-full h-1/3 px-3 flex items-center hover:bg-[#fafafa]"
                         >
                           <span className="flex py-1">

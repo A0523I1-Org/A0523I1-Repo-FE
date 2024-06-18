@@ -12,7 +12,6 @@ import * as Yup from "yup";
 import * as floorService from "../../services/FloorService.js";
 import * as landingService from "../../services/LandingService";
 import { toast, ToastContainer } from "react-toastify";
-// import styles from "../../css/createLanding.css";
 
 const CreateLangding = () => {
   const [landing, setLanding] = useState({
@@ -56,7 +55,7 @@ const CreateLangding = () => {
         values.firebaseUrl = urlFireBase;
       } catch (error) {
         console.error("Error uploading image: ", error);
-        return; // Có thể thông báo lỗi cho người dùng tại đây nếu cần
+        return;
       }
     }
 
@@ -104,26 +103,20 @@ const CreateLangding = () => {
     area: Yup.string()
       .required("Vui lòng nhập diện tích.")
       .test("is-positive", "Diện tích không được nhỏ hơn 0.", (value) => {
-        // Kiểm tra xem giá trị có phải là số không
         if (!isNaN(parseFloat(value))) {
-          // Nếu là số, kiểm tra xem giá trị có lớn hơn hoặc bằng không không
           return parseFloat(value) >= 0;
         }
-        // Nếu không phải là số, không áp dụng kiểm tra số dương
         return true;
       })
       .test(
         "is-valid-number",
         "Diện tích phải là số và không có ký tự đặc biệt.",
         (value) => {
-          // Kiểm tra xem giá trị là số và không có ký tự đặc biệt
           return !isNaN(parseFloat(value)) && !/[^a-zA-Z0-9]/.test(value);
         }
       )
       .test("is-positive", "Diện tích quá lớn.", (value) => {
-        // Kiểm tra xem giá trị có phải là số không
         if (!isNaN(parseFloat(value))) {
-          // Nếu là số, kiểm tra xem giá trị có lớn hơn hoặc bằng không không
           return parseFloat(value) < 1000000;
         }
         return true;
@@ -149,9 +142,7 @@ const CreateLangding = () => {
           return !isNaN(parseFloat(value)) && !/[^a-zA-Z0-9]/.test(value);
         }
       ).test("is-positive", "Giá tiền quá lớn.", (value) => {
-        // Kiểm tra xem giá trị có phải là số không
         if (!isNaN(parseFloat(value))) {
-          // Nếu là số, kiểm tra xem giá trị có lớn hơn hoặc bằng không không
           return parseFloat(value) < 1000000000000;
         }
         return true;
@@ -174,13 +165,10 @@ const CreateLangding = () => {
         "is-valid-number-feeManager",
         "Phí quản lí phải là số và không được có ký tự đặc biệt.",
         (value) => {
-          // Kiểm tra xem giá trị là số và không có ký tự đặc biệt
           return !isNaN(parseFloat(value)) && !/[^a-zA-Z0-9]/.test(value);
         }
       ).test("is-positive", "Phí quản lí quá lớn.", (value) => {
-        // Kiểm tra xem giá trị có phải là số không
         if (!isNaN(parseFloat(value))) {
-          // Nếu là số, kiểm tra xem giá trị có lớn hơn hoặc bằng không không
           return parseFloat(value) < 1000000000;
         }
         return true;
@@ -189,18 +177,6 @@ const CreateLangding = () => {
     description: Yup.string().max(200, "Chú thích có độ dài tối đa 200 ký tự"),
   };
 
-  // const createLanding = async (values) => {
-  //   setSubmit(true);
-  //   console.log(values);
-  //   setSubmit(false);
-  //   values.floor = +values.floor;
-  //   values.feePerMonth = +values.feePerMonth;
-  //   values.feeManager = +values.feeManager;
-  //   values.area = +values.area;
-  //   await landingService.addNewLanding(values);
-  //   toast.success("Thêm mặt bằng thành công");
-  //   navigate("/landing");
-  // };
 
   const initialValues = {
     code: landing.code || "",
