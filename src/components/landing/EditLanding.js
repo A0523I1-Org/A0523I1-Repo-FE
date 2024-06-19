@@ -108,7 +108,17 @@ const EditLanding = () => {
                 excludeEmptyString: true,
             })
             .max(25, "Mã mặt bằng phải có tối đa 25 ký tự.")
-            .matches(/^MB\d{3}$/, "Mã mặt bằng phải đúng định dạng MBxxx."),
+            .matches(/^MB\d{3}$/, "Mã mặt bằng phải đúng định dạng MBxxx.")
+            .test(
+                'unique-code',
+                'Mã mặt bằng đã tồn tại', 
+                async (value) => {
+                  if (!value) return false;
+                  const isUnique = await landingService.findLandingByCode(value);
+                  console.log(isUnique)
+                  return !isUnique;
+                }
+              ),
 
         area: Yup.string()
             .required("Vui lòng nhập diện tích.")

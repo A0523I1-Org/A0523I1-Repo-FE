@@ -448,7 +448,7 @@ const CreateLangding = () => {
                       <div className="h-auto w-9/12 mr-5 mt-5 mb-3 flex flex-col gap-8">
                         <div className="w-full h-[40px] flex">
                           <div className="w-3/12 h-full flex items-center">
-                            <span>Giá tiền (đ)</span>
+                            <span>Giá tiền (VNĐ)</span>
                           </div>
                           <div className="w-9/12 h-full">
                             <Field
@@ -466,7 +466,7 @@ const CreateLangding = () => {
                         </div>
                         <div className="w-full h-[40px] flex">
                           <div className="w-3/12 h-full flex items-center">
-                            <span>Phí quản lý (đ)</span>
+                            <span>Phí quản lý (VNĐ)</span>
                           </div>
                           <div className="w-9/12 h-full">
                             <Field
