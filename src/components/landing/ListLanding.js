@@ -12,10 +12,17 @@ import "../../table/css/pagination.css";
 import ResponsivePagination from "react-responsive-pagination";
 
 const locationMapping = {
-  Available: "Chưa bàn giao",
-  Occupied: "Đã vào ở",
-  Repair: "Đang sửa chữa",
-  Drum: "Trống",
+
+  fullyFurnished: "Đầy đủ nội thất",
+  partiallyFurnished: "Nội thất một phần",
+  unfurnished: "Không có nội thất",
+  readyToMoveIn: "Sẵn sàng để dọn vào",
+  underConstruction: "Đang xây dựng",
+  newlyRenovated: "Mới được cải tạo",
+  basicAmenities: "Tiện nghi cơ bản",
+  luxuryAmenities: "Tiện nghi cao cấp",
+  ecoFriendly: "Thân thiện với môi trường",
+  highTech: "Công nghệ cao",
 };
 const typeMapping = {
   Apartment: "Căn hộ",
@@ -53,7 +60,9 @@ const ListLanding = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [landingDelete, setLandingDelete] = useState([]);
   const navigate = useNavigate();
- 
+  const [isNotFound, setIsNotFound] = useState(false);
+  const [updatedRecordId, setUpdatedRecordId] = useState(null);
+
 
   // lấy danh sách đầu sessionStorage là giúp để lưu trữ trang hiện tại khi chuyển trang từ edit về danh sách (lê chí thiện)
   useEffect(() => {
@@ -72,6 +81,22 @@ const ListLanding = () => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
+  const handleChangeDetail = (id) => {
+
+    try {
+      handleDetailClick();
+      setUpdatedRecordId(id);
+      setTimeout(() => {
+        setUpdatedRecordId(null);
+      }, 100000);
+
+    } catch (error) {
+      console.log(error)
+    }
+
+
+  }
+  console.log(updatedRecordId)
 
   // hàm chuyển trang trên react khi bấm vào từng trang (lê chí thiện)
 
@@ -127,6 +152,8 @@ const ListLanding = () => {
     try {
       const res = await landingService.getListAllLanding(searchParams);
       setLanding(res);
+
+      setIsNotFound(res.content.length === 0);
     } catch (error) {
       console.error(error);
     }
@@ -136,6 +163,7 @@ const ListLanding = () => {
   const handleChange = (e) => {
     setSearchParams({ ...searchParams, [e.target.name]: e.target.value });
   };
+  console.log(isNotFound)
 
   //Hàm gửi dữ liệu khi nhập vào tìm kiếm(lê chí thiện)
 
@@ -164,6 +192,9 @@ const ListLanding = () => {
     getListAllLanding(param);
 
   };
+  const handleGoBack = () => {
+    handleReset();
+  }
 
   const deleteLandingByIds = () => {
     landing.content.forEach((ld) => {
@@ -238,6 +269,8 @@ const ListLanding = () => {
 
   return (
     <>
+
+
       <div className=" h-[90px]  mx-16 flex gap-5 items-center">
         <select
           type="select"
@@ -249,10 +282,18 @@ const ListLanding = () => {
           placeholder="Tìm theo trạng thái"
         >
           <option value="">Tìm theo trạng thái</option>
-          <option value="Available">Chưa bàn giao</option>
-          <option value="Occupied">Đã vào ở</option>
-          <option value="Repair">Đang sửa chữa</option>
-          <option value="Drum">Trống</option>
+
+          <option value="fullyFurnished">Đầy đủ nội thất</option>
+          <option value="partiallyFurnished">Nội thất một phần</option>
+          <option value="unfurnished">Không có nội thất</option>
+          <option value="readyToMoveIn">Sẵn sàng để dọn vào</option>
+          <option value="underConstruction">Đang xây dựng</option>
+          <option value="newlyRenovated">Mới được cải tạo</option>
+          <option value="basicAmenities">Tiện nghi cơ bản</option>
+          <option value="luxuryAmenities">Tiện nghi cao cấp</option>
+          <option value="ecoFriendly">Thân thiện với môi trường</option>
+          <option value="highTech">Công nghệ cao</option>
+
         </select>
         <input
           type="text"
@@ -339,6 +380,7 @@ const ListLanding = () => {
         </div>
       </div>
 
+
       <div className="w-full h-auto  ">
         <div className="mx-16 h-full  ">
           <table className="table-auto  w-full h-full">
@@ -403,9 +445,17 @@ const ListLanding = () => {
                 </th>
               </tr>
             </thead>
+            {isNotFound && (
+              <div>
+                <p>Không tìm thấy kết quả</p>
+                <button onClick={handleGoBack}>Quay lại trang chính</button>
+              </div>
+            )}
+
             <tbody>
               {landing.content.map((landingItem, index) => (
-                <tr className="w-1/12 h-[76px] " key={index}>
+
+                <tr key={index} className={`w-1/12 h-[76px] ${updatedRecordId === landingItem.id ? 'bg-yellow-200' : ''}`}>
                   <td className="text-center w-[60px]">
                     <input
                       type="checkbox"
@@ -455,28 +505,29 @@ const ListLanding = () => {
                       <span>Tầng {landingItem.floor}</span>
                     </div>
                   </td>
+
+
                   <td className=" w-2/12 text-center ">
                     {locationMapping.hasOwnProperty(landingItem.status) ? (
                       <button
                         className={`
                                     ${locationMapping[
                             landingItem.status
-                          ].trim() === "Chưa bàn giao" ||
-                            locationMapping[
-                              landingItem.status
-                            ].trim() === "Trống"
+                          ] === "Đầy đủ nội thất" || locationMapping[
+                            landingItem.status].trim() === "Nội thất một phần" ||locationMapping[
+                              landingItem.status].trim() === "Không có nội thất" ||locationMapping[
+                                landingItem.status].trim() === "Sẵn sàng để dọn vào" || locationMapping[
+                                  landingItem.status].trim() === "Đang xây dựng" || locationMapping[
+                                    landingItem.status].trim() === "Mới được cải tạo" || locationMapping[
+                                      landingItem.status].trim() === "Tiện nghi cơ bản" || locationMapping[
+                                        landingItem.status].trim() === "Tiện nghi cao cấp" || locationMapping[
+                                          landingItem.status].trim() === "Thân thiện với môi trường" || locationMapping[
+                                            landingItem.status].trim() === "Công nghệ cao"
+
                             ? "bg-green-500"
                             : ""
-                          }
-                                     ${locationMapping[
-                            landingItem.status
-                          ].trim() === "Đã vào ở" ||
-                            locationMapping[
-                              landingItem.status
-                            ].trim() === "Đang sửa chữa"
-                            ? "bg-red-500"
-                            : ""
-                          }
+                          } 
+                               
                                    
                                         
                                      
@@ -571,7 +622,7 @@ const ListLanding = () => {
                         </button>
                         <Link to={routes.editLanding + landingItem.id}>
                           <button
-                            onClick={handleDetailClick}
+                            onClick={() => handleChangeDetail(landingItem.id)}
                             className="w-full h-1/3 border-t-[1px] px-3 flex items-center hover:bg-[#fafafa]"
                           >
                             <span className="flex py-1">

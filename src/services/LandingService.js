@@ -1,25 +1,12 @@
 
 import axios from "axios";
-// export const getListAllLanding=async (page)=> {
-// try{
-//     const res=await axios.get(`http://localhost:8080/landing?page=${page}`)
 
-
-//     return res.data
-
-// }catch (e) {
-
-//     return false;
-
-// }
-
-// }
 
 export const getListAllLanding = async (searchParams) => {
     try {
         const res = await axios.get(`http://localhost:8080/landing?page=${searchParams.page}&size=${searchParams.size}&statusLanding=${searchParams.statusLanding}&codeLanding=${searchParams.codeLanding}&areaLanding=${searchParams.areaLanding}&typeLanding=${searchParams.typeLanding}&floorLanding=${searchParams.floorLanding}`);
         return res.data;
-        console.log(res.data.content)
+      
     } catch (e) {
         console.error(e);
         return false;
@@ -52,6 +39,17 @@ export const updateLading=async(landing) =>{
 export const findLanding= async(id)=>{
     try {
         const res=await axios.get(`http://localhost:8080/landing/${id}`)
+        return res.data
+
+    }catch (e) {
+        console.log(e)
+        return false;
+
+    }
+}
+export const findLandingByCode= async(code)=>{
+    try {
+        const res=await axios.get(`http://localhost:8080/landing/code/${code}`)
         return res.data
 
     }catch (e) {
