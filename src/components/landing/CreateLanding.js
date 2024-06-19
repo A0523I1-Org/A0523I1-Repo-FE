@@ -274,7 +274,7 @@ const CreateLangding = () => {
                         <option value="partiallyFurnished">
                           Nội thất một phần
                         </option>
-                        <option value="unfurnished">Không có nội thất</option>
+                        <option value="unFurnished">Không có nội thất</option>
                         <option value="readyToMoveIn">
                           Sẵn sàng để dọn vào
                         </option>

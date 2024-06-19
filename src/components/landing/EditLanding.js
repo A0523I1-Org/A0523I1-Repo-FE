@@ -108,68 +108,95 @@ const EditLanding = () => {
                 excludeEmptyString: true,
             })
             .max(25, "Mã mặt bằng phải có tối đa 25 ký tự.")
-            .matches(/^MB\d{3}$/, "Mã mặt bằng phải đúng định dạng MBxxx.")
-            .test(
-                'unique-code',
-                'Mã mặt bằng đã tồn tại', 
-                async (value) => {
-                  if (!value) return false;
-                  const isUnique = await landingService.findLandingByCode(value);
-                  console.log(isUnique)
-                  return !isUnique;
-                }
-              ),
+            .matches(/^MB\d{3}$/, "Mã mặt bằng phải đúng định dạng MBxxx."),
 
-        area: Yup.string()
+            area: Yup.string()
             .required("Vui lòng nhập diện tích.")
-            .test('is-positive', 'Diện tích không được nhỏ hơn 0.', value => {
-                // Kiểm tra xem giá trị có phải là số không
-                if (!isNaN(parseFloat(value))) {
-                    // Nếu là số, kiểm tra xem giá trị có lớn hơn hoặc bằng không không
-                    return parseFloat(value) >= 0;
-                }
-                // Nếu không phải là số, không áp dụng kiểm tra số dương
-                return true;
+            .test("is-positive", "Diện tích không được nhỏ hơn 0.", (value) => {
+              // Kiểm tra xem giá trị có phải là số không
+              if (!isNaN(parseFloat(value))) {
+                // Nếu là số, kiểm tra xem giá trị có lớn hơn hoặc bằng không không
+                return parseFloat(value) >= 0;
+              }
+              // Nếu không phải là số, không áp dụng kiểm tra số dương
+              return true;
             })
-            .test('is-valid-number', 'Diện tích phải là số và không có ký tự đặc biệt.', value => {
+            .test(
+              "is-valid-number",
+              "Diện tích phải là số và không có ký tự đặc biệt.",
+              (value) => {
                 // Kiểm tra xem giá trị là số và không có ký tự đặc biệt
                 return !isNaN(parseFloat(value)) && !/[^a-zA-Z0-9]/.test(value);
+              }
+            )
+            .test("is-positive", "Diện tích quá lớn.", (value) => {
+              // Kiểm tra xem giá trị có phải là số không
+              if (!isNaN(parseFloat(value))) {
+                // Nếu là số, kiểm tra xem giá trị có lớn hơn hoặc bằng không không
+                return parseFloat(value) < 1000000;
+              }
+              return true;
             }),
-
-        feePerMonth: Yup.string()
+      
+          feePerMonth: Yup.string()
             .required("Vui lòng nhập giá tiền.")
-            .test('is-positive-feePerMonth', 'Vui lòng nhập giá tiền lớn hơn 0.', value => {
-
+            .test(
+              "is-positive-feePerMonth",
+              "Vui lòng nhập giá tiền lớn hơn 0.",
+              (value) => {
                 if (!isNaN(parseFloat(value))) {
-
-                    return parseFloat(value) >= 0;
+                  return parseFloat(value) >= 0;
                 }
-
+      
                 return true;
-            })
-            .test('is-valid-number-feePerMonth', 'Giá tiền phải là số và không được có ký tự đặc biệt.', value => {
-
+              }
+            )
+            .test(
+              "is-valid-number-feePerMonth",
+              "Giá tiền phải là số và không được có ký tự đặc biệt.",
+              (value) => {
                 return !isNaN(parseFloat(value)) && !/[^a-zA-Z0-9]/.test(value);
+              }
+            ).test("is-positive", "Giá tiền quá lớn.", (value) => {
+              // Kiểm tra xem giá trị có phải là số không
+              if (!isNaN(parseFloat(value))) {
+                // Nếu là số, kiểm tra xem giá trị có lớn hơn hoặc bằng không không
+                return parseFloat(value) < 1000000000000;
+              }
+              return true;
             }),
-
-        feeManager: Yup.string()
+      
+          feeManager: Yup.string()
             .required("Vui lòng nhập phí quản lí.")
-            .test('is-positive-feeManager', 'Vui lòng nhập phí quản lí lớn hơn 0.', value => {
-
+            .test(
+              "is-positive-feeManager",
+              "Vui lòng nhập phí quản lí lớn hơn 0.",
+              (value) => {
                 if (!isNaN(parseFloat(value))) {
-
-                    return parseFloat(value) >= 0;
+                  return parseFloat(value) >= 0;
                 }
-
+      
                 return true;
-            })
-            .test('is-valid-number-feeManager', 'Phí quản lí phải là số và không được có ký tự đặc biệt.', value => {
+              }
+            )
+            .test(
+              "is-valid-number-feeManager",
+              "Phí quản lí phải là số và không được có ký tự đặc biệt.",
+              (value) => {
                 // Kiểm tra xem giá trị là số và không có ký tự đặc biệt
                 return !isNaN(parseFloat(value)) && !/[^a-zA-Z0-9]/.test(value);
+              }
+            ).test("is-positive", "Phí quản lí quá lớn.", (value) => {
+              // Kiểm tra xem giá trị có phải là số không
+              if (!isNaN(parseFloat(value))) {
+                // Nếu là số, kiểm tra xem giá trị có lớn hơn hoặc bằng không không
+                return parseFloat(value) < 1000000000;
+              }
+              return true;
             }),
-
         description: Yup.string().required("Vui lòng nhập chú thích").
-        max(200, "Chú thích có độ dài tối đa 200 ký tự")
+        max(200, "Chú thích có độ dài tối đa 200 ký tự"),
+        
     });
 
     if (!landing) {
@@ -205,7 +232,7 @@ const EditLanding = () => {
 
                         <div className="row justify-content-around">
 
-                            <div className="mx-16 h-auto flex gap-5">
+                            <div className=" h-auto flex gap-5">
                                 <div className="w-6/12 h-auto bg-white rounded-[3px] flex flex-col gap-8"
                                     style={{ boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px" }}>
                                     <div className="h-[40px] mx-5 mt-3 flex items-center">
@@ -235,10 +262,17 @@ const EditLanding = () => {
                                             <Field as="select" id="status" name="status"
                                                 className="w-full h-full rounded-[3px] border-[#8887] form-control">
                                                 <option value="">Chọn</option>
-                                                <option value="Available">Chưa bàn giao</option>
-                                                <option value="Occupied">Đã vào ở</option>
-                                                <option value="Repair">Đang sửa chữa</option>
-                                                <option value="Drum">Trống</option>
+                                                <option value="fullyFurnished">Đầy đủ nội thất</option>
+                                                <option value="partiallyFurnished">Nội thất một phần</option>
+                                                <option value="unfurnished">Không có nội thất</option>
+                                                <option value="readyToMoveIn">Sẵn sàng để dọn vào</option>
+                                                <option value="underConstruction">Đang xây dựng</option>
+                                                <option value="newlyRenovated">Mới được cải tạo</option>
+                                                <option value="basicAmenities">Tiện nghi cơ bản</option>
+                                                <option value="luxuryAmenities">Tiện nghi cao cấp</option>
+                                                <option value="ecoFriendly">Thân thiện với môi trường</option>
+                                                <option value="highTech">Công nghệ cao</option>
+                                                                                            
                                             </Field>
                                             <ErrorMessage name="status" component="span"
                                                 className="text-[12px] text-red-500" />
@@ -353,7 +387,7 @@ const EditLanding = () => {
                                             <div className="h-auto w-9/12 mr-5 mt-5 mb-3 flex flex-col gap-8">
                                                 <div className="w-full h-[40px] flex">
                                                     <div className="w-3/12 h-full flex items-center">
-                                                        <span>Giá tiền</span></div>
+                                                        <span>Giá tiền(VNĐ)</span></div>
                                                     <div className="w-9/12 h-full">
                                                         <Field type="text" id="feePerMonth" name="feePerMonth"
                                                             className="w-full h-full rounded-[3px] border-[#8887] pl-3" />
@@ -363,7 +397,7 @@ const EditLanding = () => {
                                                 </div>
                                                 <div className="w-full h-[40px] flex">
                                                     <div className="w-3/12 h-full flex items-center">
-                                                        <span>Phí quản lý</span>
+                                                        <span>Phí quản lý(VNĐ)</span>
                                                     </div>
                                                     <div className="w-9/12 h-full">
                                                         <Field type="text" id="feeManager" name="feeManager"
