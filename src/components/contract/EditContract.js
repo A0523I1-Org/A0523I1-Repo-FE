@@ -15,14 +15,12 @@ import data from "bootstrap/js/src/dom/data";
 import ErrorNotFound from "./ErrorNotFound";
 
 const EditContract = () => {
-
     const {id}= useParams();
     const [contract,setContract] = useState({});
     const [progress,setProgress] = useState(null)
     const [isUpdate,setIsUpdate] = useState(false)
     const [showErrorPopup, setShowErrorPopup] = useState(false);
     const [error, setError] = useState(null);
-
 
 
     const calculateEndDate = (e,values,setFieldValue) => {
@@ -60,7 +58,6 @@ const EditContract = () => {
         const total = currentValue * parseInt(term);
         setFieldValue('total',numberFormatter.format(total))
     }
-
     const numberFormatter = new Intl.NumberFormat('vi-VN', {
         style: 'decimal',
         useGrouping: true,
@@ -71,6 +68,9 @@ const EditContract = () => {
         let value = input.value.replace(/\D/g, ''); // Remove non-numeric characters
         input.value = numberFormatter.format(value);
     };
+    useEffect(() => {
+        fetchContractById(id);
+    },[id])
     const initialValue = {
         employee:contract.employeeName ? contract.employeeName : '',
         customer : contract.customerName ? contract.customerName : '',
@@ -86,9 +86,6 @@ const EditContract = () => {
         img: null,
         total :numberFormatter.format(contract.term * contract.feePerMouth)
     }
-    useEffect(() => {
-        fetchContractById(id);
-    },[id])
     const fetchContractById = async (id) => {
         try{
             const response = await getContractById(id);
@@ -96,6 +93,7 @@ const EditContract = () => {
         }catch (e) {
             console.log(e);
             setError(e.message);
+            setShowErrorPopup(true)
         }
     }
     const UploadFile = async (file) => {
@@ -143,9 +141,10 @@ const EditContract = () => {
     const handleClosePopup = () => {
         setIsUpdate(false)
     }
+
     if (!initialValue) return <div>Loading...</div>
     return (
-        <div style={{width: '100%'}} class="w-full h-[600px] mt-[20px] ">
+        <div style={{width: '100%'}} class="w-full h-[600px] mt-[20px] " id="update-ct">
             <div className="h-full mx-16  flex gap-3" style={{position : 'relative'}}>
                 {progress !== null && progress < 100 && (
                     <div className="loading-overlay" style={{

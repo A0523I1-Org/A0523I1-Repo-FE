@@ -28,7 +28,7 @@ export const contractSchema = Yup.object().shape({
             (value) =>{
                 if(value) {
                     const numericValue = value.replace(/\D/g, "");
-                    return numericValue >= 1000000 && numericValue <= 50000000;
+                    return numericValue >= 1000000 && numericValue <= 100000000;
                 }
                 return true;
             }),

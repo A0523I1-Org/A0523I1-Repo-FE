@@ -164,8 +164,8 @@ const ListContract = () => {
                     onFocus={(e) => (e.target.type = "date")}
                      onBlur={(e) => (e.target.type = "text")}
                     />
-                <button id='search-bt1' type='submit' ><i class="fa fa-search"></i></button>
-                <button id='search-bt2' onClick={handleReset} type='reset'><i class="fa fa-refresh"></i></button>
+                <button id='search-bt1' type='submit' ><i class="fa fa-search"/></button>
+                <button id='search-bt2' onClick={handleReset} type='reset'><i class="fa fa-refresh"/></button>
                 
                 </Form>
             </div>
