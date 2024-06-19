@@ -63,9 +63,16 @@ const CreateLangding = () => {
     if (values.firebaseUrl !== "") {
       values.floor = +values.floor;
       try {
-        await landingService.addNewLanding(values);
-        toast.success("Thêm mặt bằng thành công");
+        const frag = await landingService.addNewLanding(values);
+        if (frag) {
+          toast.success("Thêm mặt bằng thành công");
+        } else {
+          toast.error("Thêm mặt bằng không thành công");
+        }
+        console.log(values);
+
         navigate("/landing");
+
       } catch (error) {
         console.error("Error updating landing: ", error);
       }
@@ -98,7 +105,17 @@ const CreateLangding = () => {
         excludeEmptyString: true,
       })
       .max(25, "Mã mặt bằng phải có tối đa 25 ký tự.")
-      .matches(/^MB\d{3}$/, "Mã mặt bằng phải đúng định dạng MBxxx."),
+      .matches(/^MB\d{3}$/, "Mã mặt bằng phải đúng định dạng MBxxx.")
+      .test(
+        'unique-code',
+        'Mã mặt bằng đã tồn tại', 
+        async (value) => {
+          if (!value) return false;
+          const isUnique = await landingService.findLandingByCode(value);
+          console.log(isUnique)
+          return !isUnique;
+        }
+      ),
 
     area: Yup.string()
       .required("Vui lòng nhập diện tích.")
@@ -141,7 +158,8 @@ const CreateLangding = () => {
         (value) => {
           return !isNaN(parseFloat(value)) && !/[^a-zA-Z0-9]/.test(value);
         }
-      ).test("is-positive", "Giá tiền quá lớn.", (value) => {
+      )
+      .test("is-positive", "Giá tiền quá lớn.", (value) => {
         if (!isNaN(parseFloat(value))) {
           return parseFloat(value) < 1000000000000;
         }
@@ -167,7 +185,8 @@ const CreateLangding = () => {
         (value) => {
           return !isNaN(parseFloat(value)) && !/[^a-zA-Z0-9]/.test(value);
         }
-      ).test("is-positive", "Phí quản lí quá lớn.", (value) => {
+      )
+      .test("is-positive", "Phí quản lí quá lớn.", (value) => {
         if (!isNaN(parseFloat(value))) {
           return parseFloat(value) < 1000000000;
         }
@@ -176,7 +195,6 @@ const CreateLangding = () => {
 
     description: Yup.string().max(200, "Chú thích có độ dài tối đa 200 ký tự"),
   };
-
 
   const initialValues = {
     code: landing.code || "",
@@ -204,7 +222,7 @@ const CreateLangding = () => {
         {({ isSubmitting }) => (
           <Form className="w-full">
             <div className="row justify-content-around">
-              <div className="mx-16 h-auto flex gap-5">
+              <div className="h-auto flex gap-5">
                 <div
                   className="w-6/12 h-auto bg-white rounded-[3px] flex flex-col gap-8"
                   style={{ boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px" }}
@@ -252,10 +270,30 @@ const CreateLangding = () => {
                         className="w-full h-full rounded-[3px] border-[#8887] form-control"
                       >
                         <option value="">Chọn</option>
-                        <option value="Available">Chưa bàn giao</option>
-                        <option value="Occupied">Đang vào ở</option>
-                        <option value="Repair">Đang sửa chữa</option>
-                        <option value="Drum">Trống</option>
+                        <option value="fullyFurnished">Đầy đủ nội thất</option>
+                        <option value="partiallyFurnished">
+                          Nội thất một phần
+                        </option>
+                        <option value="unfurnished">Không có nội thất</option>
+                        <option value="readyToMoveIn">
+                          Sẵn sàng để dọn vào
+                        </option>
+                        <option value="underConstruction">
+                          Đang xây dựng
+                        </option>
+                        <option value="newlyRenovated">
+                          Mới được cải tạo
+                        </option>
+                        <option value="basicAmenities">
+                          Tiện nghi cơ bản
+                        </option>
+                        <option value="luxuryAmenities">
+                          Tiện nghi cao cấp
+                        </option>
+                        <option value="ecoFriendly">
+                          Thân thiện với môi trường
+                        </option>
+                        <option value="highTech">Công nghệ cao</option>
                       </Field>
                       <ErrorMessage
                         name="status"
@@ -267,7 +305,7 @@ const CreateLangding = () => {
                   <div className="h-[40px] mx-5 flex items-center">
                     <div className="w-4/12 h-full flex items-center">
                       <span>
-                        Diện tích (m²) {" "}
+                        Diện tích (m²){" "}
                         <span className="text-red-500 text-xl">*</span>
                       </span>
                     </div>
@@ -402,7 +440,7 @@ const CreateLangding = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="w-full h-2/3">
+                  <div className="w-full h-1/2">
                     <div className="w-full h-full flex">
                       <div className="h-[80px] w-3/12 mr-5 mt-5 mb-3 flex items-center">
                         <h1 className="text-xl pl-5">Chi phí</h1>

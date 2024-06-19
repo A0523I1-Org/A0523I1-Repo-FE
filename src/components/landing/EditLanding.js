@@ -8,6 +8,8 @@ import * as Yup from "yup";
 import { ref, uploadBytesResumable, getDownloadURL, uploadBytes } from "firebase/storage";
 import { storage } from "../../configs/fireBaseConfig.js";
 import routes from "../../configs/routes.js";
+import { toast, ToastContainer } from "react-toastify";
+
 
 
 const EditLanding = () => {
@@ -68,7 +70,8 @@ const EditLanding = () => {
             values.floor = +values.floor;
             try {
                 await landingService.updateLading(values);
-                alert("Update thành công");
+                navigator("/landing")
+                toast.success("Update thanh cong")
             } catch (error) {
                 console.error("Error updating landing: ", error);
                 // Có thể thông báo lỗi cho người dùng tại đây nếu cần
@@ -223,7 +226,7 @@ const EditLanding = () => {
                                                 className="w-full h-full rounded-[3px] border-[#8887] form-control">
                                                 <option value="">Chọn</option>
                                                 <option value="Available">Chưa bàn giao</option>
-                                                <option value="Occupied">Đang vào ở</option>
+                                                <option value="Occupied">Đã vào ở</option>
                                                 <option value="Repair">Đang sửa chữa</option>
                                                 <option value="Drum">Trống</option>
                                             </Field>

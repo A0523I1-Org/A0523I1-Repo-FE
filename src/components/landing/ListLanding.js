@@ -56,16 +56,14 @@ const ListLanding = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const savedPage = sessionStorage.getItem("currentPage");
-    const savedSearchParams = JSON.parse(
-      sessionStorage.getItem("searchParams")
-    );
-    console.log(savedSearchParams);
+    const savedPage = sessionStorage.getItem('currentPage');
+    const savedSearchParams = JSON.parse(sessionStorage.getItem('searchParams'));
+    console.log(savedSearchParams)
     const params = savedSearchParams ? savedSearchParams : searchParams;
     if (savedPage) {
       params.page = parseInt(savedPage, 10);
     }
-    setSearchParams(params);
+    setSearchParams(params)
     getListAllLanding(params);
     getListAllFloor();
     document.addEventListener("click", handleClickOutside);
@@ -75,6 +73,7 @@ const ListLanding = () => {
   }, []);
 
   const handlePageChange = (page) => {
+    sessionStorage.setItem('currentPage', page - 1);
     const param = { ...searchParams, page: page - 1 };
     setSearchParams(param);
     getListAllLanding(param);
@@ -106,7 +105,7 @@ const ListLanding = () => {
     try {
       const res = await landingService.getListAllFloor();
       setFloors(res);
-    } catch (e) {
+    } catch (e) { 
       console.log(e);
     }
   };
@@ -133,17 +132,29 @@ const ListLanding = () => {
   };
 
   const handleReset = () => {
-    setSearchParams(init_param);
-    getListAllLanding(init_param);
+    sessionStorage.removeItem('currentPage')
+    sessionStorage.removeItem('searchParams');
+    const param = {
+      ...init_param,
+      page: 0,
+    }
+    setSearchParams(param);
+    getListAllLanding(param);
   };
 
   const deleteLandingByIds = () => {
     setModalDeleteMultiIsOpen(false);
     landing.content.forEach((ld) => {
       if (ld.select) {
+        if(!ld.isAvailable){
+          toast.error("Mặt bằng " + ld.code + " không thể xóa vì đã vào ở");
+          return;
+        }
         const isSuccess = landingService.deleteLandingById(ld.id);
         if (isSuccess) {
           toast.success("Xóa mặt bằng " + ld.code + " thành công");
+        }else{
+          toast.error("Xóa mặt bằng " + ld.code + " không thành công");
         }
       }
       getListAllLanding(searchParams);
@@ -152,9 +163,15 @@ const ListLanding = () => {
   };
 
   const deleteLanding = async () => {
+    if(!landingDelete.isAvailable){
+      toast.error("Mặt bằng " + landingDelete.code + " không thể xóa vì đã vào ở");
+      return;
+    }
     const isSuccess = await landingService.deleteLandingById(landingDelete.id);
     if (isSuccess) {
       toast.success("Xóa mặt bằng " + landingDelete.code + " thành công");
+    }else{
+      toast.error("Xóa mặt bằng " + landingDelete.code + " không thành công");
     }
     setIsOpen(false);
     getListAllLanding(searchParams);
@@ -422,13 +439,13 @@ const ListLanding = () => {
                   <td className="w-1.5/12 text-center">
                     <span>
                       {landingItem.feePerMonth}
-                      <span className="text-red-600 after:content-['_$']" />
+                      <span className="text-red-600 after:content-['_đ']" />
                     </span>
                   </td>
                   <td className="w-1/12 text-center">
                     <span>
                       {landingItem.feeManager}
-                      <span className="text-red-600 after:content-['_$']"></span>
+                      <span className="text-red-600 after:content-['_đ']"></span>
                     </span>
                   </td>
                   <td className="w-2/12 text-center ">
@@ -622,15 +639,6 @@ const ListLanding = () => {
             current={landing.number + 1}
             onPageChange={(page) => handlePageChange(page)}
           />
-          {/* <nav aria-label="Page navigation example">
-                    <ul className="pagination">
-                        <li className="page-item"><a className="page-link" href="#">Previous</a></li>
-                        <li className="page-item"><a className="page-link" href="#">1</a></li>
-                        <li className="page-item"><a className="page-link" href="#">2</a></li>
-                        <li className="page-item"><a className="page-link" href="#">3</a></li>
-                        <li className="page-item"><a className="page-link" href="#">Next</a></li>
-                    </ul>
-                </nav> */}
         </div>
       </div>
       <Modal

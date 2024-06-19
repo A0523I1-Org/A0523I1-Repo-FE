@@ -60,6 +60,17 @@ export const findLanding= async(id)=>{
 
     }
 }
+export const findLandingByCode= async(code)=>{
+    try {
+        const res=await axios.get(`http://localhost:8080/landing/code/${code}`)
+        return res.data
+
+    }catch (e) {
+        console.log(e)
+        return false;
+
+    }
+}
 
 
 // Phung-PV Dùng để lưu trữ thong tin khách hàng vào google sheet để có thể liên lạc
