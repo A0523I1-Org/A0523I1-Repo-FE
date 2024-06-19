@@ -180,7 +180,7 @@ const ListLanding = () => {
     setModalDeleteMultiIsOpen(false);
     landing.content.forEach((ld) => {
       if (ld.select) {
-        if(!ld.isAvailable){
+        if(ld.isAvailable){
           toast.error("Mặt bằng " + ld.code + " không thể xóa vì đã vào ở");
           return;
         }
@@ -197,7 +197,7 @@ const ListLanding = () => {
   };
 
   const deleteLanding = async () => {
-    if(!landingDelete.isAvailable){
+    if(landingDelete.isAvailable){
       toast.error("Mặt bằng " + landingDelete.code + " không thể xóa vì đã vào ở");
       return;
     }
