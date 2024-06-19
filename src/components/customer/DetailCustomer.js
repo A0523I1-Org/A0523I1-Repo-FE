@@ -3,24 +3,22 @@ import axios from "axios";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {useState, useEffect} from "react";
 import {useNavigate, useParams} from "react-router-dom";
-import {format,parseISO} from 'date-fns';
+import {format, parseISO} from 'date-fns';
 
 const DetailCustomer = () => {
 
-
     const {id} = useParams();
     const [customer, setCustomer] = useState(null);
-    const navigate = useNavigate();
-
     useEffect(() => {
         axios.get(`http://localhost:8080/api/customer/${id}`)
             .then(res => setCustomer(res.data))
             .catch(err => console.log("Error fetching customer:", err));
     }, [id]);
 
-    const formatDate = (input) =>{
-        return format(parseISO(input),"yyyy-MM-dd");
+    const formatDate = (input) => {
+        return format(parseISO(input), "yyyy-MM-dd");
     }
+
 
     if (!customer) return <div>Loading...</div>;
 
