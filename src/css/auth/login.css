@@ -1,8 +1,3 @@
-/*===== GOOGLE FONTS =====*/
-/* @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"); */
-
-/*===== VARIABLES CSS =====*/
-
 /*=== Colors ===*/
 :root {
     --first-color: #12192c;
@@ -33,8 +28,8 @@
     }
 
     .modal-content {
-        max-width: 800px; /* Smaller width for laptop screens */
-        max-height: 800px; /* Smaller height for laptop screens */
+        max-width: 600px; /* Smaller width for laptop screens */
+        max-height: 600px; /* Smaller height for laptop screens */
     }
 }
 
@@ -48,7 +43,7 @@
 
     .modal-content {
         max-width: 600px; /* Smaller width for laptop screens */
-        max-height: 1200px; /* Smaller height for laptop screens */
+        max-height: 1000px; /* Smaller height for laptop screens */
     }
 }
 
@@ -196,7 +191,7 @@ a {
 
 .login__fail_message {
     position: absolute;
-    top: -2.5rem;
+    top: -2.2rem;
     left: 50%;
     transform: translate(-50%, -50%);
     width: max-content;
@@ -256,6 +251,7 @@ a {
 }
 .form__button {
     width: 100%;
+    margin-top: 1.5rem;
     padding: 1rem;
     font-size: var(--normal-font-size);
     outline: none;

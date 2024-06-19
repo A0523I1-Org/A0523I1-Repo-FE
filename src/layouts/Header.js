@@ -7,7 +7,6 @@ import '../css/auth/login.css'; // Import your custom CSS
 import Modal from "react-modal";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from "yup"
-import * as accountService from "../services/AccountService";
 import {useNavigate} from "react-router";
 import * as authService from "../services/Authenticate/AuthService"
 
@@ -19,7 +18,6 @@ const Header = () => {
     const [passwordVisible, setPasswordVisible] = useState(false)
     const [error, setError] = useState('')
     const [account, setAccount] = useState({username:"", password:""});
-    const [isAdmin, setIsAdmin] = useState(false);
     const navigate = useNavigate()
 
     const validateAccount = {
@@ -46,11 +44,13 @@ const Header = () => {
     const login = async (account) => {
         try {
             const userData = await authService.login(account.username, account.password)
+
             if (userData.authenticated === true) {
 
                 if (userData.access_token) {
 
                     localStorage.setItem('token', userData.access_token);
+                    localStorage.setItem('role', JSON.stringify(userData.roles));
 
                     navigate('/employee/personal-information');
 
@@ -60,7 +60,10 @@ const Header = () => {
 
             }
         } catch (error) {
-            setError("Đăng nhập thất bại.")
+            if (error.response) {
+                if (error.response.status === 404) setError("Tài khoản KHÔNG tồn tại.")
+                if (error.response.status === 401) setError("Mật khẩu KHÔNG trùng khớp.")
+            }
         }
     }
 
@@ -78,6 +81,20 @@ const Header = () => {
         openLoginModal
     }
 
+    const styles = {
+        container: {
+            backgroundColor: '#FFF5F5',
+            border: '1px solid #EB5757',
+            borderRadius: '4px',
+            padding: '10px', // Giảm khoảng cách
+            marginBottom: '10px', // Giảm khoảng cách dưới
+            maxWidth: '300px', // Độ rộng tối đa
+        },
+        message: {
+            color: '#EB5757',
+            fontSize: '14px', // Kích thước chữ
+        }
+    };
 
     return (
         <>
@@ -104,7 +121,11 @@ const Header = () => {
 
                                 <div className="form__div form__div-one">
 
-                                    {error && <div className="login__fail_message">{error}</div>}
+                                    {error &&<div style={styles.container} className="login__fail_message">
+                                        <div style={styles.message}>
+                                            {error}
+                                        </div>
+                                    </div>}
 
                                     <div className="form__icon">
                                         <RiUserLine />
@@ -130,15 +151,15 @@ const Header = () => {
                                     </div>
                                 </div>
 
-                                <div className="form__check">
-                                    <div className="form__remember">
-                                        <label htmlFor="remember-me">
-                                            <input type="checkbox" id="remember-me" name="remember-me"/>
-                                            Ghi nhớ tôi
-                                        </label>
-                                    </div>
-                                    {/*<a href="#" className="form__forgot">Quên mật khẩu?</a>*/}
-                                </div>
+                                {/*<div className="form__check">*/}
+                                {/*    <div className="form__remember">*/}
+                                {/*        <label htmlFor="remember-me">*/}
+                                {/*            <input type="checkbox" id="remember-me" name="remember-me"/>*/}
+                                {/*            Ghi nhớ tôi*/}
+                                {/*        </label>*/}
+                                {/*    </div>*/}
+                                {/*    /!*<a href="#" className="form__forgot">Quên mật khẩu?</a>*!/*/}
+                                {/*</div>*/}
 
                                 <button type="submit" className="form__button">ĐĂNG NHẬP</button>
 

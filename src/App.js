@@ -4,16 +4,13 @@ import { privateRoutes,publicRoutes } from './routes/router';
 import DefaultLayout from './layouts/DefaultLayout';
 import React, { Fragment } from 'react';
 import NotFound from './pages/NotFound';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import {AdminProvider} from "./services/Authenticate/AdminContext";
-
+import {ToastContainer} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
    <>
-       <AdminProvider>
-       <BrowserRouter>
+   <BrowserRouter>
           <Routes>
             {
               publicRoutes.map((route,index) => {
@@ -50,11 +47,10 @@ function App() {
 
             <Route path='*' element = {<NotFound/>}/>
 
-
       </Routes>
    </BrowserRouter>
-   <ToastContainer/>
-        </AdminProvider>
+
+       <ToastContainer />
 
    </>
   );
