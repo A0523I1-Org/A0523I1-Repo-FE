@@ -1,5 +1,5 @@
 import axios from "axios";
-
+//Hoai NT
 export const findAllContract = async(page,customeName,landingCode,startDate,endDate,token) => {
     
     try {
@@ -9,15 +9,13 @@ export const findAllContract = async(page,customeName,landingCode,startDate,endD
                 headers: {Authorization: `Bearer ${token}`}
             }
         );
-            console.log(res.data);
         return res.data;
     } catch (error) {
         return error
     }
 }
-
+// Hoài NT
 export const createContract = async(contract,confirmPassword, token) => {
-    console.log(contract);
     try {
         await axios.post(`http://localhost:8080/api/contract?confirmPassword=${confirmPassword}`,contract, {
             headers: {Authorization : `Bearer ${token}`}
