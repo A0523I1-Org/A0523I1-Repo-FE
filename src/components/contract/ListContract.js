@@ -125,7 +125,7 @@ const ListContract = () => {
     return (
         <>
             <div class="w-full h-auto  ">
-                <h3 class="text-2xl my-10">DANH SÁCH HỢP ĐỒNG</h3>
+                {/*<h3 class="text-2xl my-10">DANH SÁCH HỢP ĐỒNG</h3>*/}
         
                
                     <Formik

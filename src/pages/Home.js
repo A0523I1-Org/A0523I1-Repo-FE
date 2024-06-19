@@ -13,6 +13,7 @@ const Home = () => {
     const [totalPage,setTotalPage] = useState(0);
     const [objectPlanDisplay ,setObjectPlanDisplay] = useState({});
 
+
     //  Đối tượng khai báo để nhận thông tin của khách hàng cần tư vân
     const [infoCustomer,setInfoCustomer] = useState({
         nameCustomer : "",
@@ -20,6 +21,7 @@ const Home = () => {
         numberPhoneCustomer : "",
         descriptionCustomer : ""
     });
+
 
     useEffect(() => {
         showListLandingHome(page);
@@ -37,7 +39,6 @@ const Home = () => {
     const showListLandingHome = async (page) => {
         // Gọi service để lấy danh sách landing home từ server
         const temp = await LandingService.showListLandingHome(page);
-
 
         // Cập nhật tổng số trang
         setTotalPage(temp.totalPages)
@@ -143,7 +144,6 @@ const Home_child = ({customer,landing}) => {
     return (
         <>
             <main id="main" className="w-full h-auto relative overflow-hidden">
-                <ModalMenuQTHT/>
                 <Home_child_introduce_company_xls/>
                 <Home_child_introduce_service_xls />
                 <Home_child_introduce_landing_xls landing={landing}/>
@@ -179,32 +179,17 @@ const Home_child_introduce_company_xls = () => {
                         quý khách</p>
                 </div>
                 <button className="w-[119px] h-12 bg-white rounded-[40px] hover:text-white hover:bg-[#2f2b36]"><span>Bắt đầu</span></button>
-                <ModalMenuQTHT/>
 
             </div>
         </>
     )
 }
-const ModalMenuQTHT = () => {
-    return (
-        <>
-            <div className=" absolute w-auto  bg-white z-100 top-10 h-[400px]">
 
-                <a className="block">Liên hệ</a>
-                <a className="menu__item">Liên hệ</a>
-                <a className="menu__item">Liên hệ</a>
-                <a className="menu__item">Liên hệ</a>
-                <a className="menu__item">Liên hệ</a>
-
-            </div>
-        </>
-    )
-}
 // Component giới thiệu dịch vụ
 const Home_child_introduce_service_xls = () => {
     return (
         <>
-            <div className=" w-full h-[800px] max-sm:h-[1020px] my-[100px] relative bg-[#F2F5F4] z-30">
+            <div className=" w-full h-[800px] max-sm:h-[1020px] my-[100px] relative bg-[#F2F5F4] ">
                 <h1 className="text-6xl h-1/6 py-5 text-center max-sm:h-[150px] max-sm:text-5xl max-sm:py-5">Dịch
                     vụ</h1>
                 <div className="h-5/6  mx-40 max-2xl:mx-30 max-xl:mx-20 max-lg:mx-2 flex  flex-col">
@@ -214,9 +199,8 @@ const Home_child_introduce_service_xls = () => {
                                  className="w-full h-full object-cover" alt={""}/>
                         </div>
                         <div className="w-1/3 h-full max-sm:w-full max-sm:px-2">
-                            <h1 className="text-3xl max-lg:text-2xl text-center pt-12 max-xl:pt-0 px-10 max-xl:px-0">Tư
-                                vấn bất động
-                                sản</h1>
+                            <h1 className="text-3xl max-lg:text-2xl font-normal text-center pt-12 max-xl:pt-0 px-10 max-xl:px-0">Tư
+                                vấn bất động sản</h1>
                             <p className="pt-5 max-xl:pt-5 px-10 max-xl:px-6 max-lg:px-2">Nhóm của chúng tôi cung cấp
                                 các dịch vụ tư vấn bất động sản toàn diện để giúp khách hàng đưa ra quyết định sáng suốt
                                 về khoản đầu tư của họ. Chúng tôi phân tích xu hướng thị trường,
@@ -231,7 +215,7 @@ const Home_child_introduce_service_xls = () => {
                     </div>
                     <div className="w-full h-1/2  flex max-sm:grid max-sm:grid-cols-2 ">
                         <div className="w-1/3 h-full max-sm:w-full ">
-                            <h1 className="text-3xl max-lg:text-2xl text-center pt-16 max-xl:pt-5 px-10 max-xl:px-0">Cho
+                            <h1 className="text-3xl max-lg:text-2xl text-center font-normal pt-16 max-xl:pt-5 px-10 max-xl:px-0">Cho
                                 thuê không
                                 gian</h1>
                             <p className="pt-5 px-10 max-xl:px-5 max-lg:px-5">Chúng tôi cung cấp nhiều loại bất động sản
@@ -246,7 +230,7 @@ const Home_child_introduce_service_xls = () => {
 
                         </div>
                         <div className="w-1/3 h-full max-sm:hidden ">
-                            <h1 className="text-3xl max-lg:text-2xl text-center pt-16 max-xl:pt-5  px-10 max-xl:px-0">Giới
+                            <h1 className="text-3xl max-lg:text-2xl text-center pt-16 max-xl:pt-5 font-normal px-10 max-xl:px-0">Giới
                                 thiệu địa
                                 điểm</h1>
                             <p className="pt-5 px-10 max-xl:px-5 max-lg:px-5">Chúng tôi cung cấp thông tin chi tiết về các địa điểm khác nhau,
@@ -288,7 +272,7 @@ const Home_child_introduce_service_xls = () => {
 
 // Component giới thiệu mặt bằng hiện có
 const Home_child_introduce_landing_xls = ({landing}) => {
-    console.log(landing.listLandingHome)
+
     return (
         <>
             <div className=" h-auto mt-10 max-sm:mt-0 mr-32 max-md:mr-0 max-lg:mr-5
@@ -361,7 +345,7 @@ const Home_child_introduce_event_xls = () => {
                         className="flex max-md:grid max-md:grid-cols-1 max-lg:grid max-lg:grid-cols-2 justify-between py-10 max-xl:gap-5 max-2xl:gap-5 ">
                         <div
                             className="w-[400px] max-md:w-full max-md:h-[320px] max-lg:w-[360px] h-auto bg-white border-[1px] rounded-[20px] border-[#2f2b36]">
-                            <h3 className="font-bold px-6 py-6 ">Tổ chức công ty</h3>
+                            <h3 className="font-normal px-6 py-6 ">Tổ chức công ty</h3>
                             <div className="max-md:flex">
                                 <div className="px-6 h-[220px] max-md:w-1/2 max-md:h-2/3 ">
                                     <img src='/img/hinh-anh-van-phong-cong-ty-rigup-2.jpg' alt=""
@@ -384,7 +368,8 @@ const Home_child_introduce_event_xls = () => {
                         </div>
                         <div
                             className="w-[400px]  max-md:w-full max-md:h-[320px] max-lg:w-[360px] h-auto bg-white border-[1px] rounded-[20px] border-[#2f2b36]">
-                            <h3 className="font-bold px-6 py-6">Văn Phòng</h3>
+                            <h3 className="font-normal
+                             px-6 py-6">Văn Phòng</h3>
                             <div className="max-md:flex">
                                 <div className="px-6 h-[220px] max-md:w-1/2 max-md:h-2/3">
                                     <img src="/img/03.jpg" alt=""
@@ -408,7 +393,7 @@ const Home_child_introduce_event_xls = () => {
                         </div>
                         <div
                             className="w-[400px] max-md:w-full max-md:h-[320px] max-lg:w-[360px] h-auto bg-white border-[1px] rounded-[20px] border-[#2f2b36]">
-                            <h3 className="font-bold px-6 py-6">Phòng học</h3>
+                            <h3 className="font-normal px-6 py-6">Phòng học</h3>
                             <div className="max-md:flex">
                                 <div className="px-6 h-[220px] max-md:w-1/2 max-md:h-2/3 ">
                                     <img src="/img/mau-thiet-ke-phong-hoc-tai-nha-chuan-dep-15.jpg" alt=""
@@ -431,7 +416,7 @@ const Home_child_introduce_event_xls = () => {
                         </div>
                         <div
                             className="w-[400px] hidden max-lg:block    max-md:w-full max-md:h-[320px] max-lg:w-[360px] h-auto bg-white border-[1px] rounded-[20px] border-[#2f2b36]">
-                            <h3 className="font-bold px-6 py-6">Sự kiên</h3>
+                            <h3 className="font-normal px-6 py-6">Sự kiên</h3>
                             <div className="max-md:flex">
                                 <div className="px-6 h-[220px] max-md:w-1/2 max-md:h-2/3 ">
                                     <img src="/img/821A0929.jpg" alt=""
