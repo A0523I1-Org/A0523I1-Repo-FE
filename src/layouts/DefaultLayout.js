@@ -64,7 +64,8 @@ function DefaultLayout ({children})  {
                         <div className="">
                             <Header/>
                         </div>
-                        <div className="mx-10 overflow-auto mt-5">
+                        <div  className="mx-10 overflow-auto mt-5 ">
+                            
                             <div className="w-full h-[40px]  relative">
                                 <div className="absolute py-2 left-0 top-2.5">
                                     <FooterExtra nameLocation={location.pathname.trim()}/>
@@ -96,6 +97,7 @@ function DefaultLayout ({children})  {
 
                                 </div>
                             </div>
+
                             <div className="h-auto mt-5 ">
                                 {children}
                             </div>

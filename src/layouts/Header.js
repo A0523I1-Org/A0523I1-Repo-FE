@@ -121,7 +121,6 @@ const Header = () => {
 
                                 <div className="form__div form__div-one">
 
-                                    {/*{error && <i className="login__fail_message">{error}</i>}*/}
                                     {error &&<div style={styles.container} className="login__fail_message">
                                         <div style={styles.message}>
                                             {error}
