@@ -24,7 +24,7 @@ export const contractSchema = Yup.object().shape({
         .required("deposit is not empty")
         .test(
             "minDeposit",
-            "Vui lòng nhập tiền đặt cọc hợp lệ (tối thiểu 1.000.000 VND,tối đa 50.000.000 VND)",
+            "Tiền đặt cọc hợp lệ (tối thiểu 1.000.000 VND,tối đa 100.000.000 VND)",
             (value) =>{
                 if(value) {
                     const numericValue = value.replace(/\D/g, "");
@@ -44,7 +44,7 @@ export const contractSchema = Yup.object().shape({
         )
         .test(
             'taxCodeLength',
-            'Mã số thuế phải dài 10 ký tự',
+            'Mã số thuế chỉ chấp nhận 10 ký tự',
             (value) => value.length === 10
         )
     ,

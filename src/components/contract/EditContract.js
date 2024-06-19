@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import '../../configs/routes'
-import {ErrorMessage, Field, Form, Formik, useFormikContext} from 'formik'
+import {ErrorMessage, Field, Form, Formik, useFormikContext,} from 'formik'
 import '../../css/form.css'
-import {useParams,useNavigate} from 'react-router-dom'
+import {Link, useParams} from 'react-router-dom'
 import {getContractById,updateContract} from '../../services/ContractService'
 import Moment from "moment";
 import {storage} from "../../configs/firebase";
@@ -10,39 +10,55 @@ import {ref,uploadBytesResumable,getDownloadURL} from 'firebase/storage'
 import {v4} from 'uuid';
 import {contractSchema} from '../../schema/ContractSchema'
 import PopupUpdate from "./PopupUpdate";
+import Loading from "./Loading";
+import data from "bootstrap/js/src/dom/data";
+import ErrorNotFound from "./ErrorNotFound";
 
 const EditContract = () => {
-    const  navigate = useNavigate();
+
     const {id}= useParams();
-
     const [contract,setContract] = useState({});
-
     const [progress,setProgress] = useState(null)
-    const [url,setUrl] = useState(null)
-
-    const [file,setFile] = useState(null);
     const [isUpdate,setIsUpdate] = useState(false)
+    const [showErrorPopup, setShowErrorPopup] = useState(false);
+    const [error, setError] = useState(null);
+
+
 
     const calculateEndDate = (e,values,setFieldValue) => {
-        console.time('calculateEndDate');
         const {name,value} = e.target;
         switch (name) {
             case 'term':
                 values.term = value;
-                // setFieldValue('term', value);
+
                 break;
             case'startDate':
                 values.startDate = value;
-                // setFieldValue('startDate', value);
-                break;
+                    break;
             default:
                 break;
         }
         const {term,startDate} = values
-        const start = Moment(startDate)
-        const end = start.add(parseInt(term) ,'month');
-        setFieldValue('endDate', end.format('YYYY-MM-DD'))
-        console.timeEnd('calculateEndDate');
+            const start = Moment(startDate)
+            const end = start.add(parseInt(term) ,'month');
+            setFieldValue('endDate', end.format('YYYY-MM-DD'))
+    }
+    const totalContractAmount = (e,values,setFieldValue) =>{
+        const {name,value} = e.target;
+        switch (name) {
+            case 'currentFee':
+                values.currentFee = value;
+                break;
+            case 'term':
+                values.term = value;
+                break;
+            default:
+                break;
+        }
+        const {currentFee,term} = values;
+        const currentValue = currentFee.replace(/\D/g, '')
+        const total = currentValue * parseInt(term);
+        setFieldValue('total',numberFormatter.format(total))
     }
 
     const numberFormatter = new Intl.NumberFormat('vi-VN', {
@@ -67,56 +83,23 @@ const EditContract = () => {
         taxCode: contract.taxCode ? contract.taxCode : '',
         content: contract.content ? contract.content : '',
         fireBaseUrl: contract.fireBaseUrl ? contract.fireBaseUrl : '',
-        img: null
+        img: null,
+        total :numberFormatter.format(contract.term * contract.feePerMouth)
     }
-
     useEffect(() => {
         fetchContractById(id);
     },[id])
-
-    // useEffect(() => {
-    //     const UploadFile = () => {
-    //         const storageRef = ref(storage,`imagesContracts/${file.name + v4()}`);
-    //         const uploadTask = uploadBytesResumable(storageRef,file);
-    //         uploadTask.on('state_changed',(snapshot) => {
-    //             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-    //             setProgress(progress);
-    //             switch (snapshot.state) {
-    //                 case  'paused':
-    //                     console.log("Upload is paused")
-    //                     break;
-    //                 case 'running':
-    //                     console.log("Upload is running")
-    //                     break;
-    //                 default:
-    //                     console.log("Upload is unknown")
-    //                     break
-    //             }
-    //         },(error) => {
-    //             console.log(error)
-    //         },() => {
-    //             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>{
-    //                 setUrl((prev) => ({...prev,image:downloadURL}))
-    //             })
-    //         })
-    //     }
-    //
-    //     file && UploadFile();
-    // },[file])
-
-
-
-
     const fetchContractById = async (id) => {
         try{
             const response = await getContractById(id);
-            setContract(response.result);
-
+                setContract(response.result);
         }catch (e) {
-            console.log('Error fetching contract ',e);
+            console.log(e);
+            setError(e.message);
         }
     }
     const UploadFile = async (file) => {
+        console.time('calculateEndDate');
         try {
             const storageRef = ref(storage,`imagesContracts/${file.name + v4()}`);
             const uploadTask = uploadBytesResumable(storageRef,file);
@@ -130,52 +113,68 @@ const EditContract = () => {
         }catch (e) {
             console.log(e)
         }
+        console.timeEnd('calculateEndDate');
     }
-    const onSubmit =  async (values) => {
+    const onSubmit =  async (values,formikProps) => {
         try{
         let valueMerge = {...values}
         if(valueMerge.img){
             const img  = await UploadFile(valueMerge.img)
-            console.log(img)
                 valueMerge = {...valueMerge, fireBaseUrl: img}
-                console.log('142',valueMerge)
         }else{
             valueMerge = {...valueMerge, fireBaseUrl:contract.fireBaseUrl}
-            console.log('144',valueMerge)
         }
-            console.log('146',valueMerge)
             await updateContract(id,valueMerge);
             setIsUpdate(true)
+
         }catch (e) {
             console.log('Error updating contract ',e);
+            if (e.status === 404){
+                setError(e.message)
+                setShowErrorPopup(true)
+            }else if(e.status === 400){
+               Object.keys(e.result).forEach( (field) => {
+                   formikProps.setFieldError(field, e.result[field])
+               });
+            }
         }
     }
-    console.log(progress)
 
     const handleClosePopup = () => {
         setIsUpdate(false)
     }
-
-
     if (!initialValue) return <div>Loading...</div>
     return (
         <div style={{width: '100%'}} class="w-full h-[600px] mt-[20px] ">
-            <div className="h-full mx-16  flex gap-3">
+            <div className="h-full mx-16  flex gap-3" style={{position : 'relative'}}>
+                {progress !== null && progress < 100 && (
+                    <div className="loading-overlay" style={{
+                        position : 'absolute',
+                        height : '100%',
+                        width : '100%',
+                        background : "rgba(0, 0, 0,0.1)",
+                        opacity : "1",
+                        pointerEvents : "auto"
+                    }}>
+                       <Loading/>
+                    </div>
+                )}
                 <div className="w-full h-full box__shadow ">
                     <div className="w-full h-[80px] bg-[#fafafa] border-b-[1px] flex items-center ">
                    <span className="ml-5">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-                           stroke="currentColor" class="w-6 h-6">
+                           stroke="currentColor" className="w-6 h-6">
                       <path strokeLinecap="round" strokeLinejoin="round"
                             d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/>
                      </svg>
                     </span>
                         <p className="font-semibold text-[#333] ml-2  " style={{fontSize: "17px"}}>Hợp đồng</p>
                     </div>
+
                     <Formik
                         enableReinitialize
                         initialValues={initialValue}
-                        onSubmit={values => onSubmit(values)}
+                        onSubmit={(values,formikProps) => onSubmit(values,formikProps)}
                         validationSchema={contractSchema} >
                         {({values,handleChange,setFieldValue}) =>(
                             <Form>
@@ -253,8 +252,7 @@ const EditContract = () => {
                                                             onChange = {(e) =>{
                                                                 handleChange(e)
                                                                 calculateEndDate(e,values,setFieldValue)
-
-
+                                                                totalContractAmount(e,values,setFieldValue)
                                                             }}
                                                             placeholder="Nhập Kì hạn"/>
                                                     </div>
@@ -314,16 +312,15 @@ const EditContract = () => {
                                                     <ErrorMessage name="end_date" component="span" style={{color: "red"}}/>
                                                 </div>
                                             </div>
-                                            <div className=" h-1/5 mx-5  mb-5 flex gap-3 ">
+                                            <div className=" h-1/5 mx-5  mb-5 flex gap-3 " >
                                                 <p className="w-4/12 h-full text-sm">H/A Hợp Đồng <span
                                                     className="text-lg text-red-500">*</span></p>
-                                                <div className="w-8/12 h-full flex ">
-                                                    {/*<Field type="file" name="img" className="border-none pt-1 h-full" onChange={(e) => setFile(e.target.files[0])}/>*/}
+                                                <div className="w-8/12 h-full flex " style={{    alignItems: 'center', gap: '10px'}}>
+                                                    <img src={contract.fireBaseUrl} name='img' style={{height: '100px', width: '100px',borderRadius: "50%",objectFit : 'cover'}}/>
                                                     <input type="file"
                                                            className="border-none pt-1 h-full"
                                                            onChange={(e) => {
                                                                setFieldValue("img", e.target.files[0]);
-
                                                            }}
                                                     />
                                                     <ErrorMessage name="img" component="span" style={{color: "red"}}/>
@@ -380,6 +377,7 @@ const EditContract = () => {
                                                                }}
                                                                onChange={(e) => {
                                                                    formatNumber(e.target)
+                                                                   totalContractAmount(e,values,setFieldValue)
                                                                    handleChange(e)
                                                                }}
                                                                name="currentFee"
@@ -443,7 +441,7 @@ const EditContract = () => {
                                                                color: '#222'
                                                            }}
                                                            placeholder="Chưa Xác Định"
-                                                           name="total" id="total"
+                                                           name="total"
                                                            disabled/>
                                                 </div>
                                             </div>
@@ -507,10 +505,10 @@ const EditContract = () => {
                                                 <span className="pb-10" > Update</span>
                                             </button>
 
-                                            <button className="btn-2">
+                                            <Link to="/contract" className="btn-2">
                                                 <span className="pr-1"><i className="fi fi-rr-eraser"/></span>
                                                 <span>Cancel</span>
-                                            </button>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>
@@ -521,7 +519,9 @@ const EditContract = () => {
                 </div>
 
             </div>
+
             {isUpdate && <PopupUpdate handleClosePopup={handleClosePopup}/>}
+            {showErrorPopup && <ErrorNotFound message={error} handleClosePopup={handleClosePopup}/>}
         </div>
     )
 

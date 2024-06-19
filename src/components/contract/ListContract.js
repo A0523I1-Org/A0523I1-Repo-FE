@@ -1,13 +1,14 @@
 
 import '../../css/listContract.css'
 import ResponsivePagination from 'react-responsive-pagination';
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as contractService from '../../services/ContractService.js'
 import '../../css/paginationContract.css'
 import '../../configs/routes.js'
 import routes from '../../configs/routes.js';
 import { Formik,Field,Form } from 'formik';
+import PopupDelete from "./PopupDelete";
 
 const ListContract = () => {
     const [contracts,setContract] = useState([]);
@@ -20,7 +21,23 @@ const ListContract = () => {
     const [landingCodeSearch,setLandingCodeSearch] = useState('');
     const [startDateSearch,setStartDateSearch] = useState('')
     const [endDateSearch,setEndDateSearch] = useState('')
-    
+    const [showPopup,setShowPopup] = useState(false)
+    const [contractId,setContractId] = useState('');
+
+    const handleShowPopup = (id) => {
+        setOpenMenu(false);
+        setContractId( id);
+        setShowPopup(true);
+
+
+    }
+    const handleClosePopup = () => {
+        setShowPopup(false);
+    };
+    const handleDeleteConfirm = async () => {
+        getAllContract(0,customerNameSearch,landingCodeSearch,startDateSearch,endDateSearch)
+        setShowPopup(false);
+    };
     
     const getAllContract = async(page,customeName,landingCode,startDate,endDate) => {
         const result = await  contractService.findAllContract(page,customeName,landingCode,startDate,endDate)
@@ -231,7 +248,7 @@ const ListContract = () => {
                                 </span>
                         </Link>
 
-                        <Link  class="w-full h-1/3 border-t-[1px] px-3 flex  hover:bg-[#fafafa]">
+                        <button onClick={()=> handleShowPopup(contract.id)} class="w-full h-1/3 border-t-[1px] px-3 flex  hover:bg-[#fafafa]">
                                 <span class="flex py-1 text-[#f44366]">
                                     <span class="mt-0.5 pr-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -242,7 +259,7 @@ const ListContract = () => {
                                     </span>
                                     Xóa Hợp Đồng
                                 </span>
-                        </Link>
+                        </button>
                         
                         <Link to={routes.editContract+contract.id} class="w-full h-1/3 border-t-[1px] px-3 flex items-center hover:bg-[#fafafa]">
                                 <span class="flex py-1">
@@ -291,6 +308,7 @@ const ListContract = () => {
                 </div>
  
             </Modal> */}
+            {showPopup && (<PopupDelete id={contractId} handleDeleteConfirm={handleDeleteConfirm} handleClosePopup={handleClosePopup} />)}
              
     </div>
 </div>
