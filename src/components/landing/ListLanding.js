@@ -62,6 +62,7 @@ const ListLanding = () => {
   const navigate = useNavigate();
   const [isNotFound, setIsNotFound] = useState(false);
   const [updatedRecordId, setUpdatedRecordId] = useState(null);
+  const [modalDeleteMultiIsOpen, setModalDeleteMultiIsOpen] = useState(false);
 
 
   // lấy danh sách đầu sessionStorage là giúp để lưu trữ trang hiện tại khi chuyển trang từ edit về danh sách (lê chí thiện)
@@ -195,32 +196,45 @@ const ListLanding = () => {
   const handleGoBack = () => {
     handleReset();
   }
-
-  const deleteLandingByIds = () => {
-    landing.content.forEach((ld) => {
-      if (ld.select) {
-        const isSuccess = landingService.deleteLandingById(ld.id);
-        if (isSuccess) {
-          toast.success("Xóa mặt bằng " + ld.code + " thành công");
-        }
-      }
-      getListAllLanding(searchParams);
-    });
-  };
   const handleDeleteClick = (landing) => {
     handleDetailClick();
     openModal(landing);
   };
 
+  const deleteLandingByIds = () => {
+    setModalDeleteMultiIsOpen(false);
+    landing.content.forEach((ld) => {
+      if (ld.select) {
+        if(!ld.isAvailable){
+          toast.error("Mặt bằng " + ld.code + " không thể xóa vì đã vào ở");
+          return;
+        }
+        const isSuccess = landingService.deleteLandingById(ld.id);
+        if (isSuccess) {
+          toast.success("Xóa mặt bằng " + ld.code + " thành công");
+        }else{
+          toast.error("Xóa mặt bằng " + ld.code + " không thành công");
+        }
+      }
+      getListAllLanding(searchParams);
+    });
+    setListIdInput([]);
+  };
+
   const deleteLanding = async () => {
+    if(!landingDelete.isAvailable){
+      toast.error("Mặt bằng " + landingDelete.code + " không thể xóa vì đã vào ở");
+      return;
+    }
     const isSuccess = await landingService.deleteLandingById(landingDelete.id);
     if (isSuccess) {
       toast.success("Xóa mặt bằng " + landingDelete.code + " thành công");
+    }else{
+      toast.error("Xóa mặt bằng " + landingDelete.code + " không thành công");
     }
     setIsOpen(false);
     getListAllLanding(searchParams);
   };
-
   const customStyles = {
     content: {
       top: "50%",
@@ -264,6 +278,9 @@ const ListLanding = () => {
   const closeModalDetail = (landing) => {
     setDetailModalIsOpen(false)
   }
+  const closeModalMultiDelete = () => {
+    setModalDeleteMultiIsOpen(false);
+  };
 
   if (!landing) return <div>Loading...</div>;
 
@@ -756,6 +773,65 @@ const ListLanding = () => {
                   Xác nhận
                 </button>
                 <button class="btn btn-primary" onClick={closeModal}>
+                  Hủy
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Modal>
+      <Modal
+        isOpen={modalDeleteMultiIsOpen}
+        // onAfterOpen={afterOpenModal}
+        onRequestClose={() => setModalDeleteMultiIsOpen(false)}
+        contentLabel="Example Modal"
+        style={customStyles}
+      >
+        <div class="container-fluid" style={{ width: "650px" }}>
+          <div class="row justify-content-center my-3">
+            <div class="col-12 text-center mb-3">
+              <span>
+                <i
+                  class="fa-solid fa-triangle-exclamation fa-beat-fade fa-6x"
+                  style={{ color: "#e01f1f" }}
+                ></i>
+              </span>
+            </div>
+            <div class="col-12">
+              <h1 class="text-center text-uppercase h3">
+                <strong>Xác nhận xóa mặt bằng đã chọn?</strong>
+              </h1>
+            </div>
+
+            <div class="col-12 mt-3">
+              <table class="table table-hover">
+                <tbody>
+                  <tr>
+                    {listIdInput.map((id, index) => (
+                      <td>ID: {id}</td>
+                    ))}
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="col-12 d-flex justify-content-center align-items-center mt-3 row">
+              <div class="col-12 col-md-6 mb-3">
+                <span>
+                  <strong>Lưu ý: </strong>
+                  <span style={{ color: "#red" }}>
+                    Thao tác này không thể hoàn tác!
+                  </span>
+                </span>
+              </div>
+              <div class="col-12 col-md-6 text-center text-md-right">
+                <button
+                  class="btn btn-danger me-2"
+                  onClick={deleteLandingByIds}
+                >
+                  Xác nhận
+                </button>
+                <button class="btn btn-primary" onClick={closeModalMultiDelete}>
                   Hủy
                 </button>
               </div>
