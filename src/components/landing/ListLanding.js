@@ -64,14 +64,16 @@ const ListLanding = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const savedPage = sessionStorage.getItem('currentPage');
-    const savedSearchParams = JSON.parse(sessionStorage.getItem('searchParams'));
-    console.log(savedSearchParams)
+    const savedPage = sessionStorage.getItem("currentPage");
+    const savedSearchParams = JSON.parse(
+      sessionStorage.getItem("searchParams")
+    );
+    console.log(savedSearchParams);
     const params = savedSearchParams ? savedSearchParams : searchParams;
     if (savedPage) {
       params.page = parseInt(savedPage, 10);
     }
-    setSearchParams(params)
+    setSearchParams(params);
     getListAllLanding(params);
     getListAllFloor();
     document.addEventListener("click", handleClickOutside);
@@ -81,24 +83,20 @@ const ListLanding = () => {
   }, []);
 
   const handleChangeDetail = (id) => {
-
     try {
       handleDetailClick();
       setUpdatedRecordId(id);
       setTimeout(() => {
         setUpdatedRecordId(null);
       }, 100000);
-
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-
-
-  }
-  console.log(updatedRecordId)
+  };
+  console.log(updatedRecordId);
 
   const handlePageChange = (page) => {
-    sessionStorage.setItem('currentPage', page - 1);
+    sessionStorage.setItem("currentPage", page - 1);
     const param = { ...searchParams, page: page - 1 };
     setSearchParams(param);
     getListAllLanding(param);
@@ -130,7 +128,7 @@ const ListLanding = () => {
     try {
       const res = await landingService.getListAllFloor();
       setFloors(res);
-    } catch (e) { 
+    } catch (e) {
       console.log(e);
     }
   };
@@ -151,60 +149,64 @@ const ListLanding = () => {
   };
 
   const handleSubmit = () => {
-    sessionStorage.setItem('searchParams', JSON.stringify(searchParams));
-    sessionStorage.setItem('currentPage', 0);
+    sessionStorage.setItem("searchParams", JSON.stringify(searchParams));
+    sessionStorage.setItem("currentPage", 0);
     const param = {
       ...searchParams,
       page: 0,
     };
-    setSearchParams(param)
+    setSearchParams(param);
     getListAllLanding(param);
-
   };
 
   const handleReset = () => {
-    sessionStorage.removeItem('currentPage')
-    sessionStorage.removeItem('searchParams');
+    sessionStorage.removeItem("currentPage");
+    sessionStorage.removeItem("searchParams");
     const param = {
       ...init_param,
       page: 0,
-    }
+    };
     setSearchParams(param);
     getListAllLanding(param);
   };
   const handleGoBack = () => {
     handleReset();
-  }
+  };
 
   const deleteLandingByIds = () => {
     setModalDeleteMultiIsOpen(false);
     landing.content.forEach((ld) => {
+      console.log(ld);
+
       if (ld.select) {
-        if(ld.isAvailable){
+        const landingAvailable = landingService.findLandingIsAvailableById(ld.id);
+        if(landingAvailable){
           toast.error("Mặt bằng " + ld.code + " không thể xóa vì đã vào ở");
           return;
         }
         const isSuccess = landingService.deleteLandingById(ld.id);
         if (isSuccess) {
           toast.success("Xóa mặt bằng " + ld.code + " thành công");
-        }else{
+        } else {
           toast.error("Xóa mặt bằng " + ld.code + " không thành công");
         }
       }
-      getListAllLanding(searchParams);
     });
+    navigate("/landing")
+    getListAllLanding(searchParams);
+
     setListIdInput([]);
   };
 
   const deleteLanding = async () => {
-    if(landingDelete.isAvailable){
-      toast.error("Mặt bằng " + landingDelete.code + " không thể xóa vì đã vào ở");
-      return;
-    }
+    // if(!landingDelete.isAvailable){
+    //   toast.error("Mặt bằng " + landingDelete.code + " không thể xóa vì đã vào ở");
+    //   return;
+    // }
     const isSuccess = await landingService.deleteLandingById(landingDelete.id);
     if (isSuccess) {
       toast.success("Xóa mặt bằng " + landingDelete.code + " thành công");
-    }else{
+    } else {
       toast.error("Xóa mặt bằng " + landingDelete.code + " không thành công");
     }
     setIsOpen(false);
@@ -294,7 +296,6 @@ const ListLanding = () => {
           <option value="luxuryAmenities">Tiện nghi cao cấp</option>
           <option value="ecoFriendly">Thân thiện với môi trường</option>
           <option value="highTech">Công nghệ cao</option>
-
         </select>
         <input
           type="text"
@@ -381,7 +382,6 @@ const ListLanding = () => {
         </div>
       </div>
 
-
       <div className="w-full h-auto  ">
         <div className="mx-16 h-full  ">
           <table className="table-auto  w-full h-full">
@@ -455,8 +455,12 @@ const ListLanding = () => {
 
             <tbody>
               {landing.content.map((landingItem, index) => (
-
-                <tr key={index} className={`w-1/12 h-[76px] ${updatedRecordId === landingItem.id ? 'bg-yellow-200' : ''}`}>
+                <tr
+                  key={index}
+                  className={`w-1/12 h-[76px] ${
+                    updatedRecordId === landingItem.id ? "bg-yellow-200" : ""
+                  }`}
+                >
                   <td className="text-center w-[60px]">
                     <input
                       type="checkbox"
@@ -507,27 +511,44 @@ const ListLanding = () => {
                     </div>
                   </td>
 
-
                   <td className=" w-2/12 text-center ">
                     {locationMapping.hasOwnProperty(landingItem.status) ? (
                       <button
                         className={`
-                                    ${locationMapping[
-                            landingItem.status
-                          ] === "Đầy đủ nội thất" || locationMapping[
-                            landingItem.status].trim() === "Nội thất một phần" ||locationMapping[
-                              landingItem.status].trim() === "Không có nội thất" ||locationMapping[
-                                landingItem.status].trim() === "Sẵn sàng để dọn vào" || locationMapping[
-                                  landingItem.status].trim() === "Đang xây dựng" || locationMapping[
-                                    landingItem.status].trim() === "Mới được cải tạo" || locationMapping[
-                                      landingItem.status].trim() === "Tiện nghi cơ bản" || locationMapping[
-                                        landingItem.status].trim() === "Tiện nghi cao cấp" || locationMapping[
-                                          landingItem.status].trim() === "Thân thiện với môi trường" || locationMapping[
-                                            landingItem.status].trim() === "Công nghệ cao"
-
-                            ? "bg-green-500"
-                            : ""
-                          } 
+                                    ${
+                                      locationMapping[landingItem.status] ===
+                                        "Đầy đủ nội thất" ||
+                                      locationMapping[
+                                        landingItem.status
+                                      ].trim() === "Nội thất một phần" ||
+                                      locationMapping[
+                                        landingItem.status
+                                      ].trim() === "Không có nội thất" ||
+                                      locationMapping[
+                                        landingItem.status
+                                      ].trim() === "Sẵn sàng để dọn vào" ||
+                                      locationMapping[
+                                        landingItem.status
+                                      ].trim() === "Đang xây dựng" ||
+                                      locationMapping[
+                                        landingItem.status
+                                      ].trim() === "Mới được cải tạo" ||
+                                      locationMapping[
+                                        landingItem.status
+                                      ].trim() === "Tiện nghi cơ bản" ||
+                                      locationMapping[
+                                        landingItem.status
+                                      ].trim() === "Tiện nghi cao cấp" ||
+                                      locationMapping[
+                                        landingItem.status
+                                      ].trim() ===
+                                        "Thân thiện với môi trường" ||
+                                      locationMapping[
+                                        landingItem.status
+                                      ].trim() === "Công nghệ cao"
+                                        ? "bg-green-500"
+                                        : ""
+                                    } 
                                
                                    
                                         
