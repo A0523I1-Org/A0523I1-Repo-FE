@@ -12,19 +12,18 @@ import Home from "../pages/Home";
 import CreateLangding from "../components/landing/CreateLanding";
 import EditLanding from "../components/landing/EditLanding";
 import ListLanding from "../components/landing/ListLanding";
-import Login from "../components/auth/Login";
+// import Login from "../components/auth/Login";
 import Register from "../components/employee/Register";
 import routes from "../configs/routes";
+import PersonalInformation from "../components/employee/PersonalInformation";
 
 const publicRoutes = [
-    {path : routes.login ,component : Login , layuot : null}
-
+    {path : routes.login ,component : Home},
+    {path : routes.home ,component : Home},
 ]
 
 const privateRoutes = [
 
-    {path : routes.home ,component : Home},
-    
 
     {path : routes.listContract, component : ListContract},
     {path : routes.createContract, component : CreateContract},
@@ -38,6 +37,7 @@ const privateRoutes = [
     {path : routes.createEmployee, component : CreateEmployee},
     {path : routes.editEmployee, component : EditEmployee , id : ':id'},
     {path : routes.register,component : Register , id : ':id'},
+    {path : routes.personalInformation,component : PersonalInformation, token : ':token'},
 
     {path : routes.listLanding, component : ListLanding},
     {path : routes.createLanding, component : CreateLangding},

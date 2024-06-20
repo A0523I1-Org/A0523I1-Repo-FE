@@ -1,5 +1,5 @@
 import '../css/home.css'
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as LandingService from '../services/LandingService';
 import { toast} from 'react-toastify';
