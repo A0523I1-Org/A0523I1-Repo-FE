@@ -253,7 +253,7 @@ const ListLanding = () => {
     } else {
       setCheckAll(!checkedAll);
       !checkedAll
-        ? setListIdInput(landing.content.map((l) => l.ld))
+        ? setListIdInput(landing.content.map((l) => l))
         : setListIdInput([]);
     }
   };
@@ -932,8 +932,6 @@ const ListLanding = () => {
           </div>
         </div>
       </Modal>
-
-      <ToastContainer></ToastContainer>
     </>
   );
 };
