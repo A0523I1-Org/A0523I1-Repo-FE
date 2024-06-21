@@ -9,10 +9,11 @@ import {
 } from "firebase/storage";
 import { useNavigate, useLocation, Await } from "react-router-dom";
 import * as Yup from "yup";
+import routes from "../../configs/routes";
 import * as floorService from "../../services/FloorService.js";
 import * as landingService from "../../services/LandingService";
-import { toast, ToastContainer } from "react-toastify";
-// import styles from "../../css/createLanding.css";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 const CreateLangding = () => {
   const [landing, setLanding] = useState({
@@ -40,7 +41,8 @@ const CreateLangding = () => {
 
   const getAllFloor = async () => {
     try {
-      const foundFloor = await floorService.getAllFloor();
+      const token = localStorage.getItem("token");
+      const foundFloor = await floorService.getAllFloor(token);
       setFloors(foundFloor);
     } catch (error) {
       console.error("Error fetching floor:", error);
@@ -56,7 +58,7 @@ const CreateLangding = () => {
         values.firebaseUrl = urlFireBase;
       } catch (error) {
         console.error("Error uploading image: ", error);
-        return; // Có thể thông báo lỗi cho người dùng tại đây nếu cần
+        return;
       }
     }
 
@@ -64,11 +66,18 @@ const CreateLangding = () => {
     if (values.firebaseUrl !== "") {
       values.floor = +values.floor;
       try {
-        await landingService.addNewLanding(values);
-        toast.success("Thêm mặt bằng thành công");
-        navigate("/landing");
+        const token = localStorage.getItem("token");
+        const isSuccess = await landingService.addNewLanding(values, token);
+        if (isSuccess) {
+          toast.success("Thêm mới mặt bằng thành công!");
+          navigate(routes.listLanding);
+          console.log("Them moi thanh cong!!!");
+        } else {
+          toast.error("Thêm mới mặt bằng không thành công!");
+        }
       } catch (error) {
-        console.error("Error updating landing: ", error);
+        toast.error("Đã xảy ra lỗi khi thêm mới mặt bằng!");
+        console.error("Error adding new landing:", error);
       }
     }
   };
@@ -99,31 +108,32 @@ const CreateLangding = () => {
         excludeEmptyString: true,
       })
       .max(25, "Mã mặt bằng phải có tối đa 25 ký tự.")
-      .matches(/^MB\d{3}$/, "Mã mặt bằng phải đúng định dạng MBxxx."),
+      .matches(/^MB\d{3}$/, "Mã mặt bằng phải đúng định dạng MBxxx.")
+      .test("unique-code", "Mã mặt bằng đã tồn tại", async (value) => {
+        if (!value) return false;
+        const token = localStorage.getItem("token");
+        const isUnique = await landingService.findLandingByCode(value, token);
+        console.log(isUnique);
+        return !isUnique;
+      }),
 
     area: Yup.string()
       .required("Vui lòng nhập diện tích.")
       .test("is-positive", "Diện tích không được nhỏ hơn 0.", (value) => {
-        // Kiểm tra xem giá trị có phải là số không
         if (!isNaN(parseFloat(value))) {
-          // Nếu là số, kiểm tra xem giá trị có lớn hơn hoặc bằng không không
           return parseFloat(value) >= 0;
         }
-        // Nếu không phải là số, không áp dụng kiểm tra số dương
         return true;
       })
       .test(
         "is-valid-number",
         "Diện tích phải là số và không có ký tự đặc biệt.",
         (value) => {
-          // Kiểm tra xem giá trị là số và không có ký tự đặc biệt
           return !isNaN(parseFloat(value)) && !/[^a-zA-Z0-9]/.test(value);
         }
       )
       .test("is-positive", "Diện tích quá lớn.", (value) => {
-        // Kiểm tra xem giá trị có phải là số không
         if (!isNaN(parseFloat(value))) {
-          // Nếu là số, kiểm tra xem giá trị có lớn hơn hoặc bằng không không
           return parseFloat(value) < 1000000;
         }
         return true;
@@ -148,10 +158,9 @@ const CreateLangding = () => {
         (value) => {
           return !isNaN(parseFloat(value)) && !/[^a-zA-Z0-9]/.test(value);
         }
-      ).test("is-positive", "Giá tiền quá lớn.", (value) => {
-        // Kiểm tra xem giá trị có phải là số không
+      )
+      .test("is-positive", "Giá tiền quá lớn.", (value) => {
         if (!isNaN(parseFloat(value))) {
-          // Nếu là số, kiểm tra xem giá trị có lớn hơn hoặc bằng không không
           return parseFloat(value) < 1000000000000;
         }
         return true;
@@ -174,33 +183,19 @@ const CreateLangding = () => {
         "is-valid-number-feeManager",
         "Phí quản lí phải là số và không được có ký tự đặc biệt.",
         (value) => {
-          // Kiểm tra xem giá trị là số và không có ký tự đặc biệt
           return !isNaN(parseFloat(value)) && !/[^a-zA-Z0-9]/.test(value);
         }
-      ).test("is-positive", "Phí quản lí quá lớn.", (value) => {
-        // Kiểm tra xem giá trị có phải là số không
+      )
+      .test("is-positive", "Phí quản lí quá lớn.", (value) => {
         if (!isNaN(parseFloat(value))) {
-          // Nếu là số, kiểm tra xem giá trị có lớn hơn hoặc bằng không không
           return parseFloat(value) < 1000000000;
         }
         return true;
       }),
 
     description: Yup.string().max(200, "Chú thích có độ dài tối đa 200 ký tự"),
+    
   };
-
-  // const createLanding = async (values) => {
-  //   setSubmit(true);
-  //   console.log(values);
-  //   setSubmit(false);
-  //   values.floor = +values.floor;
-  //   values.feePerMonth = +values.feePerMonth;
-  //   values.feeManager = +values.feeManager;
-  //   values.area = +values.area;
-  //   await landingService.addNewLanding(values);
-  //   toast.success("Thêm mặt bằng thành công");
-  //   navigate("/landing");
-  // };
 
   const initialValues = {
     code: landing.code || "",
@@ -228,7 +223,7 @@ const CreateLangding = () => {
         {({ isSubmitting }) => (
           <Form className="w-full">
             <div className="row justify-content-around">
-              <div className=" h-auto flex gap-5">
+              <div className="h-auto flex gap-5">
                 <div
                   className="w-6/12 h-auto bg-white rounded-[3px] flex flex-col gap-8"
                   style={{ boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px" }}
@@ -276,10 +271,24 @@ const CreateLangding = () => {
                         className="w-full h-full rounded-[3px] border-[#8887] form-control"
                       >
                         <option value="">Chọn</option>
-                        <option value="Available">Chưa bàn giao</option>
-                        <option value="Occupied">Đang vào ở</option>
-                        <option value="Repair">Đang sửa chữa</option>
-                        <option value="Drum">Trống</option>
+                        <option value="fullyFurnished">Đầy đủ nội thất</option>
+                        <option value="partiallyFurnished">
+                          Nội thất một phần
+                        </option>
+                        <option value="unFurnished">Không có nội thất</option>
+                        <option value="readyToMoveIn">
+                          Sẵn sàng để dọn vào
+                        </option>
+                        <option value="underConstruction">Đang xây dựng</option>
+                        <option value="newlyRenovated">Mới được cải tạo</option>
+                        <option value="basicAmenities">Tiện nghi cơ bản</option>
+                        <option value="luxuryAmenities">
+                          Tiện nghi cao cấp
+                        </option>
+                        <option value="ecoFriendly">
+                          Thân thiện với môi trường
+                        </option>
+                        <option value="highTech">Công nghệ cao</option>
                       </Field>
                       <ErrorMessage
                         name="status"
@@ -291,7 +300,7 @@ const CreateLangding = () => {
                   <div className="h-[40px] mx-5 flex items-center">
                     <div className="w-4/12 h-full flex items-center">
                       <span>
-                        Diện tích (m²) {" "}
+                        Diện tích (m²){" "}
                         <span className="text-red-500 text-xl">*</span>
                       </span>
                     </div>
@@ -356,6 +365,11 @@ const CreateLangding = () => {
                           className="w-full h-full object-cover"
                           src={imageUrl}
                           alt="anh ko hien thi"
+                        />
+                        <ErrorMessage
+                          name="firebaseUrl"
+                          component="span"
+                          className="text-[12px] text-red-500"
                         />
                       </div>
                     </div>
@@ -426,7 +440,7 @@ const CreateLangding = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="w-full h-2/3">
+                  <div className="w-full h-1/2">
                     <div className="w-full h-full flex">
                       <div className="h-[80px] w-3/12 mr-5 mt-5 mb-3 flex items-center">
                         <h1 className="text-xl pl-5">Chi phí</h1>
@@ -434,7 +448,7 @@ const CreateLangding = () => {
                       <div className="h-auto w-9/12 mr-5 mt-5 mb-3 flex flex-col gap-8">
                         <div className="w-full h-[40px] flex">
                           <div className="w-3/12 h-full flex items-center">
-                            <span>Giá tiền (đ)</span>
+                            <span>Giá tiền (VNĐ)</span>
                           </div>
                           <div className="w-9/12 h-full">
                             <Field
@@ -452,7 +466,7 @@ const CreateLangding = () => {
                         </div>
                         <div className="w-full h-[40px] flex">
                           <div className="w-3/12 h-full flex items-center">
-                            <span>Phí quản lý (đ)</span>
+                            <span>Phí quản lý (VNĐ)</span>
                           </div>
                           <div className="w-9/12 h-full">
                             <Field
@@ -473,16 +487,24 @@ const CreateLangding = () => {
                   </div>
                   <div className="w-full h-1/3">
                     <div className="h-[40px] mx-5 mt-5 mb-3">
-                      <button
-                        className="btn bg-[#4CAF50] mr-2"
-                        type="submit"
-                        disabled={isSubmitting}
-                      >
-                        <span className="pr-1">
-                          <i className="fi fi-rs-disk" />
-                        </span>
-                        <span className="pb-10">Lưu</span>
+                      {isSubmitting && (
+                        <button class="btn" type="button" disabled style={{ backgroundColor: "#FFF" }}>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <span style={{marginLeft: "5px"}}>Đang lưu...</span>
                       </button>
+                      )}
+                      {!isSubmitting && (
+                        <button
+                          className="btn mr-2"
+                          type="submit"
+                          style={{ backgroundColor: "#4CAF50" }}
+                        >
+                          <span className="pr-1">
+                            <i className="fi fi-rs-disk" />
+                          </span>
+                          <span className="pb-10">Lưu</span>
+                        </button>
+                      )}
                       <button className="btn-2" type="reset">
                         <span className="pr-1">
                           <i className="fi fi-rr-eraser" />

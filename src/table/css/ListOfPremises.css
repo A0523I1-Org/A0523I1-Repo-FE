@@ -1,12 +1,17 @@
 body{
     /*background-color: #999;*/
 }
-button  {
-    padding: 5px 14px !important;
-    border-radius: 3px;
-    border: none;
-    text-align: left;
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
+
+/* Ẩn mũi tên điều chỉnh số cho Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
 .id-listAll {
     text-align: center;
     font-family: Arial,sans-serif;

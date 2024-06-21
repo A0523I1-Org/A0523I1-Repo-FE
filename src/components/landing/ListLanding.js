@@ -12,7 +12,6 @@ import "../../table/css/pagination.css";
 import ResponsivePagination from "react-responsive-pagination";
 
 const locationMapping = {
-
   fullyFurnished: "Đầy đủ nội thất",
   partiallyFurnished: "Nội thất một phần",
   unfurnished: "Không có nội thất",
@@ -24,6 +23,33 @@ const locationMapping = {
   ecoFriendly: "Thân thiện với môi trường",
   highTech: "Công nghệ cao",
 };
+
+const greenStatuses = [
+  "Đầy đủ nội thất",
+  "Nội thất một phần",
+  "Sẵn sàng để dọn vào",
+  "Tiện nghi cao cấp",
+  "Thân thiện với môi trường",
+  "Công nghệ cao"
+];
+
+const redStatuses = [
+  "Không có nội thất",
+  "Đang xây dựng",
+  "Tiện nghi cơ bản",
+  "Mới được cải tạo"
+];
+
+const getBackgroundColorClass = (status) => {
+  const landingStatus = locationMapping[status]?.trim();
+  if (greenStatuses.includes(landingStatus)) {
+    return "bg-green-500";
+  } else if (redStatuses.includes(landingStatus)) {
+    return "bg-red-500";
+  }
+  return "";
+};
+
 const typeMapping = {
   Apartment: "Căn hộ",
   Home: "Nhà riêng",
@@ -48,8 +74,6 @@ const init_param = {
 };
 
 const ListLanding = () => {
-  const [detailModalIsOpen, setDetailModalIsOpen] = useState(false);
-  const [landingDetail, setLandingDetail] = useState({});
   const [landing, setLanding] = useState();
   const [openMenu, setOpenMenu] = useState({});
   const [floors, setFloors] = useState([]);
@@ -58,14 +82,14 @@ const ListLanding = () => {
   const [checkedAll, setCheckAll] = useState(false);
   const [listIdInput, setListIdInput] = useState([]);
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [modalDeleteMultiIsOpen, setModalDeleteMultiIsOpen] = useState(false);
+  const [detailModalIsOpen, setDetailModalIsOpen] = useState(false);
+  const [landingDetail, setLandingDetail] = useState({});
   const [landingDelete, setLandingDelete] = useState([]);
-  const navigate = useNavigate();
   const [isNotFound, setIsNotFound] = useState(false);
   const [updatedRecordId, setUpdatedRecordId] = useState(null);
-  const [modalDeleteMultiIsOpen, setModalDeleteMultiIsOpen] = useState(false);
+  const navigate = useNavigate();
 
-
-  // lấy danh sách đầu sessionStorage là giúp để lưu trữ trang hiện tại khi chuyển trang từ edit về danh sách (lê chí thiện)
   useEffect(() => {
     const savedPage = sessionStorage.getItem('currentPage');
     const savedSearchParams = JSON.parse(sessionStorage.getItem('searchParams'));
@@ -82,14 +106,16 @@ const ListLanding = () => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
-  const handleChangeDetail = (id) => {
+
+  const handleUpdateLanding = (id) => {
+
 
     try {
       handleDetailClick();
       setUpdatedRecordId(id);
       setTimeout(() => {
         setUpdatedRecordId(null);
-      }, 100000);
+      }, 2000);
 
     } catch (error) {
       console.log(error)
@@ -99,8 +125,6 @@ const ListLanding = () => {
   }
   console.log(updatedRecordId)
 
-  // hàm chuyển trang trên react khi bấm vào từng trang (lê chí thiện)
-
   const handlePageChange = (page) => {
     sessionStorage.setItem('currentPage', page - 1);
     const param = { ...searchParams, page: page - 1 };
@@ -108,15 +132,12 @@ const ListLanding = () => {
     getListAllLanding(param);
   };
 
-  // hàm chọn để tắt bật menu chi tiết,sửa mặt bằng,xóa mặt bằng (lê chí thiện)
-
   const handleMenuSelect = (id) => {
     setOpenMenu((prevOpenMenu) => ({
       ...prevOpenMenu,
       [id]: !prevOpenMenu[id],
     }));
   };
-  // hàm khi chúng ta chọn bên ngoài menu thì nó sẽ tắt đi tất cả menu đã được mở(lê chí thiện)
   const handleClickOutside = (event) => {
     if (
       !event.target.closest(".menu") &&
@@ -125,19 +146,13 @@ const ListLanding = () => {
       setOpenMenu({});
     }
   };
-  //hàm giúp để khi chúng ta bấm vào chi tiết thì menu nó sẽ tự tắt(lê chí thiện)
   const handleDetailClick = () => {
     setOpenMenu({});
   };
-
-  const openModal = (landing) => {
-    setLandingDelete(landing);
-    setIsOpen(true);
+  const handleDeleteClick = (landing) => {
+    handleDetailClick();
+    openModal(landing);
   };
-  const closeModal = () => {
-    setIsOpen(false);
-  };
-  //Hàm lấy tất cả danh sách của tầng(lê chí thiện)
 
   const getListAllFloor = async () => {
     try {
@@ -147,7 +162,6 @@ const ListLanding = () => {
       console.log(e);
     }
   };
-  //hàm lấy tất cả danh sách mặt bằng(lê chí thiện)
 
   const getListAllLanding = async (searchParams) => {
     try {
@@ -159,14 +173,10 @@ const ListLanding = () => {
       console.error(error);
     }
   };
-  //hàm giúp giúp phân biệt các trường khi chúng ta nhập(lê chí thiện)
 
   const handleChange = (e) => {
     setSearchParams({ ...searchParams, [e.target.name]: e.target.value });
   };
-  console.log(isNotFound)
-
-  //Hàm gửi dữ liệu khi nhập vào tìm kiếm(lê chí thiện)
 
   const handleSubmit = () => {
     sessionStorage.setItem('searchParams', JSON.stringify(searchParams));
@@ -180,8 +190,6 @@ const ListLanding = () => {
 
   };
 
-  //hàm reset lại để lấy lại danh sách tổng(lê chí thiện)
-
   const handleReset = () => {
     sessionStorage.removeItem('currentPage')
     sessionStorage.removeItem('searchParams');
@@ -191,28 +199,23 @@ const ListLanding = () => {
     }
     setSearchParams(param);
     getListAllLanding(param);
-
   };
   const handleGoBack = () => {
     handleReset();
   }
-  const handleDeleteClick = (landing) => {
-    handleDetailClick();
-    openModal(landing);
-  };
 
   const deleteLandingByIds = () => {
     setModalDeleteMultiIsOpen(false);
     landing.content.forEach((ld) => {
       if (ld.select) {
-        if(!ld.isAvailable){
+        if (!ld.isAvailable) {
           toast.error("Mặt bằng " + ld.code + " không thể xóa vì đã vào ở");
           return;
         }
         const isSuccess = landingService.deleteLandingById(ld.id);
         if (isSuccess) {
           toast.success("Xóa mặt bằng " + ld.code + " thành công");
-        }else{
+        } else {
           toast.error("Xóa mặt bằng " + ld.code + " không thành công");
         }
       }
@@ -222,19 +225,20 @@ const ListLanding = () => {
   };
 
   const deleteLanding = async () => {
-    if(!landingDelete.isAvailable){
+    if (!landingDelete.isAvailable) {
       toast.error("Mặt bằng " + landingDelete.code + " không thể xóa vì đã vào ở");
       return;
     }
     const isSuccess = await landingService.deleteLandingById(landingDelete.id);
     if (isSuccess) {
       toast.success("Xóa mặt bằng " + landingDelete.code + " thành công");
-    }else{
+    } else {
       toast.error("Xóa mặt bằng " + landingDelete.code + " không thành công");
     }
     setIsOpen(false);
     getListAllLanding(searchParams);
   };
+
   const customStyles = {
     content: {
       top: "50%",
@@ -253,41 +257,47 @@ const ListLanding = () => {
       setListIdInput(listIdInput.filter((item) => item !== id));
     }
   };
-  const hanleSelectAll = (e) => {
+  const handleSelectAll = (e) => {
     if (!e.target.checked) {
       setListIdInput([]);
     } else {
       setCheckAll(!checkedAll);
       !checkedAll
-        ? setListIdInput(landing.map((l) => l.id))
+        ? setListIdInput(landing.content.map((l) => l.id))
         : setListIdInput([]);
     }
   };
-  const openDetailModal = (landing) => {
-    handleDetailClick()
-    setModalDetail(landing)
 
-  }
-  const setModalDetail = (landing) => {
-    setDetailModalIsOpen(true)
-    setLandingDetail(landing)
-
-  }
+  const openModal = (landing) => {
+    setLandingDelete(landing);
+    setIsOpen(true);
+  };
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
 
-  const closeModalDetail = (landing) => {
-    setDetailModalIsOpen(false)
-  }
   const closeModalMultiDelete = () => {
     setModalDeleteMultiIsOpen(false);
+  };
+
+  const setModalDetail = (landing) => {
+    setDetailModalIsOpen(true);
+    setLandingDetail(landing);
+  };
+  const openDetailModal = (landing) => {
+    handleDetailClick();
+    setModalDetail(landing);
+  };
+
+  const closeModalDetail = (landing) => {
+    setDetailModalIsOpen(false);
   };
 
   if (!landing) return <div>Loading...</div>;
 
   return (
     <>
-
-
       <div className=" h-[90px]  mx-16 flex gap-5 items-center">
         <select
           type="select"
@@ -322,7 +332,7 @@ const ListLanding = () => {
           placeholder="Tìm theo mã mặt bằng"
         />
         <input
-          type="text"
+          type="number" min={0}
           className="w-1/5 h-1/2 border-b-[1px] pl-3 border-[#888]  rounded-tl-[3px] "
           name="areaLanding"
           id="areaLanding"
@@ -409,7 +419,7 @@ const ListLanding = () => {
                     style={{ backgroundColor: "white" }}
                     checked={listIdInput.length > 0}
                     indeterminate={listIdInput.length > 0}
-                    onChange={hanleSelectAll}
+                    onChange={handleSelectAll}
                     size="small"
                   />
                 </th>
@@ -420,6 +430,7 @@ const ListLanding = () => {
                 <th>Phí quản lý</th>
                 <th>Tầng</th>
                 <th>
+                  
                   <span className="flex  justify-center">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -462,15 +473,10 @@ const ListLanding = () => {
                 </th>
               </tr>
             </thead>
-            {isNotFound && (
-              <div>
-                <p>Không tìm thấy kết quả</p>
-                <button onClick={handleGoBack}>Quay lại trang chính</button>
-              </div>
-            )}
 
             <tbody>
               {landing.content.map((landingItem, index) => (
+                
 
                 <tr key={index} className={`w-1/12 h-[76px] ${updatedRecordId === landingItem.id ? 'bg-yellow-200' : ''}`}>
                   <td className="text-center w-[60px]">
@@ -525,41 +531,16 @@ const ListLanding = () => {
 
 
                   <td className=" w-2/12 text-center ">
-                    {locationMapping.hasOwnProperty(landingItem.status) ? (
-                      <button
-                        className={`
-                                    ${locationMapping[
-                            landingItem.status
-                          ] === "Đầy đủ nội thất" || locationMapping[
-                            landingItem.status].trim() === "Nội thất một phần" ||locationMapping[
-                              landingItem.status].trim() === "Không có nội thất" ||locationMapping[
-                                landingItem.status].trim() === "Sẵn sàng để dọn vào" || locationMapping[
-                                  landingItem.status].trim() === "Đang xây dựng" || locationMapping[
-                                    landingItem.status].trim() === "Mới được cải tạo" || locationMapping[
-                                      landingItem.status].trim() === "Tiện nghi cơ bản" || locationMapping[
-                                        landingItem.status].trim() === "Tiện nghi cao cấp" || locationMapping[
-                                          landingItem.status].trim() === "Thân thiện với môi trường" || locationMapping[
-                                            landingItem.status].trim() === "Công nghệ cao"
-
-                            ? "bg-green-500"
-                            : ""
-                          } 
-                               
-                                   
-                                        
-                                     
-                                w-auto h-[26px] 
-                                `}
-                      >
-                        <span
-                          className={`text-[.70rem] font-semibold text-white flex `}
-                        >
-                          {locationMapping[landingItem.status]}
-                        </span>
-                      </button>
-                    ) : (
-                      <span></span>
-                    )}
+                  <button
+                    className={`
+                      ${getBackgroundColorClass(landingItem.status)}  
+                      w-auto h-[26px]
+                    `}
+                  >
+                    <span className="text-[.70rem] font-semibold text-white flex">
+                      {locationMapping[landingItem.status]}
+                    </span>
+                  </button>
                   </td>
                   <td className="w-[76px] relative">
                     <button
@@ -639,7 +620,7 @@ const ListLanding = () => {
                         </button>
                         <Link to={routes.editLanding + landingItem.id}>
                           <button
-                            onClick={() => handleChangeDetail(landingItem.id)}
+                            onClick={() => handleUpdateLanding(landingItem.id)}
                             className="w-full h-1/3 border-t-[1px] px-3 flex items-center hover:bg-[#fafafa]"
                           >
                             <span className="flex py-1">
@@ -672,40 +653,49 @@ const ListLanding = () => {
           </table>
         </div>
       </div>
+      {isNotFound && (
+        <div className=" h-auto mx-16 text-center flex flex-col justify-center items-center mt-3">
+          <img src="/img/img-search.png" className="w-[134px] h-[134px]" />
+          <div className=" text-[18px]">Không tìm thấy kết quả nào</div>
+          <div class="text-[17px] opacity-70">Hãy thử sử dụng các từ khóa chung chung hơn</div>
+          <button onClick={handleGoBack} className="mt-3">Quay lại <span><i class='bx bx-subdirectory-left'></i></span></button>
+        </div>
+      )}
       <div className=" h-[40px] my-5 relative mx-16 flex  ">
-        <button
-          className="left-0 relative w-[40px] h-[40px] bg-red-500 flex items-center justify-center rounded-full"
-          onClick={() => {
-            deleteLandingByIds();
-          }}
-        >
-          <span className="text-white">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="size-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
-              />
-            </svg>
-          </span>
-          <span className="absolute top-0 right-[-5px] w-[15px] h-[15px] text-black font-bold text-[10px]">
-            10
-          </span>
-        </button>
-        <div className={`absolute h-full right-0 ${modalIsOpen || detailModalIsOpen ? "blurred" : ""}`}>
+        {listIdInput.length > 0 && (
+          <button
+            className="left-0 relative w-[40px] h-[40px] bg-red-500 flex items-center justify-center rounded-full"
+            onClick={() => {
+              setModalDeleteMultiIsOpen(true);
+            }}
+          >
+            <span className="text-white">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                />
+              </svg>
+            </span>
+            <span className="absolute top-0 right-[-5px] w-[15px] h-[15px] text-black font-bold text-[10px]">
+              {listIdInput.length}
+            </span>
+          </button>
+        )}
+        <div className="absolute h-full  right-0 ">
           <ResponsivePagination
             total={landing.totalPages}
             current={landing.number + 1}
             onPageChange={(page) => handlePageChange(page)}
           />
-
         </div>
       </div>
       <Modal
@@ -715,7 +705,6 @@ const ListLanding = () => {
         contentLabel="Example Modal"
         style={customStyles}
       >
-
         <div class="container-fluid" style={{ width: "650px" }}>
           <div class="row justify-content-center my-3">
             <div class="col-12 text-center mb-3">
@@ -846,7 +835,6 @@ const ListLanding = () => {
         contentLabel="Example Modal"
         style={customStyles}
       >
-
         <div class="container-fluid" style={{ width: "650px" }}>
           <div class="row justify-content-center my-3">
             <div class="col-12">
@@ -856,10 +844,12 @@ const ListLanding = () => {
             </div>
             <div class="col-12 text-center mb-3">
               <span>
-                <img className="w-45 h-28 object-cover mx-auto" src={landingDetail.firebaseUrl} />
+                <img
+                  className="w-45 h-28 object-cover mx-auto"
+                  src={landingDetail.firebaseUrl}
+                />
               </span>
             </div>
-
 
             <div class="col-12 mt-3">
               <table class="table table-hover">
@@ -901,9 +891,7 @@ const ListLanding = () => {
             </div>
 
             <div class="col-12 d-flex justify-content-center align-items-center mt-3 row">
-
               <div class="col-12 col-md-6 text-center text-md-right">
-
                 <button class="btn btn-primary" onClick={closeModalDetail}>
                   Đã rõ
                 </button>
@@ -912,8 +900,6 @@ const ListLanding = () => {
           </div>
         </div>
       </Modal>
-
-
 
       <ToastContainer></ToastContainer>
     </>
