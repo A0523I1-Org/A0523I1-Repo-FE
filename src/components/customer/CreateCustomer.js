@@ -12,9 +12,9 @@ const CreateCustomer = () => {
             console.log(customer);
             await customerService.createCustomer(customer);
             navigate("/customer");
-            toast.success("Thêm mới khách hàng thành công", {
-                position: "bottom-left",
-                autoClose: 1000,
+            toast("Thêm mới khách hàng thành công", {
+                position: "top-right",
+                autoClose: 2000,
             });
         } catch (e) {
             console.log(e);
@@ -39,7 +39,7 @@ const CreateCustomer = () => {
             .required("Tên khách hàng không được rỗng")
             .max(100, "Tên khách hàng không dài quá 100 kí tự")
             .min(3, "Tên khách hàng phải có ít nhất 3 kí tự")
-            .matches((/^[a-zA-Z\s]+$/, "Tên khách hàng chỉ được chứa chữ cái và khoảng trắng")),
+            .matches(/^[A-Z][a-z]*(\s[A-Z][a-z]*)*$/, "Tên khách hàng chỉ được chứa chữ cái và khoảng trắng , Chữ đầu viết hoa"),
         dob: Yup.date()
             .required("Vui lòng chọn ngày sinh")
             .max(new Date(), `Ngày không được lớn hơn hiện tại`),
@@ -56,7 +56,7 @@ const CreateCustomer = () => {
         phone: Yup.string()
             .required("Số điện thoại không được rỗng")
             .max(20, "Số điện thoại không dài quá 20 số")
-            .min(5, "Số điện thoại phải có ít nhất 10 số")
+            .min(10, "Số điện thoại phải có ít nhất 10 số")
             .matches(/^(\+\d{1,2}[- ]?)?\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4,}$/, "Số điện thoại không hợp lệ"),
         website: Yup.string()
             .required("Website không được rỗng")
@@ -66,7 +66,7 @@ const CreateCustomer = () => {
             .required("Tên công ty không được rỗng")
             .max(100, "TTên công ty không dài quá 100 kí tự")
             .min(5, "Tên công ty dài hơn 5 kí tự")
-            .matches(/^[a-zA-Z\s]+$/, "Tên khách hàng chỉ được chứa chữ cái và khoảng trắng"),
+            .matches(/^[a-zA-Z\s]+$/, "Tên công ty chỉ được chứa chữ cái và khoảng trắng"),
         idCard: Yup.string()
             .required("Căn cước công dân không được rỗng")
             .max(20, "Căn cước công dân không dài quá 20 kí tự")
@@ -75,6 +75,7 @@ const CreateCustomer = () => {
 
     return (
         <>
+
             <div className="boss max-w-[1000px] max-h-[900px]  mx-auto ">
                 <h1 className=" text-center text-amber-700 text-4xl font-bold py-3 shadow-2xl text-shadow">
                     Thêm Mới Khách Hàng

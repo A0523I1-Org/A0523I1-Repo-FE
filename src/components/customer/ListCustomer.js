@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import * as customerService from "../../services/CustomerService";
 import { useNavigate } from "react-router-dom";
 import ReactPaginate from "react-paginate";
-// import {getPage} from "../../services/CustomerService";
-
 
 const ListCustomer = () => {
     const [customers, setCustomers] = useState([]);
@@ -52,19 +50,8 @@ const ListCustomer = () => {
   const handleCheckSumCustomer= async () =>{
       let resPage = await customerService.getPage(0);
       setTotalCustomers(resPage.totalElements);
-      alert(`Số khách hàng ${totalCustomers}`);
+      alert(`Số khách hàng hiện tại: ${totalCustomers}`);
     }
-
-
-
-    const getListCustomers = async () => {
-        try {
-            const proList = await customerService.gettAllCustomers();
-            setCustomers(proList);
-        } catch (e) {
-            console.log(e);
-        }
-    };
 
 
 
@@ -105,6 +92,8 @@ const ListCustomer = () => {
                 // Giảm số lượng khách hàng tổng cộng
                 setTotalCustomers(prevTotal => prevTotal - 1);
                 window.alert("Xoá thành công!")
+
+
             } catch (error) {
                 console.error(`Error deleting customer with id ${id}:`, error);
             }
@@ -125,6 +114,7 @@ const ListCustomer = () => {
                 );
                 setTotalCustomers((prevTotal) => prevTotal - selectedIds.length);
                 setSelectedIds([]);
+
                 window.alert("Xoá thành công!");
             } catch (error) {
                 console.error("Error deleting selected customers:", error);
@@ -243,46 +233,46 @@ const ListCustomer = () => {
                     </th>
                     <th
                         scope="col"
-                        className="px-6 py-4 font-medium text-gray-900 text-left block md:table-cell"
+                        className="px-6 py-4 text-center font-medium text-gray-900 text-left block md:table-cell"
                     >
                         Tên khách hàng
                     </th>
                     <th
                         scope="col"
-                        className="px-6 py-4 font-medium text-gray-900 text-left block md:table-cell"
+                        className="px-6 py-4 text-center font-medium text-gray-900 text-left block md:table-cell"
                     >
                         Ngày Sinh
                     </th>
                     <th
                         scope="col"
-                        className="px-6 py-4 font-medium text-gray-900 text-left block md:table-cell"
+                        className="px-6 py-4 text-center font-medium text-gray-900 text-left block md:table-cell"
                     >
                         Gender
                     </th>
                     <th
                         scope="col"
-                        className="px-6 py-4 font-medium text-gray-900 text-left block md:table-cell"
+                        className="px-6 py-4 text-center font-medium text-gray-900 text-left block md:table-cell"
                     >
                         Phone
                     </th>
 
                     <th
                         scope="col"
-                        className="px-6 py-4 font-medium text-gray-900 text-left block md:table-cell"
+                        className="px-6 py-4 text-center font-medium text-gray-900 text-left block md:table-cell"
                     >
                         Tên Công Ty
                     </th>
 
                     <th
                         scope="col"
-                        className="px-6 py-4 font-medium text-gray-900 text-left block md:table-cell"
+                        className="px-6 py-4 text-center font-medium text-gray-900 text-left block md:table-cell"
                     >
                         Xem Chi Tiết
                     </th>
 
                     <th
                         scope="col"
-                        className="px-6 py-4 font-medium text-gray-900 text-left block md:table-cell"
+                        className="px-6 py-4 text-center font-medium text-gray-900 text-left block md:table-cell"
                     >
                         Chức Năng
                     </th>
@@ -292,12 +282,12 @@ const ListCustomer = () => {
                 <tbody className="block md:table-row-group divide-y divide-gray-100 border-t border-gray-100">
                 {customers.map((customer) => (
                     <tr key={customer.id} className="hover:bg-gray-50 bg-white md:border-none block md:table-row">
-                        <td className="px-6 py-4 md:border md:border-grey-500 text-left block md:table-cell">
+                        <td className="px-6 py-4 md:border md:border-grey-500 text-left block md:table-cell flex justify-center items-center">
                             <input
                                 type="checkbox"
                                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
                                 checked={selectedIds.includes(customer.id)}
-                                onChange={()=> toggleSelect(customer.id)}
+                                onChange={() => toggleSelect(customer.id)}
                             />
                         </td>
                         <td className="px-6 py-4 md:border md:border-grey-500 text-left block md:table-cell">
@@ -306,7 +296,7 @@ const ListCustomer = () => {
                         </td>
                         <td className="flex gap-3 px-6 py-4 font-normal text-gray-900 md:border md:border-grey-500 text-left block md:table-cell">
                             <div className="text-sm">
-                                <div className="font-medium text-gray-700">{formatDate(customer.dob)}</div>
+                                <div className="text-md">{formatDate(customer.dob)}</div>
                             </div>
                         </td>
                         <td className="px-6 py-4 md:border md:border-grey-500 text-left block md:table-cell">
@@ -324,8 +314,8 @@ const ListCustomer = () => {
                         <td className="px-6 py-4 md:border md:border-grey-500 text-left block md:table-cell">
                             <div className="flex justify-center items-center">
                                 <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
-                                        onClick={()=>navigate(`/customer/detail-customer/${customer.id}`)}
-                                       >
+                                        onClick={() => navigate(`/customer/detail-customer/${customer.id}`)}
+                                >
                                     <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                              stroke="currentColor">
@@ -381,7 +371,7 @@ const ListCustomer = () => {
             previousLabel="< previous"
             pageClassName="page-item mx-1 border rounded-md"
             pageLinkClassName="page-link px-3 py-2 hover:bg-gray-200 hover:rounded-full"
-            previousClassName="page-item mx-1 border rounded-md ml-0"
+            previousClassName="page-item mx-1 border rounded-md ml-0 "
             previousLinkClassName="page-link px-3 py-2 hover:bg-amber-500 bg-gray-800 text-white w-24"
             nextClassName="page-item mx-1 border rounded-md mr-0"
             nextLinkClassName="page-link px-3 py-2 hover:bg-amber-500 bg-gray-800 text-white w-24"

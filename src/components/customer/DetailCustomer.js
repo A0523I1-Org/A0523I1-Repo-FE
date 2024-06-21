@@ -3,24 +3,22 @@ import axios from "axios";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {useState, useEffect} from "react";
 import {useNavigate, useParams} from "react-router-dom";
-import {format,parseISO} from 'date-fns';
+import {format, parseISO} from 'date-fns';
 
 const DetailCustomer = () => {
 
-
     const {id} = useParams();
     const [customer, setCustomer] = useState(null);
-    const navigate = useNavigate();
-
     useEffect(() => {
         axios.get(`http://localhost:8080/api/customer/${id}`)
             .then(res => setCustomer(res.data))
             .catch(err => console.log("Error fetching customer:", err));
     }, [id]);
 
-    const formatDate = (input) =>{
-        return format(parseISO(input),"yyyy-MM-dd");
+    const formatDate = (input) => {
+        return format(parseISO(input), "yyyy-MM-dd");
     }
+
 
     if (!customer) return <div>Loading...</div>;
 
@@ -84,7 +82,7 @@ const DetailCustomer = () => {
                                             id="address"
                                             placeholder="Mời nhập vào"
                                             className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        />
+                                            readOnly/>
                                     </div>
                                 </div>
                             </div>
@@ -100,7 +98,7 @@ const DetailCustomer = () => {
                                             name="dob"
                                             id="dob"
                                             className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        />
+                                            readOnly/>
                                     </div>
                                 </div>
                                 <div className="w-full px-3 sm:w-1/2">
@@ -115,7 +113,7 @@ const DetailCustomer = () => {
                                             id="phone"
                                             placeholder="Mời nhập vào"
                                             className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        />
+                                            readOnly/>
                                     </div>
                                 </div>
                             </div>
@@ -132,7 +130,7 @@ const DetailCustomer = () => {
                                             id="email"
                                             placeholder="Mời nhập vào"
                                             className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        />
+                                            readOnly/>
                                     </div>
                                 </div>
                                 <div className="w-full px-3 sm:w-1/2">
@@ -147,7 +145,7 @@ const DetailCustomer = () => {
                                             id="idCard"
                                             placeholder="Mời nhập vào"
                                             className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        />
+                                            readOnly />
                                     </div>
                                 </div>
                             </div>
@@ -164,7 +162,7 @@ const DetailCustomer = () => {
                                             id="companyName"
                                             placeholder="Mời nhập vào"
                                             className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        />
+                                            readOnly />
                                     </div>
                                 </div>
                                 <div className="w-full px-3 sm:w-1/2">
@@ -179,7 +177,7 @@ const DetailCustomer = () => {
                                             id="website"
                                             placeholder="Mời nhập vào"
                                             className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                        />
+                                            readOnly />
                                     </div>
                                 </div>
                             </div>
