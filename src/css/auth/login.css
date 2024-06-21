@@ -23,6 +23,7 @@
     border-radius: 10px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
     overflow: auto;
+    background-color: white;
 }
 
 @media screen and (min-width: 1024px) {
@@ -32,8 +33,8 @@
     }
 
     .modal-content {
-        max-width: 800px; /* Smaller width for laptop screens */
-        max-height: 800px; /* Smaller height for laptop screens */
+        max-width: 600px; /* Smaller width for laptop screens */
+        max-height: 600px; /* Smaller height for laptop screens */
     }
 }
 
@@ -47,7 +48,7 @@
 
     .modal-content {
         max-width: 600px; /* Smaller width for laptop screens */
-        max-height: 1200px; /* Smaller height for laptop screens */
+        max-height: 1000px; /* Smaller height for laptop screens */
     }
 }
 
@@ -255,6 +256,7 @@ a {
 }
 .form__button {
     width: 100%;
+    margin-top: 1.5rem;
     padding: 1rem;
     font-size: var(--normal-font-size);
     outline: none;
