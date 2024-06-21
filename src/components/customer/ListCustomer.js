@@ -3,9 +3,6 @@ import { useEffect, useState } from "react";
 import * as customerService from "../../services/CustomerService";
 import { useNavigate } from "react-router-dom";
 import ReactPaginate from "react-paginate";
-import {format, parseISO} from "date-fns";
-// import {getPage} from "../../services/CustomerService";
-
 
 const ListCustomer = () => {
     const [customers, setCustomers] = useState([]);
@@ -57,16 +54,6 @@ const ListCustomer = () => {
     }
 
 
-        //
-        // const getListCustomers = async () => {
-        //     try {
-        //         const proList = await customerService.gettAllCustomers();
-        //         setCustomers(proList);
-        //     } catch (e) {
-        //         console.log(e);
-        //     }
-        // };
-
 
     const formatDate = (input) => {
         const date = (input instanceof Date) ? input : new Date(input);
@@ -105,6 +92,8 @@ const ListCustomer = () => {
                 // Giảm số lượng khách hàng tổng cộng
                 setTotalCustomers(prevTotal => prevTotal - 1);
                 window.alert("Xoá thành công!")
+
+
             } catch (error) {
                 console.error(`Error deleting customer with id ${id}:`, error);
             }
@@ -125,7 +114,7 @@ const ListCustomer = () => {
                 );
                 setTotalCustomers((prevTotal) => prevTotal - selectedIds.length);
                 setSelectedIds([]);
-                // getListPage(0)
+
                 window.alert("Xoá thành công!");
             } catch (error) {
                 console.error("Error deleting selected customers:", error);
