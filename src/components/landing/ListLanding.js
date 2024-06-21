@@ -239,12 +239,12 @@ const ListLanding = () => {
       transform: "translate(-50%, -50%)",
     },
   };
-  const handleDeleteAll = (e, id) => {
+  const handleDeleteAll = (e, ld) => {
     const isChecked = e.target.checked;
     if (isChecked) {
-      setListIdInput([...listIdInput, id]);
+      setListIdInput([...listIdInput, ld]);
     } else {
-      setListIdInput(listIdInput.filter((item) => item !== id));
+      setListIdInput(listIdInput.filter((item) => item !== ld));
     }
   };
   const handleSelectAll = (e) => {
@@ -253,7 +253,7 @@ const ListLanding = () => {
     } else {
       setCheckAll(!checkedAll);
       !checkedAll
-        ? setListIdInput(landing.content.map((l) => l.id))
+        ? setListIdInput(landing.content.map((l) => l.ld))
         : setListIdInput([]);
     }
   };
@@ -271,6 +271,7 @@ const ListLanding = () => {
   };
   const closeModalMultiDelete = () => {
     setModalDeleteMultiIsOpen(false);
+    setListIdInput([]);
   };
 
   const setModalDetail = (landing) => {
@@ -413,7 +414,7 @@ const ListLanding = () => {
                     size="small"
                   />
                 </th>
-                <th>ID</th>
+                <th>STT</th>
                 <th>Mã I Loại mặt bằng</th>
                 <th>Diện tích</th>
                 <th>Giá bán</th>
@@ -482,9 +483,9 @@ const ListLanding = () => {
                       type="checkbox"
                       value={landingItem.id}
                       name={landingItem.id}
-                      checked={listIdInput.includes(landingItem.id)}
+                      checked={listIdInput.includes(landingItem)}
                       onChange={(e) => {
-                        handleDeleteAll(e, landingItem.id);
+                        handleDeleteAll(e, landingItem);
                         //xoa
                         landingItem.select = e.target.checked;
                         setLanding(landing);
@@ -493,9 +494,7 @@ const ListLanding = () => {
                     />
                   </td>
                   <td className="w-1/12 text-center ">
-                    <span className="block text-[#2196f3]">
-                      ID - {landingItem.id}
-                    </span>
+                    <span className="block text-[#2196f3]">{index + 1}</span>
                   </td>
                   <td className=" w-2/12 text-center">
                     <span className="block ">{landingItem.code}</span>
@@ -827,11 +826,12 @@ const ListLanding = () => {
             <div class="col-12 mt-3">
               <table class="table table-hover">
                 <tbody>
-                  <tr>
-                    {listIdInput.map((id, index) => (
-                      <td>ID: {id}</td>
-                    ))}
-                  </tr>
+                  {listIdInput.map((ld, index) => (
+                    <tr style={{textAlign: "center"}}>
+                      <td>Mã mặt bằng: </td>
+                      <td>{ld.code}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>

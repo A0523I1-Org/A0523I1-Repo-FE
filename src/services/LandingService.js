@@ -91,11 +91,14 @@ export const findLandingIsAvailableById = async (id,token) => {
 };
 
 // Phung-PV Dùng để lưu trữ thong tin khách hàng vào google sheet để có thể liên lạc
-export const SaveInfoCustomerForm = async (dataInfo) => {
+export const SaveInfoCustomerForm = async (dataInfo,token) => {
   try {
     return await axios.post(
       "https://sheet.best/api/sheets/ceffd477-1d2a-4fce-a892-f19bf5b2125b",
-      dataInfo
+      dataInfo,{}, // Dữ liệu body của PUT request, có thể để trống nếu không cần
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
     );
   } catch (e) {
     console.log(e);
