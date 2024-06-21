@@ -9,9 +9,11 @@ import {
 } from "firebase/storage";
 import { useNavigate, useLocation, Await } from "react-router-dom";
 import * as Yup from "yup";
+import routes from "../../configs/routes";
 import * as floorService from "../../services/FloorService.js";
 import * as landingService from "../../services/LandingService";
-import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 const CreateLangding = () => {
   const [landing, setLanding] = useState({
@@ -39,7 +41,8 @@ const CreateLangding = () => {
 
   const getAllFloor = async () => {
     try {
-      const foundFloor = await floorService.getAllFloor();
+      const token = localStorage.getItem("token");
+      const foundFloor = await floorService.getAllFloor(token);
       setFloors(foundFloor);
     } catch (error) {
       console.error("Error fetching floor:", error);
@@ -63,18 +66,18 @@ const CreateLangding = () => {
     if (values.firebaseUrl !== "") {
       values.floor = +values.floor;
       try {
-        const frag = await landingService.addNewLanding(values);
-        if (frag) {
-          toast.success("Thêm mặt bằng thành công");
+        const token = localStorage.getItem("token");
+        const isSuccess = await landingService.addNewLanding(values, token);
+        if (isSuccess) {
+          toast.success("Thêm mới mặt bằng thành công!");
+          navigate(routes.listLanding);
+          console.log("Them moi thanh cong!!!");
         } else {
-          toast.error("Thêm mặt bằng không thành công");
+          toast.error("Thêm mới mặt bằng không thành công!");
         }
-        console.log(values);
-
-        navigate("/landing");
-
       } catch (error) {
-        console.error("Error updating landing: ", error);
+        toast.error("Đã xảy ra lỗi khi thêm mới mặt bằng!");
+        console.error("Error adding new landing:", error);
       }
     }
   };
@@ -106,16 +109,13 @@ const CreateLangding = () => {
       })
       .max(25, "Mã mặt bằng phải có tối đa 25 ký tự.")
       .matches(/^MB\d{3}$/, "Mã mặt bằng phải đúng định dạng MBxxx.")
-      .test(
-        'unique-code',
-        'Mã mặt bằng đã tồn tại', 
-        async (value) => {
-          if (!value) return false;
-          const isUnique = await landingService.findLandingByCode(value);
-          console.log(isUnique)
-          return !isUnique;
-        }
-      ),
+      .test("unique-code", "Mã mặt bằng đã tồn tại", async (value) => {
+        if (!value) return false;
+        const token = localStorage.getItem("token");
+        const isUnique = await landingService.findLandingByCode(value, token);
+        console.log(isUnique);
+        return !isUnique;
+      }),
 
     area: Yup.string()
       .required("Vui lòng nhập diện tích.")
@@ -194,6 +194,7 @@ const CreateLangding = () => {
       }),
 
     description: Yup.string().max(200, "Chú thích có độ dài tối đa 200 ký tự"),
+    
   };
 
   const initialValues = {
@@ -278,15 +279,9 @@ const CreateLangding = () => {
                         <option value="readyToMoveIn">
                           Sẵn sàng để dọn vào
                         </option>
-                        <option value="underConstruction">
-                          Đang xây dựng
-                        </option>
-                        <option value="newlyRenovated">
-                          Mới được cải tạo
-                        </option>
-                        <option value="basicAmenities">
-                          Tiện nghi cơ bản
-                        </option>
+                        <option value="underConstruction">Đang xây dựng</option>
+                        <option value="newlyRenovated">Mới được cải tạo</option>
+                        <option value="basicAmenities">Tiện nghi cơ bản</option>
                         <option value="luxuryAmenities">
                           Tiện nghi cao cấp
                         </option>
@@ -370,6 +365,11 @@ const CreateLangding = () => {
                           className="w-full h-full object-cover"
                           src={imageUrl}
                           alt="anh ko hien thi"
+                        />
+                        <ErrorMessage
+                          name="firebaseUrl"
+                          component="span"
+                          className="text-[12px] text-red-500"
                         />
                       </div>
                     </div>
@@ -487,16 +487,24 @@ const CreateLangding = () => {
                   </div>
                   <div className="w-full h-1/3">
                     <div className="h-[40px] mx-5 mt-5 mb-3">
-                      <button
-                        className="btn bg-[#4CAF50] mr-2"
-                        type="submit"
-                        disabled={isSubmitting}
-                      >
-                        <span className="pr-1">
-                          <i className="fi fi-rs-disk" />
-                        </span>
-                        <span className="pb-10">Lưu</span>
+                      {isSubmitting && (
+                        <button class="btn" type="button" disabled style={{ backgroundColor: "#FFF" }}>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <span style={{marginLeft: "5px"}}>Đang lưu...</span>
                       </button>
+                      )}
+                      {!isSubmitting && (
+                        <button
+                          className="btn mr-2"
+                          type="submit"
+                          style={{ backgroundColor: "#4CAF50" }}
+                        >
+                          <span className="pr-1">
+                            <i className="fi fi-rs-disk" />
+                          </span>
+                          <span className="pb-10">Lưu</span>
+                        </button>
+                      )}
                       <button className="btn-2" type="reset">
                         <span className="pr-1">
                           <i className="fi fi-rr-eraser" />

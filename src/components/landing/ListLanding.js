@@ -93,7 +93,7 @@ const ListLanding = () => {
       console.log(error);
     }
   };
-  console.log(updatedRecordId);
+  // console.log(updatedRecordId);
 
   const handlePageChange = (page) => {
     sessionStorage.setItem("currentPage", page - 1);
@@ -126,7 +126,8 @@ const ListLanding = () => {
 
   const getListAllFloor = async () => {
     try {
-      const res = await landingService.getListAllFloor();
+      const token = localStorage.getItem("token");
+      const res = await landingService.getListAllFloor(token);
       setFloors(res);
     } catch (e) {
       console.log(e);
@@ -135,7 +136,8 @@ const ListLanding = () => {
 
   const getListAllLanding = async (searchParams) => {
     try {
-      const res = await landingService.getListAllLanding(searchParams);
+      const token = localStorage.getItem("token");
+      const res = await landingService.getListAllLanding(searchParams, token);
       setLanding(res);
 
       setIsNotFound(res.content.length === 0);
@@ -173,37 +175,51 @@ const ListLanding = () => {
     handleReset();
   };
 
-  const deleteLandingByIds = () => {
+  const deleteLandingByIds = async () => {
     setModalDeleteMultiIsOpen(false);
-    landing.content.forEach((ld) => {
-      console.log(ld);
+    const token = localStorage.getItem("token");
 
+    for (const ld of landing.content) {
       if (ld.select) {
-        const landingAvailable = landingService.findLandingIsAvailableById(ld.id);
-        if(landingAvailable){
-          toast.error("Mặt bằng " + ld.code + " không thể xóa vì đã vào ở");
-          return;
-        }
-        const isSuccess = landingService.deleteLandingById(ld.id);
-        if (isSuccess) {
-          toast.success("Xóa mặt bằng " + ld.code + " thành công");
-        } else {
-          toast.error("Xóa mặt bằng " + ld.code + " không thành công");
+        try {
+          // const landingAvailable =
+          //   await landingService.findLandingIsAvailableById(ld.id, token);
+          // if (landingAvailable) {
+          //   toast.error("Mặt bằng " + ld.code + " không thể xóa vì đã vào ở");
+          //   return;
+          // }
+          const isSuccess = await landingService.deleteLandingById(
+            ld.id,
+            token
+          );
+          if (isSuccess) {
+            toast.success("Xóa mặt bằng " + ld.code + " thành công");
+          } else {
+            toast.error("Xóa mặt bằng " + ld.code + " không thành công");
+          }
+        } catch (e) {
+          toast.error("Xóa mặt bằng " + ld.code + " gặp lỗi: " + e.message);
         }
       }
-    });
-    navigate("/landing")
-    getListAllLanding(searchParams);
-
+    }
+    await getListAllLanding(searchParams);
     setListIdInput([]);
   };
 
   const deleteLanding = async () => {
-    // if(!landingDelete.isAvailable){
+    const token = localStorage.getItem("token");
+    // const landingAvailable = await landingService.findLandingIsAvailableById(
+    //   landingDelete.id,
+    //   token
+    // );
+    // if (!landingAvailable) {
     //   toast.error("Mặt bằng " + landingDelete.code + " không thể xóa vì đã vào ở");
     //   return;
     // }
-    const isSuccess = await landingService.deleteLandingById(landingDelete.id);
+    const isSuccess = await landingService.deleteLandingById(
+      landingDelete.id,
+      token
+    );
     if (isSuccess) {
       toast.success("Xóa mặt bằng " + landingDelete.code + " thành công");
     } else {
