@@ -8,8 +8,6 @@ export const fetchEmployees = async (page, criteria = null) => {
             const queryParams = new URLSearchParams(criteria).toString();
             url += `&${queryParams}`;
         }
-        console.log("CHECK THIS")
-        console.log(url)
         const response = await axios.get(url);
         return response.data;
     } catch (error) {

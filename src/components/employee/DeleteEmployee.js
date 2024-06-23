@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import * as employeeService from "../../services/EmployeeService";
 import {toast} from 'react-toastify';
-import {capitalizeFirstLetter, formatDate} from "./Utils";
+import {capitalizeFirstLetter, formatDate} from "./utils/Utils";
 
 export default function DeleteEmployee() {
     const {id} = useParams();

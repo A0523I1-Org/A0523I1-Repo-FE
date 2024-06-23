@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import Search from "./Search";
-import Pagination from "./Pagination";
-import {AddIcon, DeleteAllIcon} from "./Icons";
+import Search from "./child_list/Search";
+import Pagination from "./child_list/Pagination";
+import {AddIcon, DeleteAllIcon} from "./utils/Icons";
 import {fetchEmployees} from "../../services/EmployeeService";
-import EmployeeTable from "./EmployeeTable";
+import EmployeeTable from "./child_list/EmployeeTable";
 import {Link} from "react-router-dom";
-import EmployeeDetail from "./EmployeeDetail";
+import EmployeeDetail from "./child_list/EmployeeDetail";
+import "../../css/employee/styles.css";
+import routes from "../../configs/routes";
 
 const ListEmployee = () => {
 
@@ -20,20 +22,15 @@ const ListEmployee = () => {
         setEmployees((prevEmployees) =>
             prevEmployees.map((employee) =>
                 employee.id === employeeId
-                    ? {...employee, account: {username}}
+                    ? {...employee, username: username}
                     : employee
             )
         );
     };
 
     //Modal xem chi tiết nhân viên
-    const handleOpenModal = (employee) => {
-        setSelectedEmployee(employee);
-    };
-
-    const handleCloseModal = () => {
-        setSelectedEmployee(null);
-    };
+    const handleOpenModal = (employee) => setSelectedEmployee(employee);
+    const handleCloseModal = () => setSelectedEmployee(null);
 
     // Lấy dữ liệu
     const fetchData = async (page, criteria) => {
@@ -68,17 +65,6 @@ const ListEmployee = () => {
         fetchData(currentPage, searchCriteria);
     }, [currentPage]);
 
-    // Sử dụng useEffect để theo dõi selectedEmployee và cập nhật isOpen
-    useEffect(() => {
-        // Nếu selectedEmployee có giá trị, mở modal
-        // Ngược lại, đóng modal
-        if (selectedEmployee) {
-            console.log("Opening modal with employee:", selectedEmployee);
-        } else {
-            console.log("Closing modal");
-        }
-    }, [selectedEmployee]);
-
     return (
         <>
             <div className="flex justify-between mb-4">
@@ -86,18 +72,18 @@ const ListEmployee = () => {
                     <Search onSearch={handleSearch} />
                 </div>
                 <div className="flex gap-2">
-                    <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                    <button className="tw-delete-all-button">
                         <DeleteAllIcon />
                     </button>
-                    <Link to="/employee/create-employee">
-                        <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                    <Link to = {routes.createEmployee}>
+                        <button className="tw-add-button">
                             <AddIcon />
                         </button>
                     </Link>
                 </div>
             </div>
 
-            <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md p-4">
+            <div className="tw-table-zone">
                 {/* Table */}
                 <EmployeeTable
                     employees={employees}
@@ -117,6 +103,7 @@ const ListEmployee = () => {
                 </div>
             </div>
 
+            {/*Modal Employee Detail*/}
             {selectedEmployee && (
                 <EmployeeDetail
                     employee={selectedEmployee}
