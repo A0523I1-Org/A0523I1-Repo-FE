@@ -24,7 +24,7 @@ body{
     text-align: center;
     padding: 0;
     font-size: 13.5px;
-    /*font-family: var(--text-color-span), serif;*/
+    font-family: var(--text-color-span), serif;
 }
 
 .footer__title {
@@ -118,7 +118,7 @@ p, h1, h2, h3, h4, h5, h6, h7, span {
 }
 
 
-button {
+ button {
     transition: all 0.3s ease-in-out;
 }
 
@@ -127,13 +127,13 @@ button {
 }
 #main .main__part1_title .main__part1__distance h1 {
     font-size: 55px;
-    /*font: var(--font_0);*/
+    font: var(--font_0);
     text-align: center;
 }
 #main .main__part1_title .main__part1__distance p {
     padding: 1.5rem 0;
     color: #2f2b36;
-    /*font: var(--font_6);*/
+    font: var(--font_6);
     font-weight: 0;
     font-size: 19px;
     text-align: center;
@@ -147,9 +147,9 @@ button {
 }
 
 #main .font_2 {
-    /*font: var(--font_2);*/
-    /*color: rgb(var(--color_15));*/
-    letter-spacing: 0;
+    font: var(--font_2);
+    color: rgb(var(--color_15));
+    letter-spacing: 0em;
 }
 #main .button-animation {
     transition: all 0.3s ease-in-out;
@@ -190,7 +190,7 @@ button {
 @keyframes animation__m1__left {
     0% {
         left: -200px;
-        top: 0;
+        top: 0px;
     }
     50% {
         width: 150px;
@@ -245,7 +245,7 @@ button {
     @keyframes animation__m1__left {
         0% {
             left: -200px;
-            top: 0;
+            top: 0px;
         }
         50% {
             width: 70px;
@@ -266,8 +266,8 @@ button {
     #main .main__part1__distance p {
         padding: 1.5rem 0;
         color: #2f2b36;
-        /*font: var(--font_6);*/
-        /*font-weight: "0";*/
+        font: var(--font_6);
+        font-weight: 0;
         font-size: 17px !important;
         text-align: center;
         letter-spacing: 0em;
@@ -275,8 +275,8 @@ button {
         opacity: 0.9;
     }
     .font_2 {
-        /*font: var(--font_2);*/
-        /*color: rgb(var(--color_15));*/
+        font: var(--font_2);
+        color: rgb(var(--color_15));
         letter-spacing: 0em;
         font-size: 35px !important;
     }
@@ -347,3 +347,4 @@ button {
 }
 
 /*# sourceMappingURL=home.css.map */
+
