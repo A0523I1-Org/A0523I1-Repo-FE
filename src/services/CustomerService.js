@@ -51,10 +51,10 @@ export const deleteCustomers = async (...ids) => {
     }
 };
 
-export const searchByName = async (nameSearch) => {
+export const searchByName = async (page,nameSearch) => {
     try {
         const listSearch = await axios.get(
-            `http://localhost:8080/api/customer/search?name=${nameSearch}`
+            `http://localhost:8080/api/customer/search?page=${page}&name=${nameSearch}`
         );
         return listSearch.data;
     } catch (e) {
