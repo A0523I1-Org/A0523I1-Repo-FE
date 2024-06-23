@@ -37,6 +37,7 @@ const privateRoutes = [
 
     {path : routes.listEmployee, component : ListEmployee},
     {path : routes.createEmployee, component : CreateEmployee},
+    {path : routes.deleteEmployee, component : DeleteEmployee, id: ':id'},
     {path : routes.editEmployee, component : EditEmployee , id : ':id'},
     {path : routes.deleteEmployee, component : DeleteEmployee , id : ':id'},
     {path : routes.register,component : Register , id : ':id'},

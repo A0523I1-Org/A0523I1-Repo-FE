@@ -64,7 +64,6 @@ function DefaultLayout ({children})  {
                             <Header/>
                         </div>
                         <div className="mx-5 mt-5">
-                        {/*<div className="mx-10 overflow-auto mt-5">*/}
                             <div className="w-full h-[40px]  relative">
                                 <div className="absolute py-2 left-0 top-2.5">
                                     <FooterExtra nameLocation={location.pathname.trim()}/>
@@ -80,7 +79,7 @@ function DefaultLayout ({children})  {
                                     </span>
                                     <span className={`${locationPresentOperation === "" ? 'pr-3' : ''}`}>{locationPresent}</span>
                                     {locationPresentOperation !== "" ?
-                                            <span>
+                                        <span>
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                      strokeWidth="1.5" stroke="currentColor" className="size-4">
                                                 <path strokeLinecap="round" strokeLinejoin="round"

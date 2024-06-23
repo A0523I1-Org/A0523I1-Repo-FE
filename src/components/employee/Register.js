@@ -1,7 +1,8 @@
+
 import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import axios from "axios";
+import {registerEmployee} from "../../services/AccountService";
 
 const Register = ({ employeeId, onUserRegistered }) => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -30,10 +31,7 @@ const Register = ({ employeeId, onUserRegistered }) => {
     const closeDialog = () => setIsDialogOpen(false);
 
     const handleSubmit = (values, actions) => {
-        axios.post(`http://localhost:8080/api/account/employee/${employeeId}`, {
-            username: values.username,
-            password: values.password,
-        })
+        registerEmployee(employeeId, values.username, values.password)
             .then(response => {
                 console.log(response.data);
                 actions.setSubmitting(false); // Đặt lại trạng thái gửi sau khi gửi

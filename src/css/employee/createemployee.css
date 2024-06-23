@@ -1,16 +1,9 @@
 #ce_main {
     box-sizing: border-box;
-    display: flex;
-    float: left;
-    justify-content: center;
-    align-items: center;
     border-radius: 10px;
     background: url("https://images.unsplash.com/photo-1428908728789-d2de25dbd4e2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D") no-repeat;
     background-size: cover;
     position: relative;
-    margin: 0 50px;
-    padding: 20px;
-    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
 }
 
 #ce_main .btn {
@@ -19,60 +12,12 @@
     color: white;
     border: none;
 }
-
-#ce_main .btn-2 {
-    padding: .4375rem .875rem;
-    background-color: #2196e3;
-    border-radius: 3px;
-    color: white;
-    border: none;
-}
-
-#ce_main .avatar_preview {
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    background: white;
-    margin-bottom: 20px;
-}
-
-#ce_main .center_vh {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#ce_main label span {
-    color: red;
-}
-
-#ce_main input::placeholder {
-    /* Kiểu chữ và các thuộc tính khác ở đây */
-    font-family: Arial, sans-serif;
-    font-size: 13.4px;
-    color: #888;
-}
-
-#ce_main .form-label {
-    margin-top: 20px;
-}
-
 :root {
     --text-color-span: Roboto, -apple-system, BlinkMacSystemFont, Roboto, 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif, "Segoe UI", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 #ce_main .errorMessage {
-    box-sizing: border-box;
     font-size: 8pt;
     position: absolute;
-}
-
-#ce_main button {
-    margin-top: 20px;
-}
-/*crop image*/
-#ce_modal .container {
-    height: 70vh;
-    width: 70vw;
 }
 
 #ce_modal .container-cropper {
@@ -84,4 +29,13 @@
     height: 90%;
     position: relative;
 }
+
+#ce_modal .btn {
+    padding: 7px 14px;
+    border-radius: 3px;
+    color: white;
+    border: none;
+}
+
+
 

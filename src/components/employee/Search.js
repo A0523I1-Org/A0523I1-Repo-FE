@@ -1,6 +1,7 @@
+
 import React, {useEffect, useState} from 'react';
-import {CloseIcon, RefreshIcon, SearchIcon, SearchInputIcon, SearchSubmitIcon} from "./Icons";
-import {capitalizeFirstLetter} from "./utils/Util";
+import {CloseIcon, RefreshIcon, SearchIcon, SearchInputIcon, SearchSubmitIcon} from "./icons";
+import {capitalizeFirstLetter} from "./utils";
 import {getAllDepartments} from "../../services/DepartmentService";
 import {getAllSalaryRanks} from "../../services/SalaryRankService";
 
@@ -45,9 +46,9 @@ const Search = ({onSearch}) => {
         setToggleDateRange(!toggleDateRange);
         setSearchCriteria((prevCriteria) => {
             if (toggleDateRange) {
-                return {...prevCriteria, workDate: ''};
+                return { ...prevCriteria, workDate: '' };
             } else {
-                return {...prevCriteria, workDateFrom: '', workDateTo: ''};
+                return { ...prevCriteria, workDateFrom: '', workDateTo: '' };
             }
         });
     };
@@ -56,9 +57,9 @@ const Search = ({onSearch}) => {
         setToggleDobRange(!toggleDobRange);
         setSearchCriteria((prevCriteria) => {
             if (toggleDateRange) {
-                return {...prevCriteria, dob: ''};
+                return { ...prevCriteria, dob: '' };
             } else {
-                return {...prevCriteria, dobFrom: '', dobTo: ''};
+                return { ...prevCriteria, dobFrom: '', dobTo: '' };
             }
         });
     };
@@ -111,14 +112,11 @@ const Search = ({onSearch}) => {
 
     return (
         <div className="relative">
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                    onClick={toggleDropdown}>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={toggleDropdown}>
                 <SearchIcon/>
             </button>
 
-            <div id="dropdownSearch"
-                 className={`z-10 ${dropdownVisible ? '' : 'hidden'} absolute top-full left-0 mt-2 bg-white rounded-lg shadow w-100 dark:bg-gray-700 overflow-y-auto`}
-                 style={{maxHeight: '400px', width: '300px'}}>
+            <div id="dropdownSearch" className={`z-10 ${dropdownVisible ? '' : 'hidden'} absolute top-full left-0 mt-2 bg-white rounded-lg shadow w-100 dark:bg-gray-700 overflow-y-auto`} style={{maxHeight: '400px', width: '300px'}}>
                 <div className="p-3">
                     <label htmlFor="code" className="sr-only">Search</label>
                     <div className="relative">
@@ -211,51 +209,41 @@ const Search = ({onSearch}) => {
                             Ngày sinh
                         </label>
                         <div className="inline-flex items-center cursor-pointer" onClick={toggleDobRangeSwitch}>
-                            <input type="checkbox" checked={toggleDobRange} onChange={toggleDobRangeSwitch}
-                                   className="sr-only peer"/>
-                            <div
-                                className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                            <input type="checkbox" checked={toggleDobRange} onChange={toggleDobRangeSwitch} className="sr-only peer" />
+                            <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                         </div>
                     </div>
                     <div className="flex flex-col space-y-3">
                         {toggleDobRange ? (
                             <>
                                 <div className="flex items-center space-x-3">
-                                    <label htmlFor="dobFrom"
-                                           className="text-sm font-medium text-gray-500 dark:text-gray-300">Từ</label>
+                                    <label htmlFor="dobFrom" className="text-sm font-medium text-gray-500 dark:text-gray-300">Từ</label>
                                     <div className="relative">
-                                        <div
-                                            className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                            <SearchInputIcon/>
+                                        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                            <SearchInputIcon />
                                         </div>
                                         <input type="date" id="dobFrom" name="dobFrom" className={inputClassName}
-                                               placeholder="Từ ngày sinh" value={searchCriteria.dobFrom}
-                                               onChange={handleChange}/>
+                                               placeholder="Từ ngày sinh" value={searchCriteria.dobFrom} onChange={handleChange} />
                                     </div>
                                 </div>
                                 <div className="flex items-center space-x-3">
-                                    <label htmlFor="dobTo"
-                                           className="text-sm font-medium text-gray-500 dark:text-gray-300">Đến</label>
+                                    <label htmlFor="dobTo" className="text-sm font-medium text-gray-500 dark:text-gray-300">Đến</label>
                                     <div className="relative">
-                                        <div
-                                            className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                            <SearchInputIcon/>
+                                        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                            <SearchInputIcon />
                                         </div>
                                         <input type="date" id="dobTo" name="dobTo" className={inputClassName}
-                                               placeholder="Đến ngày sinh" value={searchCriteria.dobTo}
-                                               onChange={handleChange}/>
+                                               placeholder="Đến ngày sinh" value={searchCriteria.dobTo} onChange={handleChange} />
                                     </div>
                                 </div>
                             </>
                         ) : (
                             <div className="flex items-center space-x-3">
                                 <div className="relative">
-                                    <div
-                                        className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                        <SearchInputIcon/>
+                                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                        <SearchInputIcon />
                                     </div>
-                                    <input type="date" id="dob" name="dob" className={inputClassName}
-                                           placeholder="Ngày sinh" value={searchCriteria.dob} onChange={handleChange}/>
+                                    <input type="date" id="dob" name="dob" className={inputClassName} placeholder="Ngày sinh" value={searchCriteria.dob} onChange={handleChange} />
                                 </div>
                             </div>
                         )}
@@ -263,8 +251,7 @@ const Search = ({onSearch}) => {
                 </div>
 
                 <div className="p-3">
-                    <label htmlFor="address" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Địa
-                        chỉ</label>
+                    <label htmlFor="address" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Địa chỉ</label>
                     <div className="relative">
                         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                             <SearchInputIcon/>
@@ -280,53 +267,41 @@ const Search = ({onSearch}) => {
                             Ngày làm việc
                         </label>
                         <div className="inline-flex items-center cursor-pointer" onClick={toggleDateRangeSwitch}>
-                            <input type="checkbox" checked={toggleDateRange} onChange={toggleDateRangeSwitch}
-                                   className="sr-only peer"/>
-                            <div
-                                className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                            <input type="checkbox" checked={toggleDateRange} onChange={toggleDateRangeSwitch} className="sr-only peer" />
+                            <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                         </div>
                     </div>
                     <div className="flex flex-col space-y-3">
                         {toggleDateRange ? (
                             <>
                                 <div className="flex items-center space-x-3">
-                                    <label htmlFor="workDateFrom"
-                                           className="text-sm font-medium text-gray-500 dark:text-gray-300">Từ</label>
+                                    <label htmlFor="workDateFrom" className="text-sm font-medium text-gray-500 dark:text-gray-300">Từ</label>
                                     <div className="relative">
-                                        <div
-                                            className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                             <SearchInputIcon/>
                                         </div>
-                                        <input type="date" id="workDateFrom" name="workDateFrom"
-                                               className={inputClassName}
-                                               placeholder="Từ ngày làm việc" value={searchCriteria.workDateFrom}
-                                               onChange={handleChange}/>
+                                        <input type="date" id="workDateFrom" name="workDateFrom" className={inputClassName}
+                                               placeholder="Từ ngày làm việc" value={searchCriteria.workDateFrom} onChange={handleChange}/>
                                     </div>
                                 </div>
                                 <div className="flex items-center space-x-3">
-                                    <label htmlFor="workDateTo"
-                                           className="text-sm font-medium text-gray-500 dark:text-gray-300">Đến</label>
+                                    <label htmlFor="workDateTo" className="text-sm font-medium text-gray-500 dark:text-gray-300">Đến</label>
                                     <div className="relative">
-                                        <div
-                                            className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                             <SearchInputIcon/>
                                         </div>
                                         <input type="date" id="workDateTo" name="workDateTo" className={inputClassName}
-                                               placeholder="Đến ngày làm việc" value={searchCriteria.workDateTo}
-                                               onChange={handleChange}/>
+                                               placeholder="Đến ngày làm việc" value={searchCriteria.workDateTo} onChange={handleChange}/>
                                     </div>
                                 </div>
                             </>
                         ) : (
                             <div className="flex items-center space-x-3">
                                 <div className="relative">
-                                    <div
-                                        className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                         <SearchInputIcon/>
                                     </div>
-                                    <input type="date" id="workDate" name="workDate" className={inputClassName}
-                                           placeholder="Ngày làm việc" value={searchCriteria.workDate}
-                                           onChange={handleChange}/>
+                                    <input type="date" id="workDate" name="workDate" className={inputClassName} placeholder="Ngày làm việc" value={searchCriteria.workDate} onChange={handleChange}/>
                                 </div>
                             </div>
                         )}

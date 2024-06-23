@@ -4,19 +4,9 @@
     width: auto;
     height: auto;
 }
-#de_main .bg-remove {
-    background: #f44336;
-}
-
-#de_main .bg-cancel {
-    background: #153448;
-}
-
-#de_main .ct-ct {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    float: left;
-    height: 150px;
-    margin: 0 50px;
+#de_main .btn {
+    padding: 7px 14px;
+    border-radius: 3px;
+    color: white;
+    border: none;
 }
