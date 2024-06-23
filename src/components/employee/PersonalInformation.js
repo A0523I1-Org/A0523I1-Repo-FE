@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 // import bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min';
 import * as employeeService from "../../services/EmployeeService";
 import * as accountService from "../../services/AccountService";
-import '../../css/employee/PersonalInformation.css';
+// import '../../css/employee/PersonalInformation.css';
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 

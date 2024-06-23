@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import { ref,uploadBytes,getDownloadURL,deleteObject } from "firebase/storage";
@@ -12,8 +11,10 @@ import * as Yup from "yup";
 import * as landingService from "../../services/LandingService";
 import * as customerService from "../../services/CustomerService";
 import * as contractService from "../../services/ContractService";
+import * as employeeService from "../../services/EmployeeService";
 import "../../css/contract/createContract.css"
 import 'react-toastify/dist/ReactToastify.css';
+
 
 const CreateContract = () => {
   const [landings, setLandings] = useState([]);
@@ -29,6 +30,9 @@ const CreateContract = () => {
   const [confirmPassword,setConfirmPassword] = useState("");
   const [isOpenModalConfirmPassword,setIsOpenModalConfirmPassword] = useState(false)
   const [valuesContract,setValuesContract] = useState({});
+  const [loginEmployee,setLoginEmployee] = useState({});
+  const [picture, setPicture] = useState(null);
+  const [imgData, setImgData] = useState(null);
   const contractInitial = {
     customerId : "",
     term : "",
@@ -54,10 +58,9 @@ const CreateContract = () => {
                         
       startDate : Yup.date()
                         .required("Vui lòng chọn ngày bắt đầu !")
-                        .min(new Date(),"Ngày bắt đầu phải sau hoặc bằng ngày hiện tại !"),
+                        .min(new Date(),"Ngày bắt đầu phải sau ngày hiện tại !"),
       firebaseUrl : Yup.mixed()
-                        .required("Vui lòng cung cấp hình ảnh H/Đ !")
-                        
+                        .required("Vui lòng cung cấp hình ảnh H/Đ !")  
                         .test("a","Vui lòng cung cấp file hình ảnh !",value => {
                           let arr = value.split(".");
                           if( arr[arr.length-1] === 'png' || arr[arr.length-1] === 'jpg' || arr[arr.length-1] === 'gif'  ){
@@ -68,21 +71,22 @@ const CreateContract = () => {
                           }
                       } )  ,
       landingId :  Yup.string().required("Vui lòng chọn mặt bằng !")   ,
-      deposit : Yup.number()
+      deposit   : Yup.number()
                         .typeError("Vui lòng nhập số !")
                         .required("Vui lòng nhập tiền đặt cọc !")
                         .min(currentFee*10/100,"Tiền đặt cọc tối thiểu bằng 10% so với phí hiện tại !")
                         .max(currentFee*term,"Tiền đặt cọc tối đa bằng tổng tiền (phí * kì hạn) !"),
-      taxCode : Yup.string()
+      taxCode   : Yup.string()
                         .required("Vui lòng nhập mã số thuế !")
                         .matches(/^[0-9]{10}$/,"Vui lòng nhập đúng định dạng (10 chữ số)!"),
-      content : Yup.string()  
-                   .required("Vui lòng nhập nội dung !")  
-                   .min(50,"Nhập nội dung tối thiểu 50 kí tự !")   
+      content   : Yup.string()  
+                        .required("Vui lòng nhập nội dung !")  
+                        
   };
 
   //upload image firebase (HoaiNT)
   const uploadImage = (values) => {
+        setIsOpenModalLoading(true);
         if(imgUpload == null) return;
         const imageRef = ref(storage,`imgContract/${imgUpload.name + v4() }`);
         uploadBytes(imageRef,imgUpload).then(snapshot => getDownloadURL(snapshot.ref)
@@ -96,10 +100,27 @@ const CreateContract = () => {
     setIsOpenModalConfirmPassword(true);
     setValuesContract(values);
   }
+// gửi mail sau khi thêm mới thành công :(hoai nt)
+const sendMail =async(contract) => {
+  const token = localStorage.getItem('token');
+    await contractService.sendMailToCustomer(contract,token);
+  
+}
+// show ảnh sau khi chọn ảnh : (hoài NT)
+const onChangePicture = e => {
+  if (e.target.files[0]) {
+    setPicture(e.target.files[0]);
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+      setImgData(reader.result);
+    });
+    reader.readAsDataURL(e.target.files[0]);
+  }
+};
+
 // thêm mới  contract (Hoai NT)
   const createContract = async (url,values,imageRef) => {
     const token = localStorage.getItem('token');
-    setIsOpenModalLoading(true);
     values.firebaseUrl = url;
     values.term = +values.term;
     values.deposit = +values.deposit;
@@ -107,18 +128,21 @@ const CreateContract = () => {
     values.landingId = +landing.id
     const isSucsecc = await contractService.createContract(values,confirmPassword, token);
     if(isSucsecc === true){
+        // thanh cong gui mail
+        sendMail(values);
         toast.success("Tạo hợp đồng thành công !");
-        console.log(landing.code);
         navigate(routes.listContract,{state : {landingCode : landing.code }});
     }else{
+      // that bai tat modal loading
       setIsOpenModalLoading(false);
+      toast.error(isSucsecc.message, {
+        position: 'top-center',  
+      });
       // nếu thất bại xóa image firebase (hoaiNT)
       deleteObject(imageRef);
+      values.landingId = JSON.stringify(landing)
       values.firebaseUrl = imgUpload.name
-      toast.error(isSucsecc.message, {
-        position: 'top-center',
-         
-      });
+      
     }
   };
    // func xử lý hiển thị date :
@@ -173,9 +197,8 @@ const CreateContract = () => {
     setTerm(+e.target.value)
     
     startDate === "" ? setFieldValue('endDate',""):
-                        setFieldValue('endDate',setEndDate(startDate,e.target.value))
+                        setFieldValue('endDate',setEndDate(startDate,e.target.value))               
      setFieldValue('term',e.target.value)
-    
   }
   //
   const handleChangeDeposit = (e,setFieldValue) => {
@@ -206,11 +229,23 @@ const getLandings = async () => {
   const result = await landingService.getAllLandingSpace(token);
   setLandings(result);
 };
- 
+// lấy nhân viên đang đăng nhập : (hoai nt)
+
+const getLoginEmployee = async() => {
+  const token = localStorage.getItem('token');
+  const result = await employeeService.getMyProfile(token);
+  setLoginEmployee(result);
+
+
+}
+
+  
   useEffect(() => {
     getLandings();
     getCustomers();
+    getLoginEmployee();
   }, []);
+  
 
 
   return (
@@ -342,7 +377,7 @@ const getLandings = async () => {
                             }}
                             type="text"
                             className="w-full h-full border-[#8887] px-3"
-                            defaultValue="Nguyễn Văn Thanh"
+                            value={loginEmployee.name}
                           />
                         </div>
                       </div>
@@ -350,7 +385,7 @@ const getLandings = async () => {
                       <div className=" h-[40px] mx-5 flex gap-3 ">
                         <p className="w-4/12 h-full text-sm">
                           Kì Hạn <span className="text-lg text-red-500">*</span>{" "}
-                          <span className="text-sm text-red-500">(tháng)</span>
+                          <span className="text-sm text-red-500">(Tháng)</span>
                         </p>
                         <div className="w-8/12 h-full  ">
                           <div className="flex h-full">
@@ -467,14 +502,16 @@ const getLandings = async () => {
                       </div>
                       <div className=" h-[40px] mx-5  mb-5 flex gap-3 ">
                         <p className="w-4/12 h-full text-sm">H/A Hợp Đồng</p>
-                        <div className="w-8/12 h-full ">
+                        <div className="w-6/12 h-full ">
                           <input
                             name="firebaseUrl"
                             type="file"
                             className=" border-none pt-1 h-full block "
                             style={{border: "none"}}
-                            onChange={(e) =>
+                            onChange={(e) =>{
                               handleChangeFirebaseUrl(e, setFieldValue)
+                              onChangePicture(e)
+                            }                   
                             }
                           />
                           <ErrorMessage
@@ -483,6 +520,14 @@ const getLandings = async () => {
                             component="span"
                           />
                         </div>
+                        {
+                          imgUpload !== null && imgUpload !== undefined  ?
+                          ((imgUpload.name.split(".")[imgUpload.name.split(".").length-1] === 'png'
+                          || imgUpload.name.split(".")[imgUpload.name.split(".").length-1] === 'jpg'
+                          || imgUpload.name.split(".")[imgUpload.name.split(".").length-1] === 'gif')
+                          ? <img  className="w-2/12 h-[100px] rounded-lg border-solid border-4 border-gray-600 "  src={imgData}/> : null) : null
+                        }
+                        
                       </div>
                     </div>
 
@@ -542,7 +587,7 @@ const getLandings = async () => {
                       <div className=" h-1/5 mx-5 flex gap-3 ">
                         <p className="w-4/12 h-full text-sm">
                           Phí Hiện Tại{" "}
-                          <span className="text-sm text-red-500">(tháng)</span>
+                          <span className="text-sm text-red-500">(VNĐ)</span>
                         </p>
                         <div className="w-8/12 h-full  flex">
                           <span className="flex items-center bg-[#fafafa] py-3 px-4 border rounded-tl-[3px] rounded-tb-[3px] text-[#888] ">
@@ -579,7 +624,7 @@ const getLandings = async () => {
                       <div className=" h-[40px] mx-5 flex gap-3 ">
                         <p className="w-4/12 h-full text-sm">
                           Tiền Đặt Cọc{" "}
-                          <span className="text-lg text-red-500">*</span>
+                          <span className="text-lg text-red-500">* (VNĐ)</span>
                         </p>
                         <div className="w-8/12 h-full  ">
                           <div className="flex h-full ">
@@ -618,7 +663,9 @@ const getLandings = async () => {
                       </div>
 
                       <div className=" h-[40px] mx-5  flex gap-3 ">
-                        <p className="w-4/12 h-full text-sm">Tổng Tiền </p>
+                        <p className="w-4/12 h-full text-sm">Tổng Tiền 
+                        <span className="text-lg text-red-500"> (VNĐ)</span>
+                        </p>
                         <div className="w-8/12 h-full  flex">
                           <span className="flex items-center bg-[#fafafa] py-3 px-4 border rounded-tl-[3px] rounded-tb-[3px] text-[#888] ">
                             <svg
@@ -757,7 +804,15 @@ const getLandings = async () => {
   {isOpenModalLoading ? <ModalLoading /> : null}
 
   {isOpenModalConfirmPassword ? (
-    <main
+    <Formik
+    initialValues={{password : ""}}
+    validationSchema={Yup.object({
+      password : Yup.string().required("------  Vui lòng nhập mật khẩu   ------")
+    })}
+    onSubmit={handleSubmitPassword}
+    >
+      {({setFieldValue}) => {
+   return  <main
       style={{
         position: "absolute",
         display: "block",
@@ -785,7 +840,7 @@ const getLandings = async () => {
           </div>
 
           <div class="mt-5">
-            <form>
+            <Form>
               <div class="grid gap-y-4">
                 <div>
                   <label
@@ -796,17 +851,27 @@ const getLandings = async () => {
                   </label>
                   <div class="relative">
                     <input
+                      name="password"
                       type="password"
-                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      onChange={(e) => {
+                        setConfirmPassword(e.target.value)
+                        setFieldValue("password",e.target.value)
+                      }
+                      }
                       class="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm"
-                      required
+
                       aria-describedby="email-error"
                     />
+                    <ErrorMessage
+                    style = {{color : 'red'}}
+                            className="pl-12 error-mess"
+                            name="password"
+                            component="i"
+                          />
                   </div>
                 </div>
                 <button
                   type="submit"
-                  onClick={() => handleSubmitPassword()}
                   class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-green-500 text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
                 >
                   Xác Nhận
@@ -819,11 +884,14 @@ const getLandings = async () => {
                   Quay Lại
                 </button>
               </div>
-            </form>
+            </Form>
           </div>
         </div>
       </div>
     </main>
+    }}
+    </Formik>
+    
   ) : null}
 </>
 

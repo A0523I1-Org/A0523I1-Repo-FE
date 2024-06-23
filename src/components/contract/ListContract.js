@@ -11,6 +11,7 @@ import routes from '../../configs/routes.js';
 import '../../css/contract/listContract.css';
 import '../../css/contract/paginationContract.css'
 import '../../configs/routes.js'
+import { toast } from "react-toastify";
 
 
 
@@ -23,6 +24,8 @@ const ListContract = () => {
     const [landingCodeSearch,setLandingCodeSearch] = useState('');
     const [startDateSearch,setStartDateSearch] = useState('')
     const [endDateSearch,setEndDateSearch] = useState('')
+    const [fieldSort,setFieldSort] = useState("");
+    const [typeSort,setTypeSort] = useState(true);
     const [totalContract,setTotalContract] = useState();
     const [resultSearch,setResultSearch] = useState(null);
     const [isOpenMenu,setIsOpenMenu] = useState({});
@@ -31,7 +34,7 @@ const ListContract = () => {
 
    
     // lấy danh sách hợp đồng (HoaiNT)
-    const getAllContract = async(page,customeName,landingCode,startDate,endDate) => {
+    const getAllContract = async(page,customeName,landingCode,startDate,endDate,fieldSort) => {
         const token = localStorage.getItem('token');
         const result = await  contractService.findAllContract(
             page,
@@ -39,6 +42,7 @@ const ListContract = () => {
             landingCode,
             startDate,
             endDate,
+            fieldSort,
             token
         )
             setContract(result.content)
@@ -84,7 +88,8 @@ const ListContract = () => {
         setLandingCodeSearch("");
         setStartDateSearch("");
         setEndDateSearch("");
-        getAllContract(0,"","","","");
+        setFieldSort("");
+        getAllContract(0,"","","","","");
         setCurrentPage(1);
     };
 
@@ -99,7 +104,9 @@ const ListContract = () => {
             values.customerName,
             values.landingCode,
             values.startDate,
-            values.endDate)
+            values.endDate,
+            fieldSort
+          )
         setCurrentPage(1);
     };
     // xử lý khi click vào page phân trang (Hoài NT)
@@ -110,16 +117,31 @@ const ListContract = () => {
         customerNameSearch,
         landingCodeSearch,
         startDateSearch,
-        endDateSearch);
+        endDateSearch,
+        fieldSort
+      );
 
     };
+    // sắp xếp khi click vào  field ở tag th cuat table : (HoaiNT)
+    const handleClickSortByField = (field) => {
+      setFieldSort(field);
+      setLocationLandingCode()
+      getAllContract(currentPage-1,
+        customerNameSearch,
+        landingCodeSearch,
+        startDateSearch,
+        endDateSearch,
+        field);
+    }
 
     useEffect(()=>{
         getAllContract(0,
             customerNameSearch,
             landingCodeSearch,
             startDateSearch,
-            endDateSearch); 
+            endDateSearch,
+            fieldSort
+          ); 
 
      document.addEventListener("click", handleClickOffMenu);
      return () => {
@@ -201,10 +223,30 @@ const ListContract = () => {
           <thead class="border ">
             <tr>
               <th> STT </th>
-              <th>Tên Khách Hàng</th>
-              <th>Mã Mặt Bằng</th>
-              <th>Ngày Bắt Đầu</th>
-              <th>Ngày Kết Thúc</th>
+              <th>
+                <button 
+                  onClick={()=>handleClickSortByField("cus.name")}
+                  >Tên Khách Hàng
+                </button>
+              </th>
+              <th>
+                <button 
+                  onClick={()=>handleClickSortByField("l.code")} 
+                  >Mã Mặt Bằng
+                </button>
+              </th>
+              <th>
+                <button 
+                  onClick={()=>handleClickSortByField("start_date")} 
+                  >Ngày Bắt Đầu
+                </button>
+              </th>
+              <th>
+                <button 
+                  onClick={()=>handleClickSortByField("end_date")}
+                  >Ngày Kết Thúc
+                </button>
+              </th>
               <th class="">
                 <span class="flex items-center justify-center">
                   <svg
@@ -330,6 +372,18 @@ const ListContract = () => {
                           Xóa Hợp Đồng
                         </span>
                       </Link>
+                      <Link onClick={()=>toast("Tính năng này chưa phát triển !")} class="w-full h-1/3 px-3 flex items-center hover:bg-[#fafafa]">
+                                <span class="flex py-1">
+                                    <span class="mt-0.5 pr-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                             stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                          <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/>
+                                        </svg>
+                                    </span>
+                                    Chi Tiết Hợp Đồng
+                                </span>
+                        </Link>
 
                       <Link
                         to={routes.editContract + contract.id}
