@@ -6,6 +6,8 @@ import {useState, useEffect} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import * as Yup from "yup";
 import { format, parseISO } from 'date-fns';
+import {toast} from "react-toastify";
+
 
 const EditCustomer = () => {
     const formatDate = (input) => {
@@ -26,6 +28,10 @@ const EditCustomer = () => {
       await  customerService.editCustomer(id,values)
             .then(res => {
                 navigate("/customer");
+                toast.success("Chỉnh sửa khách hàng thành công", {
+                    position: "bottom-left",
+                    autoClose: 1000,
+                });
             })
             .catch(err => console.log("Error updating customer:", err));
     };
@@ -45,18 +51,44 @@ const EditCustomer = () => {
     };
 
     const validate = {
-        name: Yup.string().required("Tên khách hàng không được rỗng").max(100,"Tên khách hàng không dài quá 100 kí tự").min(3,"Tên khách hàng phải có ít nhất 3 kí tự"),
-        dob: Yup.date().required("Vui lòng chọn ngày sinh").max(new Date(),`Ngày không được lớn hơn hiện tại`),
+        name: Yup.string()
+            .required("Tên khách hàng không được rỗng")
+            .max(100, "Tên khách hàng không dài quá 100 kí tự")
+            .min(3, "Tên khách hàng phải có ít nhất 3 kí tự")
+            .matches(/^[A-Z][a-z]*(\s[A-Z][a-z]*)*$/, "Tên khách hàng chỉ được chứa chữ cái và khoảng trắng , Chữ đầu viết hoa"),
+        dob: Yup.date()
+            .required("Vui lòng chọn ngày sinh")
+            .max(new Date(), `Ngày không được lớn hơn hiện tại`),
         gender: Yup.string().required("Vui lòng chọn giới tính"),
-        address: Yup.string().required("Địa chỉ không được rỗng").max(100,"Địa chỉ không dài quá 100 kí tự").min(5,"Địa chỉ phải có ít nhất 5 kí tự"),
-        email: Yup.string().required("Email không được rỗng").max(100,"Email không dài quá 100 kí tự").min(5,"Email phải có ít nhất 5 kí tự").matches(
-            /^[\S]+@[\w]+\.[\w]+$/,
-            "Email không đúng định dạng"
-        ),
-        phone: Yup.string().required("Số điện thoại không được rỗng").max(20,"Số điện thoại không dài quá 20 kí tự").min(5,"Số điện thoại phải có ít nhất 5 kí tự"),
-        website: Yup.string().required("Website không được rỗng").max(100,"Website không dài quá 100 kí tự").min(5,"Website phải có ít nhất 5 kí tự"),
-        companyName: Yup.string().required("Tên công ty không được rỗng").max(100,"Tên công ty không dài quá 100 kí tự").min(5,"Tên công ty dài hơn 5 kí tự"),
-        idCard: Yup.string().required("Căn cước công dân không được rỗng").max(20,"Căn cước công dân không dài quá 20 kí tự").min(5,"Tên khách phi hàng lớn hơn 5 kí tự"),
+        address: Yup.string()
+            .required("Địa chỉ không được rỗng")
+            .max(100, "Địa chỉ không dài quá 100 kí tự")
+            .min(5, "Địa chỉ phải có ít nhất 5 kí tự"),
+        email: Yup.string()
+            .required("Email không được rỗng")
+            .max(100, "Email không dài quá 100 kí tự")
+            .min(5, "Email phải có ít nhất 5 kí tự")
+            .matches(/^[\S]+@[\w]+\.[\w]+$/, "Email không đúng định dạng"),
+        phone: Yup.string()
+            .required("Số điện thoại không được rỗng")
+            .max(20, "Số điện thoại không dài quá 20 số")
+            .min(5, "Số điện thoại phải có ít nhất 10 số")
+            .matches(/^(\+\d{1,2}[- ]?)?\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4,}$/, "Số điện thoại không hợp lệ"),
+        website: Yup.string()
+            .required("Website không được rỗng")
+            .max(100, "Website không dài quá 100 kí tự")
+            .min(5, "Website phải có ít nhất 5 kí tự"),
+        companyName: Yup.string()
+            .required("Tên công ty không được rỗng")
+            .max(100, "TTên công ty không dài quá 100 kí tự")
+            .min(5, "Tên công ty dài hơn 5 kí tự")
+            .matches(/^[a-zA-Z\s]+$/, "Tên khách hàng chỉ được chứa chữ cái và khoảng trắng"),
+        idCard: Yup.string()
+            .required("Căn cước công dân không được rỗng")
+            .max(20, "Căn cước công dân không dài quá 20 kí tự")
+            .matches(/^(\+\d{1,2}[- ]?)?\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4,}$/, "Số điện thoại không hợp lệ")
+            .min(5, "Tên khách phi hàng lớn hơn 5 kí tự"),
+            
     };
 
     return (
