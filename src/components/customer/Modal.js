@@ -46,7 +46,7 @@ const Modal = ({customer, onClose}) => {
 
                                 <div className="mb-5">
                                     <label htmlFor="name" className="mb-3 block text-base font-medium text-white">
-                                        Tên khách hàng <span style={{color: "red"}}>(*)</span>
+                                        Tên khách hàng 
                                     </label>
                                     <Field
                                         type="text"
@@ -61,7 +61,7 @@ const Modal = ({customer, onClose}) => {
                                 <div className="mb-5">
                                     <label htmlFor="address"
                                            className="mb-3 block text-base font-medium text-white">
-                                        Địa chỉ <span style={{color: "red"}}>(*)</span>
+                                        Địa chỉ
                                     </label>
                                     <Field
                                         type="text"
@@ -78,7 +78,7 @@ const Modal = ({customer, onClose}) => {
                                 <div className="mb-5">
                                     <label htmlFor="dob"
                                            className="mb-3 block text-base font-medium text-white">
-                                        Ngày sinh <span style={{color: "red"}}>(*)</span>
+                                        Ngày sinh
                                     </label>
                                     <Field
                                         type="date"
@@ -92,7 +92,7 @@ const Modal = ({customer, onClose}) => {
                                 <div className="mb-5">
                                     <label htmlFor="phone"
                                            className="mb-3 block text-base font-medium text-white">
-                                        Số điện thoại <span style={{color: "red"}}>(*)</span>
+                                        Số điện thoại
                                     </label>
                                     <Field
                                         type="text"
@@ -109,7 +109,7 @@ const Modal = ({customer, onClose}) => {
                                 <div className="mb-5">
                                     <label htmlFor="email"
                                            className="mb-3 block text-base font-medium text-white">
-                                        Email <span style={{color: "red"}}>(*)</span>
+                                        Email
                                     </label>
                                     <Field
                                         type="text"
@@ -124,7 +124,7 @@ const Modal = ({customer, onClose}) => {
                                 <div className="mb-5">
                                     <label htmlFor="idCard"
                                            className="mb-3 block text-base font-medium text-white">
-                                        Căn cước công dân <span style={{color: "red"}}>(*)</span>
+                                        Căn cước công dân
                                     </label>
                                     <Field
                                         type="text"
@@ -141,7 +141,7 @@ const Modal = ({customer, onClose}) => {
                                 <div className="mb-5">
                                     <label htmlFor="companyName"
                                            className="mb-3 block text-base font-medium text-white">
-                                        Tên công ty <span style={{color: "red"}}>(*)</span>
+                                        Tên công ty
                                     </label>
                                     <Field
                                         type="text"
@@ -156,7 +156,7 @@ const Modal = ({customer, onClose}) => {
                                 <div className="mb-5">
                                     <label htmlFor="website"
                                            className="mb-3 block text-base font-medium text-white">
-                                        Website <span style={{color: "red"}}>(*)</span>
+                                        Website
                                     </label>
                                     <Field
                                         type="text"
@@ -170,7 +170,8 @@ const Modal = ({customer, onClose}) => {
                         </div>
                         <div className="mb-5">
                             <label className="mb-3 block text-base font-medium text-white">
-                                Giới tính <span style={{color: "red"}}>(*)</span>
+                                Giới tính
+
                             </label>
                             <div className="flex items-center space-x-6">
                                 <div className="flex items-center">

@@ -39,7 +39,7 @@ const CreateCustomer = () => {
             .required("Tên khách hàng không được rỗng")
             .max(100, "Tên khách hàng không dài quá 100 kí tự")
             .min(3, "Tên khách hàng phải có ít nhất 3 kí tự")
-            .matches(/^[A-Z][a-z]*(\s[A-Z][a-z]*)*$/, "Tên khách hàng chỉ được chứa chữ cái và khoảng trắng , Chữ đầu viết hoa"),
+            .matches(/^[A-ZÀ-Ỹ][a-zà-ỹ]+(\s[A-ZÀ-Ỹ][a-zà-ỹ]*)+$/, "Tên khách hàng chỉ được chứa chữ cái và khoảng trắng , Chữ đầu viết hoa"),
         dob: Yup.date()
             .required("Vui lòng chọn ngày sinh")
             .max(new Date(), `Ngày không được lớn hơn hiện tại`),
