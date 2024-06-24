@@ -423,8 +423,8 @@ const ListCustomer = () => {
                 <ConfirmationPopup
                     message={
                         popupAction === "single"
-                            ? `Bạn có muốn xóa những khách hàng ?`
-                            : "Are you sure you want to delete selected customers?"
+                            ? `Bạn có muốn xóa khách hàng ?`
+                            : "Bạn có muốn xóa những khách hàng đã chọn?"
                     }
                     onConfirm={confirmDelete}
                     onCancel={cancelDelete}
