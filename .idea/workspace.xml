@@ -6,17 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c6101b39-f511-4397-81ca-c5e5366dbc08" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/contract/ListContract.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/contract/ListContract.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/employee/PersonalInformation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employee/PersonalInformation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/contract/createContract.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/contract/createContract.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/contract/listContract.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/contract/listContract.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/header.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/header.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/layouts/DefaultLayout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/DefaultLayout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/layouts/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/Authenticate/AuthService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/Authenticate/AuthService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/LandingService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/LandingService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,7 +115,8 @@
       <workItem from="1718714442745" duration="2551000" />
       <workItem from="1718717805243" duration="739000" />
       <workItem from="1718768026582" duration="594000" />
-      <workItem from="1718793724809" duration="7836000" />
+      <workItem from="1718793724809" duration="11863000" />
+      <workItem from="1718861951762" duration="95000" />
     </task>
     <servers />
   </component>
