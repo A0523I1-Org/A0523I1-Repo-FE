@@ -14,7 +14,7 @@ import Modal from "./Modal";
 const ListCustomer = () => {
     const [customers, setCustomers] = useState([]);
     const navigate = useNavigate();
-    const [popupAction, setPopupAction] = useState('single'); // or 'multiple'
+    const [popupAction, setPopupAction] = useState('single');
     const [totalCustomers, setTotalCustomers] = useState(0);
     const [totalPages, setTotalPage] = useState(0);
     const [currentPage, setCurrentPage] = useState(0);
@@ -61,7 +61,7 @@ const ListCustomer = () => {
             document.getElementById("nameSearch").classList.remove("is-invalid");
             try {
                 const listSearch = await customerService.searchByName(page, nameSearch);
-                // console.log(listSearch)
+
                 if (listSearch) {
                     console.log("so page :",page);
                     setTotalPage(listSearch.totalPages);
@@ -92,9 +92,9 @@ const ListCustomer = () => {
         };
         fetchData();
 
-        // Clean up function
+
         return () => {
-            // Clean up any resources here
+
         };
     }, [totalCustomers]);
 
@@ -391,7 +391,7 @@ const ListCustomer = () => {
                     ))}
                     </tbody>
                 </table> :
-                    <div className="bg-gray-500 mx-auto w-[50%]">
+                    <div className="bg-gray-500 mx-auto w-[30%]">
                     <h1 className="text-center text-red-700 text-4xl font-bold py-3 shadow-sm text-shadow">Danh Sách Rỗng</h1>
                     </div>
                 }
