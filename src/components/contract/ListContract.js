@@ -6,7 +6,6 @@ import NotFoundSearch from './NotFoundSearch.js';
 import NotFoundContract from './NotFoundContract.js';
 import * as contractService from '../../services/ContractService.js'
 import ResponsivePagination from 'react-responsive-pagination';
-// import handleSelectMenu from "../../configs/menuSelect.js";
 import routes from '../../configs/routes.js';
 import '../../css/contract/listContract.css';
 import '../../css/contract/paginationContract.css'
@@ -25,7 +24,6 @@ const ListContract = () => {
     const [startDateSearch,setStartDateSearch] = useState('')
     const [endDateSearch,setEndDateSearch] = useState('')
     const [fieldSort,setFieldSort] = useState("");
-    const [typeSort,setTypeSort] = useState(true);
     const [totalContract,setTotalContract] = useState();
     const [resultSearch,setResultSearch] = useState(null);
     const [isOpenMenu,setIsOpenMenu] = useState({});
