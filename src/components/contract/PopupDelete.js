@@ -3,6 +3,7 @@ import  '../../css/popupStyle.css'
 import {deleteContract} from '../../services/ContractService'
 import ErrorNotFound from "./ErrorNotFound";
 import {toast} from "react-toastify";
+import * as authService from '../../services/Authenticate/AuthService.js'
 const PopupDelete = ({id,handleDeleteConfirm,handleClosePopup}) => {
     const [showErrorPopup, setShowErrorPopup] = useState(false);
     const [error,setError] = useState(null);
@@ -40,7 +41,7 @@ const PopupDelete = ({id,handleDeleteConfirm,handleClosePopup}) => {
 
     const handleDeleteContract = async () => {
         try {
-            const  token = localStorage.getItem('token');
+            const  token = authService.getToken();
             await deleteContract(id,token);
             handleDeleteConfirm();
             toast.success("Hợp đồng xóa thành công")

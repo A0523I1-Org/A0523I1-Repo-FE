@@ -144,7 +144,7 @@ const EditContract = () => {
             }else{
                 valueMerge = {...valueMerge, fireBaseUrl:contract.fireBaseUrl}
             }
-            const token = localStorage.getItem('token');
+            const token = authService.getToken();
             await updateContract(id,valueMerge,token);
             setIsUpdate(true)
             localStorage.removeItem("uploaded-file");
