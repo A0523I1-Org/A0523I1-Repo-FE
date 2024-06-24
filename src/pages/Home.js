@@ -1,4 +1,4 @@
-import '../css/home.css'
+// import '../css/home.css'
 import React, {useEffect, useState} from "react";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as LandingService from '../services/LandingService';

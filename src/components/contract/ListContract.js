@@ -12,24 +12,27 @@ import * as contractService from '../../services/ContractService.js'
 // import handleSelectMenu from "../../configs/menuSelect.js";
 import routes from '../../configs/routes.js';
 import '../../css/contract/paginationContract.css'
+import '../../configs/routes.js'
+import { toast } from "react-toastify";
+
 
 
 
 const ListContract = () => {
     const [contracts, setContract] = useState([]);
-    console.log(contracts)
     const [totalPages, setTotalPage] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
-    const [sizePage, setSizePage] = useState(0);
-    const [customerNameSearch, setCustomerNameSearch] = useState('');
-    const [landingCodeSearch, setLandingCodeSearch] = useState('');
-    const [startDateSearch, setStartDateSearch] = useState('')
-    const [endDateSearch, setEndDateSearch] = useState('')
-    const [totalContract, setTotalContract] = useState();
-    const [resultSearch, setResultSearch] = useState(null);
-    const [isOpenMenu, setIsOpenMenu] = useState({});
+    const[sizePage,setSizePage] = useState(0);
+    const [customerNameSearch,setCustomerNameSearch] = useState('');
+    const [landingCodeSearch,setLandingCodeSearch] = useState('');
+    const [startDateSearch,setStartDateSearch] = useState('')
+    const [endDateSearch,setEndDateSearch] = useState('')
+    const [fieldSort,setFieldSort] = useState("");
+    const [typeSort,setTypeSort] = useState(true);
+    const [totalContract,setTotalContract] = useState();
+    const [resultSearch,setResultSearch] = useState(null);
+    const [isOpenMenu,setIsOpenMenu] = useState({});
     const {state} = useLocation();
-
     const [showPopup, setShowPopup] = useState(false)
     const [contractId, setContractId] = useState('');
 
@@ -47,21 +50,18 @@ const ListContract = () => {
         setShowPopup(false);
         console.log(currentPage);
         if (contracts.length===1){
-            getAllContract(currentPage-2, customerNameSearch, landingCodeSearch, startDateSearch, endDateSearch)
+            getAllContract(currentPage-2, customerNameSearch, landingCodeSearch, startDateSearch, endDateSearch,fieldSort)
             setCurrentPage(currentPage-1)
         }else{
-            getAllContract(currentPage-1, customerNameSearch, landingCodeSearch, startDateSearch, endDateSearch);
+            getAllContract(currentPage-1, customerNameSearch, landingCodeSearch, startDateSearch, endDateSearch,fieldSort);
 
         }
 
     };
-    console.log(currentPage)
-    console.log(contracts.length)
 
 
     // lấy danh sách hợp đồng (HoaiNT)
-
-    const getAllContract = async (page, customeName, landingCode, startDate, endDate) => {
+    const getAllContract = async(page,customeName,landingCode,startDate,endDate,fieldSort) => {
         const token = localStorage.getItem('token');
         const result = await contractService.findAllContract(
             page,
@@ -69,6 +69,7 @@ const ListContract = () => {
             landingCode,
             startDate,
             endDate,
+            fieldSort,
             token
         )
         setContract(result.content)
@@ -114,7 +115,8 @@ const ListContract = () => {
         setLandingCodeSearch("");
         setStartDateSearch("");
         setEndDateSearch("");
-        getAllContract(0, "", "", "", "");
+        setFieldSort("");
+        getAllContract(0,"","","","","");
         setCurrentPage(1);
     };
 
@@ -129,27 +131,44 @@ const ListContract = () => {
             values.customerName,
             values.landingCode,
             values.startDate,
-            values.endDate)
+            values.endDate,
+            fieldSort
+          )
         setCurrentPage(1);
     };
     // xử lý khi click vào page phân trang (Hoài NT)
     const handlePageChange = (page) => {
         setLocationLandingCode()
         setCurrentPage(page)
-        getAllContract((page - 1),
-            customerNameSearch,
-            landingCodeSearch,
-            startDateSearch,
-            endDateSearch);
+        getAllContract((page-1),
+        customerNameSearch,
+        landingCodeSearch,
+        startDateSearch,
+        endDateSearch,
+        fieldSort
+      );
 
     };
+    // sắp xếp khi click vào  field ở tag th cuat table : (HoaiNT)
+    const handleClickSortByField = (field) => {
+      setFieldSort(field);
+      setLocationLandingCode()
+      getAllContract(currentPage-1,
+        customerNameSearch,
+        landingCodeSearch,
+        startDateSearch,
+        endDateSearch,
+        field);
+    }
 
     useEffect(() => {
         getAllContract(0,
             customerNameSearch,
             landingCodeSearch,
             startDateSearch,
-            endDateSearch);
+            endDateSearch,
+            fieldSort
+          );
 
         document.addEventListener("click", handleClickOffMenu);
         return () => {
@@ -222,20 +241,39 @@ const ListContract = () => {
 
                     </div>
                     <br></br>
-
-                    <div style={{position: "relative"}} class="mx-16 h-full  ">
-                        {resultSearch === 0 ? (
-                            <NotFoundSearch/>
-                        ) : (
-                            <table class="table-auto  w-full h-full">
-                                <thead class="border ">
-                                <tr>
-                                    <th> STT</th>
-                                    <th>Tên Khách Hàng</th>
-                                    <th>Mã Mặt Bằng</th>
-                                    <th>Ngày Bắt Đầu</th>
-                                    <th>Ngày Kết Thúc</th>
-                                    <th class="">
+    <div style={{position: "relative"}} class="mx-16 h-full  ">
+      {resultSearch === 0 ? (
+        <NotFoundSearch />
+      ) : (
+        <table class="table-auto  w-full h-full">
+          <thead class="border ">
+            <tr>
+              <th> STT </th>
+              <th>
+                <button 
+                  onClick={()=>handleClickSortByField("cus.name")}
+                  >Tên Khách Hàng
+                </button>
+              </th>
+              <th>
+                <button 
+                  onClick={()=>handleClickSortByField("l.code")} 
+                  >Mã Mặt Bằng
+                </button>
+              </th>
+              <th>
+                <button 
+                  onClick={()=>handleClickSortByField("start_date")} 
+                  >Ngày Bắt Đầu
+                </button>
+              </th>
+              <th>
+                <button 
+                  onClick={()=>handleClickSortByField("end_date")}
+                  >Ngày Kết Thúc
+                </button>
+              </th>
+              <th class="">
                 <span class="flex items-center justify-center">
                   <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -317,27 +355,7 @@ const ListContract = () => {
                                                 class="menu_edc w-[200px] h-auto absolute rounded-[3px] z-30 box_child_menu_edc bg-white right-7 menu "
                                             >
                                                 <div class="w-full h-full py-2">
-                                                    {/* <Link class="w-full h-1/3 px-3 flex items-center hover:bg-[#fafafa]">
-                        <span class="flex py-1">
-                          <span class="mt-0.5 pr-3">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke-width="1.5"
-                              stroke="currentColor"
-                              class="w-4 h-4"
-                            >
-                              <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"
-                              />
-                            </svg>
-                          </span>
-                          Chi Tiết Hợp Đồng
-                        </span>
-                      </Link> */}
+
 
                                                     <button onClick={() => handleShowPopup(contract.id)}
                                                             class="w-full h-1/3 border-t-[1px] px-3 flex  hover:bg-[#fafafa]">
@@ -359,8 +377,22 @@ const ListContract = () => {
                             </svg>
                           </span>
                           Xóa Hợp Đồng
-                        </span>
-                                                    </button>
+                        </span></button>
+
+
+                      <Link onClick={()=>toast("Tính năng này chưa phát triển !")} class="w-full h-1/3 px-3 flex items-center hover:bg-[#fafafa]">
+                                <span class="flex py-1">
+                                    <span class="mt-0.5 pr-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                             stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                          <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/>
+                                        </svg>
+                                    </span>
+                                    Chi Tiết Hợp Đồng
+                                </span>
+                        </Link>
+
 
                                                     <Link
                                                         to={routes.editContract + contract.id}
