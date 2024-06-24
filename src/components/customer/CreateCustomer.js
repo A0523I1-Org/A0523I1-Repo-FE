@@ -75,8 +75,8 @@ const CreateCustomer = () => {
 
     return (
         <>
-
-            <div className="boss max-w-[1000px] max-h-[900px]  mx-auto ">
+        <div className="tt">
+            <div id="tt" className="boss max-w-[1000px] max-h-[900px]  mx-auto ">
                 <h1 className=" text-center text-amber-700 text-4xl font-bold py-3 shadow-2xl text-shadow">
                     Thêm Mới Khách Hàng
                 </h1>
@@ -341,6 +341,7 @@ const CreateCustomer = () => {
                     </div>
                 </div>
             </div>
+        </div>
         </>
     );
 };

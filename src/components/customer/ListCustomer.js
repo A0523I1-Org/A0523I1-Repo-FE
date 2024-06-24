@@ -10,6 +10,7 @@ import {toast} from "react-toastify";
 // import {getPage} from "../../services/CustomerService";
 import ConfirmationPopup from "./ConfirmationPopup";
 import PopUpDelete from "./PopUpDelete";
+import Modal from "./Modal";
 
 
 
@@ -138,8 +139,18 @@ const ListCustomer = () => {
         selectedIds,
         cancelDelete,
     } = PopUpDelete(setCustomers, setTotalCustomers);
+
+    const [selectedCustomer, setSelectedCustomer] = useState(null);
+
+    const handleDetailClick = (customer) => {
+        setSelectedCustomer(customer);
+    };
+    const handleModalClose = () => {
+        setSelectedCustomer(null);
+    };
+
     return  <>
-        <div className="container">
+        <div id="tt" className="container">
             <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5 p-4">
                 <h1 className="text-center text-amber-700 text-4xl font-bold py-3 shadow-sm text-shadow">Danh Sách Khách
                     Hàng</h1>
@@ -347,9 +358,10 @@ const ListCustomer = () => {
 
                             <td className="px-6 py-4 md:border md:border-grey-500 text-left block md:table-cell">
                                 <div className="flex justify-center items-center">
-                                    <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
-                                            onClick={() => navigate(`/customer/detail-customer/${customer.id}`)}
-                                    >
+                                        <button   data-modal-target="crud-modal"
+                                                  data-modal-toggle="crud-modal"
+                                                  onClick={() => handleDetailClick(customer)}
+                                        >
                                         <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                  stroke="currentColor">
@@ -428,6 +440,10 @@ const ListCustomer = () => {
                     onConfirm={confirmDelete}
                     onCancel={cancelDelete}
                 />
+            )}
+
+            {selectedCustomer && (
+                <Modal customer={selectedCustomer} onClose={handleModalClose} />
             )}
         </div>
         </>
