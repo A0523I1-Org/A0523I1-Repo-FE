@@ -118,7 +118,7 @@ const ListCustomer = () => {
     const handleCheckSumCustomer = async () => {
         let resPage = await customerService.getPage(0);
         setTotalCustomers(resPage.totalElements);
-        toast.dark(`Số lượng khách hàng hiện tại: ${totalCustomers}`,
+        toast.dark(`Tổng số khách hàng : ${totalCustomers} người`,
             {
                 position: "top-center"
             });
@@ -268,6 +268,7 @@ const ListCustomer = () => {
                     </div>
 
                 </div>
+                {(customers && customers.length > 0) ?
                 <table className="w-full border-collapse block md:table bg-white text-left text-sm text-gray-500">
                     <thead className="block md:table-header-group bg-gray-50">
                     <tr className="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto md:relative">
@@ -325,7 +326,7 @@ const ListCustomer = () => {
                     </tr>
                     </thead>
                     <tbody className="block md:table-row-group divide-y divide-gray-100 border-t border-gray-100">
-                    {customers.map((customer) => (
+                    {   customers.map((customer) => (
                         <tr key={customer.id} className="hover:bg-gray-50 bg-white md:border-none block md:table-row">
                             <td className="px-6 py-4 md:border md:border-grey-500 text-left block md:table-cell flex justify-center items-center">
                                 <input
@@ -405,7 +406,11 @@ const ListCustomer = () => {
                         </tr>
                     ))}
                     </tbody>
-                </table>
+                </table> :
+                    <div className="bg-gray-500 mx-auto w-[50%]">
+                    <h1 className="text-center text-red-700 text-4xl font-bold py-3 shadow-sm text-shadow">Danh Sách Rỗng</h1>
+                    </div>
+                }
 
             </div>
             <div className="pagination-container">
