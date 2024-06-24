@@ -5,9 +5,6 @@ import {useNavigate} from "react-router-dom";
 import ReactPaginate from "react-paginate";
 
 import {toast} from "react-toastify";
-
-
-// import {getPage} from "../../services/CustomerService";
 import ConfirmationPopup from "./ConfirmationPopup";
 import PopUpDelete from "./PopUpDelete";
 import Modal from "./Modal";
@@ -16,9 +13,8 @@ import Modal from "./Modal";
 
 const ListCustomer = () => {
     const [customers, setCustomers] = useState([]);
-    // const [selectedIds, setSelectedIds] = useState([]);
     const navigate = useNavigate();
-    const [popupAction, setPopupAction] = useState('single'); // or 'multiple'
+    const [popupAction, setPopupAction] = useState('single');
     const [totalCustomers, setTotalCustomers] = useState(0);
     const [totalPages, setTotalPage] = useState(0);
     const [currentPage, setCurrentPage] = useState(0);
@@ -35,7 +31,7 @@ const ListCustomer = () => {
 
     const handlePageClick = (event) => {
         console.log("check ev:", event.selected);
-        setCurrentPage(event.selected);// Lưu lại giá trị của currentPage khi click vào nút phân trang
+        setCurrentPage(event.selected);
         console.log("current : ",currentPage)
 
         if (isSearching) {
@@ -65,7 +61,7 @@ const ListCustomer = () => {
             document.getElementById("nameSearch").classList.remove("is-invalid");
             try {
                 const listSearch = await customerService.searchByName(page, nameSearch);
-                // console.log(listSearch)
+
                 if (listSearch) {
                     console.log("so page :",page);
                     setTotalPage(listSearch.totalPages);
@@ -86,19 +82,7 @@ const ListCustomer = () => {
             }
         }
     };
-// const handleSearchPageClick = async (page) => {
-    //     const nameSearch = document.getElementById("nameSearch").value;
-    //     try {
-    //         const listSearch = await customerService.searchByName(page, nameSearch);
-    //         console.log(listSearch);
-    //         if (listSearch) {
-    //             setTotalPage(listSearch.totalPages);
-    //             setCustomers(listSearch.content);
-    //         }
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // };
+
 
 
     useEffect(() => {
@@ -108,9 +92,9 @@ const ListCustomer = () => {
         };
         fetchData();
 
-        // Clean up function
+
         return () => {
-            // Clean up any resources here
+
         };
     }, [totalCustomers]);
 
@@ -118,7 +102,7 @@ const ListCustomer = () => {
     const handleCheckSumCustomer = async () => {
         let resPage = await customerService.getPage(0);
         setTotalCustomers(resPage.totalElements);
-        toast.dark(`Số lượng khách hàng hiện tại: ${totalCustomers}`,
+        toast.dark(`Tổng số khách hàng : ${totalCustomers} người`,
             {
                 position: "top-center"
             });
@@ -268,6 +252,7 @@ const ListCustomer = () => {
                     </div>
 
                 </div>
+                {(customers && customers.length > 0) ?
                 <table className="w-full border-collapse block md:table bg-white text-left text-sm text-gray-500">
                     <thead className="block md:table-header-group bg-gray-50">
                     <tr className="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto md:relative">
@@ -325,7 +310,7 @@ const ListCustomer = () => {
                     </tr>
                     </thead>
                     <tbody className="block md:table-row-group divide-y divide-gray-100 border-t border-gray-100">
-                    {customers.map((customer) => (
+                    {   customers.map((customer) => (
                         <tr key={customer.id} className="hover:bg-gray-50 bg-white md:border-none block md:table-row">
                             <td className="px-6 py-4 md:border md:border-grey-500 text-left block md:table-cell flex justify-center items-center">
                                 <input
@@ -405,7 +390,11 @@ const ListCustomer = () => {
                         </tr>
                     ))}
                     </tbody>
-                </table>
+                </table> :
+                    <div className="bg-gray-500 mx-auto w-[30%]">
+                    <h1 className="text-center text-red-700 text-4xl font-bold py-3 shadow-sm text-shadow">Danh Sách Rỗng</h1>
+                    </div>
+                }
 
             </div>
             <div className="pagination-container">
@@ -434,7 +423,7 @@ const ListCustomer = () => {
                 <ConfirmationPopup
                     message={
                         popupAction === "single"
-                            ? `Bạn có muốn xóa những khách hàng : ${customers.name} ?`
+                            ? `Bạn có muốn xóa những khách hàng ?`
                             : "Are you sure you want to delete selected customers?"
                     }
                     onConfirm={confirmDelete}
