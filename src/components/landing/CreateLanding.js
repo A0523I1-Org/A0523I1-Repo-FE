@@ -34,7 +34,6 @@ const CreateLangding = () => {
 
   const notify = () => {
     toast.success("Thêm mới mặt bằng thành công");
-
   };
 
   useEffect(() => {
@@ -271,33 +270,21 @@ const CreateLangding = () => {
                       </span>
                     </div>
                     <div className="w-8/12 h-full">
-                      <Field
-                        as="select"
-                        id="status"
-                        name="status"
-                        className="w-full h-full rounded-[3px] border-[#8887] form-control"
-                        disabled={isSubmitting}
-                      >
-                        <option value="">Chọn</option>
-                        <option value="fullyFurnished">Đầy đủ nội thất</option>
-                        <option value="partiallyFurnished">
-                          Nội thất một phần
-                        </option>
-                        <option value="unFurnished">Không có nội thất</option>
-                        <option value="readyToMoveIn">
-                          Sẵn sàng để dọn vào
-                        </option>
-                        <option value="underConstruction">Đang xây dựng</option>
-                        <option value="newlyRenovated">Mới được cải tạo</option>
-                        <option value="basicAmenities">Tiện nghi cơ bản</option>
-                        <option value="luxuryAmenities">
-                          Tiện nghi cao cấp
-                        </option>
-                        <option value="ecoFriendly">
-                          Thân thiện với môi trường
-                        </option>
-                        <option value="highTech">Công nghệ cao</option>
-                      </Field>
+                    <Field as="select" id="status" name="status"
+                                                className="w-full h-full rounded-[3px] border-[#8887] form-control">
+                                                <option value="">Chọn</option>
+                                                <option value="fullyFurnished">Đầy đủ nội thất</option>
+                                                <option value="partiallyFurnished">Nội thất một phần</option>
+                                                <option value="unfurnished">Không có nội thất</option>
+                                                <option value="readyToMoveIn">Sẵn sàng để dọn vào</option>
+                                                <option value="underConstruction">Đang xây dựng</option>
+                                                <option value="newlyRenovated">Mới được cải tạo</option>
+                                                <option value="basicAmenities">Tiện nghi cơ bản</option>
+                                                <option value="luxuryAmenities">Tiện nghi cao cấp</option>
+                                                <option value="ecoFriendly">Thân thiện với môi trường</option>
+                                                <option value="highTech">Công nghệ cao</option>
+                                                                                            
+                                            </Field>
                       <ErrorMessage
                         name="status"
                         component="span"
