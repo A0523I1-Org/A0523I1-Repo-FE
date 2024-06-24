@@ -2,11 +2,10 @@ import * as Yup from "yup";
 const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
 export const contractSchema = Yup.object().shape({
     term: Yup.number()
-        .required("term is not empty")
-        .min(0, "Kỳ hạn phải lớn hơn hoặc bằng 0")
+        .min(1, "Vui lòng cung cấp kì hạn lớn hơn 0")
         .max(120, "Kì hạn yều cầu tối đa 120 tháng"),
     startDate: Yup.string()
-        .required("startDate is not empty")
+        .required("Vui lòng cung cấp ngày bắt đầu hợp đồng ")
         .matches(
             /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/,
             'Ngày bắt đầu phải là DD/MM/YYYY'
@@ -21,10 +20,10 @@ export const contractSchema = Yup.object().shape({
             }
         ),
     deposit: Yup.string()
-        .required("deposit is not empty")
+        .required("Vui lòng cung cấp tiền cọc")
         .test(
             "minDeposit",
-            "Tiền đặt cọc hợp lệ (tối thiểu 1.000.000 VND,tối đa 100.000.000 VND)",
+            "Tiền đặt cọc hợp lệ (tối thiểu 1.000.000 ,tối đa 100.000.000)",
             (value) =>{
                 if(value) {
                     const numericValue = value.replace(/\D/g, "");
@@ -33,7 +32,7 @@ export const contractSchema = Yup.object().shape({
                 return true;
             }),
     taxCode: Yup.string()
-        .required("taxCode is not empty")
+        .required("Vui lòng cung cấp mã số thuế ")
         .test(
             'notANumber',
             'Mã số thuế phải là dạng số',
@@ -49,7 +48,7 @@ export const contractSchema = Yup.object().shape({
         )
     ,
     content: Yup.string()
-        .required("content is not empty")
+        .required("Vui long cung cấp nội dung hợp đồng ")
         .min(10, "Vui lòng cung cấp nội dung hợp lệ có ít nhất 10 ký tự")
         .max(255, "Vui lòng cung cấp nội dung hợp lệ tối đa 255 ký tự"),
     img: Yup.mixed()

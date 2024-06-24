@@ -8,18 +8,18 @@ body {
 
 }
 
-span {
+#create-ct span {
     font-size: 14px;
     opacity: 1;
     font-family: var(--text-color-span);
 }
-input ,textarea{
+#create-ct input ,#create-ct textarea{
     border: 1px solid #888;
     border-bottom-right-radius: 3px;
     border-top-right-radius: 3px;
     font-size: 14.5px !important;
 }
-select{
+#create-ct select{
     font-size: 14.5px !important;
     border: 1px solid #999;
     border-radius: 3px;
@@ -27,7 +27,7 @@ select{
     -moz-appearance: none;
     appearance: none;
 }
-input::placeholder,textarea::placeholder {
+#create-ct input::placeholder,#create-ct textarea::placeholder {
     /* Kiểu chữ và các thuộc tính khác ở đây */
     font-family: Arial, sans-serif;
     font-size: 13.4px;
@@ -39,32 +39,49 @@ input::placeholder,textarea::placeholder {
     font-size: 13.4px;
     color: #888;
 } */
-.btn{
+#create-ct .btn{
     padding: 7px 14px ;
     border-radius: 3px;
     color: white ;
     border: none;
 }
-.btn-2{
+#create-ct .btn-2{
     padding: .4375rem .875rem ;
     background-color: #2196e3 ;
     border-radius: 3px;
     color: white ;
     border: none;
 }
-.box__shadow{
+#create-ct .box__shadow{
     box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
 }
-table tr th{
+#create-ct table tr th{
     font-size: 13.5px;
     color: #333;
     padding: .7rem;
     font-family: var(--text-color-span);
 
 }
-table tr td{
+#create-ct table tr td{
     font-size: 14.5px;
     color: #333;
     padding: .7rem;
 
+}
+
+#create-ct #modal-loading {
+    position : absolute;
+    display : block;
+    top : 50%;
+    left:  47%;
+    right: auto;
+    bottom: auto;
+    margin : -50%
+}
+
+#create-ct .error-mess {
+    margin-top: 0.5vh;
+    font-size: 11px;
+    color : red;
+    display : block
 }

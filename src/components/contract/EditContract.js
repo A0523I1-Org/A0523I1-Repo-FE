@@ -21,14 +21,13 @@ const EditContract = () => {
     const [isUpdate,setIsUpdate] = useState(false)
     const [showErrorPopup, setShowErrorPopup] = useState(false);
     const [error, setError] = useState(null);
-
-
+    const [previewUrl, setPreviewUrl] = useState(null);
+    console.log(previewUrl)
     const calculateEndDate = (e,values,setFieldValue) => {
         const {name,value} = e.target;
         switch (name) {
             case 'term':
                 values.term = value;
-
                 break;
             case'startDate':
                 values.startDate = value;
@@ -71,7 +70,20 @@ const EditContract = () => {
     useEffect(() => {
         fetchContractById(id);
     },[id])
+
+    const fetchContractById = async (id) => {
+        try{
+            const token = localStorage.getItem('token');
+            const response = await getContractById(id,token);
+                setContract(response.result);
+        }catch (e) {
+            console.log(e);
+            setError(e.message);
+            setShowErrorPopup(true)
+        }
+    }
     const initialValue = {
+        id : contract.id,
         employee:contract.employeeName ? contract.employeeName : '',
         customer : contract.customerName ? contract.customerName : '',
         term: contract.term ? numberFormatter.format(contract.term) : '',
@@ -86,62 +98,86 @@ const EditContract = () => {
         img: null,
         total :numberFormatter.format(contract.term * contract.feePerMouth)
     }
-    const fetchContractById = async (id) => {
-        try{
-            const response = await getContractById(id);
-                setContract(response.result);
-        }catch (e) {
-            console.log(e);
-            setError(e.message);
-            setShowErrorPopup(true)
-        }
+
+    function cacheUploadedFile(file) {
+        localStorage.setItem('uploaded-file', JSON.stringify(file));
+    }
+    function getUploadedFileFromCache(file) {
+        const cachedFile = localStorage.getItem('uploaded-file');
+        return cachedFile ? JSON.parse(cachedFile) : null;
     }
     const UploadFile = async (file) => {
-        console.time('calculateEndDate');
+        console.time('uploadFile');
         try {
-            const storageRef = ref(storage,`imagesContracts/${file.name + v4()}`);
-            const uploadTask = uploadBytesResumable(storageRef,file);
-            uploadTask.on('state_changed',(snapshot) => {
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                setProgress(progress);
-            })
-            await uploadTask;
-            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-            return downloadURL;
+            const cachedFile = getUploadedFileFromCache(file);
+            if (cachedFile) {
+
+                return cachedFile.downloadURL;
+            }else{
+                const storageRef = ref(storage,`imagesContracts/${file.name + v4()}`);
+                const uploadTask = uploadBytesResumable(storageRef,file);
+                uploadTask.on('state_changed',(snapshot) => {
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    setProgress(progress);
+                })
+                await uploadTask;
+                const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+                cacheUploadedFile({
+                    name: file.name,
+                    downloadURL: downloadURL,
+                });
+                return downloadURL;
+            }
         }catch (e) {
             console.log(e)
         }
-        console.timeEnd('calculateEndDate');
+        console.timeEnd('calculateUpload');
     }
-    const onSubmit =  async (values,formikProps) => {
-        try{
-        let valueMerge = {...values}
-        if(valueMerge.img){
-            const img  = await UploadFile(valueMerge.img)
-                valueMerge = {...valueMerge, fireBaseUrl: img}
-        }else{
-            valueMerge = {...valueMerge, fireBaseUrl:contract.fireBaseUrl}
-        }
-            await updateContract(id,valueMerge);
-            setIsUpdate(true)
 
-        }catch (e) {
+    const onSubmit =  async (values,formikProps) => {
+        console.time('calculateEndDate');
+        try{
+            let valueMerge = {...values}
+            if(valueMerge.img){
+                const img  = await UploadFile(valueMerge.img)
+                valueMerge = {...valueMerge, fireBaseUrl: img}
+            }else{
+                valueMerge = {...valueMerge, fireBaseUrl:contract.fireBaseUrl}
+            }
+            const token = localStorage.getItem('token');
+            await updateContract(id,valueMerge,token);
+            setIsUpdate(true)
+            localStorage.removeItem("uploaded-file");
+        }
+        catch (e) {
             console.log('Error updating contract ',e);
             if (e.status === 404){
                 setError(e.message)
                 setShowErrorPopup(true)
             }else if(e.status === 400){
-               Object.keys(e.result).forEach( (field) => {
-                   formikProps.setFieldError(field, e.result[field])
-               });
+                if(e.result && typeof e.result === 'object' && Object.keys(e.result).length > 0){
+                    Object.keys(e.result).forEach( (field) => {
+                        formikProps.setFieldError(field, e.result[field])
+                    });
+                }else{
+                    setError(e.message);
+                    setShowErrorPopup(true);
+                }
+            }
+            else{
+                setError('Đã xảy ra lỗi, vui lòng thử lại sau.');
+                setShowErrorPopup(true);
             }
         }
+        console.timeEnd('calculateEndDate');
     }
 
     const handleClosePopup = () => {
         setIsUpdate(false)
     }
-
+    const handleClosePopupErrorNotFound = () => {
+        setShowErrorPopup(false)
+    }
     if (!initialValue) return <div>Loading...</div>
     return (
         <div style={{width: '100%'}} class="w-full h-[600px] mt-[20px] " id="update-ct">
@@ -256,7 +292,7 @@ const EditContract = () => {
                                                             placeholder="Nhập Kì hạn"/>
                                                     </div>
 
-                                                    <ErrorMessage name="term" className={'p-2'} component="span" style={{color: "red",fontSize:'11px'}}/>
+                                                    <ErrorMessage name="term" className={'p-2'} component="span" style={{color: "red",fontSize:'13px'}}/>
                                                 </div>
                                             </div>
                                             <div className=" h-[40px] mx-5  flex gap-3 ">
@@ -266,12 +302,12 @@ const EditContract = () => {
                                                     <div className="flex">
                                                      <span
                                                          className="flex items-center bg-[#fafafa] py-3 px-4 border rounded-tl-[3px] rounded-tb-[3px] text-[#888] ">
-                                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-                                            stroke="currentColor" className="w-4 h-4">
-                                              <path strokeLinecap="round" strokeLinejoin="round"
+                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+                                                        stroke="currentColor" className="w-4 h-4">
+                                                        <path strokeLinecap="round" strokeLinejoin="round"
                                                     d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z"/>
-                                            </svg>
-                                     </span>
+                                                        </svg>
+                                                    </span>
                                                         <Field
                                                             style={{fontFamily: 'Arial, sans-serif', fontSize: '13.4px', color: '#222'}}
                                                             type="date"
@@ -285,14 +321,15 @@ const EditContract = () => {
                                                             name="startDate"
                                                         />
                                                     </div>
-                                                    <ErrorMessage name="startDate" class={'p-2'} component="span" style={{color: "red",fontSize:'12px'}}/>
+                                                    <ErrorMessage name="startDate" class={'p-2'} component="span" style={{color: "red",fontSize:'13px'}}/>
                                                 </div>
                                             </div>
 
-                                            <div className=" h-1/5 mx-5  flex gap-3 ">
+                                            <div className=" h-[40px] mx-5  flex gap-3 ">
                                                 <p className="w-4/12 h-full text-sm">Ngày Kết Thúc <span
                                                     className="text-lg text-red-500">*</span></p>
-                                                <div className="w-8/12 h-full  flex">
+                                                <div className="w-8/12 h-full  ">
+                                                    <div className='flex'>
                            <span
                                className="flex items-center bg-[#fafafa] py-3 px-4 border rounded-tl-[3px] rounded-tb-[3px] text-[#888] ">
                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
@@ -306,23 +343,28 @@ const EditContract = () => {
                                                         style={{fontFamily: 'Arial, sans-serif', fontSize: '13.4px', color: '#888'}}
                                                         className="w-full  border-[#8887] px-3"
                                                         placeholder="Chưa Xác Định"
-                                                        name="endDate" id="endDate"
+                                                        name="endDate"
                                                         disabled/>
-                                                    <ErrorMessage name="end_date" component="span" style={{color: "red"}}/>
+                                                    </div>
+                                                    <ErrorMessage name="endDate" class={'p-2'} component="span" style={{color: "red",fontSize:'13px'}}/>
                                                 </div>
                                             </div>
+
                                             <div className=" h-1/5 mx-5  mb-5 flex gap-3 " >
                                                 <p className="w-4/12 h-full text-sm">H/A Hợp Đồng <span
                                                     className="text-lg text-red-500">*</span></p>
-                                                <div className="w-8/12 h-full flex " style={{    alignItems: 'center', gap: '10px'}}>
-                                                    <img src={contract.fireBaseUrl} name='img' style={{height: '100px', width: '100px',borderRadius: "50%",objectFit : 'cover'}}/>
+                                                <div className="w-8/12 h-full " >
+                                                    <div className='flex' style={{    alignItems: 'center', gap: '10px'}}>
+                                                    <img src={previewUrl ? previewUrl : contract.fireBaseUrl } name='img' style={{height: '100px', width: '100px',borderRadius: "50%",objectFit : 'cover'}}/>
                                                     <input type="file"
                                                            className="border-none pt-1 h-full"
                                                            onChange={(e) => {
                                                                setFieldValue("img", e.target.files[0]);
+                                                               setPreviewUrl(URL.createObjectURL(e.target.files[0]));
                                                            }}
                                                     />
-                                                    <ErrorMessage name="img" component="span" style={{color: "red"}}/>
+                                                    </div>
+                                                    <ErrorMessage name="img" className={'p-2'} component="span" style={{color: "red" , fontSize:'12px'}}/>
                                                 </div>
                                             </div>
 
@@ -416,7 +458,7 @@ const EditContract = () => {
                                                                placeholder="Nhập Tiền Đặt Cọc"
                                                         />
                                                     </div>
-                                                    <ErrorMessage name="deposit" className={'p-2'} component="span" style={{color: "red",fontSize : '12px'}}/>
+                                                    <ErrorMessage name="deposit" className={'p-2'} component="span" style={{color: "red",fontSize : '13px'}}/>
                                                 </div>
 
                                             </div>
@@ -492,14 +534,14 @@ const EditContract = () => {
                                                         placeholder="Nhập Nội Dung"
                                                         name='content'
                                                     />
-                                                    <ErrorMessage name='content' className={'p-2'} component='span' style={{color:"red",fontSize:'13px'}}/>
+                                                    <ErrorMessage name='content' className={'p-2'} component='span' style={{color:"red",fontSize:'12px'}}/>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="w-full h-1/6">
                                         <div className="w-full ml-3  h-10 ">
-                                            <button type="submit" className="btn bg-[#2196e3] mr-2" disabled={progress !== null && progress <100}>
+                                            <button type="submit" className="btn bg-[#2196e3] mr-2" disabled={progress !== null && progress <100} >
                                                 <span className="pr-1"><i className="fi fi-rs-disk"/></span>
                                                 <span className="pb-10" > Update</span>
                                             </button>
@@ -520,7 +562,7 @@ const EditContract = () => {
             </div>
 
             {isUpdate && <PopupUpdate handleClosePopup={handleClosePopup}/>}
-            {showErrorPopup && <ErrorNotFound message={error} handleClosePopup={handleClosePopup}/>}
+            {showErrorPopup && <ErrorNotFound message={error} handleClosePopup={handleClosePopupErrorNotFound}/>}
         </div>
     )
 

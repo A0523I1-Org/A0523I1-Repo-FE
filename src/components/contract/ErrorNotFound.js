@@ -9,31 +9,26 @@ const PopupUpdate = ({message,handleClosePopup}) => {
         if(section){
             setTimeout(() => {
                 section.classList.add('active');
-            },500)
+            },1000)
 
         }
 
     },[]);
     useEffect(() => {
         const section = document.querySelector('.section'),
-            success = document.querySelector('.success-btn'),
-            overlay = document.querySelector('.overlay');
+            success = document.querySelector('.success-btn')
 
-        const handleOverlayClick = () => {
-            section.classList.remove('active');
-            navigate("/contract")
 
-        }
+
         const handleSuccessClick = () => {
             section.classList.remove('active');
-            navigate("/contract")
+            // navigate("/contract")
+            setTimeout(handleClosePopup,500)
         }
         success.addEventListener('click',handleSuccessClick);
-        overlay.addEventListener('click',handleOverlayClick);
 
         return () => {
             success.removeEventListener('click',handleSuccessClick);
-            overlay.removeEventListener('click',handleOverlayClick);
         }
     },[handleClosePopup])
     console.log(message)

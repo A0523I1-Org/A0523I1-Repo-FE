@@ -3,7 +3,6 @@ const routes = {
 
     home : '/',
     login : '/login',
-   
 
     listContract : '/contract',
     createContract : '/contract/create-contract',
@@ -18,6 +17,7 @@ const routes = {
     createEmployee : '/employee/create-employee',
     editEmployee : '/employee/edit-employee/',
     register : '/employee/register-an-account/',
+    personalInformation : '/employee/personal-information',
 
     listLanding : '/landing',
     createLanding : '/landing/create-landing',
