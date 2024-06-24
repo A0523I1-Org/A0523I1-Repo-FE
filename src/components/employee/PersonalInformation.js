@@ -156,6 +156,7 @@ const PersonalInformation = () => {
     }
 
     return (
+        <div id="TanPN">
         <div className="personal_form container mx-auto px-4">
             <table className="table w-full mb-8 custom-spacing">
                 <thead>
@@ -404,6 +405,8 @@ const PersonalInformation = () => {
                     </div>
                 </div>
             )}
+        </div>
+
         </div>
     );
 };
