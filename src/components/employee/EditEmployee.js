@@ -26,7 +26,7 @@ const EditEmployee = () => {
     const [previewAvatar, setPreviewAvatar] = useState()
     const [isOpenModal, setIsOpenModal] = useState(false);
     const [avatarMessage, setAvatarMessage] = useState("")
-    const [percentUpload, setPercentUpload] = useState(0)
+    // const [percentUpload, setPercentUpload] = useState(0)
 
 // CROP IMAGE
     const [image, setImage] = React.useState(null);
@@ -113,9 +113,9 @@ const EditEmployee = () => {
                     const percent = Math.round(
                         (snapshot.bytesTransferred / snapshot.totalBytes) * 100
                     );
-                    setPercentUpload((prevState => {
-                        return prevState + 1;
-                    }))
+                    /*              setPercentUpload((prevState => {
+                                      return prevState + 1;
+                                  }))*/
                 },
                 () => {
                     toast.warning("Đã xãy ra lỗi trong quá trình tải ảnh lên fire base !")
@@ -212,18 +212,18 @@ const EditEmployee = () => {
     if (!form) return null;
     return (
         <div id="ce_main" className="shadow-inner">
-            {
+            {/*            {
                 percentUpload > 0 && (
                     <span className="text-center w-full">
                         Uploading: {percentUpload} %
                     </span>)
-            }
+            }*/}
             <Formik initialValues={form} onSubmit={submit} validationSchema={Yup.object(validate)}>
                 {({errors, touched}) => (
                     <Form className="flex flex-wrap justify-center p-8 size-full">
                         <div className="w-full flex flex-wrap justify-center">
                             <div className="w-full md:w-2/3 lg:w-2/3 p-0 flex justify-end items-center">
-                                <span className="font-bold text-4xl text-center">THÊM MỚI NHÂN VIÊN VĂN
+                                <span className="font-bold text-4xl text-center">CẬP NHẬT THÔNG TIN NHÂN VIÊN VĂN
                                     PHÒNG</span>
                             </div>
 
