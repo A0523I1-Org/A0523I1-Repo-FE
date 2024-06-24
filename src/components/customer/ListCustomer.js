@@ -82,19 +82,7 @@ const ListCustomer = () => {
             }
         }
     };
-// const handleSearchPageClick = async (page) => {
-    //     const nameSearch = document.getElementById("nameSearch").value;
-    //     try {
-    //         const listSearch = await customerService.searchByName(page, nameSearch);
-    //         console.log(listSearch);
-    //         if (listSearch) {
-    //             setTotalPage(listSearch.totalPages);
-    //             setCustomers(listSearch.content);
-    //         }
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // };
+
 
 
     useEffect(() => {
