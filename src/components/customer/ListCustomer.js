@@ -5,9 +5,6 @@ import {useNavigate} from "react-router-dom";
 import ReactPaginate from "react-paginate";
 
 import {toast} from "react-toastify";
-
-
-// import {getPage} from "../../services/CustomerService";
 import ConfirmationPopup from "./ConfirmationPopup";
 import PopUpDelete from "./PopUpDelete";
 import Modal from "./Modal";
@@ -16,7 +13,6 @@ import Modal from "./Modal";
 
 const ListCustomer = () => {
     const [customers, setCustomers] = useState([]);
-    // const [selectedIds, setSelectedIds] = useState([]);
     const navigate = useNavigate();
     const [popupAction, setPopupAction] = useState('single'); // or 'multiple'
     const [totalCustomers, setTotalCustomers] = useState(0);
@@ -35,7 +31,7 @@ const ListCustomer = () => {
 
     const handlePageClick = (event) => {
         console.log("check ev:", event.selected);
-        setCurrentPage(event.selected);// Lưu lại giá trị của currentPage khi click vào nút phân trang
+        setCurrentPage(event.selected);
         console.log("current : ",currentPage)
 
         if (isSearching) {
