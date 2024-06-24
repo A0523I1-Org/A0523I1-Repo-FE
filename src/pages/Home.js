@@ -598,21 +598,24 @@ const Home_child_form = ({customer}) => {
                               }) => (
                                 <Form  className={"w-full h-full flex flex-col justify-between form-action"}>
                                     <div className="h-[115px] px-10 pt-10 ">
-                                        <p className="pl-1 py-2 text-sm">Họ và tên <span className="text-red-500">*</span></p>
+                                        <p className="pl-1 py-2 text-sm">Họ và tên <span className="text-red-500">*</span>
+                                            <ErrorMessage name={"nameCustomer"} component={"span"} className={"text-red-500 text-[10px] pt-2 pl-2"}/>
+                                        </p>
                                         <Field type="text" name={'nameCustomer'}  className="w-full h-[45px] border rounded-[5px] pl-3" required/>
-                                        <ErrorMessage name={"nameCustomer"} component={"p"} className={"text-red-500 text-[10px] pt-2 pl-2"}/>
                                     </div>
                                     <div className="h-[115px] px-10 pt-6">
-                                        <p className="pl-1 py-2 text-sm">Email <span className="text-red-500">*</span></p>
+                                        <p className="pl-1 py-2 text-sm">Email <span className="text-red-500">*</span>
+                                            <ErrorMessage name={"emailCustomer"} component={"span"} className={"text-red-500 text-[10px] pt-2 pl-2"}/>
+                                        </p>
                                         <Field type="text" name={'emailCustomer'}  className="w-full h-[45px] border rounded-[5px] pl-3" required/>
-                                        <ErrorMessage name={"emailCustomer"} component={"p"} className={"text-red-500 text-[10px] pt-2 pl-2"}/>
 
                                     </div>
                                     <div className="h-[115px] px-10 pt-2.5">
                                         <p className="pl-1 py-2 text-sm">Số điện thoại <span className="text-red-500">*</span>
+                                            <ErrorMessage name={'numberPhoneCustomer'} component={"span"} className={"text-red-500 text-[10px] pt-2 pl-2"}/>
+
                                         </p>
                                         <Field type="text" name="numberPhoneCustomer" className="w-full h-[45px] border rounded-[5px] pl-3" required/>
-                                        <ErrorMessage name={'numberPhoneCustomer'} component={"p"} className={"text-red-500 text-[10px] pt-2 pl-2"}/>
 
                                     </div>
                                     <div className="h-[115px] px-10 ">

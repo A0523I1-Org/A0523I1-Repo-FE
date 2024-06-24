@@ -11,6 +11,7 @@ import * as Yup from "yup"
 import * as accountService from "../services/AccountService";
 import {useNavigate} from "react-router";
 import * as authService from "../services/Authenticate/AuthService"
+import * as employeeService from "../services/EmployeeService"
 
 const Header = () => {
     const [showMenuSelect, setShowMenuSelect] = useState(false);
@@ -24,6 +25,7 @@ const Header = () => {
     const [passwordVisible, setPasswordVisible] = useState(false)
     const [error, setError] = useState('')
     const [account, setAccount] = useState({username: "", password: ""});
+    const [usernameDisplay, setUsernameDisplay] = useState("");
     const navigate = useNavigate()
 
     const validateAccount = {
@@ -54,6 +56,11 @@ const Header = () => {
     }, [location.pathname]);
 
 
+    useEffect(() => {
+        if (localStorage.token && loginModalIsOpen) {
+            navigate('/employee/personal-information')
+        }
+    }, [loginModalIsOpen])
 
     // Cua Dat
     const togglePasswordVisibility = () => {
@@ -65,12 +72,6 @@ const Header = () => {
         setLoginModalIsOpen(true);
     };
 
-
-    useEffect(() => {
-        if (localStorage.token && loginModalIsOpen) {
-            navigate('/employee/personal-information')
-        }
-    }, [loginModalIsOpen])
 
     // ===================================== LOGIN ======================================
     const login = async (account) => {
@@ -84,6 +85,9 @@ const Header = () => {
 
                     navigate('/employee/personal-information');
 
+                //     cua phung
+                     const usernameDisplay = await employeeService.getMyProfile();
+                    // console.log(usernameDisplay)
                 } else {
                     setError(userData.message);
                 }
@@ -449,19 +453,24 @@ const Header_child = ({menu}) => {
                             </svg>
                             <span className="pl-1">Phan Phùng</span>
                             <div
-                                className={`${menu.isShowMenuInfoEmployee ? "block" : "hidden"} w-[180px] h-auto absolute  bg-white border overflow-hidden  top-[61px] rounded-[3px] z-30`}>
-                                <div className="w-full h-[40px] relative border-b-[1px]">
-                                    <Link to={'/contract'}>
-                                        <button className="h-full text-[15px] w-full header-title "> Tài khoản</button>
+                                className={`${menu.isShowMenuInfoEmployee ? "block" : "hidden"} w-[180px] h-auto absolute  bg-white border overflow-hidden  top-[57px] rounded-[3px] z-30`}>
+                                <div
+                                    className="w-full h-[40px] relative group flex justify-center items-center font-normal text-black  text-[16px]">
+                                    <Link to={'/employee'} className={"header-title"}>
+                                        Tài khoản
                                     </Link>
+                                    <span
+                                        className="absolute w-full h-[1px] bg-yellow-500 bottom-0 left-[-180px] group-hover:left-0 transition-all duration-1000"></span>
                                 </div>
-                                <div className="w-full h-[40px] relative  ">
-                                    <Link to={'/landing'}>
-                                        <button onClick={menu.handleLogoutClick}
-                                                className="h-full w-full text-[15px] header-title">Đăng xuất
-                                        </button>
-                                    </Link>
+                                <div
+                                    className="w-full h-[40px] relative group flex justify-center items-center font-normal text-black text-[15px]">
+                                    <button onClick={menu.handleLogoutClick}
+                                            className="h-full w-full header-title">Đăng xuất
+                                    </button>
+                                    <span
+                                        className="absolute w-full h-[1px] bg-yellow-500 bottom-0 right-[-180px] group-hover:right-0 transition-all duration-1000"></span>
                                 </div>
+
                             </div>
                         </button>
 
