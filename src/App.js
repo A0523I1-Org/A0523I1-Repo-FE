@@ -46,6 +46,7 @@ function App() {
                     }
 
                     <Route path='*' element={<NotFound/>}/>
+                    {/*<Route path="/no-access" component={<NoAccess/>} />*/}
 
                 </Routes>
             </BrowserRouter>

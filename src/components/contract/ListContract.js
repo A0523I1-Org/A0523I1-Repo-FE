@@ -8,6 +8,7 @@ import '../../css/paginationContract.css'
 import '../../configs/routes.js'
 import routes from '../../configs/routes.js';
 import { Formik,Field,Form } from 'formik';
+import * as authService from "../../services/Authenticate/AuthService"
 
 const ListContract = () => {
     const [contracts,setContract] = useState();
@@ -31,7 +32,7 @@ const ListContract = () => {
     
     
     const getAllContract = async(page,customeName,landingCode,startDate,endDate) => {
-        const token = localStorage.getItem('token');
+        const token = authService.getToken();
         const result = await  contractService.findAllContract(page,customeName,landingCode,startDate,endDate,token)
             console.log(result.content);
             setContract(result.content)
