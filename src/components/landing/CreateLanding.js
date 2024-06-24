@@ -271,7 +271,7 @@ const CreateLangding = () => {
                     </div>
                     <div className="w-8/12 h-full">
                     <Field as="select" id="status" name="status"
-                                                className="w-full h-full rounded-[3px] border-[#8887] form-control">
+                                                className="w-full h-full rounded-[3px] border-[#8887] form-control" disabled={isSubmitting}> 
                                                 <option value="">Chọn</option>
                                                 <option value="fullyFurnished">Đầy đủ nội thất</option>
                                                 <option value="partiallyFurnished">Nội thất một phần</option>
