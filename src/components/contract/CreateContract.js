@@ -807,7 +807,7 @@ const getLoginEmployee = async() => {
     <Formik
     initialValues={{password : ""}}
     validationSchema={Yup.object({
-      password : Yup.string().required("------  Vui lòng nhập mật khẩu   ------")
+      password : Yup.string().required("----  Vui lòng nhập mật khẩu   ----")
     })}
     onSubmit={handleSubmitPassword}
     >

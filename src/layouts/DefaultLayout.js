@@ -99,9 +99,10 @@ function DefaultLayout ({children})  {
                             </div>
 
                             <div className="h-auto mt-5 ">
+
                                 {children}
                             </div>
-                        </div>
+                      </div>
                     </div>
                 </div>
             }

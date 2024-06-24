@@ -51,8 +51,8 @@ const Header = () => {
 
                     localStorage.setItem('token', userData.access_token);
                     localStorage.setItem('role', JSON.stringify(userData.roles));
-
-                    navigate('/employee/personal-information');
+                    setLoginModalIsOpen(false)
+                    navigate('/');
 
                 } else {
                     setError(userData.message);
