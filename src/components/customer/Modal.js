@@ -22,9 +22,10 @@ const Modal = ({customer, onClose}) => {
         gender: customer.gender || '',
     };
     return (
-        <div  id="tt" className="  fixed top-0 left-0 right-0 bottom-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
-            <div className=" boss2 rounded-lg p-8 max-w-[800px] w-full">
-                <h1 className="text-center text-amber-700 text-4xl font-bold py-3 text-shadow">
+        <div id="tt"
+             className="w-[750px] h-[650px] fixed  mx-auto mt-12 top-0 left-0 right-0 bottom-0 m flex items-center justify-center">
+            <div className="mod rounded-lg p-8 mx-auto h-full w-full">
+        <h1 className="text-center text-amber-700 text-4xl font-bold py-3 text-shadow">
                     Thông tin khách hàng
                 </h1>
                 <Formik

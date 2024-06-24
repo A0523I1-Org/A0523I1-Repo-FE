@@ -12,7 +12,6 @@ const routes = {
     listCustomer : '/customer',
     createCustomer : '/customer/create-customer',
     editCustomer : '/customer/edit-customer/',
-    detailCustomer: '/customer/detail-customer/',
 
     listEmployee : '/employee',
     createEmployee : '/employee/create-employee',
