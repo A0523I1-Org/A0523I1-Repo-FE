@@ -4,12 +4,8 @@ import { privateRoutes,publicRoutes } from './routes/router';
 import DefaultLayout from './layouts/DefaultLayout';
 import React, { Fragment } from 'react';
 import NotFound from './pages/NotFound';
-import ListLanding from "./components/landing/ListLanding";
-import EditLanding from "./components/landing/EditLanding";
-
 import {ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 
 function App() {
   return (
@@ -53,7 +49,6 @@ function App() {
 
       </Routes>
    </BrowserRouter>
-
 
        <ToastContainer />
 

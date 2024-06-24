@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
-import bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/js/bootstrap.bundle.min';
+// import bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min';
 import * as employeeService from "../../services/EmployeeService";
 import * as accountService from "../../services/AccountService";
-import '../../css/employee/PersonalInformation.css';
+// import '../../css/employee/PersonalInformation.css';
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
@@ -107,7 +107,7 @@ const PersonalInformation = () => {
                 setPasswordError("Mật khẩu cũ không khớp");
             } else {
                 notify();
-                closeModal();
+                // closeModal();
             }
         } catch (error) {
             console.log(error)
@@ -120,11 +120,11 @@ const PersonalInformation = () => {
         alert('Chỉnh sửa thành công');
     };
 
-    const closeModal = () => {
-        const modalElement = document.getElementById('changePasswordModal');
-        const modal = bootstrap.Modal.getInstance(modalElement);
-        modal.hide();
-    };
+    // const closeModal = () => {
+    //     const modalElement = document.getElementById('changePasswordModal');
+    //     const modal = bootstrap.Modal.getInstance(modalElement);
+    //     modal.hide();
+    // };
 
 
     if (formData == null) {

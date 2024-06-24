@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as landingService from "../../services/LandingService";
-import "../../table/css/ListOfPremises.css";
+import"../../table/css/ListOfPremises.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
@@ -61,6 +61,7 @@ const ListLanding = () => {
   const [landingDelete, setLandingDelete] = useState([]);
   const [isNotFound, setIsNotFound] = useState(false);
   const [updatedRecordId, setUpdatedRecordId] = useState(null);
+  const [paginationVisible, setPaginationVisible] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -68,7 +69,7 @@ const ListLanding = () => {
     const savedSearchParams = JSON.parse(
         sessionStorage.getItem("searchParams")
     );
-    console.log(savedSearchParams);
+ 
     const params = savedSearchParams ? savedSearchParams : searchParams;
     if (savedPage) {
       params.page = parseInt(savedPage, 10);
@@ -123,6 +124,11 @@ const ListLanding = () => {
     handleDetailClick();
     openModal(landing);
   };
+  const setNewModalDetail=()=>{
+    setDetailModalIsOpen(false)
+    setPaginationVisible(true)
+    
+  }
 
   const getListAllFloor = async () => {
     try {
@@ -280,10 +286,12 @@ const ListLanding = () => {
   const openDetailModal = (landing) => {
     handleDetailClick();
     setModalDetail(landing);
+    setPaginationVisible(false);
   };
 
   const closeModalDetail = (landing) => {
     setDetailModalIsOpen(false);
+    setPaginationVisible(true);
   };
 
   if (!landing) return <div>Loading...</div>;
@@ -323,7 +331,7 @@ const ListLanding = () => {
               placeholder="Tìm theo mã mặt bằng"
           />
           <input
-              type="text"
+              type="number"
               className="w-1/5 h-1/2 border-b-[1px] pl-3 border-[#888]  rounded-tl-[3px] "
               name="areaLanding"
               id="areaLanding"
@@ -413,7 +421,7 @@ const ListLanding = () => {
                       size="small"
                   />
                 </th>
-                <th>ID</th>
+                <th>STT</th>
                 <th>Mã I Loại mặt bằng</th>
                 <th>Diện tích</th>
                 <th>Giá bán</th>
@@ -462,13 +470,7 @@ const ListLanding = () => {
                 </th>
               </tr>
               </thead>
-              {isNotFound && (
-                  <div>
-                    <p>Không tìm thấy kết quả</p>
-                    <button onClick={handleGoBack}>Quay lại trang chính</button>
-                  </div>
-              )}
-
+            
               <tbody>
               {landing.content.map((landingItem, index) => (
                   <tr
@@ -494,7 +496,7 @@ const ListLanding = () => {
                     </td>
                     <td className="w-1/12 text-center ">
                     <span className="block text-[#2196f3]">
-                      ID - {landingItem.id}
+                      ID - {index+1}
                     </span>
                     </td>
                     <td className=" w-2/12 text-center">
@@ -655,7 +657,7 @@ const ListLanding = () => {
                                 />
                               </svg>
                             </span>
-                            Xóa mặt
+                            Xóa mặt bằng
                           </span>
                           </button>
                           <Link to={routes.editLanding + landingItem.id}>
@@ -693,6 +695,14 @@ const ListLanding = () => {
             </table>
           </div>
         </div>
+        {isNotFound && (
+        <div className=" h-auto  mx-16 text-center flex flex-col justify-center items-center mt-3">
+          <img src="/img/img-search.png" className="w-[134px] h-[134px]" />
+          <div className=" text-[18px]">Không tìm thấy kết quả nào</div>
+          <div class="text-[17px] opacity-70">Hãy thử sử dụng các từ khóa chung chung hơn</div>
+          <button onClick={handleGoBack} className="mt-3">Quay lại <span><i class='bx bx-subdirectory-left'></i></span></button>
+        </div>
+      )}
         <div className=" h-[40px] my-5 relative mx-16 flex  ">
           {listIdInput.length > 0 && (
               <button
@@ -722,13 +732,13 @@ const ListLanding = () => {
             </span>
               </button>
           )}
-          <div className="absolute h-full  right-0 ">
-            <ResponsivePagination
-                total={landing.totalPages}
-                current={landing.number + 1}
-                onPageChange={(page) => handlePageChange(page)}
-            />
-          </div>
+        <div className={`absolute h-full right-0 ${paginationVisible ? '' : 'pagination-hidden'}`}>
+  <ResponsivePagination
+    total={landing.totalPages}
+    current={landing.number + 1}
+    onPageChange={(page) => handlePageChange(page)}
+  />
+</div>
         </div>
         <Modal
             isOpen={modalIsOpen}
@@ -863,7 +873,7 @@ const ListLanding = () => {
         <Modal
             isOpen={detailModalIsOpen}
             // onAfterOpen={afterOpenModal}
-            onRequestClose={() => setDetailModalIsOpen(false)}
+            onRequestClose={setNewModalDetail}
             contentLabel="Example Modal"
             style={customStyles}
         >
@@ -933,7 +943,7 @@ const ListLanding = () => {
           </div>
         </Modal>
 
-        <ToastContainer></ToastContainer>
+  
       </>
   );
 };

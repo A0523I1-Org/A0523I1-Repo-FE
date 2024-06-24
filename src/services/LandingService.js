@@ -41,20 +41,28 @@ export const getListAllFloor = async (token) => {
   }
 };
 
-export const updateLading = async (landing) => {
+export const updateLading = async (landing,token) => {
   try {
     console.log(landing);
     return await axios.put(
         `http://localhost:8080/api/landing/${landing.id}`,
-        landing
+        landing,
+         // Dữ liệu body của PUT request, có thể để trống nếu không cần
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
     );
+   
   } catch (e) {
     return false;
   }
 };
-export const findLanding = async (id) => {
+export const findLanding = async (id,token) => {
   try {
-    const res = await axios.get(`http://localhost:8080/api/landing/${id}`);
+    const res = await axios.get(`http://localhost:8080/api/landing/${id}`, // Dữ liệu body của PUT request, có thể để trống nếu không cần
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      });
     return res.data;
   } catch (e) {
     console.log(e);

@@ -5,12 +5,14 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import * as landingService from "../../services/LandingService";
 import * as floorService from "../../services/FloorService";
 import * as Yup from "yup";
-import { ref, uploadBytesResumable, getDownloadURL, uploadBytes } from "firebase/storage";
+import { ref, uploadBytesResumable, getDownloadURL, uploadBytes, list } from "firebase/storage";
 import { storage } from "../../configs/fireBaseConfig.js";
 import routes from "../../configs/routes.js";
 import { toast, ToastContainer } from "react-toastify";
 
-
+const notify=()=>{
+    toast.success("update thành công")
+}
 
 const EditLanding = () => {
     const [imageUrl,setImageUrl]=useState("")
@@ -35,7 +37,9 @@ const EditLanding = () => {
 
     const getAllFloor = async () => {
         try {
-            const foundFloor = await floorService.getAllFloor();
+      const token = localStorage.getItem("token");
+
+            const foundFloor = await floorService.getAllFloor(token);
     
             setFloors(foundFloor);
         } catch (error) {
@@ -45,7 +49,9 @@ const EditLanding = () => {
     
 
     const findLanding = async (id) => {
-        const res = await landingService.findLanding(id);
+      const token = localStorage.getItem("token");
+
+        const res = await landingService.findLanding(id,token);
         setLanding(res);
         setImageUrl(res.firebaseUrl)
 
@@ -69,15 +75,18 @@ const EditLanding = () => {
         if (values.firebaseUrl !== "") {
             values.floor = +values.floor;
             try {
-                await landingService.updateLading(values);
-                navigator("/landing")
-                toast.success("Update thanh cong")
+               
+                const token = localStorage.getItem("token");
+                await landingService.updateLading(values, token);
+                toast.success("Update Landing thành công");
+                navigator(routes.listLanding);
             } catch (error) {
                 console.error("Error updating landing: ", error);
                 // Có thể thông báo lỗi cho người dùng tại đây nếu cần
             }
         }
     };
+
     
     
     const handleChangeFileImg=(e)=>{
@@ -93,6 +102,7 @@ const EditLanding = () => {
        
     }
 
+    
 
     const validationSchema = Yup.object().shape({
         floor: Yup.string().required("Vui lòng chọn tầng"),
@@ -109,7 +119,7 @@ const EditLanding = () => {
             })
             .max(25, "Mã mặt bằng phải có tối đa 25 ký tự.")
             .matches(/^MB\d{3}$/, "Mã mặt bằng phải đúng định dạng MBxxx."),
-
+           
             area: Yup.string()
             .required("Vui lòng nhập diện tích.")
             .test("is-positive", "Diện tích không được nhỏ hơn 0.", (value) => {
@@ -280,7 +290,7 @@ const EditLanding = () => {
                                     </div>
                                     <div className="h-[40px] mx-5 flex items-center">
                                         <div className="w-4/12 h-full flex items-center">
-                                            <span>Diện tích <span className="text-red-500 text-xl">*</span></span>
+                                            <span>Diện tích(m²)<span className="text-red-500 text-xl">*</span></span>
                                         </div>
                                         <div className="w-8/12 h-full">
                                             <Field type="text" id="area" name="area"
@@ -371,7 +381,7 @@ const EditLanding = () => {
                                                     </div>
                                                     <div className="w-9/12 h-full">
                                                         <Field type="text" id="code" name="code"
-                                                            className="w-full h-full rounded-[3px] border-[#8887] pl-3" />
+                                                            className="w-full h-full rounded-[3px] border-[#8887] pl-3" disabled/>
                                                         <ErrorMessage name="code" component="span"
                                                             className="text-[11px] text-red-500" />
                                                     </div>
@@ -410,24 +420,40 @@ const EditLanding = () => {
                                         </div>
                                     </div>
                                     <div className="w-full h-1/3">
-                                        <div className="h-[40px] mx-5 mt-5 mb-3">
-                                            <button className="btn bg-[#4CAF50] mr-2" type="submit"
-                                                disabled={isSubmitting}>
-                                                <span className="pr-1"><i className="fi fi-rs-disk" /></span>
-                                                <span className="pb-10">Lưu</span>
-                                            </button>
-                                            <button className="btn-2" type="reset">
-                                                <span className="pr-1"><i className="fi fi-rr-eraser" /></span>
-                                                <span>Làm mới</span>
-                                            </button>
-                                        </div>
-                                    </div>
+                    <div className="h-[40px] mx-5 mt-5 mb-3">
+                      {isSubmitting && (
+                        <button class="btn" type="button" disabled style={{ backgroundColor: "#FFF" }}>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <span style={{marginLeft: "5px"}}>Đang lưu...</span>
+                      </button>
+                      )}
+                      {!isSubmitting && (
+                        <button
+                          className="btn mr-2"
+                          type="submit"
+                          style={{ backgroundColor: "#4CAF50" }}
+                        >
+                          <span className="pr-1">
+                            <i className="fi fi-rs-disk" />
+                          </span>
+                          <span className="pb-10">Lưu</span>
+                        </button>
+                      )}
+                      <button className="btn-2" type="reset">
+                        <span className="pr-1">
+                          <i className="fi fi-rr-eraser" />
+                        </span>
+                        <span>Làm mới</span>
+                      </button>
+                    </div>
+                  </div>
                                 </div>
                             </div>
                         </div>
                     </Form>
                 )}
             </Formik>
+            
         </>
     );
 };
