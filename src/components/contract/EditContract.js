@@ -11,8 +11,8 @@ import {v4} from 'uuid';
 import {contractSchema} from '../../schema/ContractSchema'
 import PopupUpdate from "./PopupUpdate";
 import Loading from "./Loading";
-import data from "bootstrap/js/src/dom/data";
 import ErrorNotFound from "./ErrorNotFound";
+import * as authService from '../../services/Authenticate/AuthService.js'
 
 const EditContract = () => {
     const {id}= useParams();
@@ -73,7 +73,7 @@ const EditContract = () => {
 
     const fetchContractById = async (id) => {
         try{
-            const token = localStorage.getItem('token');
+            const token = authService.getToken();
             const response = await getContractById(id,token);
                 setContract(response.result);
         }catch (e) {

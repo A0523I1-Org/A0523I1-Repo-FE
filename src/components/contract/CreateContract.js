@@ -14,6 +14,7 @@ import * as contractService from "../../services/ContractService";
 import * as employeeService from "../../services/EmployeeService";
 import "../../css/contract/createContract.css"
 import 'react-toastify/dist/ReactToastify.css';
+import * as authService from '../../services/Authenticate/AuthService.js'
 
 
 const CreateContract = () => {
@@ -102,7 +103,7 @@ const CreateContract = () => {
   }
 // gửi mail sau khi thêm mới thành công :(hoai nt)
 const sendMail =async(contract) => {
-  const token = localStorage.getItem('token');
+  const token = authService.getToken();
     await contractService.sendMailToCustomer(contract,token);
   
 }
@@ -120,7 +121,7 @@ const onChangePicture = e => {
 
 // thêm mới  contract (Hoai NT)
   const createContract = async (url,values,imageRef) => {
-    const token = localStorage.getItem('token');
+    const token = authService.getToken();
     values.firebaseUrl = url;
     values.term = +values.term;
     values.deposit = +values.deposit;
@@ -219,20 +220,20 @@ const onChangePicture = e => {
  
 // lấy ds khách hàng (HoaiNT):
 const getCustomers = async () => {
-  const token = localStorage.getItem('token');
+  const token = authService.getToken();
   const result = await customerService.getCustomers(token);
   setCustomers(result);
 };
 // lấy danh sách mặt bằng còn trống (hoaiNt):
 const getLandings = async () => {
-  const token = localStorage.getItem('token');
+  const token = authService.getToken();
   const result = await landingService.getAllLandingSpace(token);
   setLandings(result);
 };
 // lấy nhân viên đang đăng nhập : (hoai nt)
 
 const getLoginEmployee = async() => {
-  const token = localStorage.getItem('token');
+  const token = authService.getToken();
   const result = await employeeService.getMyProfile(token);
   setLoginEmployee(result);
 

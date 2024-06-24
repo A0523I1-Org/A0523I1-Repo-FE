@@ -13,7 +13,7 @@ import routes from '../../configs/routes.js';
 import '../../css/contract/paginationContract.css'
 import '../../configs/routes.js'
 import { toast } from "react-toastify";
-
+import * as authService from '../../services/Authenticate/AuthService.js'
 
 
 
@@ -60,7 +60,7 @@ const ListContract = () => {
 
     // lấy danh sách hợp đồng (HoaiNT)
     const getAllContract = async(page,customeName,landingCode,startDate,endDate,fieldSort) => {
-        const token = localStorage.getItem('token');
+        const token = authService.getToken();
         const result = await contractService.findAllContract(
             page,
             customeName,
