@@ -84,10 +84,7 @@ const Header = () => {
                     localStorage.setItem('token', userData.access_token);
 
                     navigate('/employee/personal-information');
-
-                //     cua phung
-                     const usernameDisplay = await employeeService.getMyProfile();
-                    // console.log(usernameDisplay)
+                    
                 } else {
                     setError(userData.message);
                 }
