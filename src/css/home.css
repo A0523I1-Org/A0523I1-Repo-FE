@@ -14,13 +14,13 @@ body{
     scroll-behavior: smooth;
 }
 
-.btn_css {
+#main .btn_css {
     border-radius: 3px;
     color: white;
     border: none;
 }
 
-.span-button {
+#main .span-button {
     text-align: center;
     padding: 0;
     font-size: 13.5px;
@@ -33,9 +33,6 @@ body{
     color: #626262;
 }
 
-a {
-    cursor: pointer;
-}
 
 p, h1, h2, h3, h4, h5, h6, h7, span {
     background: transparent;
@@ -118,22 +115,19 @@ p, h1, h2, h3, h4, h5, h6, h7, span {
 }
 
 
-button {
+#main .home__child__introduce button {
     transition: all 0.3s ease-in-out;
 }
 
-#main .main__part1_title {
-    padding: 0 345px;
-}
-#main .main__part1_title .main__part1__distance h1 {
+
+#main .main__part1_title  h1 {
     font-size: 55px;
     font: var(--font_0);
     text-align: center;
 }
-#main .main__part1_title .main__part1__distance p {
+#main .main__part1_title  p {
     padding: 1.5rem 0;
     color: #2f2b36;
-    font: var(--font_6);
     font-weight: 0;
     font-size: 19px;
     text-align: center;
@@ -148,7 +142,6 @@ button {
 
 #main .font_2 {
     font: var(--font_2);
-    color: rgb(var(--color_15));
     letter-spacing: 0em;
 }
 #main .button-animation {
@@ -208,7 +201,7 @@ button {
 }
 
 @media (min-width: 640px) and (max-width: 768px) {
-    .animation__m1__right {
+    #main .home__child__introduce .animation__m1__right {
         outline: 1px solid black;
         right: 0;
         width: 70px;
@@ -235,7 +228,7 @@ button {
             transform: rotate(55deg);
         }
     }
-    .animation__m1__left {
+    #main .home__child__introduce  .animation__m1__left {
         outline: 1px solid rgba(51, 102, 68, 0.5333333333);
         right: 0;
         width: 50px;
@@ -266,7 +259,6 @@ button {
     #main .main__part1__distance p {
         padding: 1.5rem 0;
         color: #2f2b36;
-        font: var(--font_6);
         font-weight: 0;
         font-size: 17px !important;
         text-align: center;
@@ -276,7 +268,6 @@ button {
     }
     .font_2 {
         font: var(--font_2);
-        color: rgb(var(--color_15));
         letter-spacing: 0em;
         font-size: 35px !important;
     }

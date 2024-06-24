@@ -4,7 +4,6 @@ import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as LandingService from '../services/LandingService';
 import { toast} from 'react-toastify';
 import * as Yup from 'yup';
-import {Link} from "react-router-dom";
 
 
 const Home = () => {
@@ -136,21 +135,14 @@ const Home = () => {
 
     return (
         <>
-            <Home_child customer={valueCustomer} landing={valueLanding}/>
-        </>
-    )
-}
-const Home_child = ({customer,landing}) => {
-    return (
-        <>
             <main id="main" className="w-full h-auto relative overflow-hidden">
                 <Home_child_introduce_company_xls/>
-                <Home_child_introduce_service_xls />
-                <Home_child_introduce_landing_xls landing={landing}/>
+                <Home_child_introduce_service_xls/>
+                <Home_child_introduce_landing_xls landing={valueLanding}/>
                 <Home_child_introduce_event_xls/>
                 <Home_child_introduce_enterprise_xls/>
                 <Home_child_authentication/>
-                <Home_child_form customer={customer}/>
+                <Home_child_form customer={valueCustomer}/>
             </main>
         </>
     )
@@ -160,15 +152,16 @@ const Home_child_introduce_company_xls = () => {
     return (
         <>
             <div
-                className="mt-10 h-auto bg-main mx-16 max-xl:mx-0 max-sm:w-full max-sm:mx-[-30px] main__part1_title flex flex-col  items-center justify-center text-center relative">
+                className="mt-10 h-auto bg-main  max-xl:mx-0 max-sm:w-full max-sm:mx-[-30px]
+                main__part1_title flex flex-col  items-center justify-center text-center relative home__child__introduce">
                 <div className="absolute z-0 animation__m1__right"></div>
                 <div className="absolute  z-0 left-0 animation__m1__left max-sm:z-0"></div>
 
-                <div className="main__part1__distance max-lg:w-[600px]">
-                    <h1><span className="max-lg:text-3xl max-sm:text-4xl">Công ty XLS</span></h1>
+                <div className=" max-lg:w-[600px] max-sm:w-full pt-4">
+                    <h1><span className="max-lg:text-[50px] max-sm:text-[50px] ">Công ty XLS</span></h1>
                 </div>
-                <div className="main__part1__distance max-xl:w-[600px] z-0 ">
-                    <p>Công ty XLS là một trong những đơn vị hàng đầu trong lĩnh vực bất động sản và cho thuê mặt bằng
+                <div className="px-[345px] max-xl:px-[250px] max-lg:px-[150px] max-md:px-[100px] max-sm:px-10  z-0 ">
+                    <p className="max-sm:text-[17px]">Công ty XLS là một trong những đơn vị hàng đầu trong lĩnh vực bất động sản và cho thuê mặt bằng
                         tại Việt
                         Nam. Với kinh nghiệm dày dặn và đội ngũ chuyên viên chuyên nghiệp, XLS cam kết mang đến cho
                         khách hàng
@@ -178,7 +171,9 @@ const Home_child_introduce_company_xls = () => {
                         doanh của
                         quý khách</p>
                 </div>
-                <button className="w-[119px] h-12 bg-white rounded-[40px] hover:text-white hover:bg-[#2f2b36]"><span>Bắt đầu</span></button>
+                <button className="w-[119px] h-12 hover:text-slate-50 rounded-[40px] hover:bg-[#2f2b36]">
+                    <span>Bắt đầu</span>
+                </button>
 
             </div>
         </>
@@ -189,7 +184,7 @@ const Home_child_introduce_company_xls = () => {
 const Home_child_introduce_service_xls = () => {
     return (
         <>
-            <div className=" w-full h-[800px] max-sm:h-[1020px] my-[100px] relative bg-[#F2F5F4] ">
+            <div className=" w-full h-auto max-sm:h-[1020px] my-[100px] relative bg-[#F2F5F4] ">
                 <h1 className="text-6xl h-1/6 py-5 text-center max-sm:h-[150px] max-sm:text-5xl max-sm:py-5">Dịch
                     vụ</h1>
                 <div className="h-5/6  mx-40 max-2xl:mx-30 max-xl:mx-20 max-lg:mx-2 flex  flex-col">
@@ -199,14 +194,12 @@ const Home_child_introduce_service_xls = () => {
                                  className="w-full h-full object-cover" alt={""}/>
                         </div>
                         <div className="w-1/3 h-full max-sm:w-full max-sm:px-2">
-                            <h1 className="text-3xl max-lg:text-2xl font-normal text-center pt-12 max-xl:pt-0 px-10 max-xl:px-0">Tư
-                                vấn bất động sản</h1>
-                            <p className="pt-5 max-xl:pt-5 px-10 max-xl:px-6 max-lg:px-2">Nhóm của chúng tôi cung cấp
-                                các dịch vụ tư vấn bất động sản toàn diện để giúp khách hàng đưa ra quyết định sáng suốt
-                                về khoản đầu tư của họ. Chúng tôi phân tích xu hướng thị trường,
-                                đánh giá tài sản và cung cấp hướng dẫn chuyên môn để giúp khách hàng đạt được mục tiêu
-                                tài sản
-                                của họ.</p>
+                            <h1 className="text-3xl max-sm:px-0 max-lg:text-2xl font-normal text-center  max-xl:pt-0
+                             px-10 max-xl:px-0">
+                                Tư vấn bất động sản
+                            </h1>
+                            <p className="pt-4 max-sm:pt-2 max-xl:pt-5 px-10 max-xl:px-6 max-lg:px-2">Nhóm của chúng tôi cung cấp dịch vụ tư vấn bất động sản toàn diện, được thiết kế để hỗ trợ khách hàng đưa ra các quyết định thông thái và tối ưu hóa giá trị đầu tư của họ. Chúng tôi cam kết mang
+                                lại sự an tâm cho khách hàng thông qua một loạt các dịch vụ chuyên nghiệp và được cá nhân hóa.</p>
                         </div>
                         <div className="w-1/3 h-full max-sm:hidden">
                             <img src="/img/Screenshot%202024-05-10%20181035.png"
@@ -215,10 +208,10 @@ const Home_child_introduce_service_xls = () => {
                     </div>
                     <div className="w-full h-1/2  flex max-sm:grid max-sm:grid-cols-2 ">
                         <div className="w-1/3 h-full max-sm:w-full ">
-                            <h1 className="text-3xl max-lg:text-2xl text-center font-normal pt-16 max-xl:pt-5 px-10 max-xl:px-0">Cho
+                            <h1 className="text-3xl  max-lg:text-2xl text-center font-normal pt-16 max-xl:pt-5 px-10 max-xl:px-0">Cho
                                 thuê không
                                 gian</h1>
-                            <p className="pt-5 px-10 max-xl:px-5 max-lg:px-5">Chúng tôi cung cấp nhiều loại bất động sản
+                            <p className="pt-4 max-sm:pt-2 max-sm:px-2 px-10 max-xl:px-5 max-lg:px-5">Chúng tôi cung cấp nhiều loại bất động sản
                                 cho thuê,
                                 bao gồm cả không gian thương mại và dân cư. Đội ngũ của chúng tôi cung cấp hướng dẫn
                                 chuyên
@@ -248,10 +241,10 @@ const Home_child_introduce_service_xls = () => {
                                      className="w-full h-full object-cover" alt={""}/>
                             </div>
                             <div className="w-1/3 h-full max-sm:w-full max-sm:px-2">
-                                <h1 className="text-3xl max-lg:text-2xl text-center pt-16 max-xl:pt-5  px-10 max-xl:px-0">Giới
+                                <h1 className="text-3xl max-lg:text-2xl text-center font-normal pt-16 max-xl:pt-5 px-10 max-xl:px-0">Giới
                                     thiệu
                                     địa điểm</h1>
-                                <p className="pt-5 px-10 max-xl:px-5 max-lg:px-5">Chúng tôi cung cấp thông tin chi tiết
+                                <p className="pt-4 max-sm:pt-2 max-sm:px-2 px-10 max-xl:px-5 max-lg:px-5">Chúng tôi cung cấp thông tin chi tiết
                                     về các địa
                                     điểm khác nhau,
                                     bao gồm nhân khẩu học, xu hướng thị trường và tiềm năng phát triển. Nhóm của chúng
@@ -295,12 +288,12 @@ const Home_child_introduce_landing_xls = ({landing}) => {
                         ))}
                     </div>
                 </div>
-                <div className="w-1/2 max-sm:w-full max-md:w-full h-full bg-[#F2F5F4] ">
-                    <h1 className="text-4xl m-10 max-sm:my-1 ">Mặt bằng {landing.objectPlanDisplay.id}</h1>
+                <div className="w-1/2 max-md:pt-5 max-sm:w-full max-md:w-full h-full bg-[#F2F5F4] ">
+                    <h1 className="text-4xl m-10 max-md:my-2 max-sm:my-1 font_2">Mặt bằng {landing.objectPlanDisplay.id}</h1>
                     <div className="m-10">
-                        <p className="py-3">Diện tích : {landing.objectPlanDisplay.area} <span className={'px-5'}>Thể Loại : {landing.objectPlanDisplay.type}</span></p>
-                        <p className="py-3">Phí quản lý : {landing.objectPlanDisplay.feeManager}</p>
-                        <p className="py-3">Chú thích : {landing.objectPlanDisplay.description}</p>
+                        <p className=" max-md:p-0 ">Diện tích : {landing.objectPlanDisplay.area} <span className={'px-5'}>Thể Loại : {landing.objectPlanDisplay.type}</span></p>
+                        <p className=" max-md:py-0">Phí quản lý : {landing.objectPlanDisplay.feeManager}</p>
+                        <p className=" max-md:py-0">Chú thích : {landing.objectPlanDisplay.description}</p>
                     </div>
                     <div className=" h-10 flex gap-5 mx-10  mb-10">
                         <button
@@ -450,8 +443,8 @@ const Home_child_introduce_enterprise_xls = () => {
         <>
             <div className="h-auto mx-18 my-10 ">
                 <div className="mx-32 max-lg:mx-10 max-sm:mx-0">
-                    <div className=" mt-10">
-                        <h2 className="font_2 max-sm:text-4xl max-sm:mx-10">Doanh nghiệp</h2>
+                    <div className=" mt-10 max-md:pt-5">
+                        <h2 className="font_2 max-md:text-[28.3px] max-sm:text-4xl max-sm:mx-10">Doanh nghiệp</h2>
                         <p className="w-2/3 py-2 max-sm:w-full max-sm:mx-10">Chúng tôi , công ty xls với sự uy tín được
                             xây dựng từ các điều cơ
                             bản đến nâng cao
@@ -521,8 +514,8 @@ const Home_child_authentication = () => {
         <>
             <div className="h-auto mx-18 max-sm:my-32 my-10 bg-[#f7f7f7]">
                 <div className="mx-32 max-lg:mx-10">
-                    <div className="font_2 my-10 max-lg:my-5 max-sm:pt-5">
-                        <h2>Lời chứng thực</h2>
+                    <div className="  my-10 max-lg:my-5 max-md:pt-5 max-sm:pt-5">
+                        <h2 className="max-md:text-[28.3px] font_2">Lời chứng thực</h2>
                     </div>
                     <div className="flex max-md:flex-col justify-between py-10 max-xl:gap-5 max-2xl:gap-5 max-lg:gap-3">
                         <div

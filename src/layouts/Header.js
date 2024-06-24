@@ -248,7 +248,8 @@ const Navigate = ({isNavigation}) => {
     return (
         <>
 
-            <div className={`max-lg:block hidden ${isNavigation.isNavigation ? "-translate-x-0" : "-translate-x-[-256px]"} right-0 ease-in-out duration-300 transition absolute z-30 bg-[#2f2b36] text-white w-64 min-h-screen p-4`}>
+            <div className={`max-lg:block hidden ${isNavigation.isNavigation ? "-translate-x-0" : "-translate-x-[-256px]"} right-0 ease-in-out duration-300 
+            transition absolute z-30 bg-[#2f2b36] text-white w-64 min-h-screen p-4`}>
                 <nav>
                     <ul className="space-y-2">
                         <li className="opcion-con-desplegable">
@@ -416,13 +417,13 @@ const Header_child = ({menu}) => {
                     </div>
 
 
-                {!authService.isAuthenticated() && <button className="absolute w-[119px] h-12 bg-[#2f2b36] hover:bg-white hover:text-black hover:border-[1px] hover:border-black rounded-[40px] flex items-center justify-center mr-[20px] right-5 text-white  button-animation
-                        max-xl:right-8 max-lg:right-10 max-md:right-0" onClick={menu.openLoginModal}
-                                                           id="button_open_menu_lilu open-login-modal">
-                        <span>
+                {!authService.isAuthenticated() &&
+                    <button className="absolute w-[119px] h-12 bg-[#2f2b36] hover:text-slate-900 hover:bg-white  hover:border-[1px] hover:border-black
+                    rounded-[40px] flex items-center justify-center mr-[20px] right-5 text-slate-50  button-animation
+                        max-xl:right-8 max-lg:right-10 max-md:right-0" onClick={menu.openLoginModal}>
                             Đăng nhập
-                        </span>
-                </button>}
+                    </button>
+                }
 
                 <button onClick={() => menu.setIsNavigation(!menu.isNavigation)}
                             className="absolute hidden max-md:right-[150px] max-lg:right-[200px] max-lg:block "
