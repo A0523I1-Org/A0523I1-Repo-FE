@@ -10,13 +10,13 @@ const ConfirmationPopup = ({ message, onConfirm, onCancel }) => {
                         onClick={onCancel}
                         className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
                     >
-                        Cancel
+                        Hủy
                     </button>
                     <button
                         onClick={onConfirm}
                         className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                     >
-                        Confirm
+                        Xác nhận
                     </button>
                 </div>
             </div>
