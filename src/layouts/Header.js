@@ -356,7 +356,7 @@ const Header_child = ({menu}) => {
                         </div>
                     </div>
                     <div
-                        className="w-[50%] max-xl:w-[60%] max-lg:w-[70%]  max-xl:right-[40px] max-lg:hidden flex absolute text-slate-700 gap-8 font-semibold
+                        className="w-[50%] max-xl:w-[60%] max-lg:w-[70%] 2xl:right-10 max-2xl:right-20 max-xl:right-[40px] max-lg:hidden flex absolute text-slate-700 gap-8 font-semibold
                         right-0">
                         <Link to={'/'} className="menu__item menu__item__active header-title">Trang chủ</Link>
                         <a className="menu__item max-lg:hidden header-title">Giới thiệu</a>
@@ -435,15 +435,21 @@ const Header_child = ({menu}) => {
                         </svg>
                 </button>
 
-                {authService.isAuthenticated() &&
-                    <button onClick={() => menu.setIsShowMenuInfoEmployee(!menu.isShowMenuInfoEmployee)}
-                            className={"absolute w-[50px] h-[50px] transition rounded-full hover:border-[1px] flex items-center justify-center mr-[50px] right-5 "}>
+                    {authService.isAuthenticated() &&
+                        <button onClick={() => (
+                            menu.setIsShowMenuInfoEmployee(!menu.isShowMenuInfoEmployee),
+                            menu.setIsNavigation(false)
+                        )}
+                                className={"absolute w-[119px] h-12 border-black border transition rounded-[40px]  flex items-center justify-center mr-[50px] right-5 "}>
+
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                                  stroke="currentColor" className="size-6">
                                 <path strokeLinecap="round" strokeLinejoin="round"
                                       d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
                             </svg>
-                            <div className={`${menu.isShowMenuInfoEmployee ? "block" : "hidden"} w-[180px] h-auto absolute  bg-white border overflow-hidden  top-[61px] rounded-[3px] z-30`}>
+                            <span className="pl-1">Phan Phùng</span>
+                            <div
+                                className={`${menu.isShowMenuInfoEmployee ? "block" : "hidden"} w-[180px] h-auto absolute  bg-white border overflow-hidden  top-[61px] rounded-[3px] z-30`}>
                                 <div className="w-full h-[40px] relative border-b-[1px]">
                                     <Link to={'/contract'}>
                                         <button className="h-full text-[15px] w-full header-title "> Tài khoản</button>
@@ -457,8 +463,9 @@ const Header_child = ({menu}) => {
                                     </Link>
                                 </div>
                             </div>
-                    </button>
-                }
+                        </button>
+
+                    }
                 </nav>
             </header>
         </>
