@@ -12,7 +12,6 @@ import * as Yup from "yup";
 import routes from "../../configs/routes";
 import * as floorService from "../../services/FloorService.js";
 import * as landingService from "../../services/LandingService";
-import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 
 const CreateLangding = () => {
@@ -32,6 +31,11 @@ const CreateLangding = () => {
   const [imageUrlUpload, setImageUrlUpload] = useState("");
   const navigate = useNavigate();
   const { state } = useLocation();
+
+  const notify = () => {
+    toast.success("Thêm mới mặt bằng thành công");
+  };
+
   useEffect(() => {
     if (state) {
       setLanding(state);
@@ -69,8 +73,8 @@ const CreateLangding = () => {
         const token = localStorage.getItem("token");
         const isSuccess = await landingService.addNewLanding(values, token);
         if (isSuccess) {
-          toast.success("Thêm mới mặt bằng thành công!");
           navigate(routes.listLanding);
+          notify();
           console.log("Them moi thanh cong!!!");
         } else {
           toast.error("Thêm mới mặt bằng không thành công!");
@@ -240,6 +244,7 @@ const CreateLangding = () => {
                         id="floor"
                         name="floor"
                         className="w-full h-full rounded-[3px] border-[#8887] form-control"
+                        disabled={isSubmitting}
                       >
                         <option value="">Chọn</option>
                         {floors.map((floor) => (
@@ -252,6 +257,7 @@ const CreateLangding = () => {
                         name="floor"
                         component="span"
                         className="text-[12px] text-red-500"
+                        disabled={isSubmitting}
                       />
                     </div>
                   </div>
@@ -264,32 +270,21 @@ const CreateLangding = () => {
                       </span>
                     </div>
                     <div className="w-8/12 h-full">
-                      <Field
-                        as="select"
-                        id="status"
-                        name="status"
-                        className="w-full h-full rounded-[3px] border-[#8887] form-control"
-                      >
-                        <option value="">Chọn</option>
-                        <option value="fullyFurnished">Đầy đủ nội thất</option>
-                        <option value="partiallyFurnished">
-                          Nội thất một phần
-                        </option>
-                        <option value="unFurnished">Không có nội thất</option>
-                        <option value="readyToMoveIn">
-                          Sẵn sàng để dọn vào
-                        </option>
-                        <option value="underConstruction">Đang xây dựng</option>
-                        <option value="newlyRenovated">Mới được cải tạo</option>
-                        <option value="basicAmenities">Tiện nghi cơ bản</option>
-                        <option value="luxuryAmenities">
-                          Tiện nghi cao cấp
-                        </option>
-                        <option value="ecoFriendly">
-                          Thân thiện với môi trường
-                        </option>
-                        <option value="highTech">Công nghệ cao</option>
-                      </Field>
+                    <Field as="select" id="status" name="status"
+                                                className="w-full h-full rounded-[3px] border-[#8887] form-control" disabled={isSubmitting}> 
+                                                <option value="">Chọn</option>
+                                                <option value="fullyFurnished">Đầy đủ nội thất</option>
+                                                <option value="partiallyFurnished">Nội thất một phần</option>
+                                                <option value="unfurnished">Không có nội thất</option>
+                                                <option value="readyToMoveIn">Sẵn sàng để dọn vào</option>
+                                                <option value="underConstruction">Đang xây dựng</option>
+                                                <option value="newlyRenovated">Mới được cải tạo</option>
+                                                <option value="basicAmenities">Tiện nghi cơ bản</option>
+                                                <option value="luxuryAmenities">Tiện nghi cao cấp</option>
+                                                <option value="ecoFriendly">Thân thiện với môi trường</option>
+                                                <option value="highTech">Công nghệ cao</option>
+                                                                                            
+                                            </Field>
                       <ErrorMessage
                         name="status"
                         component="span"
@@ -310,6 +305,7 @@ const CreateLangding = () => {
                         id="area"
                         name="area"
                         className="pl-3 w-full h-full rounded-[3px] border-[#8887]"
+                        disabled={isSubmitting}
                       />
                       <ErrorMessage
                         name="area"
@@ -328,6 +324,7 @@ const CreateLangding = () => {
                         name="description"
                         id="description"
                         className="w-full h-full border border-[#8887] "
+                        disabled={isSubmitting}
                       />
                       <ErrorMessage
                         name="description"
@@ -356,6 +353,7 @@ const CreateLangding = () => {
                           hidden
                           id="upload_avt"
                           onChange={(e) => handleChangeFileImg(e)}
+                          disabled={isSubmitting}
                         />
                       </div>
                       <div className="w-[100px] h-[100px] mt-[-10px]">
@@ -385,7 +383,7 @@ const CreateLangding = () => {
                         <h1 className="text-xl pl-5">Mặt bằng</h1>
                       </div>
                       <div className="h-auto w-9/12 mr-5 mt-5 mb-3 flex flex-col gap-8">
-                        <div className="w-full h-[40px] flex">
+                        <div className="w-full h-[40px flex">
                           <div className="w-3/12 h-full flex items-center">
                             <span>Loại mặt bằng </span>
                           </div>
@@ -395,8 +393,9 @@ const CreateLangding = () => {
                               id="type"
                               name="type"
                               className="w-full h-full rounded-[3px] border-[#8887] form-control"
+                              disabled={isSubmitting}
                             >
-                              <option value="">Tìm theo loại mặt bằng</option>
+                              <option value="">Chọn loại mặt bằng</option>
                               <option value="Apartment">Căn hộ</option>
                               <option value="Home">Nhà riêng</option>
                               <option value="Shop">Cửa hàng</option>
@@ -429,6 +428,7 @@ const CreateLangding = () => {
                               id="code"
                               name="code"
                               className="w-full h-full rounded-[3px] border-[#8887] pl-3"
+                              disabled={isSubmitting}
                             />
                             <ErrorMessage
                               name="code"
@@ -456,6 +456,7 @@ const CreateLangding = () => {
                               id="feePerMonth"
                               name="feePerMonth"
                               className="w-full h-full rounded-[3px] border-[#8887] pl-3"
+                              disabled={isSubmitting}
                             />
                             <ErrorMessage
                               name="feePerMonth"
@@ -474,6 +475,7 @@ const CreateLangding = () => {
                               id="feeManager"
                               name="feeManager"
                               className="w-full h-full rounded-[3px] border-[#8887] pl-3"
+                              disabled={isSubmitting}
                             />
                             <ErrorMessage
                               name="feeManager"
@@ -485,7 +487,7 @@ const CreateLangding = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="w-full h-1/3">
+                  <div className="w-full">
                     <div className="h-[40px] mx-5 mt-5 mb-3">
                       {isSubmitting && (
                         <button class="btn" type="button" disabled style={{ backgroundColor: "#FFF" }}>
@@ -505,7 +507,7 @@ const CreateLangding = () => {
                           <span className="pb-10">Lưu</span>
                         </button>
                       )}
-                      <button className="btn-2" type="reset">
+                      <button className="btn-2" type="reset" disabled={isSubmitting}>
                         <span className="pr-1">
                           <i className="fi fi-rr-eraser" />
                         </span>
@@ -523,4 +525,3 @@ const CreateLangding = () => {
   );
 };
 export default CreateLangding;
-
