@@ -9,20 +9,26 @@ import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from "yup"
 import {useNavigate} from "react-router";
 import * as authService from "../services/Authenticate/AuthService"
+import { toast } from 'react-toastify';
 
 const Header = () => {
     const [showMenuSelect, setShowMenuSelect] = useState(false);
+    const [isShowMenuInfoEmployee,setIsShowMenuInfoEmployee] = useState(false);
 
-    // LOGIN-DatCT
+    //==================================================== LOGIN-DatCT ====================================================================
     const [loginModalIsOpen, setLoginModalIsOpen] = useState(false)
     const [passwordVisible, setPasswordVisible] = useState(false)
     const [error, setError] = useState('')
     const [account, setAccount] = useState({username:"", password:""});
+    const [isRememberMe, setIsRememberMe] = useState(false);
     const navigate = useNavigate()
 
+
     const validateAccount = {
-        username : Yup.string().required("Vui lòng điền tên đăng nhập.").min(2).max(1000),
-        password : Yup.string().required("Vui lòng điền tên mật khẩu.").min(2).max(1000)
+        username : Yup.string().required("Vui lòng điền tên đăng nhập.")
+            .max(30, 'Tên đăng nhập không được vượt quá 100 ký tự.'),
+        password : Yup.string().required("Vui lòng điền tên mật khẩu.")
+            .max(30, 'Mật khẩu không được vượt quá 100 ký tự.')
     }
 
     const togglePasswordVisibility = () => {
@@ -31,16 +37,31 @@ const Header = () => {
 
     const openLoginModal = () => {
         setLoginModalIsOpen(true);
+        setError(null);
     };
 
+    const handleRememberMe = () => {
+        setIsRememberMe(true)
+    }
+
+    const handleLoginWithGoogle = () => {
+        toast.info("Tính năng chưa phát triển")
+    }
+
+    const handleLoginWithFaceBook = () => {
+        toast.info("Tính năng chưa phát triển")
+    }
+
+    const handleForgotPassword = () => {
+        toast.info("Tính năng chưa phát triển")    }
 
     useEffect(() => {
-        if(localStorage.token && loginModalIsOpen) {
+        if(authService.getToken() && loginModalIsOpen) {
             navigate('/employee/personal-information')
         }
     }, [loginModalIsOpen])
 
-    // ===================================== LOGIN ======================================
+    // ==================================================== LOGIN ===========================================================
     const login = async (account) => {
         try {
             const userData = await authService.login(account.username, account.password)
@@ -49,8 +70,13 @@ const Header = () => {
 
                 if (userData.access_token) {
 
-                    localStorage.setItem('token', userData.access_token);
-                    localStorage.setItem('role', JSON.stringify(userData.roles));
+                    if (isRememberMe) {
+                        localStorage.setItem('token', userData.access_token);
+                        localStorage.setItem('role', JSON.stringify(userData.roles));
+                    } else {
+                        sessionStorage.setItem('token', userData.access_token);
+                        sessionStorage.setItem('role', JSON.stringify(userData.roles));
+                    }
 
                     navigate('/employee/personal-information');
 
@@ -61,26 +87,27 @@ const Header = () => {
             }
         } catch (error) {
             if (error.response) {
-                if (error.response.status === 404) setError("Tài khoản KHÔNG tồn tại.")
-                if (error.response.status === 401) setError("Mật khẩu KHÔNG trùng khớp.")
+                setError("Tài khoản hoặc mật khẩu sai.")
+                // if (error.response.status === 404) setError("Tài khoản KHÔNG tồn tại.")
+                // if (error.response.status === 401) setError("Mật khẩu KHÔNG trùng khớp.")
             }
         }
     }
 
-    // ===================================== LOGOUT ======================================
+    // =============================================== LOGOUT ====================================================
     const handleLogoutClick = async () => {
-        const token = localStorage.getItem('token');
+        const token = authService.getToken();
         await authService.logout(token);
-
         navigate("/")
     }
 
 
     const valueMenu = {
-        showMenuSelect,setShowMenuSelect,
-        openLoginModal
+        showMenuSelect,setShowMenuSelect, isShowMenuInfoEmployee,setIsShowMenuInfoEmployee,
+        openLoginModal, handleLogoutClick
     }
 
+    // style for error message
     const styles = {
         container: {
             backgroundColor: '#FFF5F5',
@@ -100,7 +127,7 @@ const Header = () => {
         <>
             <Header_child menu={valueMenu}/>
 
-            {/*    LOGIN - DatCT*/}
+            {/* ================================ LOGIN - DatCT =====================================*/}
             <Modal
                 appElement={document.getElementById('root')}
                 isOpen={loginModalIsOpen}
@@ -111,7 +138,7 @@ const Header = () => {
                         onSubmit={login}
                         validationSchema={Yup.object(validateAccount)}>
 
-                    <div className="l-form">
+                    <div id="Login-DatCT" className="l-form">
                         <div className="shape1"/>
                         <div className="shape2"/>
 
@@ -151,17 +178,24 @@ const Header = () => {
                                     </div>
                                 </div>
 
-                                {/*<div className="form__check">*/}
-                                {/*    <div className="form__remember">*/}
-                                {/*        <label htmlFor="remember-me">*/}
-                                {/*            <input type="checkbox" id="remember-me" name="remember-me"/>*/}
-                                {/*            Ghi nhớ tôi*/}
-                                {/*        </label>*/}
-                                {/*    </div>*/}
-                                {/*    /!*<a href="#" className="form__forgot">Quên mật khẩu?</a>*!/*/}
-                                {/*</div>*/}
+                                <div className="form__check">
+                                    <div className="form__remember">
+                                        <label htmlFor="remember-me">
+                                            <input type="checkbox" id="remember-me" name="remember-me" onChange={handleRememberMe}/>
+                                            Ghi nhớ tôi
+                                        </label>
+                                    </div>
+                                    <a onClick={handleForgotPassword} className="form__forgot">Quên mật khẩu?</a>
+                                </div>
 
                                 <button type="submit" className="form__button">ĐĂNG NHẬP</button>
+
+                                <div className="form__social">
+                                    <span className="form__social-text">Hoặc đăng nhập với</span>
+
+                                    <a onClick={handleLoginWithGoogle} className="form__social-icon"><RiGoogleLine/></a>
+                                    <a onClick={handleLoginWithFaceBook} className="form__social-icon"><RiFacebookLine/></a>
+                                </div>
 
                             </Form>
                         </div>
@@ -170,9 +204,6 @@ const Header = () => {
                 </Formik>
             </Modal>
 
-            {authService.isAuthenticated() && <button className="btn btn-danger" onClick={handleLogoutClick}>
-                Logout
-            </button>}
 
         </>
     )
@@ -259,6 +290,28 @@ const Header_child = ({menu}) => {
                         </span>
                     </button>}
 
+                    {authService.isAuthenticated() &&
+                    <button onClick={() => menu.setIsShowMenuInfoEmployee(!menu.isShowMenuInfoEmployee)}
+                            className={"absolute w-[50px] h-[50px] transition rounded-full hover:border-[1px] flex items-center justify-center mr-[50px] right-5 "}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+                             stroke="currentColor" className="size-6">
+                            <path strokeLinecap="round" strokeLinejoin="round"
+                                  d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                        </svg>
+                        <div className={`${menu.isShowMenuInfoEmployee ? "block" : "hidden"} w-[180px] h-auto absolute  bg-white border overflow-hidden  top-[61px] rounded-[3px] z-30`}>
+                            <div className="w-full h-[40px] relative border-b-[1px]">
+                                <Link to={'/employee/personal-information'}>
+                                    <button className="h-full text-[15px] w-full header-title "> Tài khoản</button>
+                                </Link>
+                            </div>
+                            <div className="w-full h-[40px] relative  ">
+                                    <button onClick={menu.handleLogoutClick}
+                                            className="h-full w-full text-[15px] header-title">Đăng xuất
+                                    </button>
+                            </div>
+                        </div>
+                    </button>
+                    }
 
                 </nav>
             </header>
