@@ -1,21 +1,14 @@
-/*===== GOOGLE FONTS =====*/
-/* @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"); */
-
-/*===== VARIABLES CSS =====*/
-
 /*=== Colors ===*/
 :root {
     --first-color: #12192c;
     --text-color: #8590ad;
 }
-
 :root {
     --body-font: Arial, sans-serif;
     --big-font-size: 2rem;
     --normal-font-size: 0.938rem;
     --smaller-font-size: 0.875rem;
 }
-
 .modal-content {
     max-width: 90%;
     max-height: 90%;
@@ -25,34 +18,26 @@
     overflow: auto;
     background-color: white;
 }
-
 @media screen and (min-width: 1024px) {
     :root {
         --big-font-size: 2.5rem;
         --normal-font-size: 1rem;
     }
-
     .modal-content {
-        max-width: 600px; /* Smaller width for laptop screens */
-        max-height: 600px; /* Smaller height for laptop screens */
+        max-width: 500px; /* Smaller width for laptop screens */
+        max-height: 500px; /* Smaller height for laptop screens */
     }
 }
-
-
-
 @media screen and (min-width: 768px) {
     :root {
         --big-font-size: 2.5rem;
         --normal-font-size: 1rem;
     }
-
     .modal-content {
         max-width: 600px; /* Smaller width for laptop screens */
         max-height: 1000px; /* Smaller height for laptop screens */
     }
 }
-
-
 /*===== BASE =====*/
 *,
 ::before,
@@ -71,23 +56,21 @@ h1 {
 a {
     text-decoration: none;
 }
-
 /*===== FORM =====*/
-.l-form {
+#Login-DatCT .l-form {
     position: relative;
     /*height: 70vh;*/
     overflow: hidden;
 }
-
 /*=== Shapes ===*/
-.shape1,
-.shape2 {
+#Login-DatCT .shape1,
+#Login-DatCT .shape2 {
     position: absolute;
     width: 200px;
     height: 200px;
     border-radius: 50%;
 }
-.shape1 {
+#Login-DatCT .shape1 {
     top: -7rem;
     left: -3.5rem;
     background: linear-gradient(
@@ -96,7 +79,7 @@ a {
             rgba(196, 196, 196, 0) 100%
     );
 }
-.shape2 {
+#Login-DatCT .shape2 {
     bottom: -6rem;
     right: -5.5rem;
     background: linear-gradient(
@@ -107,25 +90,24 @@ a {
     transform: rotate(180deg);
 }
 /*=== Form ===*/
-.form {
+#Login-DatCT .form {
     height: 80vh;
     display: grid;
     justify-content: center;
     align-items: center;
     padding: 0 1rem;
 }
-.form__content {
+#Login-DatCT .form__content {
     width: 250px;
 }
-
-.form__title {
+#Login-DatCT .form__title {
     font-size: var(--big-font-size);
     font-weight: 500;
     margin-top: -5rem;
-    margin-bottom: 4rem;
+    margin-bottom: 3.5rem;
     text-align: center;
 }
-.form__div {
+#Login-DatCT .form__div {
     position: relative;
     display: grid;
     grid-template-columns: 7% 93%;
@@ -134,25 +116,22 @@ a {
     border-bottom: 1px solid var(--text-color);
 }
 /*=== Div focus ===*/
-.form__div.focus {
+#Login-DatCT .form__div.focus {
     border-bottom: 1px solid var(--first-color);
 }
-
-.form__div-one {
+#Login-DatCT .form__div-one {
     margin-bottom: 3rem;
 }
-
-.form__icon {
+#Login-DatCT .form__icon {
     font-size: 1.5rem;
     color: var(--text-color);
     transition: 0.3s;
 }
 /*=== Icon focus ===*/
-.form__div.focus .form__icon {
+#Login-DatCT .form__div.focus .form__icon {
     color: var(--first-color);
 }
-
-.form__label {
+#Login-DatCT .form__label {
     display: block;
     position: absolute;
     left: 0.75rem;
@@ -162,7 +141,7 @@ a {
     transition: 0.3s;
 }
 /*=== Label focus ===*/
-.login__eye {
+#Login-DatCT .login__eye {
     width: max-content;
     height: max-content;
     position: absolute;
@@ -173,17 +152,15 @@ a {
     font-size: 1.25rem;
     cursor: pointer;
 }
-
-.form__div.focus .form__label {
+#Login-DatCT .form__div.focus .form__label {
     top: -1.5rem;
     font-size: 0.875rem;
     color: var(--first-color);
 }
-
-.form__div-input {
+#Login-DatCT .form__div-input {
     position: relative;
 }
-.error__message {
+#Login-DatCT .error__message {
     width: max-content;
     height: max-content;
     position: absolute;
@@ -193,10 +170,9 @@ a {
     margin: auto 0;
     font-size: 0.75rem;
 }
-
-.login__fail_message {
+#Login-DatCT .login__fail_message {
     position: absolute;
-    top: -2.5rem;
+    top: -2.2rem;
     left: 50%;
     transform: translate(-50%, -50%);
     width: max-content;
@@ -206,8 +182,7 @@ a {
     padding: 10px; /* Optional: for better visibility */
     border-radius: 5px; /* Optional: rounded corners */
 }
-
-.form__input {
+#Login-DatCT .form__input {
     position: absolute;
     top: 0;
     left: 0;
@@ -221,15 +196,12 @@ a {
     color: var(--first-color);
     transition: 0.3s;
 }
-
-
-.form__check {
+#Login-DatCT .form__check {
     display: flex;
     justify-content: space-between;
     margin-top: 2rem;
 }
-
-.form__remember {
+#Login-DatCT .form__remember {
     display: inline-block;
     text-align: left;
     margin-bottom: 1.5rem;
@@ -238,11 +210,11 @@ a {
     font-weight: 500;
     transition: 0.5s;
 }
-.form__remember:hover {
+#Login-DatCT .form__remember:hover {
     color: var(--first-color);
     transition: 0.5s;
 }
-.form__forgot {
+#Login-DatCT .form__forgot {
     display: inline-block;
     margin-bottom: 1.5rem;
     font-size: var(--normal-font-size);
@@ -250,13 +222,13 @@ a {
     font-weight: 500;
     transition: 0.5s;
 }
-.form__forgot:hover {
+#Login-DatCT .form__forgot:hover {
     color: var(--first-color);
     transition: 0.5s;
 }
-.form__button {
+#Login-DatCT .form__button {
     width: 100%;
-    margin-top: 1.5rem;
+    margin-top: 0.5rem;
     padding: 1rem;
     font-size: var(--normal-font-size);
     outline: none;
@@ -267,21 +239,22 @@ a {
     border-radius: 0.5rem;
     cursor: pointer;
     transition: 0.3s;
+    text-align: center;
+    height: 3rem;
 }
-.form__button:hover {
+#Login-DatCT .form__button:hover {
     box-shadow: 0 15px 36px rgba(0, 0, 0, 0.15);
 }
-
 /*=== Form social===*/
-.form__social {
+#Login-DatCT .form__social {
     text-align: center;
 }
-.form__social-text {
+#Login-DatCT .form__social-text {
     display: block;
     font-size: var(--normal-font-size);
     margin-bottom: 1rem;
 }
-.form__social-icon {
+#Login-DatCT .form__social-icon {
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -294,6 +267,6 @@ a {
     font-size: 1.25rem;
     border-radius: 50%;
 }
-.form__social-icon:hover {
+#Login-DatCT .form__social-icon:hover {
     background-color: var(--first-color);
 }
