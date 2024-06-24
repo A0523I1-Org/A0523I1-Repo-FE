@@ -7,7 +7,6 @@ import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-
 const PersonalInformation = () => {
     const [formData, setFormData] = useState(null);
     const [showModal, setShowModal] = useState(false);
@@ -360,3 +359,24 @@ const PersonalInformation = () => {
     );
 };
 export default PersonalInformation;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

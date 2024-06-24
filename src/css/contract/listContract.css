@@ -6,18 +6,15 @@ body {
 
 }
 
-button  {
+#table-ct button  {
     padding: 5px 14px !important;
     border-radius: 3px;
     border: none;
     text-align: left;
 }
 
-table {
 
-}
-
-table thead th {
+#table-ct table thead th {
     background: #eeeeee;
     font-size: 16px;
     color: #222;
@@ -25,7 +22,7 @@ table thead th {
     border: 1px solid #ddd;
 }
 
-table tbody tr td {
+#table-ct table tbody tr td {
     font-size: 14.4px;
     font-family: var(--text-color-span);
     color: #333;
@@ -33,61 +30,80 @@ table tbody tr td {
 
 }
 
-input[type="checkbox"] {
+#table-ct input[type="checkbox"] {
     width: 18px;
     height: 16px;
 }
 
-input[type="checkbox"]:checked {
+#table-ct input[type="checkbox"]:checked {
 
 }
-.box_child_menu_edc{
+#table-ct .box_child_menu_edc{
     box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 }
-.menu_edc{
+#table-ct .menu_edc{
     display: none;
 }
-h3 {
+#table-ct h3 {
     text-align: center;
 }
-.search input {
-    margin-right: 7%;
+#table-ct .search input {
+    margin-right: 6%;
     height: 2rem;
     width: 8rem;
+    padding: 10px;
     
 
 }
-#search-bt1  {
+
+#table-ct #search-bt1  {
     background-color: #009688;
     color: white;
     border-radius: 50% 50%;
     border-style: none;
-    height: 40px;
-    width: 40px;
+    height: 6vh;
+    width: 3.5%;
 
 }
+#table-ct input ,#create-ct textarea{
+    border: 1px solid #888;
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
+    font-size: 14.5px !important;
+}
 
-#search-bt2  {
+#table-ct #search-bt2  {
     background-color: #2196e3;
     color: white;
     border-radius: 50% 50%;
     border-style: none;
-    height: 40px;
-    width: 40px;
-    margin-left: 10px;
+    height: 6vh;
+    width: 3.5%;
+    margin-left: 1.5%;
 
 }
-#search-bt1:hover,#search-bt2:hover {
+#table-ct #search-bt1:hover,#table-ct #search-bt2:hover {
     background-color:#cccccc ;
 }
 
-.create-reset #create {
+#table-ct #create {
     background-color: #4caf50;
     border-style: none;
     height: 35px;
     
 }
-.create-reset #create:hover {
+#table-ct #create:hover {
     background-color:#cccccc ;
    
+}
+#notfound-contract #create-error {
+    background-color: #4caf50;
+    border-style: none;
+    height: 30px;
+    width: 110px;
+    border-radius: 3px;
+}
+
+#notfound-contract #create-error:hover {
+    background-color:#cccccc ;
 }

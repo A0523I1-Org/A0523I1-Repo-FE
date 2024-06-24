@@ -6,6 +6,7 @@ import React, { Fragment } from 'react';
 import NotFound from './pages/NotFound';
 import {ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import NoAccess from "./pages/NoAccess";
 
 function App() {
     return (
@@ -46,7 +47,7 @@ function App() {
                     }
 
                     <Route path='*' element={<NotFound/>}/>
-                    {/*<Route path="/no-access" component={<NoAccess/>} />*/}
+                    <Route path="/no-access" element={<NoAccess/>} />
 
                 </Routes>
             </BrowserRouter>
