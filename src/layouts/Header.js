@@ -1,4 +1,7 @@
 
+
+
+
 import {Link, useLocation} from "react-router-dom";
 import "../css/header.css"
 import React, {useEffect, useState} from "react";
@@ -8,7 +11,6 @@ import '../css/auth/login.css'; // Import your custom CSS
 import Modal from "react-modal";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from "yup"
-import * as accountService from "../services/AccountService";
 import {useNavigate} from "react-router";
 import * as authService from "../services/Authenticate/AuthService"
 import * as employeeService from "../services/EmployeeService"
@@ -26,6 +28,7 @@ const Header = () => {
     const [error, setError] = useState('')
     const [account, setAccount] = useState({username: "", password: ""});
     const [usernameDisplay, setUsernameDisplay] = useState("");
+
     const navigate = useNavigate()
 
     const validateAccount = {
@@ -77,11 +80,13 @@ const Header = () => {
     const login = async (account) => {
         try {
             const userData = await authService.login(account.username, account.password)
+
             if (userData.authenticated === true) {
 
                 if (userData.access_token) {
 
                     localStorage.setItem('token', userData.access_token);
+                    localStorage.setItem('role', JSON.stringify(userData.roles));
 
                     navigate('/employee/personal-information');
                     
@@ -91,7 +96,10 @@ const Header = () => {
 
             }
         } catch (error) {
-            setError("Đăng nhập thất bại.")
+            if (error.response) {
+                if (error.response.status === 404) setError("Tài khoản KHÔNG tồn tại.")
+                if (error.response.status === 401) setError("Mật khẩu KHÔNG trùng khớp.")
+            }
         }
     }
 
@@ -112,6 +120,23 @@ const Header = () => {
     const navigation = {
         isNavigationChild, setIsNavigationChild, isNavigation
     }
+
+
+    const styles = {
+        container: {
+            backgroundColor: '#FFF5F5',
+            border: '1px solid #EB5757',
+            borderRadius: '4px',
+            padding: '10px', // Giảm khoảng cách
+            marginBottom: '10px', // Giảm khoảng cách dưới
+            maxWidth: '300px', // Độ rộng tối đa
+        },
+        message: {
+            color: '#EB5757',
+            fontSize: '14px', // Kích thước chữ
+        }
+    };
+
 
     return (
         <>
@@ -140,7 +165,11 @@ const Header = () => {
 
                                 <div className="form__div form__div-one">
 
-                                    {error && <div className="login__fail_message">{error}</div>}
+                                    {error &&<div style={styles.container} className="login__fail_message">
+                                        <div style={styles.message}>
+                                            {error}
+                                        </div>
+                                    </div>}
 
                                     <div className="form__icon">
                                         <RiUserLine />
@@ -166,16 +195,6 @@ const Header = () => {
                                     </div>
                                 </div>
 
-                                <div className="form__check">
-                                    <div className="form__remember">
-                                        <label htmlFor="remember-me">
-                                            <input type="checkbox" id="remember-me" name="remember-me"/>
-                                            Ghi nhớ tôi
-                                        </label>
-                                    </div>
-                                    {/*<a href="#" className="form__forgot">Quên mật khẩu?</a>*/}
-                                </div>
-
                                 <button type="submit" className="form__button">ĐĂNG NHẬP</button>
 
                             </Form>
@@ -186,63 +205,12 @@ const Header = () => {
             </Modal>
             <Navigate isNavigation={navigation}/>
 
-
         </>
     )
 }
 
 
-// const Header_child = () => {
-//     return (
-//         <>
-//             <header className="h-16 bg-white border overflow-hidden " id="header">
-//                 <nav className="relative overflow-hidden h-full flex items-center flex-wrap antialiased menu__home"
-//                      id="menu__home">
-//                     <div className="absolute left-0 w-1/6  ml-[20px]">
-//                         <div className=" h-auto px-24 max-sm:px-0 max-lg:px-10 max-md:px-5 max-xl:px-18 ">
-//                             <a href="" className="w-[100px] rotate-45 h-[100px]  absolute  bg-white mt-[-35px] ">
-//                                 <img className="rotate-[-45deg]"
-//                                      src='/img/Gold_Black_Modern_Real_Estate_Logo-removebg-preview.png'
-//                                      alt="anh dai dien"/>
-//                             </a>
-//                         </div>
-//                     </div>
-//                     <div
-//                         className="w-[50%] max-xl:w-[60%] max-lg:w-[70%] flex absolute text-slate-700 gap-8 font-semibold right-0 max-2xl:right-[10px] max-md:hidden  menu__home__slmh1 max-xl:right-[50px] max-lg:right-0 ">
-//                         <a className="menu__item menu__item__active">Trang chủ</a>
-//                         <a className="menu__item max-lg:hidden">Giới thiệu</a>
-//                         <a className="menu__item">Sự kiện</a>
-//                         <a className="menu__item">Liên hệ</a>
-//                         <a className="menu__item inline-flex items-center ">
-//                             Quản trị - hệ thống
-//                             <span className="ml-1">
-//                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 22 22" strokeWidth="1.5"
-//                                      stroke="currentColor" className="w-3.5 h-3.5">
-//                                   <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
-//                                 </svg>
-//                             </span>
-//                         </a>
-//                     </div>
-//                     <button className="absolute hidden right-[150px] max-md:block " id="btn__animation_menu_header">
-//                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-//                              stroke="currentColor" className="w-6 h-6">
-//                             <path strokeLinecap="round" strokeLinejoin="round"
-//                                   d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25"/>
-//                         </svg>
-//                     </button>
-//
-//                     <button className="absolute w-[119px] h-12 bg-[#2f2b36] rounded-[40px] flex items-center justify-center mr-[20px] right-5 text-white  button-animation
-//                         max-xl:right-8 max-lg:right-10 max-md:right-0
-//                     "
-//                             id="button_open_menu_lilu">
-//                     <span>
-//                         Đăng nhập
-//                     </span>
-//              <Navigate isNavigation={navigation}/>
-//             <Header_child menu={valueMenu}/>
-//         </>
-//     )
-// }
+
 
 const Navigate = ({isNavigation}) => {
 
@@ -356,8 +324,7 @@ const Header_child = ({menu}) => {
                             </Link>
                         </div>
                     </div>
-                    <div
-                        className="w-[50%] max-xl:w-[60%] max-lg:w-[70%] 2xl:right-10 max-2xl:right-20 max-xl:right-[40px] max-lg:hidden flex absolute text-slate-700 gap-8 font-semibold
+                    <div className="w-[50%] max-xl:w-[60%] max-lg:w-[70%] 2xl:right-10 max-2xl:right-20 max-xl:right-[40px] max-lg:hidden flex absolute text-slate-700 gap-8 font-semibold
                         right-0">
                         <Link to={'/'} className="menu__item menu__item__active header-title">Trang chủ</Link>
                         <a className="menu__item max-lg:hidden header-title">Giới thiệu</a>
@@ -374,10 +341,10 @@ const Header_child = ({menu}) => {
                                           <path strokeLinecap="round" strokeLinejoin="round"
                                                 d="m19.5 8.25-7.5 7.5-7.5-7.5"/>
                                         </svg>
-                                    </span>
+                                </span>
 
-                                <div
-                                    className={`w-[180px]  h-auto absolute  bg-white border overflow-hidden  top-[49px] rounded-[3px] z-30 ${menu.showMenuSelect ? '' : 'hidden'}`}>
+                        <div className="w-[50%] max-xl:w-[60%] max-lg:w-[70%] flex absolute text-slate-700 gap-8 font-semibold right-0 max-2xl:right-[10px] max-md:hidden items-center max-xl:right-[50px] max-lg:right-0 ">
+                                <div className={`w-[180px]  h-auto absolute  bg-white border overflow-hidden  top-[49px] rounded-[3px] z-30 ${menu.showMenuSelect ? '' : 'hidden'}`}>
                                     <div
                                         className="w-full h-[40px] relative group flex justify-center items-center font-normal text-black text-[15px]">
                                         <Link to={'/employee'} className={"header-title"}>
@@ -411,8 +378,9 @@ const Header_child = ({menu}) => {
                                             className="absolute w-full h-[1px] bg-yellow-500 bottom-0 right-[-180px] group-hover:right-0 transition-all duration-1000"></span>
                                     </div>
                                 </div>
+                             </div>
+                        </button>
 
-                            </button>
                         }
                         <a className="menu__item header-title">Liên hệ</a>
                     </div>
@@ -470,7 +438,6 @@ const Header_child = ({menu}) => {
 
                             </div>
                         </button>
-
                     }
                 </nav>
             </header>

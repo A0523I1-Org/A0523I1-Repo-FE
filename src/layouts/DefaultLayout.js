@@ -11,7 +11,6 @@ function DefaultLayout ({children})  {
 
     return (
         <>
-
                 {location.pathname === "/" || location.pathname === "/login"
                     ?
                     <div className={"overflow-hidden w-full h-auto bgg-red-500"}>
@@ -25,13 +24,14 @@ function DefaultLayout ({children})  {
                             <div className="">
                                 <Header/>
                             </div>
+
                             <div className="mx-10 mt-5">
                                 <FooterExtra nameLocation={location.pathname}/>
                                 <div className="h-auto mt-5">
                                     {children}
                                 </div>
                             </div>
-                        </div>
+                     </div>
                     </div>
                 }
 

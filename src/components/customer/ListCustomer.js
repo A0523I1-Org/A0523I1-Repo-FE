@@ -1,12 +1,14 @@
+import {useState} from "react";
 
 
 const ListCustomer = () => {
 
-    return (
+
+        return(
         <>
-        <h4>Content</h4>
+
         </>
-    )
+    );
 
 }
 export default ListCustomer;
