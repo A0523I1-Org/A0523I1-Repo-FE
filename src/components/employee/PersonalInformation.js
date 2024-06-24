@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import * as employeeService from "../../services/EmployeeService";
 import * as accountService from "../../services/AccountService";
+import * as authService from "../../services/Authenticate/AuthService";
 import '../../css/employee/PersonalInformation.css';
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import * as authService from '../../services/Authenticate/AuthService'
 
 const PersonalInformation = () => {
     const [formData, setFormData] = useState(null);
@@ -16,7 +16,6 @@ const PersonalInformation = () => {
         newPassword: false,
         confirmPassword: false
     });
-
     const notify = () => {
         toast.success("Đổi mật khẩu thành công");
         setPasswords({
@@ -26,40 +25,34 @@ const PersonalInformation = () => {
         });
         setShowModal(false); // Đóng modal sau khi đổi mật khẩu thành công
     };
-
     useEffect(() => {
         fetchProfileInfo();
     }, []);
-
     const fetchProfileInfo = async () => {
         try {
-            const token = authService.getToken()
+            const token = authService.getToken();
             const response = await employeeService.getMyProfile(token);
             setFormData(response);
         } catch (error) {
             console.error('Error fetching profile information:', error);
         }
     };
-
     const [passwords, setPasswords] = useState({
         oldPassword: '',
         newPassword: '',
         confirmPassword: '',
     });
-
     const [passwordError, setPasswordError] = useState('');
-
     const validatePassword = (pwd) => {
         if (pwd === '') {
             return 'Mật khẩu không được để trống';
         }
         const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,18}$/;
         if (!passwordRegex.test(pwd)) {
-            return 'Mật khẩu bắt đầu bằng chữ in hoa, 6 - 8 kí tự và có ít nhất 1 chữ số.';
+            return 'Mật khẩu bắt đầu bằng chữ in hoa, 6 - 8 kí tự và có ít nhất 1 chữ số và không chứa kí tự đặc biệt.';
         }
         return '';
     };
-
     const handleChangeOldPassword = (event) => {
         const { value } = event.target;
         setPasswords({
@@ -67,29 +60,24 @@ const PersonalInformation = () => {
             oldPassword: value
         });
     };
-
     const handlePasswordChange = (event) => {
         const { name, value } = event.target;
         setPasswords({
             ...passwords,
             [name]: value
         });
-
         const validationError = validatePassword(value);
         setPasswordError(validationError);
     };
-
     const togglePasswordVisibility = (field) => {
         setShowPassword((prevShowPassword) => ({
             ...prevShowPassword,
             [field]: !prevShowPassword[field],
         }));
     };
-
     const changePassword = async (event) => {
         event.preventDefault();
         setPasswordError('');
-
         if (passwords.newPassword !== passwords.confirmPassword) {
             setPasswordError('Mật khẩu mới không khớp');
             return;
@@ -102,15 +90,13 @@ const PersonalInformation = () => {
             });
             return;
         }
-
         const validationError = validatePassword(passwords.newPassword);
         if (validationError) {
             setPasswordError(validationError);
             return;
         }
-
         try {
-            const token = localStorage.getItem('token');
+            const token = authService.getToken();
             const response = await accountService.changePassword(token, passwords.oldPassword, passwords.newPassword);
             if (response.message === "Đổi mật khẩu thất bại.") {
                 setPasswordError("Mật khẩu cũ không khớp");
@@ -122,29 +108,25 @@ const PersonalInformation = () => {
             setPasswordError('Có lỗi xảy ra. Vui lòng thử lại.');
         }
     };
-
     const editPersonalInformation = (e) => {
         e.preventDefault();
         alert('Chỉnh sửa thành công');
     };
-
     if (formData == null) {
         return null;
     }
-
     return (
         <div className="personal_form container mx-auto px-4">
-            <table className="table w-full mb-8">
+            <table className="table w-full mb-8 custom-spacing">
                 <thead>
                 <tr>
                     <th colSpan="2" className="abc text-2xl font-bold mb-4">Thông tin cá nhân</th>
                 </tr>
                 </thead>
-
                 <tbody>
                 <tr>
-                    <th className="table-cell py-2">Tài khoản:</th>
-                    <td className="table-cell">
+                    <th className="table-cell py-2" class="text-left pl-16">Tài khoản:</th>
+                    <td className="table-cell" >
                         <input
                             type="text"
                             name="userName"
@@ -155,7 +137,7 @@ const PersonalInformation = () => {
                     </td>
                 </tr>
                 <tr>
-                    <th className="table-cell py-2">Mật khẩu:</th>
+                    <th className="table-cell py-2" class="text-left pl-16">Mật khẩu:</th>
                     <td className="table-cell">
                         <div className="flex items-center">
                             <div className="mr-3">
@@ -165,9 +147,8 @@ const PersonalInformation = () => {
                         </div>
                     </td>
                 </tr>
-
                 <tr>
-                    <th className="table-cell py-2">Họ tên(<span className="text-red-500">*</span>):</th>
+                    <th className="table-cell py-2" class="text-left pl-16">Họ tên(<span className="text-red-500">*</span>):</th>
                     <td className="table-cell">
                         <input
                             type="text"
@@ -179,7 +160,7 @@ const PersonalInformation = () => {
                     </td>
                 </tr>
                 <tr>
-                    <th className="table-cell py-2">Ngày sinh(<span className="text-red-500">*</span>):</th>
+                    <th className="table-cell py-2" class="text-left pl-16">Ngày sinh(<span className="text-red-500">*</span>):</th>
                     <td className="table-cell">
                         <input
                             type="date"
@@ -191,7 +172,7 @@ const PersonalInformation = () => {
                     </td>
                 </tr>
                 <tr>
-                    <th className="table-cell py-2">Giới tính:</th>
+                    <th className="table-cell py-2" class="text-left pl-16">Giới tính:</th>
                     <td className="table-cell">
                         <div className="flex items-center">
                             <div className="form-check form-check-inline">
@@ -234,7 +215,7 @@ const PersonalInformation = () => {
                     </td>
                 </tr>
                 <tr>
-                    <th className="table-cell py-2">Địa chỉ(<span className="text-red-500">*</span>):</th>
+                    <th className="table-cell py-2" class="text-left pl-16">Địa chỉ(<span className="text-red-500">*</span>):</th>
                     <td className="table-cell">
                         <input
                             type="text"
@@ -246,7 +227,7 @@ const PersonalInformation = () => {
                     </td>
                 </tr>
                 <tr>
-                    <th className="table-cell py-2">Số điện thoại:</th>
+                    <th className="table-cell py-2" class="text-left pl-16">Số điện thoại:</th>
                     <td className="table-cell">
                         <input
                             type="text"
@@ -258,7 +239,7 @@ const PersonalInformation = () => {
                     </td>
                 </tr>
                 <tr>
-                    <th className="table-cell py-2">Email(<span className="text-red-500">*</span>):</th>
+                    <th className="table-cell py-2" class="text-left pl-16">Email(<span className="text-red-500">*</span>):</th>
                     <td className="table-cell">
                         <input
                             type="email"
@@ -276,7 +257,6 @@ const PersonalInformation = () => {
                 </tr>
                 </tbody>
             </table>
-
             {showModal && (
                 <div className="fixed z-10 inset-0 overflow-y-auto">
                     <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -291,7 +271,7 @@ const PersonalInformation = () => {
                                             <form onSubmit={changePassword}>
                                                 <div className="mb-4">
                                                     <label htmlFor="oldPassword" className="block text-gray-700 font-bold mb-2">
-                                                        Mật khẩu cũ
+                                                        Mật khẩu cũ <span className="text-red-500">*</span>
                                                     </label>
                                                     <div className="relative">
                                                         <input
@@ -313,7 +293,7 @@ const PersonalInformation = () => {
                                                 </div>
                                                 <div className="mb-4">
                                                     <label htmlFor="newPassword" className="block text-gray-700 font-bold mb-2">
-                                                        Mật khẩu mới
+                                                        Mật khẩu mới <span className="text-red-500">*</span>
                                                     </label>
                                                     <div className="relative">
                                                         <input
@@ -335,7 +315,7 @@ const PersonalInformation = () => {
                                                 </div>
                                                 <div className="mb-4">
                                                     <label htmlFor="confirmPassword" className="block text-gray-700 font-bold mb-2">
-                                                        Nhập lại mật khẩu
+                                                        Nhập lại mật khẩu <span className="text-red-500">*</span>
                                                     </label>
                                                     <div className="relative">
                                                         <input
@@ -358,7 +338,6 @@ const PersonalInformation = () => {
                                                 <div className="flex justify-center mb-4">
                                                     <img src="https://t3.ftcdn.net/jpg/04/75/01/24/360_F_475012493_x7oLL5mrWTm25OCRluB2fZkn0onfSEqu.jpg" alt="Placeholder" className="modal-image w-1/2 h-1/2 object-cover" />
                                                 </div>
-
                                                 {passwordError && <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded" role="alert">{passwordError}</div>}
                                                 <div className="mt-5 sm:mt-6 sm:flex sm:flex-row-reverse">
                                                     <button type="submit" className="modal-btn-change w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium text-white sm:ml-3 sm:w-auto sm:text-sm">
@@ -380,5 +359,4 @@ const PersonalInformation = () => {
         </div>
     );
 };
-
 export default PersonalInformation;

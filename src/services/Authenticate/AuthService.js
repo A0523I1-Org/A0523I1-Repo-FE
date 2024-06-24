@@ -1,5 +1,4 @@
 import axios from "axios";
-
 /** Call API */
 export async function login(username, password){
     try {
@@ -10,7 +9,6 @@ export async function login(username, password){
         throw err;
     }
 }
-
 export async function logout(token){
     try {
         await axios.get(`http://localhost:8080/logout`, {
@@ -28,14 +26,11 @@ export async function logout(token){
         throw err;
     }
 }
-
-
 /** AUTHENTICATION CHECKER */
 export function isAuthenticated() {
     const token = localStorage.getItem('token') || sessionStorage.getItem('token')
     return !!token
 }
-
 export function isAdmin() {
     const role = localStorage.getItem('role')
     if (!role) {
@@ -52,9 +47,4 @@ export function getToken() {
     }
     return token;
 }
-
-
-
-
-
 

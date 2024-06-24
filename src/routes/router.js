@@ -12,7 +12,6 @@ import Home from "../pages/Home";
 import CreateLangding from "../components/landing/CreateLanding";
 import EditLanding from "../components/landing/EditLanding";
 import ListLanding from "../components/landing/ListLanding";
-// import Login from "../components/auth/Login";
 import Register from "../components/employee/Register";
 import routes from "../configs/routes";
 import PersonalInformation from "../components/employee/PersonalInformation";

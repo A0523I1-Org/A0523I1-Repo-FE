@@ -19,6 +19,11 @@ table {
     border-radius: 10px;
     overflow: hidden;
 }
+
+.custom-spacing {
+    border-spacing: 0 10px; /* Khoảng cách giữa các hàng là 10px */
+}
+
 button.btn-change {
     background-color: #FFC100;
     color: white;

@@ -284,7 +284,7 @@ const Header_child = ({menu}) => {
 
                     {!authService.isAuthenticated() && <button className="absolute w-[119px] h-12 bg-[#2f2b36] hover:bg-white hover:text-black hover:border-[1px] hover:border-black rounded-[40px] flex items-center justify-center mr-[20px] right-5 text-white  button-animation
                         max-xl:right-8 max-lg:right-10 max-md:right-0" onClick={menu.openLoginModal}
-                            id="button_open_menu_lilu open-login-modal">
+                                                               id="button_open_menu_lilu open-login-modal">
                         <span>
                             Đăng nhập
                         </span>
@@ -305,9 +305,9 @@ const Header_child = ({menu}) => {
                                 </Link>
                             </div>
                             <div className="w-full h-[40px] relative  ">
-                                    <button onClick={menu.handleLogoutClick}
-                                            className="h-full w-full text-[15px] header-title">Đăng xuất
-                                    </button>
+                                <button onClick={menu.handleLogoutClick}
+                                        className="h-full w-full text-[15px] header-title">Đăng xuất
+                                </button>
                             </div>
                         </div>
                     </button>
