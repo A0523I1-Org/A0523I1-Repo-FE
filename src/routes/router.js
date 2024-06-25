@@ -17,10 +17,12 @@ import Register from "../components/employee/Register";
 
 import routes from "../configs/routes";
 import PersonalInformation from "../components/employee/PersonalInformation";
+import UnauthorizedPage from "../components/auth/Unauthorize";
 
 const publicRoutes = [
     {path : routes.login ,component : Home},
     {path : routes.home ,component : Home},
+    {path: routes.unAuthorized, component: UnauthorizedPage},
 ]
 
 const privateRoutes = [

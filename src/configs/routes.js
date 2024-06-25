@@ -23,6 +23,7 @@ const routes = {
     createLanding : '/landing/create-landing',
     editLanding : '/landing/edit-landing/',
 
+    unAuthorized : '/unauthorized'
 }
 
 export default routes;

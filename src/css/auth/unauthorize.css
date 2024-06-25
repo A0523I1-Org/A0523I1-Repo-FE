@@ -1,0 +1,36 @@
+#unauthorized-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    text-align: center;
+    background-color: #f8f9fa;
+    color: #343a40;
+    font-family: 'Arial', sans-serif;
+}
+
+#unauthorized-page h1 {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+#unauthorized-page p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+#unauthorized-page button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#unauthorized-page button:hover {
+    background-color: #0056b3;
+}
