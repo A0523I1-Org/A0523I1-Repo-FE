@@ -302,15 +302,23 @@ const ListLanding = () => {
     setPaginationVisible(true);
   };
 
-  if (!landing) return <div>Loading...</div>;
+  if (!landing) return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <div
+            className="rounded-md h-12 w-12 border-4 border-t-4 border-blue-500 animate-spin absolute">
+        </div>
+      </div>
+  )
+
 
   return (
-    <>
-      <div id="list__lading">
-        <div className=" h-[90px]  mx-16 flex gap-5 items-center">
+      <>
+        <div id="list__lading">
+          <div
+              className=" h-[90px] max-md:h-auto max-md:my-5 max-md:grid-cols-2 max-md:grid max-lg:mx-0 mx-16 flex gap-5 items-center">
           <select
               type="select"
-              className="w-1/5 h-1/2  border-b-[1px] pl-3 border-[#888]  rounded-tl-[3px] "
+              className="w-1/5 h-1/2 max-md:w-full max-md:h-[40px]  border-b-[1px] pl-3 border-[#888]  rounded-tl-[3px] "
               id="statusLanding"
               name="statusLanding"
               value={searchParams.statusLanding}
@@ -332,7 +340,7 @@ const ListLanding = () => {
           </select>
           <input
               type="text"
-              className="w-1/5 h-1/2 border-b-[1px] pl-3 border-[#888]  rounded-tl-[3px] "
+              className="w-1/5 h-1/2 max-md:w-full max-md:h-[40px] border-b-[1px] pl-3 border-[#888]  rounded-tl-[3px] "
               id="codeLanding"
               name="codeLanding"
               value={searchParams.codeLanding}
@@ -341,7 +349,7 @@ const ListLanding = () => {
           />
           <input
               type="number"
-              className="w-1/5 h-1/2 border-b-[1px] pl-3 border-[#888]  rounded-tl-[3px] "
+              className="w-1/5 h-1/2 max-md:w-full max-md:h-[40px] border-b-[1px] pl-3 border-[#888]  rounded-tl-[3px] "
               name="areaLanding"
               id="areaLanding"
               value={searchParams.areaLanding}
@@ -350,7 +358,7 @@ const ListLanding = () => {
           />
           <select
               type="select"
-              className="w-1/5 h-1/2 border-b-[1px] pl-3 border-[#888]  rounded-tl-[3px] "
+              className="w-1/5 h-1/2 max-md:w-full max-md:h-[40px] border-b-[1px] pl-3 border-[#888]  rounded-tl-[3px] "
               name="typeLanding"
               id="typeLanding"
               value={searchParams.typeLanding}
@@ -370,10 +378,10 @@ const ListLanding = () => {
             <option value="MotelRoom">Phòng trọ</option>
             <option value="Restaurant">Nhà hàng</option>
           </select>
-          <div className="w-1/5 h-1/2 flex gap-3  ">
+          <div className="w-1/5 h-1/2 max-md:w-full flex gap-3  ">
             <button
                 onClick={handleSubmit}
-                className="rounded-full bg-[#26a69a] w-11 h-11"
+                className=" bg-[#26a69a] rounded-full max-md:p-2 w-11 h-11"
             >
               <i className="fa fa-search text-white"></i>
             </button>
@@ -386,24 +394,22 @@ const ListLanding = () => {
           </div>
         </div>
 
-        <div className="w-full  h-20 ">
-          <div className="mx-16 h-full flex items-center  ">
+        <div className="w-full   h-20 ">
+          <div className="mx-16 max-lg:mx-0 h-full flex items-center  ">
             <div className="id-button flex gap-3">
               <Link to={routes.createLanding}>
-                <button className=" bg-[#4CAF50] px-2 rounded-[4px] h-[36px]">
-                <span className="text-white text-[14px] font-normal">
+                <button className=" bg-[#4CAF50] text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2  inline-flex items-center ">
                   Thêm mới
-                </span>
                 </button>
               </Link>
 
               <select
-                  className="h-[36px] w-[80px] pl-2 border-[#2196e3]"
+                    className="h-[36px] w-[80px] pl-2 border-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2  inline-flex items-center "
                   name="floorLanding"
                   value={searchParams.floorLanding}
                   onChange={handleChange}
               >
-                <option value="">Tầng</option>
+                <option value="" className="text-sm">Tầng</option>
                 {floors.map((floor, index) => (
                     <option key={index} value={floor.name}>
                       {floor.name}
@@ -416,25 +422,23 @@ const ListLanding = () => {
         </div>
 
         <div className="w-full h-auto  ">
-          <div className="mx-16 h-full  ">
-            <table className="table-auto  w-full h-full">
+          <div className="mx-16 h-full max-lg:mx-0 ">
+            <table className="w-full table-auto max-lg:table-fixed">
               <thead className="border  ">
               <tr className="text-center">
                 <th className="h-[42px] tex-center border-[#ddd]">
                   <input
                       type="checkbox"
-                      style={{backgroundColor: "white"}}
                       checked={listIdInput.length > 0}
-                      indeterminate={listIdInput.length > 0}
                       onChange={handleSelectAll}
                       size="small"
                   />
                 </th>
-                <th>STT</th>
-                <th>Mã I Loại mặt bằng</th>
-                <th>Diện tích</th>
-                <th>Giá bán</th>
-                <th>Phí quản lý</th>
+                <th className="max-lg:hidden">STT</th>
+                <th className="max-md:hidden">Mã I Loại Mặt Bằng </th>
+                <th >Diện tích</th>
+                <th>Giá <span className="max-sm:hidden">bán</span></th>
+                <th className="max-md:hidden">Phí quản lý</th>
                 <th>Tầng</th>
                 <th>
                   <span className="flex  justify-center">
@@ -502,18 +506,18 @@ const ListLanding = () => {
                           size="small"
                       />
                     </td>
-                    <td className="w-1/12 text-center ">
+                    <td className="w-1/12 text-center max-lg:hidden">
                     <span className="block text-[#2196f3]">
                       ID - {index + 1}
                     </span>
                     </td>
-                    <td className=" w-2/12 text-center">
+                    <td className=" w-2/12 text-center max-md:hidden">
                       <span className="block ">{landingItem.code}</span>
                       <span className="text-[#f44336]">
                       {typeMapping[landingItem.type]}
                     </span>
                     </td>
-                    <td className="w-1/12 text-center">
+                    <td className="w-1/12 max-sm:w-3/12 max-md:w-2/12 text-center">
                     <span>
                       {landingItem.area}
                       <span className="text-red-600 after:content-['_↗']"></span>
@@ -525,7 +529,7 @@ const ListLanding = () => {
                       <span className="text-red-600 after:content-['_vnd']"/>
                     </span>
                     </td>
-                    <td className="w-1/12 text-center">
+                    <td className="w-1/12 text-center max-md:hidden">
                     <span>
                       {landingItem.feeManager.toLocaleString("vi-VN")}
                       <span className="text-red-600 after:content-['_vnd']"></span>
@@ -706,7 +710,7 @@ const ListLanding = () => {
                   className='bx bx-subdirectory-left'></i></span></button>
             </div>
         )}
-        <div className=" h-[40px] my-5 relative mx-16 flex  ">
+        <div className=" h-[40px] my-5 relative mx-16 flex max-lg:mx-0 ">
           {listIdInput.length > 0 && (
               <button
                   className="left-0 relative w-[40px] h-[40px] bg-red-500 flex items-center justify-center rounded-full"
@@ -781,10 +785,10 @@ const ListLanding = () => {
                 </span>
                 </div>
                 <div className="">
-                  <button className=" bg-red-500 p-2 text-white border-none rounded-[4px] font-normal" onClick={deleteLanding}>
+                  <button className=" font-medium bg-red-500 p-2 text-white border-none rounded-[4px] " onClick={deleteLanding}>
                     Xác nhận
                   </button>
-                  <button className="mx-6 p-2  bg-white text-slate-700 border border-gray-500 rounded-[4px] font-normal" onClick={closeModal}>
+                  <button className="mx-6 p-2 font-medium bg-white text-slate-700 border border-gray-500 rounded-[4px] " onClick={closeModal}>
                     Hủy
                   </button>
                 </div>
@@ -799,39 +803,21 @@ const ListLanding = () => {
             contentLabel="Example Modal"
             style={customStyles}
         >
-          <div className="container-fluid" style={{width: "650px"}}>
+          <div className="container-fluid" style={{width: "400px"}}>
             <div className="row justify-content-center my-3">
-              <div className="col-12 text-center mb-3">
-              <span>
-                <i
-                    className="fa-solid fa-triangle-exclamation fa-beat-fade fa-6x"
-                    style={{color: "#e01f1f"}}
-                ></i>
+              <div className="col-12  mb-3">
+              <span className="">
+                <i className="fa-solid fa-triangle-exclamation fa-beat-fade fa-1x  text-[#e01f1f] bg-[#FEE2E2] p-2 rounded-full"></i>
+                <span className="px-3 font-[700]">Xác nhận xóa mặt bằng </span>
               </span>
               </div>
-              <div className="col-12">
-                <h1 className="text-center text-uppercase h3">
-                  <strong>Xác nhận xóa mặt bằng đã chọn?</strong>
-                </h1>
-              </div>
-
-              <div className="col-12">
-                <h1 className="text-center text-uppercase h3">
-                  <strong>Xác nhận xóa mặt bằng đã chọn?</strong>
-                </h1>
-              </div>
-
-              <div className="col-12 mt-3">
-                <table className="table table-hover">
-                  <tbody>
-                  {listIdInput.map((ld, index) => (
-                      <tr style={{textAlign: "center"}}>
-                        <td>Mã mặt bằng:</td>
-                        <td>{ld.code}</td>
-                      </tr>
-                  ))}
-                  </tbody>
-                </table>
+              <div className="w-full h-auto ">
+                {listIdInput.map(landingAllDelete => (
+                    <div className="w-full h-auto flex gap-10">
+                      <span>Mã mặt bằng : </span>
+                      <span>{landingAllDelete.code}</span>
+                    </div>
+                ))}
               </div>
 
               <div className="col-12 d-flex justify-content-center align-items-center mt-3 row">
@@ -843,14 +829,13 @@ const ListLanding = () => {
                   </span>
                 </span>
                 </div>
-                <div className="col-12 col-md-6 text-center text-md-right">
-                  <button
-                      className="btn btn-danger me-2"
-                      onClick={deleteLandingByIds}
-                  >
+                <div className="">
+                  <button className="font-medium bg-red-500 p-2 text-white border-none rounded-[4px]"
+                          onClick={deleteLandingByIds}>
                     Xác nhận
                   </button>
-                  <button className="btn btn-primary" onClick={closeModalMultiDelete}>
+                  <button className="mx-6 p-2 font-medium bg-white text-slate-700 border border-gray-500 rounded-[4px]"
+                          onClick={closeModalMultiDelete}>
                     Hủy
                   </button>
                 </div>
@@ -865,7 +850,7 @@ const ListLanding = () => {
             contentLabel="Example Modal"
             style={customStyles}
         >
-          <div className="container-fluid" style={{width: "650px"}}>
+          <div className="container-fluid ">
             <div className="row justify-content-center my-3">
               <div className="col-12">
                 <div className=" flex">

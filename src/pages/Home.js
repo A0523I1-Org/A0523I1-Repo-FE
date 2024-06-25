@@ -289,11 +289,14 @@ const Home_child_introduce_landing_xls = ({landing}) => {
                     </div>
                 </div>
                 <div className="w-1/2 max-md:pt-5 max-sm:w-full max-md:w-full h-full bg-[#F2F5F4] ">
-                    <h1 className="text-4xl m-10 max-md:my-2 max-sm:my-1 font_2">Mặt bằng {landing.objectPlanDisplay.id}</h1>
-                    <div className="m-10">
-                        <p className=" max-md:p-0 ">Diện tích : {landing.objectPlanDisplay.area} <span className={'px-5'}>Thể Loại : {landing.objectPlanDisplay.type}</span></p>
-                        <p className=" max-md:py-0">Phí quản lý : {landing.objectPlanDisplay.feeManager}</p>
-                        <p className=" max-md:py-0">Chú thích : {landing.objectPlanDisplay.description}</p>
+                    <h1 className="text-4xl m-10  max-md:my-2 max-sm:my-1 font_2">Mặt bằng {landing.objectPlanDisplay.id}</h1>
+                    <div className="m-10 max-sm:my-6">
+                        <span className=" max-md:p-0 ">Diện Tích : {landing.objectPlanDisplay.area} m<sup className="text-[10px]">2</sup> <span className={'px-5'}>Thể Loại : {landing.objectPlanDisplay.type}</span></span>
+                        <span className=" max-md:py-0 py-2 block">Giá tiền : {landing.objectPlanDisplay.feePerMonth !== undefined &&
+                            landing.objectPlanDisplay.feePerMonth.toLocaleString("vi-VN")} vnđ</span>
+                        <span className=" max-md:py-0 pb-2 block">Phí Quản Lý : {landing.objectPlanDisplay.feeManager !== undefined
+                            && landing.objectPlanDisplay.feeManager.toLocaleString("vi-VN")}</span>
+                        <span className=" max-md:py-0 block">Chú Thích : {landing.objectPlanDisplay.description}</span>
                     </div>
                     <div className=" h-10 flex gap-5 mx-10  mb-10">
                         <button

@@ -51,27 +51,27 @@ const FooterExtra = React.memo(({ nameLocation }) => {
     };
 
     return (
-        <div className="w-full h-[40px] relative">
-            <div className="absolute py-2 left-0 top-2.5">
+        <div className=" mx-16 h-[40px] max-lg:mx-0 relative">
+            <div className="absolute py-2 right-0 top-1">
                 {showBackButton && (
                     <div className="h-full flex items-center">
                         <Link to={`/${returnLocation}`}>
-                            <button className="flex items-center text-[#338dbc]">
+                            <button className="flex items-center text-blue-700">
                                 <span className="pr-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5" />
                                     </svg>
                                 </span>
-                                <span className="font-medium text-[14px]">Trở về</span>
+                                <span className="font-medium  text-[14px]">Trở về</span>
                             </button>
                         </Link>
                     </div>
                 )}
             </div>
             <div
-                className="absolute right-0 w-auto  h-full flex items-center gap-2 justify-center">
+                className="absolute  w-auto  h-full flex items-center gap-2 justify-center">
                 <div className="absolute bottom-0  w-1/2 h-[1.5px] bg-black"></div>
-                <span className="pl-3 text-[#338dbc]">Trang chủ</span>
+                <span className="pl-3 text-blue-700">Trang chủ</span>
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                          stroke="currentColor" className="size-4">

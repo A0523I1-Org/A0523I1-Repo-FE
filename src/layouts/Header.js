@@ -343,15 +343,15 @@ const Header_child = ({menu}) => {
                                         </svg>
                                 </span>
 
-                        <div className="w-[50%] max-xl:w-[60%] max-lg:w-[70%] flex absolute text-slate-700 gap-8 font-semibold right-0 max-2xl:right-[10px] max-md:hidden items-center max-xl:right-[50px] max-lg:right-0 ">
-                                <div className={`w-[180px]  h-auto absolute  bg-white border overflow-hidden  top-[49px] rounded-[3px] z-30 ${menu.showMenuSelect ? '' : 'hidden'}`}>
+
+                                <div className={`w-[170px] left-0  h-auto absolute  bg-white border overflow-hidden top-[49px] rounded-[3px] z-30 ${menu.showMenuSelect ? '' : 'hidden'}`}>
                                     <div
                                         className="w-full h-[40px] relative group flex justify-center items-center font-normal text-black text-[15px]">
                                         <Link to={'/employee'} className={"header-title"}>
                                             Nhân viên
                                         </Link>
                                         <span
-                                            className="absolute w-full h-[1px] bg-yellow-500 bottom-0 left-[-180px] group-hover:left-0 transition-all duration-1000"></span>
+                                            className="absolute w-full h-[1.5px] bg-yellow-500 bottom-0 left-[-180px] group-hover:left-0 transition-all duration-1000"></span>
                                     </div>
                                     <div
                                         className="w-full h-[40px] relative group flex justify-center items-center font-normal text-black text-[15px]">
@@ -359,7 +359,7 @@ const Header_child = ({menu}) => {
                                             Hợp đồng
                                         </Link>
                                         <span
-                                            className="absolute w-full h-[1px] bg-yellow-500 bottom-0 right-[-180px] group-hover:right-0 transition-all duration-1000"></span>
+                                            className="absolute w-full h-[1.5px] bg-yellow-500 bottom-0 right-[-180px] group-hover:right-0 transition-all duration-1000"></span>
                                     </div>
                                     <div
                                         className="w-full h-[40px] relative group flex items-center justify-center font-normal text-black text-[15px]">
@@ -367,7 +367,7 @@ const Header_child = ({menu}) => {
                                             Mặt bằng
                                         </Link>
                                         <span
-                                            className="absolute w-full h-[1px] bg-yellow-500 bottom-0 left-[-180px] group-hover:left-0 transition-all duration-1000"></span>
+                                            className="absolute w-full h-[1.5px] bg-yellow-500 bottom-0 left-[-180px] group-hover:left-0 transition-all duration-1000"></span>
                                     </div>
                                     <div
                                         className="w-full h-[40px] relative group flex justify-center items-center font-normal text-black text-[15px]">
@@ -375,10 +375,10 @@ const Header_child = ({menu}) => {
                                             Khách hàng
                                         </Link>
                                         <span
-                                            className="absolute w-full h-[1px] bg-yellow-500 bottom-0 right-[-180px] group-hover:right-0 transition-all duration-1000"></span>
+                                            className="absolute w-full h-[1.5px] bg-yellow-500 bottom-0 right-[-180px] group-hover:right-0 transition-all duration-1000"></span>
                                     </div>
                                 </div>
-                             </div>
+
                         </button>
 
                         }
@@ -388,15 +388,14 @@ const Header_child = ({menu}) => {
 
                 {!authService.isAuthenticated() &&
                     <button className="absolute w-[119px] h-12 bg-[#2f2b36] hover:text-slate-900 hover:bg-white  hover:border-[1px] hover:border-black
-                    rounded-[40px] flex items-center justify-center mr-[20px] right-5 text-slate-50  button-animation
-                        max-xl:right-8 max-lg:right-10 max-md:right-0" onClick={menu.openLoginModal}>
+                    rounded-[40px] flex items-center justify-center  right-5 text-slate-50  button-animation
+                        " onClick={menu.openLoginModal}>
                             Đăng nhập
                     </button>
                 }
 
                 <button onClick={() => menu.setIsNavigation(!menu.isNavigation)}
-                            className=" max-sm:right-56 absolute hidden max-md:right-52 max-lg:right-[200px] max-lg:block "
-                            id="btn__animation_menu_header">
+                            className=" max-sm:right-40 absolute hidden max-md:right-42 max-lg:right-[150px] max-lg:block ">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                              stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round"
@@ -409,7 +408,7 @@ const Header_child = ({menu}) => {
                             menu.setIsShowMenuInfoEmployee(!menu.isShowMenuInfoEmployee),
                             menu.setIsNavigation(false)
                         )}
-                                className={"absolute w-[119px] h-12 border-black border transition rounded-[40px]  flex items-center justify-center mr-[50px] right-5 "}>
+                                className={"absolute w-[119px] h-12 border-black border transition rounded-[40px]  flex items-center justify-center right-5 "}>
 
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                                  stroke="currentColor" className="size-6">
@@ -418,7 +417,7 @@ const Header_child = ({menu}) => {
                             </svg>
                             <span className="pl-1">Phan Phùng</span>
                             <div
-                                className={`${menu.isShowMenuInfoEmployee ? "block" : "hidden"} w-[180px] h-auto absolute  bg-white border overflow-hidden  top-[57px] rounded-[3px] z-30`}>
+                                className={`${menu.isShowMenuInfoEmployee ? "block" : "hidden"} w-[170px] h-auto absolute  bg-white border overflow-hidden  top-[57px] rounded-[3px] z-30`}>
                                 <div
                                     className="w-full h-[40px] relative group flex justify-center items-center font-normal text-black  text-[16px]">
                                     <Link to={'/employee'} className={"header-title"}>

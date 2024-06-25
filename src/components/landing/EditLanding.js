@@ -1,6 +1,6 @@
 import "../../table/css/EditOfPremises.css";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import * as landingService from "../../services/LandingService";
 import * as floorService from "../../services/FloorService";
@@ -319,26 +319,25 @@ const EditLanding = () => {
                                                 <div className="center-content ">
                                                     <label
                                                         htmlFor="upload_avt"
-                                                        className="btn btn-primary"
-                                                        style={{background: "#2196e3"}}
+                                                        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
                                                     >
-                                                        Chọn <span className="max-sm:hidden">ảnh</span>
+                                                        Chọn <div className="max-sm:hidden px-1"> ảnh</div>
                                                     </label>
-                                                    <input
-                                                        type="file"
-                                                        hidden
-                                                        id="upload_avt"
-                                                        onChange={(e) => handleChangeFileImg(e)}
+                                                <input
+                                                    type="file"
+                                                    hidden
+                                                    id="upload_avt"
+                                                    onChange={(e) => handleChangeFileImg(e)}
 
-                                                    />
-                                                </div>
-                                                <div className="w-[100px] h-[100px] mt-[-10px]">
-                                                    <img name="firebaseUrl" id="firebaseUrl"
-                                                         className="w-full h-full object-cover"
-                                                         src={imageUrl}
-                                                         alt="anh ko hien thi"
-                                                    />
-                                                </div>
+                                                />
+                                            </div>
+                                            <div className="w-[100px] h-[100px] mt-[-10px]">
+                                                <img name="firebaseUrl" id="firebaseUrl"
+                                                     className="w-full h-full object-cover"
+                                                     src={imageUrl}
+                                                     alt="anh ko hien thi"
+                                                />
+                                            </div>
                                             </div>
                                         </div>
                                     </div>
@@ -437,21 +436,23 @@ const EditLanding = () => {
                                             )}
                                             {!isSubmitting && (
                                                 <button
-                                                    className="btn mr-2"
+                                                    className="text-white bg-blue-700 hover:bg-blue-800  focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
                                                     type="submit"
                                                     style={{backgroundColor: "#4CAF50"}}
                                                 >
-                          <span className="pr-1">
-                            <i className="fi fi-rs-disk"/>
-                          </span>
-                                                    <span className="pb-10">Lưu</span>
+                                                  <span className="pr-1">
+                                                    <i className="fi fi-rs-disk"/>
+                                                  </span>
+                                                    Cập nhật
                                                 </button>
                                             )}
-                                            <button className="btn-2" type="reset">
-                        <span className="pr-1">
-                          <i className="fi fi-rr-eraser"/>
-                        </span>
-                                                <span>Làm mới</span>
+                                            <button
+                                                className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
+                                                type="reset">
+                                                <span className="pr-1">
+                                                  <i className="fi fi-rr-eraser"/>
+                                                </span>
+                                                Làm mới
                                             </button>
                                         </div>
                                     </div>
