@@ -3,11 +3,11 @@ const routes = {
 
     home : '/',
     login : '/login',
-   
 
     listContract : '/contract',
     createContract : '/contract/create-contract',
     editContract : '/contract/edit-contract/',
+    deleteContract : '/contract/delete-contract',
 
     listCustomer : '/customer',
     createCustomer : '/customer/create-customer',
@@ -17,6 +17,7 @@ const routes = {
     createEmployee : '/employee/create-employee',
     editEmployee : '/employee/edit-employee/',
     register : '/employee/register-an-account/',
+    personalInformation : '/employee/personal-information',
 
     listLanding : '/landing',
     createLanding : '/landing/create-landing',

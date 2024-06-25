@@ -22,7 +22,7 @@ const Modal = ({customer, onClose}) => {
         gender: customer.gender || '',
     };
     return (
-        <div id="tt"
+        <div id="detail-tt"
              className="w-[750px] h-[650px] fixed  mx-auto mt-12 top-0 left-0 right-0 bottom-0 m flex items-center justify-center">
             <div className="mod rounded-lg p-8 mx-auto h-full w-full">
         <h1 className="text-center text-amber-700 text-4xl font-bold mt-1 py-3 text-shadow">
@@ -36,7 +36,7 @@ const Modal = ({customer, onClose}) => {
                 >
                     <Form className="relative">
                         <button
-                            className="absolute top-[-115px] right-[-25px] text-6xl text-violet-500 hover:text-violet-700"
+                            className="absolute top-[-100px] right-[-25px] text-6xl text-gray-400 hover:text-violet-700"
                             onClick={onClose}
                         >
                             &times;

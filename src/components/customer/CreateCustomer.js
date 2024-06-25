@@ -4,13 +4,16 @@ import * as customerService from "../../services/CustomerService";
 import * as Yup from "yup";
 import "./create.css";
 import {toast} from "react-toastify";
+import * as authService from '../../services/Authenticate/AuthService.js'
 
 const CreateCustomer = () => {
     const navigate = useNavigate();
+
     const handleCreate = async (customer) => {
         try {
             console.log(customer);
-            await customerService.createCustomer(customer);
+            const token = authService.getToken();
+            await customerService.createCustomer(customer,token);
             navigate("/customer");
             toast("Thêm mới khách hàng thành công", {
                 position: "top-right",
@@ -75,8 +78,8 @@ const CreateCustomer = () => {
 
     return (
         <>
-        <div className="tt">
-            <div id="tt" className="boss max-w-[1000px] max-h-[900px]  mx-auto ">
+
+            <div id="create-tt" className="boss max-w-[1000px] max-h-[900px]  mx-auto ">
                 <h1 className=" text-center text-amber-700 text-4xl font-bold py-3 shadow-2xl text-shadow">
                     Thêm Mới Khách Hàng
                 </h1>
@@ -341,7 +344,6 @@ const CreateCustomer = () => {
                     </div>
                 </div>
             </div>
-        </div>
         </>
     );
 };

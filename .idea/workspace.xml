@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="ChangeListManager">
 
     <list default="true" id="e8a00f42-9c9d-41b8-9819-a1b566e3f2ea" name="Default Changelist" comment="">
@@ -31,31 +32,65 @@
       <change beforePath="$PROJECT_DIR$/src/services/CustomerService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/CustomerService.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/services/LandingService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/LandingService.js" afterDir="false" />
 
+=======
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ba72b43a-c2b1-4ff5-8f84-ab2d5ccee82c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/customer/create.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/customer/list.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/customer/CreateCustomer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/customer/CreateCustomer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/customer/EditCustomer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/customer/EditCustomer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/customer/ListCustomer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/customer/ListCustomer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layouts/DefaultLayout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/DefaultLayout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/CustomerService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/CustomerService.js" afterDir="false" />
+>>>>>>> List/CreateContract-HoaiNT
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+<<<<<<< HEAD
 
 
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
+=======
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+>>>>>>> List/CreateContract-HoaiNT
         <option value="CSS File" />
       </list>
     </option>
   </component>
+<<<<<<< HEAD
 
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="2hmTYsiisy8yWwK3XwW8uNVyuzg" />
+=======
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2hSRP0zsDi3CE454w3SHS9CoD3l" />
+>>>>>>> List/CreateContract-HoaiNT
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
 
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
@@ -102,6 +137,13 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "List/CreateCustomer-ThongNQ",
     "last_opened_file_path": "D:/workspace/customer-module6",
+=======
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/workspace/A0523I1-Org/A0523I1-Repo-FE",
+>>>>>>> List/CreateContract-HoaiNT
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
@@ -112,15 +154,21 @@
     "nodejs_package_manager_path": "npm",
     "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
+<<<<<<< HEAD
 
   }
 }</component>
+=======
+  }
+}]]></component>
+>>>>>>> List/CreateContract-HoaiNT
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
         <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-WS-241.14494.235" />
       </set>
     </attachedChunks>
+<<<<<<< HEAD
 
   </component>
   <component name="TaskManager">
@@ -135,11 +183,22 @@
       <workItem from="1718351815512" duration="596000" />
       <workItem from="1718356613167" duration="1229000" />
 
+=======
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ba72b43a-c2b1-4ff5-8f84-ab2d5ccee82c" name="Changes" comment="" />
+      <created>1717585463801</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+>>>>>>> List/CreateContract-HoaiNT
       <updated>1717585463801</updated>
       <workItem from="1717585465010" duration="11560000" />
       <workItem from="1717735595941" duration="11149000" />
       <workItem from="1717853344969" duration="1118000" />
       <workItem from="1717854547344" duration="8386000" />
+<<<<<<< HEAD
       <workItem from="1718200003643" duration="236000" />
       <workItem from="1718200417854" duration="649000" />
       <workItem from="1718201084380" duration="6248000" />
@@ -155,10 +214,13 @@
 
       <workItem from="1718344017134" duration="9788000" />
 
+=======
+>>>>>>> List/CreateContract-HoaiNT
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
+<<<<<<< HEAD
     <option name="version" value="2" />
   </component>
 
@@ -168,11 +230,16 @@
     </state>
     <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1718198387220" />
 
+=======
+    <option name="version" value="3" />
+  </component>
+>>>>>>> List/CreateContract-HoaiNT
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/layouts/Header.js</url>
+<<<<<<< HEAD
           <line>44</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
@@ -191,6 +258,11 @@
           <line>14</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
+=======
+          <line>10</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+>>>>>>> List/CreateContract-HoaiNT
       </breakpoints>
     </breakpoint-manager>
   </component>

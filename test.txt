@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 test
 TrieuTLQ
+=======
+Hoai
+>>>>>>> List/CreateContract-HoaiNT

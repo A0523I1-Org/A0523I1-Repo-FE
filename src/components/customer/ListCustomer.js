@@ -8,6 +8,8 @@ import {toast} from "react-toastify";
 import ConfirmationPopup from "./ConfirmationPopup";
 import PopUpDelete from "./PopUpDelete";
 import Modal from "./Modal";
+import * as authService from '../../services/Authenticate/AuthService.js'
+
 
 
 
@@ -20,6 +22,7 @@ const ListCustomer = () => {
     const [currentPage, setCurrentPage] = useState(0);
 
     const [isSearching, setIsSearching] = useState(false);
+    
 
     const handleReset = () => {
         getListPage(0);
@@ -42,7 +45,8 @@ const ListCustomer = () => {
     };
 
     const getListPage = async (page) => {
-        let resPage = await customerService.getPage(page);
+        const token = authService.getToken();
+        let resPage = await customerService.getPage(page,token);
         // console.log(resPage)
         setCustomers(resPage.content);
         setTotalPage(resPage.totalPages)
@@ -60,7 +64,8 @@ const ListCustomer = () => {
         } else {
             document.getElementById("nameSearch").classList.remove("is-invalid");
             try {
-                const listSearch = await customerService.searchByName(page, nameSearch);
+                const token = authService.getToken();
+                const listSearch = await customerService.searchByName(page, nameSearch,token);
 
                 if (listSearch) {
                     console.log("so page :",page);
@@ -87,7 +92,8 @@ const ListCustomer = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            let resPage = await customerService.getPage(0);
+            const token = authService.getToken();
+            let resPage = await customerService.getPage(0,token);
             setTotalCustomers(resPage.totalElements);
         };
         fetchData();
@@ -100,7 +106,9 @@ const ListCustomer = () => {
 
 
     const handleCheckSumCustomer = async () => {
-        let resPage = await customerService.getPage(0);
+
+        const token = authService.getToken();
+        let resPage = await customerService.getPage(0,token);
         setTotalCustomers(resPage.totalElements);
         toast.dark(`Tổng số khách hàng : ${totalCustomers} người`,
             {
@@ -134,7 +142,7 @@ const ListCustomer = () => {
     };
 
     return  <>
-        <div id="tt" className="container">
+        <div id="list-tt" className="container">
             <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5 p-4">
                 <h1 className="text-center text-amber-700 text-4xl font-bold py-3 shadow-sm text-shadow">Danh Sách Khách
                     Hàng</h1>

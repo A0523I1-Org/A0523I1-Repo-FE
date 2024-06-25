@@ -1,4 +1,4 @@
-#tt .mod{
+#detail-tt{
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
     background-image: url("https://img.freepik.com/free-vector/background-realistic-abstract-technology-particle_23-2148431735.jpg");
@@ -7,6 +7,6 @@
 }
 
 
-#tt .text-shadow {
+#detail-tt .text-shadow {
     text-shadow: 2px 2px 3px rgba(1, 1, 1, 0.5);
 }
