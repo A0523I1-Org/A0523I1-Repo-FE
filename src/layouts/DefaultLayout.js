@@ -1,19 +1,11 @@
-<<<<<<< HEAD
 import Footer from "./Footer"
 import Header from "./Header"
-=======
-import Footer from "./Footer";
-import Header from "./Header";
->>>>>>> 11e259d (trieuTLQ)
 import {useLocation} from "react-router-dom";
 import '../layouts/FooterExtra';
 import FooterExtra from "./FooterExtra";
 import '../css/defaultLayout.css';
 import {useEffect, useState} from "react";
-<<<<<<< HEAD
 
-=======
->>>>>>> 11e259d (trieuTLQ)
 
 
 function DefaultLayout ({children})  {
@@ -72,12 +64,8 @@ function DefaultLayout ({children})  {
                         <div className="">
                             <Header/>
                         </div>
-<<<<<<< HEAD
                         <div  className="mx-10 overflow-auto mt-5 ">
                             
-=======
-                        <div className="mx-10 overflow-auto mt-5">
->>>>>>> 11e259d (trieuTLQ)
                             <div className="w-full h-[40px]  relative">
                                 <div className="absolute py-2 left-0 top-2.5">
                                     <FooterExtra nameLocation={location.pathname.trim()}/>
@@ -93,11 +81,7 @@ function DefaultLayout ({children})  {
                                     </span>
                                     <span className={`${locationPresentOperation === "" ? 'pr-3' : ''}`}>{locationPresent}</span>
                                     {locationPresentOperation !== "" ?
-<<<<<<< HEAD
                                             <span>
-=======
-                                        <span>
->>>>>>> 11e259d (trieuTLQ)
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                      strokeWidth="1.5" stroke="currentColor" className="size-4">
                                                 <path strokeLinecap="round" strokeLinejoin="round"
@@ -113,19 +97,12 @@ function DefaultLayout ({children})  {
 
                                 </div>
                             </div>
-<<<<<<< HEAD
 
                             <div className="h-auto mt-5 ">
 
                                 {children}
                             </div>
                       </div>
-=======
-                            <div className="h-auto mt-5 bg-white-500">
-                                {children}
-                            </div>
-                        </div>
->>>>>>> 11e259d (trieuTLQ)
                     </div>
                 </div>
             }
