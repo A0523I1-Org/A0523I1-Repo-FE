@@ -1,6 +1,8 @@
 import React, {useEffect} from 'react';
 import  '../../css/popupStyle.css'
 import {useNavigate} from "react-router-dom";
+import { toast } from "react-toastify";
+
 const PopupUpdate = ({handleClosePopup}) => {
     const  navigate = useNavigate();
 
@@ -22,10 +24,13 @@ const PopupUpdate = ({handleClosePopup}) => {
         const handleOverlayClick = () => {
             section.classList.remove('active');
             navigate("/contract")
+            toast.success("Hợp đồng cập nhật thành công")
+
         }
         const handleSuccessClick = () => {
             section.classList.remove('active');
             navigate("/contract")
+            toast.success("Hợp đồng cập nhật thành công")
         }
         success.addEventListener('click',handleSuccessClick);
         overlay.addEventListener('click',handleOverlayClick);

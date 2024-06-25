@@ -6,7 +6,7 @@ import {Link, useParams} from 'react-router-dom'
 import {getContractById,updateContract} from '../../services/ContractService'
 import Moment from "moment";
 import {storage} from "../../configs/firebase";
-import {ref,uploadBytesResumable,getDownloadURL} from 'firebase/storage'
+import {ref,uploadBytesResumable,getDownloadURL,uploadBytes} from 'firebase/storage'
 import {v4} from 'uuid';
 import {contractSchema} from '../../schema/ContractSchema'
 import PopupUpdate from "./PopupUpdate";
@@ -14,15 +14,18 @@ import Loading from "./Loading";
 import data from "bootstrap/js/src/dom/data";
 import ErrorNotFound from "./ErrorNotFound";
 
+
+
 const EditContract = () => {
     const {id}= useParams();
     const [contract,setContract] = useState({});
-    const [progress,setProgress] = useState(null)
     const [isUpdate,setIsUpdate] = useState(false)
     const [showErrorPopup, setShowErrorPopup] = useState(false);
     const [error, setError] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
-    console.log(previewUrl)
+    const [showLoading, setShowLoading] = useState(false);
+
+
     const calculateEndDate = (e,values,setFieldValue) => {
         const {name,value} = e.target;
         switch (name) {
@@ -99,29 +102,33 @@ const EditContract = () => {
         total :numberFormatter.format(contract.term * contract.feePerMouth)
     }
 
-    function cacheUploadedFile(file) {
-        localStorage.setItem('uploaded-file', JSON.stringify(file));
-    }
+
     function getUploadedFileFromCache(file) {
         const cachedFile = localStorage.getItem('uploaded-file');
         return cachedFile ? JSON.parse(cachedFile) : null;
     }
+    function cacheUploadedFile(file) {
+        localStorage.setItem('uploaded-file', JSON.stringify(file));
+    }
     const UploadFile = async (file) => {
-        console.time('uploadFile');
+        setShowLoading(true);
         try {
             const cachedFile = getUploadedFileFromCache(file);
             if (cachedFile) {
 
                 return cachedFile.downloadURL;
             }else{
+
                 const storageRef = ref(storage,`imagesContracts/${file.name + v4()}`);
-                const uploadTask = uploadBytesResumable(storageRef,file);
-                uploadTask.on('state_changed',(snapshot) => {
-                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    setProgress(progress);
-                })
-                await uploadTask;
-                const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+                // const uploadTask = uploadBytesResumable(storageRef,file);
+                // uploadTask.on('state_changed',(snapshot) => {
+                //     const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                //     setProgress(progress);
+                // })
+                // await uploadTask;
+                const uploadTask = await uploadBytes(storageRef, file);
+                const downloadURL = await getDownloadURL(uploadTask.ref);
+                setShowLoading(false);
                 cacheUploadedFile({
                     name: file.name,
                     downloadURL: downloadURL,
@@ -130,8 +137,9 @@ const EditContract = () => {
             }
         }catch (e) {
             console.log(e)
+            setShowLoading(false);
         }
-        console.timeEnd('calculateUpload');
+
     }
 
     const onSubmit =  async (values,formikProps) => {
@@ -139,7 +147,9 @@ const EditContract = () => {
         try{
             let valueMerge = {...values}
             if(valueMerge.img){
+                console.time('uploadFile');
                 const img  = await UploadFile(valueMerge.img)
+                console.timeEnd('uploadFile');
                 valueMerge = {...valueMerge, fireBaseUrl: img}
             }else{
                 valueMerge = {...valueMerge, fireBaseUrl:contract.fireBaseUrl}
@@ -148,6 +158,7 @@ const EditContract = () => {
             await updateContract(id,valueMerge,token);
             setIsUpdate(true)
             localStorage.removeItem("uploaded-file");
+
         }
         catch (e) {
             console.log('Error updating contract ',e);
@@ -182,7 +193,7 @@ const EditContract = () => {
     return (
         <div style={{width: '100%'}} class="w-full h-[600px] mt-[20px] " id="update-ct">
             <div className="h-full mx-16  flex gap-3" style={{position : 'relative'}}>
-                {progress !== null && progress < 100 && (
+                {showLoading && (
                     <div className="loading-overlay" style={{
                         position : 'absolute',
                         height : '100%',
@@ -541,7 +552,7 @@ const EditContract = () => {
                                     </div>
                                     <div className="w-full h-1/6">
                                         <div className="w-full ml-3  h-10 ">
-                                            <button type="submit" className="btn bg-[#2196e3] mr-2" disabled={progress !== null && progress <100} >
+                                            <button type="submit" className="btn bg-[#2196e3] mr-2" >
                                                 <span className="pr-1"><i className="fi fi-rs-disk"/></span>
                                                 <span className="pb-10" > Update</span>
                                             </button>
