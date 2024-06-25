@@ -242,8 +242,8 @@ const EditLanding = () => {
 
                         <div className="row justify-content-around">
 
-                            <div className=" h-auto flex gap-5">
-                                <div className="w-6/12 h-auto bg-white rounded-[3px] flex flex-col gap-8"
+                            <div className=" h-auto flex gap-5 max-lg:flex-wrap">
+                                <div className="w-6/12 max-lg:w-full h-auto bg-white rounded-[3px] flex flex-col gap-8"
                                     style={{ boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px" }}>
                                     <div className="h-[40px] mx-5 mt-3 flex items-center">
                                         <div className="w-4/12 h-full flex items-center">
@@ -251,7 +251,7 @@ const EditLanding = () => {
                                         </div>
                                         <div className="w-8/12 h-full">
                                             <Field as="select" id="floor" name="floor"
-                                                className="w-full h-full rounded-[3px] border-[#8887] form-control">
+                                                className="w-full h-full pl-3 rounded-[3px] border-[#8887] form-control">
                                                 <option value="">Chọn</option>
                                                 {floors.map((floor) => (
                                                     <option key={floor.id} value={floor.name}>
@@ -270,7 +270,7 @@ const EditLanding = () => {
                                         </div>
                                         <div className="w-8/12 h-full">
                                             <Field as="select" id="status" name="status"
-                                                className="w-full h-full rounded-[3px] border-[#8887] form-control">
+                                                className="w-full h-full pl-3 rounded-[3px] border-[#8887] form-control">
                                                 <option value="">Chọn</option>
                                                 <option value="fullyFurnished">Đầy đủ nội thất</option>
                                                 <option value="partiallyFurnished">Nội thất một phần</option>
@@ -310,53 +310,54 @@ const EditLanding = () => {
                                                 className="text-[12px] text-red-500" />
                                         </div>
                                     </div>
-                                    <div className="h-[40px] mx-5 flex items-center">
-                                        <div className="w-4/12 h-full flex items-center">
-                                            <span>File ảnh <span className="text-red-500 text-xl">*</span></span>
-                                        </div>
-                                        <div className="h-full w-8/12 gap-8 flex ">
-                                            <div className="center-content ">
-                                                <label
-                                                    htmlFor="upload_avt"
-                                                    className="btn btn-primary"
-                                                    style={{ background: "#2196e3" }}
-                                                >
-                                                    Chọn avatar
-                                                </label>
-                                                <input
-                                                    type="file"
-                                                    hidden
-                                                    id="upload_avt"
-                                                    onChange={(e)=>handleChangeFileImg(e)}
-                                                 
-                                                />
+                                    <div className="h-28">
+                                        <div className="h-[40px] mx-5 flex items-center">
+                                            <div className="w-4/12 h-full flex items-center">
+                                                <span>File ảnh <span className="text-red-500 text-xl">*</span></span>
                                             </div>
-                                            <div className="w-[100px] h-[100px] mt-[-10px]">
-                                                <img name="firebaseUrl" id="firebaseUrl"
-                                                    className="w-full h-full object-cover"
-                                                    src={imageUrl}
-                                                    alt="anh ko hien thi"
-                                                />
-                                            </div>
+                                            <div className="h-full w-8/12 gap-8 flex ">
+                                                <div className="center-content ">
+                                                    <label
+                                                        htmlFor="upload_avt"
+                                                        className="btn btn-primary"
+                                                        style={{background: "#2196e3"}}
+                                                    >
+                                                        Chọn <span className="max-sm:hidden">ảnh</span>
+                                                    </label>
+                                                    <input
+                                                        type="file"
+                                                        hidden
+                                                        id="upload_avt"
+                                                        onChange={(e) => handleChangeFileImg(e)}
 
+                                                    />
+                                                </div>
+                                                <div className="w-[100px] h-[100px] mt-[-10px]">
+                                                    <img name="firebaseUrl" id="firebaseUrl"
+                                                         className="w-full h-full object-cover"
+                                                         src={imageUrl}
+                                                         alt="anh ko hien thi"
+                                                    />
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="w-6/12 h-full bg-white rounded-[3px]"
-                                    style={{ boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px" }}>
+                                <div className="w-6/12 h-full max-lg:w-full bg-white rounded-[3px]"
+                                     style={{boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px"}}>
                                     <div className="w-full h-1/2">
                                         <div className="w-full h-full flex">
-                                            <div className="h-[80px] w-3/12 mr-5 mt-5 mb-3 flex items-center">
+                                            <div className="h-[80px] w-3/12  max-sm:hidden mr-5 mt-5 mb-3 flex items-center">
                                                 <h1 className="text-xl pl-5">Mặt bằng</h1>
                                             </div>
-                                            <div className="h-auto w-9/12 mr-5 mt-5 mb-3 flex flex-col gap-8">
-                                                <div className="w-full h-[40px] flex">
-                                                    <div className="w-3/12 h-full flex items-center">
+                                            <div className="h-auto w-9/12 mr-5 max-sm:mr-0 max-sm:w-full mt-5 mb-3 flex flex-col gap-8">
+                                                <div className=" h-[40px] flex max-sm:mx-5">
+                                                    <div className="w-3/12 max-sm:w-4/12  h-full flex items-center">
                                                         <span>Loại mặt bằng </span>
                                                     </div>
-                                                    <div className="w-9/12 h-full  items-center">
+                                                    <div className="w-9/12 h-full max-sm:w-8/12   ">
                                                         <Field as="select" id="type" name="type"
-                                                            className="w-full h-full rounded-[3px] border-[#8887] form-control">
+                                                               className="w-full h-full pl-3 rounded-[3px] border-[#8887] form-control">
                                                             <option value="">Tìm theo loại mặt bằng</option>
                                                             <option value="Apartment">Căn hộ</option>
                                                             <option value="Home">Nhà riêng</option>
@@ -374,12 +375,12 @@ const EditLanding = () => {
                                                             className="text-[12px] text-red-500" />
                                                     </div>
                                                 </div>
-                                                <div className="w-full h-[40px] flex">
-                                                    <div className="w-3/12 h-full flex items-center">
+                                                <div className=" h-[40px] flex max-sm:mx-5">
+                                                    <div className="w-3/12 h-full max-sm:w-4/12 flex items-center">
                                                         <span>Mã mặt bằng <span
                                                             className="text-red-500 text-xl">*</span></span>
                                                     </div>
-                                                    <div className="w-9/12 h-full">
+                                                    <div className="w-9/12 h-full max-sm:w-8/12">
                                                         <Field type="text" id="code" name="code"
                                                             className="w-full h-full rounded-[3px] border-[#8887] pl-3" disabled/>
                                                         <ErrorMessage name="code" component="span"
@@ -391,69 +392,76 @@ const EditLanding = () => {
                                     </div>
                                     <div className="w-full h-2/3">
                                         <div className="w-full h-full flex">
-                                            <div className="h-[80px] w-3/12 mr-5 mt-5 mb-3 flex items-center">
+                                            <div
+                                                className="h-[80px] max-sm:hidden w-3/12 mr-5 mt-5 mb-3 flex items-center">
                                                 <h1 className="text-xl pl-5">Chi phí</h1>
                                             </div>
-                                            <div className="h-auto w-9/12 mr-5 mt-5 mb-3 flex flex-col gap-8">
-                                                <div className="w-full h-[40px] flex">
-                                                    <div className="w-3/12 h-full flex items-center">
-                                                        <span>Giá tiền(VNĐ)</span></div>
-                                                    <div className="w-9/12 h-full">
+                                            <div
+                                                className="h-auto w-9/12 mr-5 max-sm:mr-0 max-sm:w-full mt-5 mb-3 flex flex-col gap-8">
+                                                <div className=" h-[40px] flex max-sm:mx-5">
+                                                    <div className="w-3/12 max-sm:w-4/12  h-full flex items-center">
+                                                        <span>Giá tiền(VNĐ)</span>
+                                                    </div>
+                                                    <div className="w-9/12 h-full max-sm:w-8/12   ">
                                                         <Field type="text" id="feePerMonth" name="feePerMonth"
-                                                            className="w-full h-full rounded-[3px] border-[#8887] pl-3" />
+                                                               className="w-full h-full rounded-[3px] border-[#8887] pl-3"/>
                                                         <ErrorMessage name="feePerMonth" component="span"
-                                                            className="text-[11px] text-red-500" />
+                                                                      className="text-[11px] text-red-500"/>
                                                     </div>
                                                 </div>
-                                                <div className="w-full h-[40px] flex">
-                                                    <div className="w-3/12 h-full flex items-center">
-                                                        <span>Phí quản lý(VNĐ)</span>
+                                                <div className=" h-[40px] flex max-sm:mx-5">
+                                                    <div className="w-3/12 h-full max-sm:w-4/12 flex items-center">
+                                                        <span>Phí quản lý(VNĐ) <span
+                                                            className="text-red-500 text-xl">*</span></span>
                                                     </div>
-                                                    <div className="w-9/12 h-full">
+                                                    <div className="w-9/12 h-full max-sm:w-8/12">
                                                         <Field type="text" id="feeManager" name="feeManager"
-                                                            className="w-full h-full rounded-[3px] border-[#8887] pl-3" />
+                                                               className="w-full h-full rounded-[3px] border-[#8887] pl-3"/>
                                                         <ErrorMessage name="feeManager" component="span"
-                                                            className="text-[11px] text-red-500" />
+                                                                      className="text-[11px] text-red-500"/>
                                                     </div>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
                                     <div className="w-full h-1/3">
-                    <div className="h-[40px] mx-5 mt-5 mb-3">
-                      {isSubmitting && (
-                        <button class="btn" type="button" disabled style={{ backgroundColor: "#FFF" }}>
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                        <span style={{marginLeft: "5px"}}>Đang lưu...</span>
-                      </button>
-                      )}
-                      {!isSubmitting && (
-                        <button
-                          className="btn mr-2"
-                          type="submit"
-                          style={{ backgroundColor: "#4CAF50" }}
-                        >
+                                        <div className="h-[40px] mx-5 mt-5 mb-3">
+                                            {isSubmitting && (
+                                                <button class="btn" type="button" disabled
+                                                        style={{backgroundColor: "#FFF"}}>
+                                                    <span class="spinner-border spinner-border-sm" role="status"
+                                                          aria-hidden="true"></span>
+                                                    <span style={{marginLeft: "5px"}}>Đang lưu...</span>
+                                                </button>
+                                            )}
+                                            {!isSubmitting && (
+                                                <button
+                                                    className="btn mr-2"
+                                                    type="submit"
+                                                    style={{backgroundColor: "#4CAF50"}}
+                                                >
                           <span className="pr-1">
-                            <i className="fi fi-rs-disk" />
+                            <i className="fi fi-rs-disk"/>
                           </span>
-                          <span className="pb-10">Lưu</span>
-                        </button>
-                      )}
-                      <button className="btn-2" type="reset">
+                                                    <span className="pb-10">Lưu</span>
+                                                </button>
+                                            )}
+                                            <button className="btn-2" type="reset">
                         <span className="pr-1">
-                          <i className="fi fi-rr-eraser" />
+                          <i className="fi fi-rr-eraser"/>
                         </span>
-                        <span>Làm mới</span>
-                      </button>
-                    </div>
-                  </div>
+                                                <span>Làm mới</span>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </Form>
                 )}
             </Formik>
-            
+
         </>
     );
 };

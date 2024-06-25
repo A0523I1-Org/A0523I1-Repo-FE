@@ -1,55 +1,55 @@
-:root {
+/*:root {*/
 
-    --text-color-span: Roboto, -apple-system, BlinkMacSystemFont, Roboto, 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif, "Segoe UI", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-}
+/*    --text-color-span: Roboto, -apple-system, BlinkMacSystemFont, Roboto, 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif, "Segoe UI", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";*/
+/*}*/
 
-body {
+/*body {*/
 
-}
+/*}*/
 
-select.form-control {
-    border: 1px solid #8887;
-}
+/*select.form-control {*/
+/*    border: 1px solid #8887;*/
+/*}*/
 
-input {
-    border: 1px solid #888;
-    border-bottom-right-radius: 3px;
-    border-top-right-radius: 3px;
+/*input {*/
+/*    border: 1px solid #888;*/
+/*    border-bottom-right-radius: 3px;*/
+/*    border-top-right-radius: 3px;*/
 
-}
-input::placeholder {
-    /* Kiểu chữ và các thuộc tính khác ở đây */
-    font-family: Arial, sans-serif;
-    font-size: 13.4px;
-    color: #888;
-}
-.btn{
-    padding: 7px 14px ;
-    border-radius: 3px;
-    color: white ;
-    border: none;
+/*}*/
+/*input::placeholder {*/
+/*    !* Kiểu chữ và các thuộc tính khác ở đây *!*/
+/*    font-family: Arial, sans-serif;*/
+/*    font-size: 13.4px;*/
+/*    color: #888;*/
+/*}*/
+/*.btn{*/
+/*    padding: 7px 14px ;*/
+/*    border-radius: 3px;*/
+/*    color: white ;*/
+/*    border: none;*/
 
-}
-.btn-2{
-    padding: .4375rem .875rem ;
-    background-color: #2196e3 ;
-    border-radius: 3px;
-    color: white ;
-    border: none;
-}
-.box__shadow{
-    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
-}
-table tr th{
-    font-size: 13.5px;
-    color: #333;
-    padding: .7rem;
-    font-family: var(--text-color-span);
+/*}*/
+/*.btn-2{*/
+/*    padding: .4375rem .875rem ;*/
+/*    background-color: #2196e3 ;*/
+/*    border-radius: 3px;*/
+/*    color: white ;*/
+/*    border: none;*/
+/*}*/
+/*.box__shadow{*/
+/*    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;*/
+/*}*/
+/*table tr th{*/
+/*    font-size: 13.5px;*/
+/*    color: #333;*/
+/*    padding: .7rem;*/
+/*    font-family: var(--text-color-span);*/
 
-}
-table tr td{
-    font-size: 14.5px;
-    color: #333;
-    padding: .7rem;
+/*}*/
+/*table tr td{*/
+/*    font-size: 14.5px;*/
+/*    color: #333;*/
+/*    padding: .7rem;*/
 
-}
+/*}*/

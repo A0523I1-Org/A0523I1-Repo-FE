@@ -22,7 +22,6 @@ export const getListAllLanding = async (searchParams, token) => {
         }
     );
     return res.data;
-    console.log(res.data.content);
   } catch (e) {
     console.error(e);
     return false;

@@ -217,7 +217,7 @@ const Navigate = ({isNavigation}) => {
     return (
         <>
 
-            <div className={`max-lg:block hidden ${isNavigation.isNavigation ? "-translate-x-0" : "-translate-x-[-256px]"} right-0 ease-in-out duration-300 
+            <div className={` max-lg:block hidden ${isNavigation.isNavigation ? "-translate-x-0" : "-translate-x-[-256px]"} right-0 ease-in-out duration-300 
             transition absolute z-30 bg-[#2f2b36] text-white w-64 min-h-screen p-4`}>
                 <nav>
                     <ul className="space-y-2">
@@ -324,7 +324,7 @@ const Header_child = ({menu}) => {
                             </Link>
                         </div>
                     </div>
-                    <div className="w-[50%] max-xl:w-[60%] max-lg:w-[70%] 2xl:right-10 max-2xl:right-20 max-xl:right-[40px] max-lg:hidden flex absolute text-slate-700 gap-8 font-semibold
+                    <div className="w-[50%] max-xl:w-[60%] max-lg:w-[70%] max-xl:right-32 max-2xl:right-20 max-xl:right-[40px] max-lg:hidden flex absolute text-slate-700 gap-8 font-semibold
                         right-0">
                         <Link to={'/'} className="menu__item menu__item__active header-title">Trang chủ</Link>
                         <a className="menu__item max-lg:hidden header-title">Giới thiệu</a>
@@ -395,7 +395,7 @@ const Header_child = ({menu}) => {
                 }
 
                 <button onClick={() => menu.setIsNavigation(!menu.isNavigation)}
-                            className="absolute hidden max-md:right-[150px] max-lg:right-[200px] max-lg:block "
+                            className=" max-sm:right-56 absolute hidden max-md:right-52 max-lg:right-[200px] max-lg:block "
                             id="btn__animation_menu_header">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                              stroke="currentColor" className="w-6 h-6">

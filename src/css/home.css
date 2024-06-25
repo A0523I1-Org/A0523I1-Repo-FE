@@ -27,66 +27,58 @@ body{
     font-family: var(--text-color-span), serif;
 }
 
-.footer__title {
+#main .footer__title {
     font-size: 14px;
     font-weight: bold;
     color: #626262;
 }
 
 
-p, h1, h2, h3, h4, h5, h6, h7, span {
+#main p, h1, h2, h3, h4, h5, h6, h7, span {
     background: transparent;
     border: 0;
     margin: 0;
     outline: 0;
-    padding: 0;
     vertical-align: baseline;
 }
 
-.menu-animation {
+#main .menu-animation {
     transition: all 0.8s ease-in-out;
 }
 
-.triangle {
-    width: 0;
-    height: 0;
-    border-left: 29px solid transparent;
-    border-right: 29px solid transparent;
-    border-bottom: 29px solid white;
-}
 
 .footer_text {
     font-size: 13.5px;
     color: #464646;
 }
-.bg-main{
+#main .bg-main{
     background: rgb(255, 255, 255);
     background: linear-gradient(14deg, rgb(255, 255, 255) 23%, rgb(255, 255, 255) 43%, rgb(222, 248, 255) 61%, rgb(254, 237, 255) 76%, rgb(249, 249, 249) 85%, rgb(255, 255, 255) 92%) no-repeat;
 }
-.menu__home {
+#main .menu__home {
     padding-left: 20px;
     border-bottom: solid 1px white;
 }
-.menu__home__slmh1 {
+#main .menu__home__slmh1 {
     position: absolute;
     width: 700px;
 }
-.menu__home .menu__item {
+#main .menu__home .menu__item {
     position: relative;
     cursor: pointer;
     transition: color 0.3s;
 }
-.menu__home .menu__item:hover {
+#main .menu__home .menu__item:hover {
     color: #FFC100;
 }
-.menu__home .menu_magicline {
+#main .menu__home .menu_magicline {
     position: absolute;
     bottom: 0;
     height: 2px;
     background-color: #FFC100;
 }
 
-.user-triangle__select__lilu {
+#main .user-triangle__select__lilu {
     display: none;
     position: relative;
     border-radius: 5px;
@@ -94,7 +86,7 @@ p, h1, h2, h3, h4, h5, h6, h7, span {
     height: auto;
     background: #EAECEB;
 }
-.user-triangle__select__lilu .box-select__triangle {
+#main .user-triangle__select__lilu .box-select__triangle {
     position: absolute;
     right: 20px;
     top: -14px;
@@ -104,12 +96,12 @@ p, h1, h2, h3, h4, h5, h6, h7, span {
     border-right: 15px solid transparent; /* Chiều dài của cạnh tam giác */
     border-bottom: 15px solid rgba(136, 136, 136, 0.15); /* Chiều cao của tam giác và màu sắc */
 }
-.user-triangle__select__lilu .box-login, .user-triangle__select__lilu .box-logout {
+#main .user-triangle__select__lilu .box-login, .user-triangle__select__lilu .box-logout {
     padding: 10px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
-.user-triangle__select__lilu .box-login:hover, .user-triangle__select__lilu .box-logout:hover {
+#main .user-triangle__select__lilu .box-login:hover, .user-triangle__select__lilu .box-logout:hover {
     background: rgba(136, 136, 136, 0.2);
     color: black;
 }
@@ -266,12 +258,12 @@ p, h1, h2, h3, h4, h5, h6, h7, span {
         line-height: 1.8;
         opacity: 0.9;
     }
-    .font_2 {
+    #main .font_2 {
         font: var(--font_2);
         letter-spacing: 0em;
         font-size: 35px !important;
     }
-    .animation__m1__right {
+    #main .animation__m1__right {
         outline: 1px solid black;
         right: 0;
         width: 70px;
@@ -298,7 +290,7 @@ p, h1, h2, h3, h4, h5, h6, h7, span {
             transform: rotate(55deg);
         }
     }
-    .animation__m1__left {
+    #main .animation__m1__left {
         outline: 1px solid rgba(51, 102, 68, 0.5333333333);
         right: 0;
         width: 50px;
@@ -326,13 +318,13 @@ p, h1, h2, h3, h4, h5, h6, h7, span {
     }
 }
 
-.animation_Img_LandingHome_left{
+#main .animation_Img_LandingHome_left{
     transition: all 1s ease;
 }
 
 
 
-.animation_Img_LandingHome_right{
+#main .animation_Img_LandingHome_right{
     right: 0;
     animation: img_LandingHome_right 4s ease-in-out alternate forwards;
 }
