@@ -49,7 +49,6 @@ export const contractSchema = Yup.object().shape({
     ,
     content: Yup.string()
         .required("Vui long cung cấp nội dung hợp đồng ")
-        .min(10, "Vui lòng cung cấp nội dung hợp lệ có ít nhất 10 ký tự")
         .max(255, "Vui lòng cung cấp nội dung hợp lệ tối đa 255 ký tự"),
     img: Yup.mixed()
         .nullable()
