@@ -4,6 +4,8 @@ export const contractSchema = Yup.object().shape({
     term: Yup.number()
         .min(1, "Vui lòng cung cấp kì hạn lớn hơn 0")
         .max(120, "Kì hạn yều cầu tối đa 120 tháng"),
+    currentFee: Yup.string()
+        .required("Vui lòng cung cấp phí hiện tại "),
     startDate: Yup.string()
         .required("Vui lòng cung cấp ngày bắt đầu hợp đồng ")
         .matches(
