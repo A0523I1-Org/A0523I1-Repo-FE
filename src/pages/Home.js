@@ -128,7 +128,6 @@ const Home = () => {
     const valueLanding = {
         handleNextPageLanding,
         handlePreviousPageLanding,
-        handleImageDisplay,
         listLandingHome,
         listImgAnimation,
         page,

@@ -410,25 +410,6 @@ const PersonalInformation = () => {
         </div>
     );
 };
-import * as authService from "../../services/Authenticate/AuthService";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-    const [formData, setFormData] = useState(null);
-    const [showModal, setShowModal] = useState(false);
-    const [showPassword, setShowPassword] = useState({
-        oldPassword: false,
-        newPassword: false,
-        confirmPassword: false
-    });
-    const [passwords, setPasswords] = useState({
-        oldPassword: '',
-        newPassword: '',
-        confirmPassword: '',
-    });
-    const [errors, setErrors] = useState({
-        oldPassword: '',
-        newPassword: '',
-        confirmPassword: ''
-    });
+
 
 export default PersonalInformation;

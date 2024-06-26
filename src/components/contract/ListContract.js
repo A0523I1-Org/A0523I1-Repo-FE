@@ -8,11 +8,9 @@ import '../../css/contract/paginationContract.css'
 import '../../configs/routes.js'
 import {Formik, Field, Form} from 'formik';
 import PopupDelete from "./PopupDelete";
-import {useEffect, useState} from "react";
-import {Link, useLocation} from "react-router-dom";
+
 import NotFoundSearch from './NotFoundSearch.js';
 import NotFoundContract from './NotFoundContract.js';
-import * as contractService from '../../services/ContractService.js'
 import routes from '../../configs/routes.js';
 import '../../css/contract/paginationContract.css'
 import '../../configs/routes.js'

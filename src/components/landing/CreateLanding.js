@@ -313,6 +313,7 @@ const CreateLangding = () => {
                             <input
                                 type="file"
                                 hidden
+                                required="true"
                                 id="upload_avt"
                                 onChange={(e) => handleChangeFileImg(e)}
 
@@ -323,6 +324,7 @@ const CreateLangding = () => {
                                  className="w-full h-full object-cover"
                                  src={imageUrl}
                                  alt="anh ko hien thi"
+                                 accept="image/!*"
                             />
                           </div>
                         </div>
