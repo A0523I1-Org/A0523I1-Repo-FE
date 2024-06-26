@@ -3,8 +3,10 @@ import {CloseIcon, RefreshIcon, SearchIcon, SearchInputIcon, SearchSubmitIcon} f
 import {capitalizeFirstLetter} from "../utils/Utils";
 import {getAllDepartments} from "../../../services/DepartmentService";
 import {getAllSalaryRanks} from "../../../services/SalaryRankService";
+import * as authService from "../../../services/Authenticate/AuthService"
 
 const Search = ({onSearch}) => {
+    const token = authService.getToken();
     const [departments, setDepartments] = useState([]);
     const [salaryRanks, setSalaryRanks] = useState([]);
     const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -30,10 +32,10 @@ const Search = ({onSearch}) => {
 
     //lấy dữ liệu
     const fetchDepartmentsAndSalaryRanks = async () => {
-        const departmentsData = await getAllDepartments();
+        const departmentsData = await getAllDepartments(token);
         setDepartments(departmentsData);
 
-        const salaryRanksData = await getAllSalaryRanks();
+        const salaryRanksData = await getAllSalaryRanks(token);
         setSalaryRanks(salaryRanksData);
     };
 

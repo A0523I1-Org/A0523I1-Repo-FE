@@ -1,10 +1,11 @@
-import Footer from "./Footer";
-import Header from "./Header";
+import Footer from "./Footer"
+import Header from "./Header"
 import {useLocation} from "react-router-dom";
 import '../layouts/FooterExtra';
 import FooterExtra from "./FooterExtra";
 import '../css/defaultLayout.css';
 import {useEffect, useState} from "react";
+
 
 
 function DefaultLayout ({children})  {
@@ -50,7 +51,7 @@ function DefaultLayout ({children})  {
 
     return (
         <>
-            {location.pathname === "/"
+            {location.pathname === "/" || location.pathname === "/login"
                 ?
                 <div>
                     <Header/>
@@ -63,7 +64,8 @@ function DefaultLayout ({children})  {
                         <div className="">
                             <Header/>
                         </div>
-                        <div className="mx-5 mt-5">
+                        <div  className="mx-10  mt-5 ">
+
                             <div className="w-full h-[40px]  relative">
                                 <div className="absolute py-2 left-0 top-2.5">
                                     <FooterExtra nameLocation={location.pathname.trim()}/>
@@ -95,7 +97,9 @@ function DefaultLayout ({children})  {
 
                                 </div>
                             </div>
-                            <div className="h-auto mt-5">
+
+                            <div className="h-auto mt-5 ">
+
                                 {children}
                             </div>
                         </div>

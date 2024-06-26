@@ -1,0 +1,91 @@
+#TanPN.personal_form {
+    display: grid;
+    place-items: center;
+    width: 60%;
+    height: 50%;
+    font-family: Arial, sans-serif;
+}
+#TanPN table.table {
+    border: 2px solid white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+#TanPN .abc {
+    text-align: center;
+    font-size: xx-large;
+}
+#TanPN table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#TanPN .custom-spacing {
+    border-spacing: 0 10px; /* Khoảng cách giữa các hàng là 10px */
+}
+
+#TanPN button.btn-change {
+    background-color: #FFC100;
+    color: white;
+}
+#TanPN button.btn-change:hover {
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #000000;
+}
+#TanPN button.btn-cancel {
+    background-color: #039bE5;
+    color: white;
+}
+#TanPN button.btn-cancel:hover {
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #000000;
+}
+#TanPN .table-cell {
+    padding: 10px 20px;
+}
+
+/* Modal Styles */
+#TanPN .modal-btn-change {
+    background-color: #fbbf24; /* Same color as the Chỉnh sửa button */
+    transition: background-color 0.3s;
+}
+
+#TanPN .modal-btn-change:hover {
+    background-color: #f59e0b; /* Darker shade on hover */
+}
+
+#TanPN .modal-btn-cancel {
+    background-color: #3b82f6; /* Same color as the Hủy button */
+    color: white;
+    transition: background-color 0.3s;
+}
+
+#TanPN .modal-btn-cancel:hover {
+    background-color: #2563eb; /* Darker shade on hover */
+}
+
+#TanPN .modal-image {
+    max-width: 100%;
+    max-height: 156px;
+    width: auto;
+    height: auto;
+    object-fit: cover;
+}
+
+#TanPN .relative {
+    position: relative;
+}
+
+#TanPN .absolute {
+    position: absolute;
+}
+
+#TanPN .text-gray-600 {
+    color: #4a5568;
+}
+
+#TanPN .shadow {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}

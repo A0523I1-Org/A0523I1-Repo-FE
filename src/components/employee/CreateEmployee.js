@@ -9,7 +9,7 @@ import * as Yup from 'yup'
 import * as departmentService from "../../services/DepartmentService"
 import * as salaryRankService from "../../services/SalaryRankService"
 import * as employeeService from "../../services/EmployeeService"
-
+import * as authService from "../../services/Authenticate/AuthService"
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // CROP IMAGE
@@ -44,7 +44,7 @@ const CreateEmployee = () => {
     const [isOpenModal, setIsOpenModal] = useState(false);
     const [avatarMessage, setAvatarMessage] = useState("")
     const [percentUpload, setPercentUpload] = useState(0)
-
+    const token = authService.getToken()
 // CROP IMAGE
     const [image, setImage] = React.useState(null);
     const [croppedArea, setCroppedArea] = React.useState(null);
@@ -66,15 +66,15 @@ const CreateEmployee = () => {
     }, [])
 
     const getDepartments = async () => {
-        let temp = await departmentService.getAllDepartments();
+        let temp = await departmentService.getAllDepartments(token);
         setDepartments(temp)
     }
     const getSalaryRanks = async () => {
-        let temp = await salaryRankService.getAllSalaryRanks();
+        let temp = await salaryRankService.getAllSalaryRanks(token);
         setSalaryRanks(temp)
     }
     const getExistEmail = async () => {
-        const allEmail = await employeeService.gettAllExistEmail();
+        const allEmail = await employeeService.getAllExistEmail(token);
         setExistEmail(allEmail)
     }
 
@@ -147,7 +147,7 @@ const CreateEmployee = () => {
                 () => {
                     getDownloadURL(uploadTask.snapshot.ref).then((url) => {
                         values.firebaseUrl = url;
-                        employeeService.addEmployee(values).then((success) => {
+                        employeeService.addEmployee(values, token).then((success) => {
                             if (success) {
                                 toast.success("Thêm mới nhân viên thành công.")
                                 navigate("/employee")

@@ -6,32 +6,33 @@ import * as employeeService from "../../services/EmployeeService"
 import {toast} from 'react-toastify'
 import routes from "../../configs/routes";
 import {formatDate} from "./utils/Utils";
+import * as authService from "../../services/Authenticate/AuthService"
 
 export default function DeleteEmployee() {
     const {id} = useParams();
     const [employeeDel, setEmployeeDel] = useState();
     const navigate = useNavigate();
+    const token = authService.getToken();
 
     useEffect(() => {
         getEmployeeDel(id);
     }, [id])
 
     const getEmployeeDel = async () => {
-        let temp = await employeeService.findEmployeeById(id);
+        let temp = await employeeService.findEmployeeById(id, token);
         setEmployeeDel(temp)
     }
     const cancelDelete = () => {
         navigate(routes.listEmployee)
     }
     const deleteEmployee = async () => {
-        let success = await employeeService.deleteEmployeeById(id)
+        let success = await employeeService.deleteEmployeeById(id, token)
         if (success) {
             toast.success("Bạn đã xóa thành công nhân viên: " + employeeDel.name)
-            navigate(routes.listEmployee)
         } else {
             toast.warning("Qúa trình xóa thất bại, vui lòng kiểm tra lại !");
-            navigate(routes.listEmployee)
         }
+        navigate(routes.listEmployee)
     }
 
     if (!employeeDel) {

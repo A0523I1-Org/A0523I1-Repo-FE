@@ -5,10 +5,11 @@ import * as Yup from 'yup';
 import {registerEmployee} from "../../../services/AccountService";
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import * as authService from "../../../services/Authenticate/AuthService"
 
 const Register = ({ employeeId, onUserRegistered }) => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
-
+    const token = authService.getToken();
     const initialValues = {
         username: '',
         password: '',
@@ -33,7 +34,7 @@ const Register = ({ employeeId, onUserRegistered }) => {
     const closeDialog = () => setIsDialogOpen(false);
 
     const handleSubmit = (values, actions) => {
-        registerEmployee(employeeId, values.username, values.password)
+        registerEmployee(employeeId, values.username, values.password, token)
             .then(result => {
                 if (result.success) {
                     console.log(`Success: ${result.message}`);
