@@ -7,6 +7,7 @@ import NotFound from './pages/NotFound';
 import {ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NoAccess from "./pages/NoAccess";
+import PrivateRoute from "./configs/privateRoute";
 
 function App() {
     return (
@@ -38,9 +39,13 @@ function App() {
                                 key={index}
                                 path={route.path + id}
                                 element={
-                                    <Layout>
-                                        <Page/>
-                                    </Layout>
+                                    <PrivateRoute
+                                        element={
+                                            <Layout>
+                                                <Page/>
+                                            </Layout>
+                                        }
+                                    />
                                 }
                             />
                         })

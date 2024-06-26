@@ -61,7 +61,7 @@ const Header = () => {
         }
     }, [loginModalIsOpen])
 
-    // ==================================================== LOGIN ===========================================================
+    // ==================================================== LOGIN-DatCT ===========================================================
     const login = async (account) => {
         try {
             const userData = await authService.login(account.username, account.password)
@@ -78,7 +78,8 @@ const Header = () => {
                         sessionStorage.setItem('role', JSON.stringify(userData.roles));
                     }
 
-                    navigate('/employee/personal-information');
+                    setLoginModalIsOpen(false);
+                    navigate('/');
 
                 } else {
                     setError(userData.message);

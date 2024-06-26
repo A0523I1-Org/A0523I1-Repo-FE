@@ -51,7 +51,7 @@ function DefaultLayout ({children})  {
 
     return (
         <>
-            {location.pathname === "/"
+            {location.pathname === "/" || location.pathname === "/login"
                 ?
                 <div>
                     <Header/>
