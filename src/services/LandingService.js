@@ -173,6 +173,7 @@ export const showListLandingHome = async (page, size = 4) => {
             number: 0
         };
     }
+
 }
 export const getAllLandingSpace = async(token) => {
     try {
@@ -183,4 +184,5 @@ export const getAllLandingSpace = async(token) => {
     } catch (error) {
         console.log(error);
     }
+
 }

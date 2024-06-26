@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import * as employeeService from "../../services/EmployeeService";
 import * as accountService from "../../services/AccountService";
 import * as authService from "../../services/Authenticate/AuthService";
 import '../../css/employee/PersonalInformation.css';
-import { toast } from 'react-toastify';
+import {toast} from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 
 const PersonalInformation = () => {
     const [formData, setFormData] = useState(null);
@@ -75,7 +75,7 @@ const PersonalInformation = () => {
     };
 
     const handleChangeOldPassword = (event) => {
-        const { value } = event.target;
+        const {value} = event.target;
         setPasswords({
             ...passwords,
             oldPassword: value
@@ -87,7 +87,7 @@ const PersonalInformation = () => {
     };
 
     const handlePasswordChange = (event) => {
-        const { name, value } = event.target;
+        const {name, value} = event.target;
         setPasswords({
             ...passwords,
             [name]: value
@@ -182,9 +182,12 @@ const PersonalInformation = () => {
                         <td className="table-cell">
                             <div className="flex items-center">
                                 <div className="mr-3">
-                                    <input type="password" value="******" className="form-input" readOnly />
+                                    <input type="password" value="******" className="form-input" readOnly/>
                                 </div>
-                                <button className="btn-change bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => setShowModal(true)}>Đổi mật khẩu</button>
+                                <button
+                                    className="btn-change bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                    onClick={() => setShowModal(true)}>Đổi mật khẩu
+                                </button>
                             </div>
                         </td>
                     </tr>
@@ -193,7 +196,8 @@ const PersonalInformation = () => {
 
                     <tr>
                         <th className="table-cell py-2" className="text-left pl-16">Họ tên(<span
-                            className="text-red-500">*</span>):</th>
+                            className="text-red-500">*</span>):
+                        </th>
                         <td className="table-cell">
                             <input
                                 type="text"
@@ -205,7 +209,9 @@ const PersonalInformation = () => {
                         </td>
                     </tr>
                     <tr>
-                        <th className="table-cell py-2" class="text-left pl-16">Ngày sinh(<span className="text-red-500">*</span>):</th>
+                        <th className="table-cell py-2" class="text-left pl-16">Ngày sinh(<span
+                            className="text-red-500">*</span>):
+                        </th>
                         <td className="table-cell">
                             <input
                                 type="date"
@@ -260,7 +266,9 @@ const PersonalInformation = () => {
                         </td>
                     </tr>
                     <tr>
-                        <th className="table-cell py-2" class="text-left pl-16">Địa chỉ(<span className="text-red-500">*</span>):</th>
+                        <th className="table-cell py-2" class="text-left pl-16">Địa chỉ(<span
+                            className="text-red-500">*</span>):
+                        </th>
                         <td className="table-cell">
                             <input
                                 type="text"
@@ -284,7 +292,9 @@ const PersonalInformation = () => {
                         </td>
                     </tr>
                     <tr>
-                        <th className="table-cell py-2" class="text-left pl-16">Email(<span className="text-red-500">*</span>):</th>
+                        <th className="table-cell py-2" class="text-left pl-16">Email(<span
+                            className="text-red-500">*</span>):
+                        </th>
                         <td className="table-cell">
                             <input
                                 type="email"
@@ -298,7 +308,10 @@ const PersonalInformation = () => {
 
                     <tr>
                         <td colSpan="2" className="text-center">
-                            <button className="btn-edit bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded" onClick={editPersonalInformation}>Chỉnh sửa</button>
+                            <button
+                                className="btn-edit bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
+                                onClick={editPersonalInformation}>Chỉnh sửa
+                            </button>
                         </td>
                     </tr>
                     </tbody>
@@ -306,18 +319,24 @@ const PersonalInformation = () => {
 
                 {showModal && (
                     <div className="fixed z-10 inset-0 overflow-y-auto">
-                        <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true" onClick={() => setShowModal(false)}></div>
-                            <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-                            <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                        <div
+                            className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+                                 aria-hidden="true" onClick={() => setShowModal(false)}></div>
+                            <span className="hidden sm:inline-block sm:align-middle sm:h-screen"
+                                  aria-hidden="true">&#8203;</span>
+                            <div
+                                className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                                 <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                                     <div className="sm:flex sm:items-start">
                                         <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
-                                            <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-title">Đổi mật khẩu</h3>
+                                            <h3 className="text-lg leading-6 font-medium text-gray-900"
+                                                id="modal-title">Đổi mật khẩu</h3>
                                             <div className="mt-2">
                                                 <form onSubmit={changePassword}>
                                                     <div className="mb-4">
-                                                        <label htmlFor="oldPassword" className="block text-gray-700 font-bold mb-2">
+                                                        <label htmlFor="oldPassword"
+                                                               className="block text-gray-700 font-bold mb-2">
                                                             Mật khẩu cũ <span className="text-red-500">*</span>
                                                         </label>
                                                         <div className="relative">
@@ -334,13 +353,16 @@ const PersonalInformation = () => {
                                                                 className="absolute right-2 top-2 text-gray-600"
                                                                 onClick={() => togglePasswordVisibility("oldPassword")}
                                                             >
-                                                                <FontAwesomeIcon icon={showPassword.oldPassword ? faEyeSlash : faEye} />
+                                                                <FontAwesomeIcon
+                                                                    icon={showPassword.oldPassword ? faEyeSlash : faEye}/>
                                                             </button>
                                                         </div>
-                                                        {errors.oldPassword && <div className="text-red-500 text-sm mt-1">{errors.oldPassword}</div>}
+                                                        {errors.oldPassword && <div
+                                                            className="text-red-500 text-sm mt-1">{errors.oldPassword}</div>}
                                                     </div>
                                                     <div className="mb-4">
-                                                        <label htmlFor="newPassword" className="block text-gray-700 font-bold mb-2">
+                                                        <label htmlFor="newPassword"
+                                                               className="block text-gray-700 font-bold mb-2">
                                                             Mật khẩu mới <span className="text-red-500">*</span>
                                                         </label>
                                                         <div className="relative">
@@ -357,13 +379,16 @@ const PersonalInformation = () => {
                                                                 className="absolute right-2 top-2 text-gray-600"
                                                                 onClick={() => togglePasswordVisibility("newPassword")}
                                                             >
-                                                                <FontAwesomeIcon icon={showPassword.newPassword ? faEyeSlash : faEye} />
+                                                                <FontAwesomeIcon
+                                                                    icon={showPassword.newPassword ? faEyeSlash : faEye}/>
                                                             </button>
                                                         </div>
-                                                        {errors.newPassword && <div className="text-red-500 text-sm mt-1">{errors.newPassword}</div>}
+                                                        {errors.newPassword && <div
+                                                            className="text-red-500 text-sm mt-1">{errors.newPassword}</div>}
                                                     </div>
                                                     <div className="mb-4">
-                                                        <label htmlFor="confirmPassword" className="block text-gray-700 font-bold mb-2">
+                                                        <label htmlFor="confirmPassword"
+                                                               className="block text-gray-700 font-bold mb-2">
                                                             Nhập lại mật khẩu <span className="text-red-500">*</span>
                                                         </label>
                                                         <div className="relative">
@@ -380,19 +405,27 @@ const PersonalInformation = () => {
                                                                 className="absolute right-2 top-2 text-gray-600"
                                                                 onClick={() => togglePasswordVisibility("confirmPassword")}
                                                             >
-                                                                <FontAwesomeIcon icon={showPassword.confirmPassword ? faEyeSlash : faEye} />
+                                                                <FontAwesomeIcon
+                                                                    icon={showPassword.confirmPassword ? faEyeSlash : faEye}/>
                                                             </button>
                                                         </div>
-                                                        {errors.confirmPassword && <div className="text-red-500 text-sm mt-1">{errors.confirmPassword}</div>}
+                                                        {errors.confirmPassword && <div
+                                                            className="text-red-500 text-sm mt-1">{errors.confirmPassword}</div>}
                                                     </div>
                                                     <div className="flex justify-center mb-4">
-                                                        <img src="https://t3.ftcdn.net/jpg/04/75/01/24/360_F_475012493_x7oLL5mrWTm25OCRluB2fZkn0onfSEqu.jpg" alt="Placeholder" className="modal-image w-1/2 h-1/2 object-cover" />
+                                                        <img
+                                                            src="https://t3.ftcdn.net/jpg/04/75/01/24/360_F_475012493_x7oLL5mrWTm25OCRluB2fZkn0onfSEqu.jpg"
+                                                            alt="Placeholder"
+                                                            className="modal-image w-1/2 h-1/2 object-cover"/>
                                                     </div>
                                                     <div className="mt-5 sm:mt-6 sm:flex sm:flex-row-reverse">
-                                                        <button type="submit" className="modal-btn-change w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium text-white sm:ml-3 sm:w-auto sm:text-sm">
+                                                        <button type="submit"
+                                                                className="modal-btn-change w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium text-white sm:ml-3 sm:w-auto sm:text-sm">
                                                             Đổi mật khẩu
                                                         </button>
-                                                        <button type="button" className="modal-btn-cancel mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 sm:mt-0 sm:w-auto sm:text-sm" onClick={() => setShowModal(false)}>
+                                                        <button type="button"
+                                                                className="modal-btn-cancel mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 sm:mt-0 sm:w-auto sm:text-sm"
+                                                                onClick={() => setShowModal(false)}>
                                                             Hủy
                                                         </button>
                                                     </div>
@@ -410,6 +443,5 @@ const PersonalInformation = () => {
         </div>
     );
 };
-
 
 export default PersonalInformation;

@@ -1,0 +1,40 @@
+#ce_main {
+    box-sizing: border-box;
+    border-radius: 10px;
+    background: url("https://images.unsplash.com/photo-1428908728789-d2de25dbd4e2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D") no-repeat;
+    background-size: cover;
+    /*position: relative;*/
+}
+
+#ce_main .btn {
+    padding: 5px 10px;
+    border-radius: 3px;
+    color: white;
+    border: none;
+}
+:root {
+    --text-color-span: Roboto, -apple-system, BlinkMacSystemFont, Roboto, 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif, "Segoe UI", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+#ce_main .errorMessage {
+    font-size: 8pt;
+    position: absolute;
+}
+
+#ce_modal .container-cropper {
+    height: 90%;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+#ce_modal .cropper {
+    height: 90%;
+    position: relative;
+}
+
+#ce_modal .btn {
+    padding: 7px 14px;
+    border-radius: 3px;
+    color: white;
+    border: none;
+}
