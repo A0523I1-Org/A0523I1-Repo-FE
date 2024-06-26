@@ -1,11 +1,15 @@
 import axios from 'axios';
 
-export const registerEmployee = async (employeeId, username, password) => {
+export const registerEmployee = async (employeeId, username, password, token) => {
     try {
         const response = await axios.post(`http://localhost:8080/api/account/employee/${employeeId}`, {
             username,
             password,
-        });
+        },
+            {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+        );
 
         if (response.status === 201) {
             // HTTP 201 Created
@@ -32,3 +36,16 @@ export const registerEmployee = async (employeeId, username, password) => {
         }
     }
 };
+
+
+export async function changePassword(token, oldPassword, newPassword){
+    try{
+        const response = await axios.post('http://localhost:8080/change-password', {oldPassword, newPassword}, {
+            headers: {Authorization: `Bearer ${token}`}
+        })
+
+        return response.data;
+    }catch(err){
+        throw err;
+    }
+}

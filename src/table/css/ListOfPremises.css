@@ -1,0 +1,192 @@
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Ẩn mũi tên điều chỉnh số cho Firefox */
+#list__lading  input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+#list__lading  .id-listAll {
+    text-align: center;
+    font-family: Arial,sans-serif;
+    font-size: 40px;
+}
+#list__lading  .border-button{
+    border: 2px solid #2196e3;
+}
+#list__lading  .id-button{
+    margin:12px 0 ;
+}
+
+
+#list__lading  .id-button .button-deleteAll {
+    background-color:#F44336;
+    color: white;
+    font-family: Arial,sans-serif;
+    padding: 7px 14px;
+}
+
+#list__lading  .id-button .dropdown-toggle {
+    background-color: #222222;
+    color: white;
+    font-family: Arial,sans-serif;
+    padding: 7px 14px;
+}
+
+#list__lading  .id-th-tableAll {
+    font-size: 14px;
+    color: white;
+
+}
+
+#list__lading  .id-tr-tableAll {
+    text-align: center;
+
+}
+
+#list__lading  .id-tr-tableList {
+    text-align: center;
+}
+
+#list__lading  .id-tr-tableAll:nth-last-child(-n+3) {
+    width: 100px;
+
+}
+
+#list__lading  .id-button-tableList-check {
+    background-color: #00FFFF;
+    font-family: Arial,sans-serif;
+    padding: 7px 14px;
+    color: white;
+}
+
+#list__lading  .id-button-tableList-edit {
+    background-color: #FFC100;
+    font-family: Arial,sans-serif;
+    padding: 7px 14px;
+    color: white;
+}
+
+#list__lading  .id-button-tableList-delete {
+    background-color:#F44336;
+    font-family: Arial,sans-serif;
+    padding: 7px 14px;
+    color: white;
+}
+
+#list__lading  .id-tr-tableAll .id-th-tableAll {
+    background-color: #222222;
+    color: #ffffff;
+}
+
+#list__lading  .pagination {
+    display: flex;
+    justify-content: center;
+}
+#list__lading  .icon-search {
+    display: flex;
+    flex-direction: row;
+}
+#list__lading  .icon-search  {
+    padding: 5px;
+    margin: 5px;
+
+}
+#list__lading .id-searchAll input {
+    margin-right: 10px;
+}
+#list__lading  .id-searchAll .id-search {
+    margin-right: 10px;
+    border-bottom: 1px solid #ccc;
+    background-color: transparent;
+
+}
+
+#list__lading  .id-searchAll {
+    flex-grow: 2;
+}
+
+#list__lading  .id-icon-buttons {
+    display: flex;
+    justify-content: center;
+    margin-right:200px;
+}
+#list__lading  .id-icon-buttons button {
+    margin-right: 10px;
+    padding: 7px 14px;
+    background-color: #888888;
+}
+#list__lading .pagination .page-link
+
+#list__lading .pagination .page-item.disabled .page-link {
+    color: #6c757d;
+}
+
+#list__lading .pagination .page-item.active .page-link {
+    color: #fff;
+    background-color:rgb(29 78 216);
+    border-color: #007bff;
+    border-radius: 4px;
+    font-weight: 550;
+    transition: all 0.3s ease-in-out;
+}
+#list__lading .pagination .page-link,
+#list__lading .pagination .button-page {
+    padding: 7px 14px;
+}
+
+#list__lading .idNewLogo{
+    color: #F44336;
+
+}
+#list__lading .pagination .button-page {
+    background-color: #888888;
+
+}
+:root {
+    --text-color-span: Roboto, -apple-system, BlinkMacSystemFont, Roboto, 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif, "Segoe UI", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+
+#list__lading .btn_css {
+    padding: 7px 14px !important;
+    border-radius: 3px ;
+    border: none;
+}
+
+#list__lading .bg-add {
+    background: #4caf50;
+}
+#list__lading .pagenationNew{
+    background-color: #00FFFF;
+    color: #F44336;
+}
+#list__lading .testFont{
+    color: #4caf50;
+}
+
+
+#list__lading table thead th {
+    background: #eeeeee;
+    font-size: 16px;
+    color: #222;
+    font-weight: 550;
+    border: 1px solid #ddd;
+}
+
+#list__lading table tbody tr td {
+    font-size: 14.4px;
+    font-family: var(--text-color-span);
+    color: #333;
+    border: 1px solid #dadada;
+
+}
+
+
+#list__lading .menu-shadow{
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}

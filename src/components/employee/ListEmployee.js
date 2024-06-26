@@ -8,6 +8,7 @@ import {Link} from "react-router-dom";
 import EmployeeDetail from "./child_list/EmployeeDetail";
 import "../../css/employee/styles.css";
 import routes from "../../configs/routes";
+import * as authService from "../../services/Authenticate/AuthService"
 
 const ListEmployee = () => {
 
@@ -16,7 +17,7 @@ const ListEmployee = () => {
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(1);
     const [selectedEmployee, setSelectedEmployee] = useState(null);
-
+    const token = authService.getToken();
     // Cập nhật hiển thị cho tài khoản đăng ký thành công
     const handleUserRegistration = (employeeId, username) => {
         setEmployees((prevEmployees) =>
@@ -34,7 +35,7 @@ const ListEmployee = () => {
 
     // Lấy dữ liệu
     const fetchData = async (page, criteria) => {
-        const data = await fetchEmployees(page, criteria);
+        const data = await fetchEmployees(page, criteria, token);
         setEmployees(data.content || []);
         setTotalPages(data.totalPages);
     };

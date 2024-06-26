@@ -1,5 +1,6 @@
-import '../css/home.css'
 
+
+import '../css/home.css'
 const Footer = () => {
 
     return (

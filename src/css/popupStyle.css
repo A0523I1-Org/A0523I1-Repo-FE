@@ -1,0 +1,105 @@
+/* Google Fonts - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+}
+.btns {
+    font-size: 18px;
+    font-weight: 400;
+    color: #fff;
+    padding: 14px 22px;
+    border: none;
+    background: #4070f4;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.delete-btn{
+    background: #dd3933;
+    cursor: pointer;
+}
+.delete-btn:hover{
+    background: #c12f27;
+    cursor: pointer;
+}
+.btns:hover{
+    background: #3859bd;
+}
+.btns.show-modal,
+.modal-box {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+section.active .show-modal {
+    display: none;
+}
+.overlay {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    pointer-events: none;
+}
+section.active .overlay {
+    opacity: 1;
+    pointer-events: auto;
+}
+.modal-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 450px;
+    width: 100%;
+    padding: 30px 20px;
+    border-radius: 24px;
+    background-color: #fff;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    transform: translate(-50%, -50%) scale(1.2);
+}
+section.active .modal-box {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+.modal-box i {
+    font-size: 70px;
+    color: #ec6e42;
+}
+.modal-box h2 {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 500;
+    color: #333;
+}
+.modal-box h3 {
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+    text-align: center;
+}
+.modal-box .buttons {
+    margin-top: 25px;
+}
+.modal-box button {
+    font-size: 14px;
+    padding: 8px 18px;
+    margin: 0 10px;
+}
