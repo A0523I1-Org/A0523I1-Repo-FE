@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as landingService from "../../services/LandingService";
+import * as authService from "../../services/Authenticate/AuthService";
 import "../../table/css/ListOfPremises.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -143,7 +144,7 @@ const ListLanding = () => {
 
   const getListAllFloor = async () => {
     try {
-      const token = localStorage.getItem("token");
+      const token = authService.getToken()
       const res = await landingService.getListAllFloor(token);
       setFloors(res);
     } catch (e) {
@@ -153,7 +154,7 @@ const ListLanding = () => {
 
   const getListAllLanding = async (searchParams) => {
     try {
-      const token = localStorage.getItem("token");
+      const token = authService.getToken()
       const res = await landingService.getListAllLanding(searchParams, token);
       setLanding(res);
 
@@ -194,7 +195,7 @@ const ListLanding = () => {
 
   const deleteLandingByIds = async () => {
     setModalDeleteMultiIsOpen(false);
-    const token = localStorage.getItem("token");
+    const token = authService.getToken();
 
     for (const ld of listIdInput) {
       try {
@@ -222,7 +223,8 @@ const ListLanding = () => {
   };
 
   const deleteLanding = async () => {
-    const token = localStorage.getItem("token");
+    const token = authService.getToken();
+
     // const landingAvailable = await landingService.findLandingIsAvailableById(
     //   landingDelete.id,
     //   token

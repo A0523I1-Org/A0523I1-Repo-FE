@@ -9,6 +9,7 @@ import { ref, uploadBytesResumable, getDownloadURL, uploadBytes, list } from "fi
 import { storage } from "../../configs/fireBaseConfig.js";
 import routes from "../../configs/routes.js";
 import { toast, ToastContainer } from "react-toastify";
+import * as authService from "../../services/Authenticate/AuthService";
 
 const notify=()=>{
     toast.success("update thành công")
@@ -34,7 +35,7 @@ const EditLanding = () => {
 
     const getAllFloor = async () => {
         try {
-      const token = localStorage.getItem("token");
+      const token = authService.getToken();
 
             const foundFloor = await floorService.getAllFloor(token);
     
@@ -46,7 +47,7 @@ const EditLanding = () => {
     
 
     const findLanding = async (id) => {
-      const token = localStorage.getItem("token");
+      const token = authService.getToken();
 
         const res = await landingService.findLanding(id,token);
         setLanding(res);
@@ -72,7 +73,7 @@ const EditLanding = () => {
             values.floor = +values.floor;
             try {
                
-                const token = localStorage.getItem("token");
+                const token = authService.getToken();
                 await landingService.updateLading(values, token);
                 toast.success(`Cập nhật mặt bằng ${values.code} thành công`);
                 navigator(routes.listLanding);

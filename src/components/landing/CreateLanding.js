@@ -13,6 +13,7 @@ import routes from "../../configs/routes";
 import * as floorService from "../../services/FloorService.js";
 import * as landingService from "../../services/LandingService";
 import { toast } from "react-toastify";
+import * as authService from "../../services/Authenticate/AuthService";
 
 const CreateLangding = () => {
   const [landing, setLanding] = useState({
@@ -45,7 +46,7 @@ const CreateLangding = () => {
 
   const getAllFloor = async () => {
     try {
-      const token = localStorage.getItem("token");
+      const token = authService.getToken();
       const foundFloor = await floorService.getAllFloor(token);
       setFloors(foundFloor);
     } catch (error) {
@@ -70,7 +71,7 @@ const CreateLangding = () => {
     if (values.firebaseUrl !== "") {
       values.floor = +values.floor;
       try {
-        const token = localStorage.getItem("token");
+        const token = authService.getToken();
         const isSuccess = await landingService.addNewLanding(values, token);
         if (isSuccess) {
           navigate(routes.listLanding);
@@ -115,7 +116,7 @@ const CreateLangding = () => {
       .matches(/^MB\d{3}$/, "Mã mặt bằng phải đúng định dạng MBxxx.")
       .test("unique-code", "Mã mặt bằng đã tồn tại", async (value) => {
         if (!value) return false;
-        const token = localStorage.getItem("token");
+        const token = authService.getToken();
         const isUnique = await landingService.findLandingByCode(value, token);
         console.log(isUnique);
         return !isUnique;
@@ -245,6 +246,7 @@ const CreateLangding = () => {
                                 {floor.name}
                               </option>
                           ))}
+
                         </Field>
                         <ErrorMessage name="floor" component="span"
                                       className="text-[12px] text-red-500" />

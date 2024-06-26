@@ -1,19 +1,16 @@
 
-
-
-
 import {Link, useLocation} from "react-router-dom";
 import "../css/header.css"
 import React, {useEffect, useState} from "react";
 // LOGIN-DatCT
-import { RiUserLine, RiLockLine, RiEyeOffLine, RiEyeLine} from 'react-icons/ri';
+import { RiUserLine, RiLockLine, RiEyeOffLine, RiEyeLine, RiFacebookLine, RiGoogleLine } from 'react-icons/ri';
 import '../css/auth/login.css'; // Import your custom CSS
 import Modal from "react-modal";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from "yup"
 import {useNavigate} from "react-router";
 import * as authService from "../services/Authenticate/AuthService"
-import * as employeeService from "../services/EmployeeService"
+import { toast } from 'react-toastify';
 
 const Header = () => {
     const [showMenuSelect, setShowMenuSelect] = useState(false);
@@ -28,12 +25,14 @@ const Header = () => {
     const [error, setError] = useState('')
     const [account, setAccount] = useState({username: "", password: ""});
     const [usernameDisplay, setUsernameDisplay] = useState("");
-
+    const [isRememberMe, setIsRememberMe] = useState(false);
     const navigate = useNavigate()
 
     const validateAccount = {
-        username: Yup.string().required("Vui lòng điền tên đăng nhập.").min(2).max(1000),
-        password: Yup.string().required("Vui lòng điền tên mật khẩu.").min(2).max(1000)
+        username : Yup.string().required("Vui lòng điền tên đăng nhập.")
+            .max(30, 'Tên đăng nhập không được vượt quá 100 ký tự.'),
+        password : Yup.string().required("Vui lòng điền tên mật khẩu.")
+            .max(30, 'Mật khẩu không được vượt quá 100 ký tự.')
     }
 
     useEffect(() => {
@@ -75,6 +74,21 @@ const Header = () => {
         setLoginModalIsOpen(true);
     };
 
+    const handleRememberMe = () => {
+        setIsRememberMe(true)
+    }
+
+    const handleLoginWithGoogle = () => {
+        toast.info("Tính năng chưa phát triển")
+    }
+
+    const handleLoginWithFaceBook = () => {
+        toast.info("Tính năng chưa phát triển")
+    }
+
+    const handleForgotPassword = () => {
+        toast.info("Tính năng chưa phát triển")    }
+
 
     // ===================================== LOGIN ======================================
     const login = async (account) => {
@@ -85,10 +99,16 @@ const Header = () => {
 
                 if (userData.access_token) {
 
-                    localStorage.setItem('token', userData.access_token);
-                    localStorage.setItem('role', JSON.stringify(userData.roles));
+                    if (isRememberMe) {
+                        localStorage.setItem('token', userData.access_token);
+                        localStorage.setItem('role', JSON.stringify(userData.roles));
+                    } else {
+                        sessionStorage.setItem('token', userData.access_token);
+                        sessionStorage.setItem('role', JSON.stringify(userData.roles));
+                    }
 
-                    navigate('/employee/personal-information');
+                    setLoginModalIsOpen(false);
+                    navigate('/');
 
                 } else {
                     setError(userData.message);
@@ -97,17 +117,17 @@ const Header = () => {
             }
         } catch (error) {
             if (error.response) {
-                if (error.response.status === 404) setError("Tài khoản KHÔNG tồn tại.")
-                if (error.response.status === 401) setError("Mật khẩu KHÔNG trùng khớp.")
+                setError("Tài khoản hoặc mật khẩu sai.")
+                // if (error.response.status === 404) setError("Tài khoản KHÔNG tồn tại.")
+                // if (error.response.status === 401) setError("Mật khẩu KHÔNG trùng khớp.")
             }
         }
     }
 
     // ===================================== LOGOUT ======================================
     const handleLogoutClick = async () => {
-        const token = localStorage.getItem('token');
+        const token = authService.getToken();
         await authService.logout(token);
-
         navigate("/")
     }
 
@@ -155,7 +175,7 @@ const Header = () => {
                         onSubmit={login}
                         validationSchema={Yup.object(validateAccount)}>
 
-                    <div className="l-form">
+                    <div id="Login-DatCT" className="l-form">
                         <div className="shape1"/>
                         <div className="shape2"/>
 
@@ -195,7 +215,24 @@ const Header = () => {
                                     </div>
                                 </div>
 
+                                <div className="form__check">
+                                    <div className="form__remember">
+                                        <label htmlFor="remember-me">
+                                            <input type="checkbox" id="remember-me" name="remember-me" onChange={handleRememberMe}/>
+                                            Ghi nhớ tôi
+                                        </label>
+                                    </div>
+                                    <a onClick={handleForgotPassword} className="form__forgot">Quên mật khẩu?</a>
+                                </div>
+
                                 <button type="submit" className="form__button">ĐĂNG NHẬP</button>
+
+                                <div className="form__social">
+                                    <span className="form__social-text">Hoặc đăng nhập với</span>
+
+                                    <a onClick={handleLoginWithGoogle} className="form__social-icon"><RiGoogleLine/></a>
+                                    <a onClick={handleLoginWithFaceBook} className="form__social-icon"><RiFacebookLine/></a>
+                                </div>
 
                             </Form>
                         </div>
@@ -420,7 +457,7 @@ const Header_child = ({menu}) => {
                                 className={`${menu.isShowMenuInfoEmployee ? "block" : "hidden"} w-[170px] h-auto absolute  bg-white border overflow-hidden  top-[57px] rounded-[3px] z-30`}>
                                 <div
                                     className="w-full h-[40px] relative group flex justify-center items-center font-normal text-black  text-[16px]">
-                                    <Link to={'/employee'} className={"header-title"}>
+                                    <Link to={'/employee/personal-information'} className={"header-title"}>
                                         Tài khoản
                                     </Link>
                                     <span
