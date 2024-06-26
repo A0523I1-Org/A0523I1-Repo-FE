@@ -8,18 +8,18 @@ body {
 
 }
 
-#create-ct span {
+#update-ct span {
     font-size: 14px;
     opacity: 1;
     font-family: var(--text-color-span);
 }
-#create-ct input ,#create-ct textarea{
+#update-ct input ,textarea{
     border: 1px solid #888;
     border-bottom-right-radius: 3px;
     border-top-right-radius: 3px;
     font-size: 14.5px !important;
 }
-#create-ct select{
+#update-ct select{
     font-size: 14.5px !important;
     border: 1px solid #999;
     border-radius: 3px;
@@ -27,61 +27,53 @@ body {
     -moz-appearance: none;
     appearance: none;
 }
-#create-ct input::placeholder,#create-ct textarea::placeholder {
+#update-ct input::placeholder,textarea::placeholder {
     /* Kiểu chữ và các thuộc tính khác ở đây */
     font-family: Arial, sans-serif;
     font-size: 13.4px;
     color: #888;
 }
 
-/* select {
+#update-ct select {
     font-family: Arial, sans-serif;
     font-size: 13.4px;
     color: #888;
-} */
-#create-ct .btn{
+}
+#update-ct .btn{
     padding: 7px 14px ;
     border-radius: 3px;
     color: white ;
     border: none;
 }
-#create-ct .btn-2{
+#update-ct .btn-2{
     padding: .4375rem .875rem ;
-    background-color: #2196e3 ;
+    background-color: #999999 ;
     border-radius: 3px;
-    color: white ;
+    color: #222222 ;
     border: none;
 }
-#create-ct .box__shadow{
+#update-ct .box__shadow{
     box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
 }
-#create-ct table tr th{
+#update-ct table tr th{
     font-size: 13.5px;
     color: #333;
     padding: .7rem;
     font-family: var(--text-color-span);
 
 }
-#create-ct table tr td{
+#update-ct table tr td{
     font-size: 14.5px;
     color: #333;
     padding: .7rem;
 
-}
 
-#create-ct #modal-loading {
-    position : absolute;
-    display : block;
-    top : 50%;
-    left:  47%;
-    right: auto;
-    bottom: auto;
-    margin : -50%
 }
+#update-ct img{
+    width: 100px;
+    height: 100px !important;
 
-#create-ct .error-mess {
-    margin-top: 0.5vh;
-    font-size: 11px;
-    color : red;
-    display : block
+    box-shadow: 0 10px 20px #ABB2B9;
+    object-fit: cover;
+    flex-shrink: 0;
 }

@@ -7,6 +7,7 @@ const routes = {
     listContract : '/contract',
     createContract : '/contract/create-contract',
     editContract : '/contract/edit-contract/',
+    deleteContract : '/contract/delete-contract',
 
     listCustomer : '/customer',
     createCustomer : '/customer/create-customer',
@@ -22,6 +23,7 @@ const routes = {
     createLanding : '/landing/create-landing',
     editLanding : '/landing/edit-landing/',
 
+    unAuthorized : '/unauthorized'
 }
 
 export default routes;

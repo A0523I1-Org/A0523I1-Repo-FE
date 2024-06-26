@@ -3,12 +3,11 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
-<<<<<<< HEAD
   <component name="ChangeListManager">
     <list default="true" id="c6101b39-f511-4397-81ca-c5e5366dbc08" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/layouts/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/Header.js" afterDir="false" />
-=======
+
   <component name="BranchesTreeState">
     <expand>
       <path>
@@ -28,14 +27,17 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2da3bac0-6e81-44a1-8458-96e1d162a3df" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/landing/EditLanding.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/landing/EditLanding.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/landing/ListLanding.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/landing/ListLanding.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/FloorService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/FloorService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/LandingService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/LandingService.js" afterDir="false" />
->>>>>>> refs/heads/List/EditLanding-ThienLC
+    <list default="true" id="ba72b43a-c2b1-4ff5-8f84-ab2d5ccee82c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/customer/create.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/customer/list.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/customer/CreateCustomer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/customer/CreateCustomer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/customer/EditCustomer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/customer/EditCustomer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/customer/ListCustomer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/customer/ListCustomer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layouts/DefaultLayout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/DefaultLayout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/CustomerService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/CustomerService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,17 +47,15 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-<<<<<<< HEAD
-=======
+
         <option value="HTML File" />
->>>>>>> refs/heads/List/EditLanding-ThienLC
         <option value="JavaScript File" />
         <option value="CSS File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
-<<<<<<< HEAD
+
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="Home/ListLanding-PhungPV" />
@@ -65,22 +65,12 @@
     <option name="SWAP_SIDES_IN_COMPARE_BRANCHES" value="true" />
   </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 4
 }</component>
-  <component name="ProjectId" id="2hB5uvu5ALqxnY8K2bv6nDQrQ3k" />
-=======
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
-  <component name="ProjectId" id="2gjaQmhNu84MZ3z5TJtyaDicq8v" />
->>>>>>> refs/heads/List/EditLanding-ThienLC
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-<<<<<<< HEAD
+
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Node.js.Header.js.executor&quot;: &quot;Run&quot;,
@@ -109,121 +99,39 @@
       <recent name="C:\Users\hp\Documents\GitHub\A0523I1-Repo-FE\src\js" />
     </key>
   </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "Login-DatCT",
+    "last_opened_file_path": "D:/workspace/A0523I1-Org/A0523I1-Repo-FE",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.standard": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-WS-241.17011.90" />
       </set>
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="c6101b39-f511-4397-81ca-c5e5366dbc08" name="Changes" comment="" />
-      <created>1717054855230</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1717054855230</updated>
-      <workItem from="1717054856482" duration="22139000" />
-      <workItem from="1717134415770" duration="7651000" />
-      <workItem from="1717145840433" duration="78000" />
-      <workItem from="1717412778529" duration="1297000" />
-      <workItem from="1717419585942" duration="3023000" />
-      <workItem from="1717477345135" duration="6540000" />
-      <workItem from="1717483960205" duration="104000" />
-      <workItem from="1717484075609" duration="368000" />
-      <workItem from="1717489092879" duration="3869000" />
-      <workItem from="1717505048084" duration="3132000" />
-      <workItem from="1717573632511" duration="3599000" />
-      <workItem from="1717587723144" duration="650000" />
-      <workItem from="1717588387469" duration="170000" />
-      <workItem from="1717588588297" duration="133000" />
-      <workItem from="1717588745051" duration="4413000" />
-      <workItem from="1717735352949" duration="3418000" />
-      <workItem from="1717757110753" duration="2045000" />
-      <workItem from="1718017998632" duration="895000" />
-      <workItem from="1718188915020" duration="4904000" />
-      <workItem from="1718255617562" duration="1273000" />
-      <workItem from="1718365079373" duration="2954000" />
-      <workItem from="1718453440490" duration="1307000" />
-      <workItem from="1718539430033" duration="2033000" />
-      <workItem from="1718545706461" duration="382000" />
-      <workItem from="1718597254844" duration="270000" />
-      <workItem from="1718599285177" duration="56000" />
-      <workItem from="1718620762493" duration="7459000" />
-      <workItem from="1718632972487" duration="78000" />
-      <workItem from="1718633064912" duration="339000" />
-      <workItem from="1718633837259" duration="80000" />
-      <workItem from="1718685384927" duration="337000" />
-      <workItem from="1718685748740" duration="2444000" />
-      <workItem from="1718714442745" duration="2551000" />
-      <workItem from="1718717805243" duration="739000" />
-      <workItem from="1718768026582" duration="594000" />
-      <workItem from="1718793724809" duration="11863000" />
-      <workItem from="1718861951762" duration="95000" />
-      <workItem from="1719204648166" duration="9911000" />
-      <workItem from="1719225658932" duration="7259000" />
-=======
-  <component name="PropertiesComponent">
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.path.for.package.eslint" value="project" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-  </component>
-  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
-  <component name="SvnConfiguration">
-    <configuration />
-  </component>
-  <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="2da3bac0-6e81-44a1-8458-96e1d162a3df" name="Default Changelist" comment="" />
-      <created>1716213426247</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1716213426247</updated>
-      <workItem from="1716213428429" duration="48000" />
-      <workItem from="1716540438085" duration="223000" />
-      <workItem from="1716551497819" duration="1923000" />
-      <workItem from="1716875318846" duration="2044000" />
-      <workItem from="1716979721586" duration="13000" />
-      <workItem from="1717394487097" duration="8347000" />
-      <workItem from="1717411610888" duration="13036000" />
-      <workItem from="1717508848723" duration="5692000" />
-      <workItem from="1717553759425" duration="6336000" />
-      <workItem from="1717583986068" duration="13434000" />
-      <workItem from="1717601297467" duration="682000" />
-      <workItem from="1717660746556" duration="7055000" />
-      <workItem from="1717675519798" duration="11083000" />
-      <workItem from="1717732221962" duration="8016000" />
-      <workItem from="1717756857560" duration="120000" />
-      <workItem from="1717757177239" duration="3559000" />
-      <workItem from="1717762865776" duration="14000" />
-      <workItem from="1717762881415" duration="1206000" />
-      <workItem from="1717909997189" duration="158000" />
-      <workItem from="1718188930273" duration="2000" />
-      <workItem from="1718337493278" duration="1049000" />
-      <workItem from="1718361206538" duration="4000" />
->>>>>>> refs/heads/List/EditLanding-ThienLC
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-<<<<<<< HEAD
     <option name="version" value="3" />
-=======
-    <option name="version" value="2" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="oldMeFiltersMigrated" value="true" />
->>>>>>> refs/heads/List/EditLanding-ThienLC
   </component>
 </project>

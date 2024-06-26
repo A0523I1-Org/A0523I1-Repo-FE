@@ -2,6 +2,7 @@
 import CreateContract from "../components/contract/CreateContract";
 import EditContract from "../components/contract/EditContract";
 import ListContract from "../components/contract/ListContract";
+import PopupDelete from "../components/contract/PopupDelete";
 import CreateCustomer from "../components/customer/CreateCustomer";
 import EditCustomer from "../components/customer/EditCustomer";
 import ListCustomer from "../components/customer/ListCustomer";
@@ -12,14 +13,16 @@ import Home from "../pages/Home";
 import CreateLangding from "../components/landing/CreateLanding";
 import EditLanding from "../components/landing/EditLanding";
 import ListLanding from "../components/landing/ListLanding";
-// import Login from "../components/auth/Login";
 import Register from "../components/employee/Register";
+
 import routes from "../configs/routes";
 import PersonalInformation from "../components/employee/PersonalInformation";
+import UnauthorizedPage from "../components/auth/Unauthorize";
 
 const publicRoutes = [
     {path : routes.login ,component : Home},
     {path : routes.home ,component : Home},
+    {path: routes.unAuthorized, component: UnauthorizedPage},
 ]
 
 const privateRoutes = [
@@ -28,6 +31,7 @@ const privateRoutes = [
     {path : routes.listContract, component : ListContract},
     {path : routes.createContract, component : CreateContract},
     {path : routes.editContract, component : EditContract , id : ':id'},
+    {path : routes.deleteContract, component : PopupDelete, id: ':id'},
 
     {path : routes.listCustomer, component : ListCustomer},
     {path : routes.createCustomer, component : CreateCustomer},
