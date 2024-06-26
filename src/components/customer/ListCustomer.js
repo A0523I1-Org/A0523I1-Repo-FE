@@ -145,7 +145,7 @@ const ListCustomer = () => {
 
         <div  id="list-tt" className="container">
             <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5 p-4">
-                <h1 className="text-center text-amber-700 text-4xl font-bold py-3 shadow-sm text-shadow">Danh Sách Khách
+                <h1 className="text-center  text-4xl font-bold py-3 shadow-sm ">Danh Sách Khách
                     Hàng</h1>
 
 

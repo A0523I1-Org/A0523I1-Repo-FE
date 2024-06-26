@@ -121,7 +121,7 @@ const EditCustomer = () => {
 
     return (
         <div id="edit-tt" className="boss max-w-[1000px] mx-auto">
-            <h1 className="text-center text-amber-700 text-4xl font-bold py-3 shadow-2xl">Chỉnh sửa Khách Hàng</h1>
+            <h1 className="text-center text-4xl font-bold py-3 shadow-2xl">Chỉnh Sửa Khách Hàng</h1>
             <div className="flex items-center justify-center p-12">
                 <div className="w-full max-w-[800px]">
                     <Formik

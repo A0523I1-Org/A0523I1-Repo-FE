@@ -81,7 +81,7 @@ const CreateCustomer = () => {
         <>
 
             <div id="create-tt" className="boss max-w-[1000px] max-h-[900px]  mx-auto ">
-                <h1 className=" text-center text-amber-700 text-4xl font-bold py-3 shadow-2xl text-shadow">
+                <h1 className=" text-center  text-4xl font-bold py-3 shadow-2xl text-shadow">
                     Thêm Mới Khách Hàng
                 </h1>
 
