@@ -99,6 +99,7 @@ const ListLanding = () => {
   const handlePageChange = (page) => {
     sessionStorage.setItem("currentPage", page - 1);
     const param = { ...searchParams, page: page - 1 };
+    setListIdInput([])
     setSearchParams(param);
     getListAllLanding(param);
   };
