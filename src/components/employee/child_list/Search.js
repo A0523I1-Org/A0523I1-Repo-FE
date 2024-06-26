@@ -1,9 +1,8 @@
-
 import React, {useEffect, useState} from 'react';
-import {CloseIcon, RefreshIcon, SearchIcon, SearchInputIcon, SearchSubmitIcon} from "./icons";
-import {capitalizeFirstLetter} from "./utils";
-import {getAllDepartments} from "../../services/DepartmentService";
-import {getAllSalaryRanks} from "../../services/SalaryRankService";
+import {CloseIcon, RefreshIcon, SearchIcon, SearchInputIcon, SearchSubmitIcon} from "../utils/Icons";
+import {capitalizeFirstLetter} from "../utils/Utils";
+import {getAllDepartments} from "../../../services/DepartmentService";
+import {getAllSalaryRanks} from "../../../services/SalaryRankService";
 
 const Search = ({onSearch}) => {
     const [departments, setDepartments] = useState([]);

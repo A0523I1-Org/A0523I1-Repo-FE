@@ -133,8 +133,6 @@ p, h1, h2, h3, h4, h5, h6, h7, span {
 #main .main__part1_title .main__part1__distance p {
     padding: 1.5rem 0;
     color: #2f2b36;
-    font: var(--font_6);
-    font-weight: 0;
     font-size: 19px;
     text-align: center;
     letter-spacing: 0em;
@@ -148,7 +146,6 @@ p, h1, h2, h3, h4, h5, h6, h7, span {
 
 #main .font_2 {
     font: var(--font_2);
-    color: rgb(var(--color_15));
     letter-spacing: 0em;
 }
 #main .button-animation {
@@ -266,8 +263,6 @@ p, h1, h2, h3, h4, h5, h6, h7, span {
     #main .main__part1__distance p {
         padding: 1.5rem 0;
         color: #2f2b36;
-        font: var(--font_6);
-        font-weight: 0;
         font-size: 17px !important;
         text-align: center;
         letter-spacing: 0em;
@@ -276,7 +271,6 @@ p, h1, h2, h3, h4, h5, h6, h7, span {
     }
     .font_2 {
         font: var(--font_2);
-        color: rgb(var(--color_15));
         letter-spacing: 0em;
         font-size: 35px !important;
     }

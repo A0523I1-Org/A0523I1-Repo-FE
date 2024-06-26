@@ -8,13 +8,11 @@ export const fetchEmployees = async (page, criteria = null) => {
             const queryParams = new URLSearchParams(criteria).toString();
             url += `&${queryParams}`;
         }
-        console.log("CHECK THIS")
-        console.log(url)
         const response = await axios.get(url);
         return response.data;
     } catch (error) {
         console.error('Error fetching employee data:', error);
-        return { content: [], totalPages: 1 };
+        return {content: [], totalPages: 1};
     }
 };
 
@@ -35,7 +33,7 @@ export const findEmployeeById = async (id) => {
 
         let employee = await axios.get(`http://localhost:8080/api/employee/${id}`)
         return employee.data
-    }catch (e) {
+    } catch (e) {
         console.log("Error at EmployeeService/findEmployeeById:" + e)
     }
 };
@@ -49,3 +47,14 @@ export const deleteEmployeeById = async (id) => {
         return false
     }
 }
+
+export const gettAllExistEmail = async () => {
+    try {
+        const response = await axios.get("http://localhost:8080/api/employee/email");
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching gettAllExistEmail:', error);
+        return [];
+    }
+}
+

@@ -9,52 +9,52 @@ import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  return (
-   <>
-   <BrowserRouter>
-      <Routes>
-        {
-          publicRoutes.map((route,index) => {
-            const Layout = route.layuot === null ? Fragment : DefaultLayout;
-            const Page = route.component;
-             return <Route 
-             key={index} 
-             path={route.path} 
-             element = {
-              <Layout>
-                  <Page/>
-              </Layout>
-             }
-             />
-          })
-        }
+    return (
+        <>
+            <BrowserRouter>
+                <Routes>
+                    {
+                        publicRoutes.map((route,index) => {
+                            const Layout = route.layuot === null ? Fragment : DefaultLayout;
+                            const Page = route.component;
+                            return <Route
+                                key={index}
+                                path={route.path}
+                                element = {
+                                    <Layout>
+                                        <Page/>
+                                    </Layout>
+                                }
+                            />
+                        })
+                    }
 
-        {
-          privateRoutes.map((route,index) => {
-            const Layout = route.layuot === null ? Fragment : DefaultLayout;
-            const id = route.id === ':id' ? route.id : '';
-            const Page = route.component;
-             return  <Route 
-             key={index} 
-             path={route.path+id} 
-             element = {
-              <Layout>   
-                 <Page/>   
-              </Layout>
-             }
-             />
-          })
-        }
+                    {
+                        privateRoutes.map((route,index) => {
+                            const Layout = route.layuot === null ? Fragment : DefaultLayout;
+                            const id = route.id === ':id' ? route.id : '';
+                            const Page = route.component;
+                            return  <Route
+                                key={index}
+                                path={route.path+id}
+                                element = {
+                                    <Layout>
+                                        <Page/>
+                                    </Layout>
+                                }
+                            />
+                        })
+                    }
 
-        <Route path='*' element = {<NotFound/>}/>
+                    <Route path='*' element = {<NotFound/>}/>
 
-        
 
-      </Routes>
-   </BrowserRouter>
-       <ToastContainer />
-   </>
-  );
+
+                </Routes>
+            </BrowserRouter>
+            <ToastContainer />
+        </>
+    );
 }
 
 export default App;

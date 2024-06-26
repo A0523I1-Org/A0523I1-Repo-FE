@@ -4,6 +4,8 @@ import React, {useEffect, useState} from "react";
 import {useNavigate} from 'react-router-dom'
 import * as employeeService from "../../services/EmployeeService"
 import {toast} from 'react-toastify'
+import routes from "../../configs/routes";
+import {formatDate} from "./utils/Utils";
 
 export default function DeleteEmployee() {
     const {id} = useParams();
@@ -19,23 +21,17 @@ export default function DeleteEmployee() {
         setEmployeeDel(temp)
     }
     const cancelDelete = () => {
-        navigate("/employee")
+        navigate(routes.listEmployee)
     }
     const deleteEmployee = async () => {
         let success = await employeeService.deleteEmployeeById(id)
         if (success) {
             toast.success("Bạn đã xóa thành công nhân viên: " + employeeDel.name)
-            navigate("/employee")
+            navigate(routes.listEmployee)
         } else {
             toast.warning("Qúa trình xóa thất bại, vui lòng kiểm tra lại !");
-            navigate("/employee")
+            navigate(routes.listEmployee)
         }
-    }
-
-    function formatDate(dateString) {
-        const date = new Date(dateString);
-        const options = {day: '2-digit', month: '2-digit', year: 'numeric'};
-        return date.toLocaleDateString('en-GB', options);
     }
 
     if (!employeeDel) {
@@ -97,7 +93,7 @@ export default function DeleteEmployee() {
                                 <i className="fa-solid fa-bullhorn fa-shake fa-lg"/>
                             </span>
                         <span
-                            className="text-red-500"> Lưu ý: Hành động này không thể hoàn tác!</span>
+                            className="text-red-500"> Lưu ý: Hành động này không thể hoàn tác !</span>
                     </div>
                     <div className="w-full sm:w-1/2 lg:w-1/2 p-2 flex justify-end items-center space-x-2">
                         <button className="btn bg-red-500" onClick={deleteEmployee}>
