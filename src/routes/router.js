@@ -13,9 +13,12 @@ import Home from "../pages/Home";
 import CreateLangding from "../components/landing/CreateLanding";
 import EditLanding from "../components/landing/EditLanding";
 import ListLanding from "../components/landing/ListLanding";
-import Register from "../components/employee/Register";
-
+import Login from "../components/auth/Login";
+import Register from "../components/employee/child_list/Register";
 import routes from "../configs/routes";
+import DeleteEmployee from "../components/employee/DeleteEmployee";
+// import Register from "../components/employee/Register";
+
 import PersonalInformation from "../components/employee/PersonalInformation";
 import UnauthorizedPage from "../components/auth/Unauthorize";
 
@@ -39,7 +42,9 @@ const privateRoutes = [
 
     {path : routes.listEmployee, component : ListEmployee},
     {path : routes.createEmployee, component : CreateEmployee},
+    {path : routes.deleteEmployee, component : DeleteEmployee, id: ':id'},
     {path : routes.editEmployee, component : EditEmployee , id : ':id'},
+    {path : routes.deleteEmployee, component : DeleteEmployee , id : ':id'},
     {path : routes.register,component : Register , id : ':id'},
     {path : routes.personalInformation,component : PersonalInformation, token : ':token'},
 

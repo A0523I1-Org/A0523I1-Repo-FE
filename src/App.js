@@ -6,7 +6,6 @@ import React, { Fragment } from 'react';
 import NotFound from './pages/NotFound';
 import {ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import NoAccess from "./pages/NoAccess";
 import PrivateRoute from "./configs/privateRoute";
 
 function App() {
@@ -52,7 +51,6 @@ function App() {
                     }
 
                     <Route path='*' element={<NotFound/>}/>
-                    <Route path="/no-access" element={<NoAccess/>} />
 
                 </Routes>
             </BrowserRouter>
