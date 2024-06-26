@@ -5,26 +5,35 @@ import '../layouts/FooterExtra';
 import FooterExtra from "./FooterExtra";
 import '../css/defaultLayout.css';
 import {useEffect, useState} from "react";
+
+
+
 function DefaultLayout ({children})  {
     const location = useLocation();
     const [locationPresent,setLocationPresent] = useState("");
     const [locationPresentOperation,setLocationPresentOperation] = useState("");
+
     useEffect(() => {
         handleLocation();
     },[location.pathname])
+
     const handleLocation = ()=>{
         const partsLocation = location.pathname.split('/');
+
         const firstPartLocation = partsLocation[1];
         const secondPartLocation = partsLocation[2];
+
         const locationMapping = {
             contract: 'Hợp đồng',
             customer: 'Khách hàng',
             employee: 'Nhân viên',
             landing: 'Mặt bằng'
         };
+
         if(locationMapping[firstPartLocation]){
             setLocationPresent(locationMapping[firstPartLocation]);
         }
+
         if(secondPartLocation){
             const action = secondPartLocation.split('-')[0];
             const actionMapping = {
@@ -39,9 +48,10 @@ function DefaultLayout ({children})  {
             setLocationPresentOperation("");
         }
     }
+
     return (
         <>
-            {location.pathname === "/"
+            {location.pathname === "/" || location.pathname === "/login"
                 ?
                 <div>
                     <Header/>
@@ -54,7 +64,8 @@ function DefaultLayout ({children})  {
                         <div className="">
                             <Header/>
                         </div>
-                        <div  className="mx-10 overflow-auto mt-5 ">
+                        <div  className="mx-10  mt-5 ">
+
                             <div className="w-full h-[40px]  relative">
                                 <div className="absolute py-2 left-0 top-2.5">
                                     <FooterExtra nameLocation={location.pathname.trim()}/>
@@ -83,9 +94,12 @@ function DefaultLayout ({children})  {
                                         <span className={'pr-3'}>{locationPresentOperation}</span>
                                         : ""
                                     }
+
                                 </div>
                             </div>
+
                             <div className="h-auto mt-5 ">
+
                                 {children}
                             </div>
                         </div>
@@ -94,5 +108,7 @@ function DefaultLayout ({children})  {
             }
         </>
     )
+
 }
+
 export default DefaultLayout;

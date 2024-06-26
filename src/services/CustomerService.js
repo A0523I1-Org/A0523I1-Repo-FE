@@ -58,11 +58,12 @@ export const findbyCustomerId = async (id, token) => {
 
 export const deleteCustomer = async (id, token) => {
     try {
-        await axios.delete(`http://localhost:8080/api/customer/${id}`, {
+        await axios.delete(`http://localhost:8080/api/customer/${id}`,{
             headers: {
                 Authorization: `Bearer ${token}`
             }
         });
+
     } catch (e) {
         console.log(e);
     }
@@ -78,7 +79,6 @@ export const deleteCustomers = async (ids, token) => {
                 Authorization: `Bearer ${token}`
             }
         });
-        console.log("Deleted customers successfully.");
     } catch (e) {
         console.error("Error deleting customers:", e);
     }

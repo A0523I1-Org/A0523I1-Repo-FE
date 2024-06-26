@@ -16,6 +16,7 @@ const routes = {
     listEmployee : '/employee',
     createEmployee : '/employee/create-employee',
     editEmployee : '/employee/edit-employee/',
+    deleteEmployee : '/employee/delete-employee/',
     register : '/employee/register-an-account/',
     personalInformation : '/employee/personal-information',
 
@@ -23,6 +24,7 @@ const routes = {
     createLanding : '/landing/create-landing',
     editLanding : '/landing/edit-landing/',
 
+    unAuthorized : '/unauthorized'
 }
 
 export default routes;

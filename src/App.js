@@ -10,6 +10,7 @@ import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 import "react-toastify/dist/ReactToastify.css";
+import PrivateRoute from "./configs/privateRoute";
 
 
 function App() {
@@ -42,9 +43,13 @@ function App() {
                                 key={index}
                                 path={route.path + id}
                                 element={
-                                    <Layout>
-                                        <Page/>
-                                    </Layout>
+                                    <PrivateRoute
+                                        element={
+                                            <Layout>
+                                                <Page/>
+                                            </Layout>
+                                        }
+                                    />
                                 }
                             />
                         })

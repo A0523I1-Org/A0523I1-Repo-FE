@@ -2,9 +2,12 @@
   <profile version="1.0">
     <option name="myName" value="Project Default" />
 <<<<<<< HEAD
+<<<<<<< HEAD
     <inspection_tool class="Eslint" enabled="true" level="WARNING" enabled_by_default="true" />
 =======
 
+=======
+>>>>>>> Login-DatCT
     <inspection_tool class="DuplicatedCode" enabled="true" level="WEAK WARNING" enabled_by_default="true">
       <Languages>
         <language minSize="144" name="JavaScript" />
@@ -20,9 +23,12 @@
       </option>
       <option name="myCustomValuesEnabled" value="true" />
     </inspection_tool>
+<<<<<<< HEAD
 
     <inspection_tool class="Eslint" enabled="true" level="WARNING" enabled_by_default="true" />
 
 >>>>>>> List/CreateContract-HoaiNT
+=======
+>>>>>>> Login-DatCT
   </profile>
 </component>

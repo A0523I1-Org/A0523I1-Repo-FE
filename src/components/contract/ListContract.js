@@ -76,7 +76,7 @@ const ListContract = () => {
         if (resultSearch === null) {
             setTotalContract(result.content.length);
         }
-        ;
+
         setResultSearch(result.content.length);
 
     };
@@ -85,7 +85,7 @@ const ListContract = () => {
         if (state !== null) {
             state.landingCode = "";
         }
-        ;
+
     };
     // xử lý menu bật tắt thao tác
     const handleSelectMenu = (id) => {
@@ -131,7 +131,7 @@ const ListContract = () => {
             values.startDate,
             values.endDate,
             fieldSort
-          )
+        )
         setCurrentPage(1);
     };
     // xử lý khi click vào page phân trang (Hoài NT)
@@ -139,24 +139,24 @@ const ListContract = () => {
         setLocationLandingCode()
         setCurrentPage(page)
         getAllContract((page-1),
-        customerNameSearch,
-        landingCodeSearch,
-        startDateSearch,
-        endDateSearch,
-        fieldSort
-      );
+            customerNameSearch,
+            landingCodeSearch,
+            startDateSearch,
+            endDateSearch,
+            fieldSort
+        );
 
     };
     // sắp xếp khi click vào  field ở tag th cuat table : (HoaiNT)
     const handleClickSortByField = (field) => {
-      setFieldSort(field);
-      setLocationLandingCode()
-      getAllContract(currentPage-1,
-        customerNameSearch,
-        landingCodeSearch,
-        startDateSearch,
-        endDateSearch,
-        field);
+        setFieldSort(field);
+        setLocationLandingCode()
+        getAllContract(currentPage-1,
+            customerNameSearch,
+            landingCodeSearch,
+            startDateSearch,
+            endDateSearch,
+            field);
     }
 
     useEffect(() => {
@@ -166,7 +166,7 @@ const ListContract = () => {
             startDateSearch,
             endDateSearch,
             fieldSort
-          );
+        );
 
         document.addEventListener("click", handleClickOffMenu);
         return () => {
@@ -239,39 +239,39 @@ const ListContract = () => {
 
                     </div>
                     <br></br>
-    <div style={{position: "relative"}} class="mx-16 h-full  ">
-      {resultSearch === 0 ? (
-        <NotFoundSearch />
-      ) : (
-        <table class="table-auto  w-full h-full">
-          <thead class="border ">
-            <tr>
-              <th> STT </th>
-              <th>
-                <button 
-                  onClick={()=>handleClickSortByField("cus.name")}
-                  >Tên Khách Hàng
-                </button>
-              </th>
-              <th>
-                <button 
-                  onClick={()=>handleClickSortByField("l.code")} 
-                  >Mã Mặt Bằng
-                </button>
-              </th>
-              <th>
-                <button 
-                  onClick={()=>handleClickSortByField("start_date")} 
-                  >Ngày Bắt Đầu
-                </button>
-              </th>
-              <th>
-                <button 
-                  onClick={()=>handleClickSortByField("end_date")}
-                  >Ngày Kết Thúc
-                </button>
-              </th>
-              <th class="">
+                    <div style={{position: "relative"}} class="mx-16 h-full  ">
+                        {resultSearch === 0 ? (
+                            <NotFoundSearch />
+                        ) : (
+                            <table class="table-auto  w-full h-full">
+                                <thead class="border ">
+                                <tr>
+                                    <th> STT </th>
+                                    <th>
+                                        <button
+                                            onClick={()=>handleClickSortByField("cus.name")}
+                                        >Tên Khách Hàng
+                                        </button>
+                                    </th>
+                                    <th>
+                                        <button
+                                            onClick={()=>handleClickSortByField("l.code")}
+                                        >Mã Mặt Bằng
+                                        </button>
+                                    </th>
+                                    <th>
+                                        <button
+                                            onClick={()=>handleClickSortByField("start_date")}
+                                        >Ngày Bắt Đầu
+                                        </button>
+                                    </th>
+                                    <th>
+                                        <button
+                                            onClick={()=>handleClickSortByField("end_date")}
+                                        >Ngày Kết Thúc
+                                        </button>
+                                    </th>
+                                    <th class="">
                 <span class="flex items-center justify-center">
                   <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -378,7 +378,7 @@ const ListContract = () => {
                         </span></button>
 
 
-                      <Link onClick={()=>toast("Tính năng này chưa phát triển !")} class="w-full h-1/3 px-3 flex items-center hover:bg-[#fafafa]">
+                                                    <Link onClick={()=>toast("Tính năng này chưa phát triển !")} class="w-full h-1/3 px-3 flex items-center hover:bg-[#fafafa]">
                                 <span class="flex py-1">
                                     <span class="mt-0.5 pr-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -389,7 +389,7 @@ const ListContract = () => {
                                     </span>
                                     Chi Tiết Hợp Đồng
                                 </span>
-                        </Link>
+                                                    </Link>
 
 
                                                     <Link

@@ -1,5 +1,16 @@
 import axios from "axios";
 /** Call API */
+axios.interceptors.response.use(
+    response => response,
+    error => {
+        if (error.response && error.response.status === 401) {
+            // Redirect to unauthorized page
+            window.location.href = '/unauthorized';
+        }
+        return Promise.reject(error);
+    }
+);
+
 export async function login(username, password){
     try {
         const response = await axios.post(`http://localhost:8080/login`, {username, password})

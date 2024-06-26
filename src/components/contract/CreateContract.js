@@ -466,7 +466,7 @@ const getLoginEmployee = async() => {
                           />
                         </div>
                       </div>
-                      <div className=" h-1/5 mx-5  flex gap-3 ">
+                      <div className="  h-[40px] mx-5  flex gap-3 ">
                         <p className="w-4/12 h-full text-sm">Ngày Kết Thúc </p>
                         <div className="w-8/12 h-full  flex">
                           <span className="flex items-center bg-[#fafafa] py-3 px-4 border rounded-tl-[3px] rounded-tb-[3px] text-[#888] ">

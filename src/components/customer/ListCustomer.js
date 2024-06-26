@@ -141,6 +141,10 @@ const ListCustomer = () => {
         setSelectedCustomer(null);
     };
 
+    if (customers.length === 0) {
+        return null;
+    }
+
     return  <>
 
         <div  id="list-tt" className="container">
@@ -373,7 +377,7 @@ const ListCustomer = () => {
                             <td className="px-6 py-4 md:border md:border-grey-500 text-left block md:table-cell">
                                 <div className="flex justify-end gap-4">
                                     <button x-data="{ tooltip: 'Delete' }" href="#"
-                                            onClick={() => handleDelete(customer)}>
+                                            onClick={() => handleDelete(customer.id)}>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                              stroke-width="1.5" stroke="currentColor"
                                              className="h-6 w-6 text-red-500 hover:scale-110  transform"
