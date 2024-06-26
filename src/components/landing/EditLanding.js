@@ -25,10 +25,7 @@ const EditLanding = () => {
     const navigator = useNavigate();
     const { id } = useParams();
     const imgRef = ref(storage,"imgLanding/");
-    
-    
 
-   
 
     useEffect(() => {
         findLanding(id);
@@ -70,15 +67,14 @@ const EditLanding = () => {
                 return; // Có thể thông báo lỗi cho người dùng tại đây nếu cần
             }
         }
-    
-        console.log(values.firebaseUrl);
+
         if (values.firebaseUrl !== "") {
             values.floor = +values.floor;
             try {
                
                 const token = localStorage.getItem("token");
                 await landingService.updateLading(values, token);
-                toast.success("Update Landing thành công");
+                toast.success(`Cập nhật mặt bằng ${values.code} thành công`);
                 navigator(routes.listLanding);
             } catch (error) {
                 console.error("Error updating landing: ", error);

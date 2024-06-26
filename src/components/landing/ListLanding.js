@@ -381,13 +381,13 @@ const ListLanding = () => {
           <div className="w-1/5 h-1/2 max-md:w-full flex gap-3  ">
             <button
                 onClick={handleSubmit}
-                className=" bg-[#26a69a] rounded-full max-md:p-2 w-11 h-11"
+                className=" bg-blue-700 rounded-full max-md:p-2 w-11 h-11"
             >
               <i className="fa fa-search text-white"></i>
             </button>
             <button
                 onClick={handleReset}
-                className="rounded-full bg-[#2196f3] w-11 h-11 bg-[#2196f3]"
+                className="rounded-full bg-blue-700 w-11 h-11 bg-[#2196f3]"
             >
               <i className="fa fa-refresh text-white"></i>
             </button>
@@ -421,9 +421,9 @@ const ListLanding = () => {
           </div>
         </div>
 
-        <div className="w-full h-auto  ">
+        <div className="w-full h-[280px]  ">
           <div className="mx-16 h-full max-lg:mx-0 ">
-            <table className="w-full table-auto max-lg:table-fixed">
+            <table className=" table-auto lg:table-fixed min-w-full">
               <thead className="border  ">
               <tr className="text-center">
                 <th className="h-[42px] tex-center border-[#ddd]">
@@ -440,7 +440,7 @@ const ListLanding = () => {
                 <th>Giá <span className="max-sm:hidden">bán</span></th>
                 <th className="max-md:hidden">Phí quản lý</th>
                 <th>Tầng</th>
-                <th>
+                <th className="max-sm:hidden">
                   <span className="flex  justify-center">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -520,7 +520,7 @@ const ListLanding = () => {
                     <td className="w-1/12 max-sm:w-3/12 max-md:w-2/12 text-center">
                     <span>
                       {landingItem.area}
-                      <span className="text-red-600 after:content-['_↗']"></span>
+                      <span className="text-red-600"> m<sup className="text-[10px]">2</sup></span>
                     </span>
                     </td>
                     <td className="w-1.5/12 text-center">
@@ -541,7 +541,7 @@ const ListLanding = () => {
                       </div>
                     </td>
 
-                    <td className=" w-2/12 text-center ">
+                    <td className=" w-2/12 text-center max-sm:hidden">
                       {locationMapping.hasOwnProperty(landingItem.status) ? (
                           <button
                               className={` rounded-[4px]
@@ -699,17 +699,18 @@ const ListLanding = () => {
               ))}
               </tbody>
             </table>
+            {isNotFound && (
+                <div className=" h-auto  mx-16 text-center flex flex-col justify-center items-center mt-3">
+                  <img src="/img/img-search.png" className="w-[134px] h-[134px]"/>
+                  <div className=" text-[18px]">Không tìm thấy kết quả nào</div>
+                  <div className="text-[17px] opacity-70">Hãy thử sử dụng các từ khóa chung chung hơn</div>
+                  <button onClick={handleGoBack} className="mt-3 font-medium">Quay lại <span><i
+                      className='bx bx-subdirectory-left'></i></span></button>
+                </div>
+            )}
           </div>
         </div>
-        {isNotFound && (
-            <div className=" h-auto  mx-16 text-center flex flex-col justify-center items-center mt-3">
-              <img src="/img/img-search.png" className="w-[134px] h-[134px]"/>
-              <div className=" text-[18px]">Không tìm thấy kết quả nào</div>
-              <div className="text-[17px] opacity-70">Hãy thử sử dụng các từ khóa chung chung hơn</div>
-              <button onClick={handleGoBack} className="mt-3">Quay lại <span><i
-                  className='bx bx-subdirectory-left'></i></span></button>
-            </div>
-        )}
+
         <div className=" h-[40px] my-5 relative mx-16 flex max-lg:mx-0 ">
           {listIdInput.length > 0 && (
               <button
@@ -739,7 +740,7 @@ const ListLanding = () => {
             </span>
               </button>
           )}
-          <div className={`absolute h-full right-0 ${paginationVisible ? '' : 'pagination-hidden'}`}>
+          <div className={`absolute  h-full right-0 ${paginationVisible ? '' : 'pagination-hidden'}`}>
             <ResponsivePagination
                 total={landing.totalPages}
                 current={landing.number + 1}
@@ -834,7 +835,7 @@ const ListLanding = () => {
                           onClick={deleteLandingByIds}>
                     Xác nhận
                   </button>
-                  <button className="mx-6 p-2 font-medium bg-white text-slate-700 border border-gray-500 rounded-[4px]"
+                  <button className="mx-6 p-2 font-medium bg-white text-slate-700 border border-gray-500 rounded-[4px]Q"
                           onClick={closeModalMultiDelete}>
                     Hủy
                   </button>
@@ -881,7 +882,7 @@ const ListLanding = () => {
                   <span>{landingDetail.area} m<sup className="text-[10px]">2</sup></span>
 
                 </div>
-                <div className="w-full h-auto py-2">
+                <div className="w-[400px] max-sm:w-[300px]  h-auto py-2 ">
                   <span>Chú thích : </span>
                   <span className="break-words">{landingDetail.description}</span>
 

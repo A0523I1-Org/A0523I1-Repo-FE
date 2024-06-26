@@ -24,6 +24,7 @@ const FooterExtra = React.memo(({ nameLocation }) => {
     const showBackButton = !locationMapping.hasOwnProperty(nameLocation.slice(1));
     const [locationPresent, setLocationPresent] = useState("");
     const [locationPresentOperation, setLocationPresentOperation] = useState("");
+    const [isLocationMargin, setIsLocationMargin] = useState(false);
 
     // Cập nhật chi tiết vị trí khi thuộc tính nameLocation thay đổi
     useEffect(() => {
@@ -40,8 +41,14 @@ const FooterExtra = React.memo(({ nameLocation }) => {
         // Đặt vị trí hiện tại dựa trên bản đồ
         setLocationPresent(locationMapping[firstPartLocation] || "");
 
+        if(secondPartLocation === undefined){
+           setIsLocationMargin(false)
+        }
+
         if (secondPartLocation) {
-            const action = secondPartLocation.split('-')[0];
+            const action = secondPartLocation.split('-')[0]
+
+            setIsLocationMargin(actionMapping.hasOwnProperty(action))
             // Đặt hoạt động hiện tại dựa trên bản đồ
             setLocationPresentOperation(actionMapping[action] || "");
         } else {
@@ -51,7 +58,7 @@ const FooterExtra = React.memo(({ nameLocation }) => {
     };
 
     return (
-        <div className=" mx-16 h-[40px] max-lg:mx-0 relative">
+        <div className={` ${isLocationMargin ? "mx-0 mb-10" : "mx-16"}  h-[40px] max-lg:mx-0 relative`}>
             <div className="absolute py-2 right-0 top-1">
                 {showBackButton && (
                     <div className="h-full flex items-center">

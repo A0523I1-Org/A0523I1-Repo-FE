@@ -185,7 +185,7 @@ const Home_child_introduce_service_xls = () => {
     return (
         <>
             <div className=" w-full h-auto max-sm:h-[1020px] my-[100px] relative bg-[#F2F5F4] ">
-                <h1 className="text-6xl h-1/6 py-5 text-center max-sm:h-[150px] max-sm:text-5xl max-sm:py-5">Dịch
+                <h1 className="text-6xl h-1/6 py-10 text-center max-sm:h-[150px] max-sm:text-5xl max-sm:py-5">Dịch
                     vụ</h1>
                 <div className="h-5/6  mx-40 max-2xl:mx-30 max-xl:mx-20 max-lg:mx-2 flex  flex-col">
                     <div className="w-full h-1/2  flex max-sm:grid max-sm:grid-cols-2">
@@ -193,7 +193,7 @@ const Home_child_introduce_service_xls = () => {
                             <img src="/img/Screenshot%202024-05-10%20181045.png"
                                  className="w-full h-full object-cover" alt={""}/>
                         </div>
-                        <div className="w-1/3 h-full max-sm:w-full max-sm:px-2">
+                        <div className="w-1/3 h-full  pt-10 max-sm:w-full max-sm:px-2">
                             <h1 className="text-3xl max-sm:px-0 max-lg:text-2xl font-normal text-center  max-xl:pt-0
                              px-10 max-xl:px-0">
                                 Tư vấn bất động sản
@@ -334,14 +334,14 @@ const Home_child_introduce_event_xls = () => {
         <>
             <div className="h-auto mx-18 my-10 bg-[#f7f7f7]">
                 <div className="mx-32 max-lg:mx-10">
-                    <div className="font_2 my-10">
+                    <div className="font_2 pt-5">
                         <h2 className="max-sm:text-4xl max-lg:text-3xl max-sm:pt-5">Sự kiện</h2>
                     </div>
                     <div
                         className="flex max-md:grid max-md:grid-cols-1 max-lg:grid max-lg:grid-cols-2 justify-between py-10 max-xl:gap-5 max-2xl:gap-5 ">
                         <div
                             className="w-[400px] max-md:w-full max-md:h-[320px] max-lg:w-[360px] h-auto bg-white border-[1px] rounded-[20px] border-[#2f2b36]">
-                            <h3 className="font-normal px-6 py-6 ">Tổ chức công ty</h3>
+                            <h3 className="font-medium px-6 py-6 ">Tổ chức công ty</h3>
                             <div className="max-md:flex">
                                 <div className="px-6 h-[220px] max-md:w-1/2 max-md:h-2/3 ">
                                     <img src='/img/hinh-anh-van-phong-cong-ty-rigup-2.jpg' alt=""
@@ -364,7 +364,7 @@ const Home_child_introduce_event_xls = () => {
                         </div>
                         <div
                             className="w-[400px]  max-md:w-full max-md:h-[320px] max-lg:w-[360px] h-auto bg-white border-[1px] rounded-[20px] border-[#2f2b36]">
-                            <h3 className="font-normal
+                            <h3 className="font-medium
                              px-6 py-6">Văn Phòng</h3>
                             <div className="max-md:flex">
                                 <div className="px-6 h-[220px] max-md:w-1/2 max-md:h-2/3">
@@ -389,7 +389,7 @@ const Home_child_introduce_event_xls = () => {
                         </div>
                         <div
                             className="w-[400px] max-md:w-full max-md:h-[320px] max-lg:w-[360px] h-auto bg-white border-[1px] rounded-[20px] border-[#2f2b36]">
-                            <h3 className="font-normal px-6 py-6">Phòng học</h3>
+                            <h3 className="font-medium px-6 py-6">Phòng học</h3>
                             <div className="max-md:flex">
                                 <div className="px-6 h-[220px] max-md:w-1/2 max-md:h-2/3 ">
                                     <img src="/img/mau-thiet-ke-phong-hoc-tai-nha-chuan-dep-15.jpg" alt=""
@@ -412,7 +412,7 @@ const Home_child_introduce_event_xls = () => {
                         </div>
                         <div
                             className="w-[400px] hidden max-lg:block    max-md:w-full max-md:h-[320px] max-lg:w-[360px] h-auto bg-white border-[1px] rounded-[20px] border-[#2f2b36]">
-                            <h3 className="font-normal px-6 py-6">Sự kiên</h3>
+                            <h3 className="font-medium px-6 py-6">Sự kiên</h3>
                             <div className="max-md:flex">
                                 <div className="px-6 h-[220px] max-md:w-1/2 max-md:h-2/3 ">
                                     <img src="/img/821A0929.jpg" alt=""
@@ -517,7 +517,7 @@ const Home_child_authentication = () => {
         <>
             <div className="h-auto mx-18 max-sm:my-32 my-10 bg-[#f7f7f7]">
                 <div className="mx-32 max-lg:mx-10">
-                    <div className="  my-10 max-lg:my-5 max-md:pt-5 max-sm:pt-5">
+                    <div className="   pt-5 max-lg:my-5 max-md:pt-5 max-sm:pt-5">
                         <h2 className="max-md:text-[28.3px] font_2">Lời chứng thực</h2>
                     </div>
                     <div className="flex max-md:flex-col justify-between py-10 max-xl:gap-5 max-2xl:gap-5 max-lg:gap-3">
