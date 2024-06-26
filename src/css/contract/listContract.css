@@ -52,7 +52,7 @@ body {
     height: 2rem;
     width: 8rem;
     padding: 10px;
-    
+
 
 }
 
@@ -90,11 +90,11 @@ body {
     background-color: #4caf50;
     border-style: none;
     height: 35px;
-    
+
 }
 #table-ct #create:hover {
     background-color:#cccccc ;
-   
+
 }
 #notfound-contract #create-error {
     background-color: #4caf50;

@@ -1,0 +1,12 @@
+#de_main {
+    border-radius: 10px;
+    padding: 50px;
+    width: auto;
+    height: auto;
+}
+#de_main .btn {
+    padding: 7px 14px;
+    border-radius: 3px;
+    color: white;
+    border: none;
+}

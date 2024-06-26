@@ -8,10 +8,8 @@
     position: absolute;
     top: 39vh;
     left: 40%;
-    
-    
   }
-  
+
   .page-item .page-link {
     position: relative;
     display: block;
@@ -24,17 +22,17 @@
     color: #007bff;
     text-decoration: none;
   }
-  
+
   .page-item a.page-link:hover {
     background-color: #cccccc;
   }
-  
+
   .page-item.active .page-link {
     font-weight: 700;
     color: #ffffff;
     background-color: #007bff;
   }
-  
+
   .page-item.disabled .page-link {
     color: #6c757d;
     pointer-events: none;

@@ -29,6 +29,7 @@ export const showListLandingHome = async (page = 0, size = 4) => {
             number: 0
         };
     }
+
 }
 
 // lấy danh sách mb còn trống (Hoài NT)
@@ -41,4 +42,5 @@ export const getAllLandingSpace = async(token) => {
     } catch (error) {
         console.log(error);
     }
+
 }

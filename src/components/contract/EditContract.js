@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import '../../configs/routes'
-import {ErrorMessage, Field, Form, Formik, useFormikContext,} from 'formik'
+import {ErrorMessage, Field, Form, Formik,} from 'formik'
 import '../../css/form.css'
 import {Link, useParams} from 'react-router-dom'
 import {getContractById,updateContract} from '../../services/ContractService'
 import Moment from "moment";
 import {storage} from "../../configs/firebase";
-import {ref,uploadBytesResumable,getDownloadURL,uploadBytes} from 'firebase/storage'
+import {ref,uploadBytesResumable,getDownloadURL,uploadBytes,deleteObject} from 'firebase/storage'
 import {v4} from 'uuid';
 import {contractSchema} from '../../schema/ContractSchema'
 import PopupUpdate from "./PopupUpdate";
@@ -137,6 +137,7 @@ const EditContract = () => {
             }
         }catch (e) {
             console.log(e)
+            // deleteObject(storageRef)
             setShowLoading(false);
         }
 
