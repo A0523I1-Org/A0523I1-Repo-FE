@@ -2,7 +2,7 @@ import {Field, Form, Formik, ErrorMessage} from "formik";
 import {useNavigate} from "react-router-dom";
 import * as customerService from "../../services/CustomerService";
 import * as Yup from "yup";
-import "./create.css";
+import "../../css/customer/create.css";
 import {toast} from "react-toastify";
 import * as authService from '../../services/Authenticate/AuthService.js'
 
@@ -13,9 +13,9 @@ const CreateCustomer = () => {
         try {
             console.log(customer);
             const token = authService.getToken();
-            await customerService.createCustomer(customer,token);
+            await customerService.createCustomer(customer, token);
             navigate("/customer");
-            toast("Thêm mới khách hàng thành công", {
+            toast.success("Thêm mới khách hàng thành công", {
                 position: "top-right",
                 autoClose: 2000,
             });
@@ -64,17 +64,18 @@ const CreateCustomer = () => {
         website: Yup.string()
             .required("Website không được rỗng")
             .max(100, "Website không dài quá 100 kí tự")
-            .min(5, "Website phải có ít nhất 5 kí tự"),
+            .matches(/^[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9-]+$/, "Sai định dạng website"),
         companyName: Yup.string()
             .required("Tên công ty không được rỗng")
-            .max(100, "TTên công ty không dài quá 100 kí tự")
+            .max(100, "Tên công ty không dài quá 100 kí tự")
             .min(5, "Tên công ty dài hơn 5 kí tự")
-            .matches(/^[a-zA-Z\s]+$/, "Tên công ty chỉ được chứa chữ cái và khoảng trắng"),
-        idCard: Yup.string()
-            .required("Căn cước công dân không được rỗng")
-            .max(20, "Căn cước công dân không dài quá 20 kí tự")
-            .min(5, "Tên khách phi hàng lớn hơn 5 kí tự"),
-    };
+            .matches(/^[A-ZÀ-Ỹ]?[a-zà-ỹ0-9]+(\s[A-ZÀ-Ỹ]?[a-zà-ỹ0-9]*)*$/, "Tên công ty không chứa kí đặc biệt"),
+    idCard: Yup.string()
+        .required("Căn cước công dân không được rỗng")
+        .max(20, "Căn cước công dân không dài quá 20 kí tự")
+        .min(5, "Tên khách phi hàng lớn hơn 5 kí tự"),
+}
+    ;
 
     return (
         <>

@@ -78,9 +78,9 @@ button.btn-cancel:hover {
     position: relative;
 }
 
-.absolute {
-    position: absolute;
-}
+/*.absolute {*/
+/*    position: absolute;*/
+/*}*/
 
 .text-gray-600 {
     color: #4a5568;

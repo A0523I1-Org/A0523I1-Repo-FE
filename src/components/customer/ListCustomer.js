@@ -1,4 +1,4 @@
-import "./list.css";
+import "../../css/customer/list.css";
 import {useEffect, useState} from "react";
 import * as customerService from "../../services/CustomerService";
 import {useNavigate} from "react-router-dom";
@@ -142,7 +142,8 @@ const ListCustomer = () => {
     };
 
     return  <>
-        <div id="list-tt" className="container">
+
+        <div  id="list-tt" className="container">
             <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5 p-4">
                 <h1 className="text-center text-amber-700 text-4xl font-bold py-3 shadow-sm text-shadow">Danh Sách Khách
                     Hàng</h1>
@@ -372,7 +373,7 @@ const ListCustomer = () => {
                             <td className="px-6 py-4 md:border md:border-grey-500 text-left block md:table-cell">
                                 <div className="flex justify-end gap-4">
                                     <button x-data="{ tooltip: 'Delete' }" href="#"
-                                            onClick={() => handleDelete(customer.id)}>
+                                            onClick={() => handleDelete(customer)}>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                              stroke-width="1.5" stroke="currentColor"
                                              className="h-6 w-6 text-red-500 hover:scale-110  transform"
@@ -408,22 +409,23 @@ const ListCustomer = () => {
             <div className="pagination-container">
 
                 <ReactPaginate
+                    id="ha"
                     breakLabel="..."
                     nextLabel="Kế Tiếp >"
                     onPageChange={handlePageClick}
                     pageRangeDisplayed={2}
                     pageCount={totalPages}
                     previousLabel="< Quay Lại"
-                    pageClassName="page-item mx-1 border rounded-md"
-                    pageLinkClassName="page-link px-3 py-2 hover:bg-gray-200 hover:rounded-full"
-                    previousClassName="page-item mx-1 border rounded-md ml-0 "
-                    previousLinkClassName="page-link px-3 py-2 hover:bg-amber-500 bg-gray-800 text-white w-24"
-                    nextClassName="page-item mx-1 border rounded-md mr-0"
-                    nextLinkClassName="page-link px-3 py-2 hover:bg-amber-500 bg-gray-800 text-white w-24"
-                    breakClassName="page-item mx-1 border rounded-md"
-                    breakLinkClassName="page-link px-3 py-2 hover:bg-gray-200 hover:rounded-full"
-                    containerClassName="pagination flex justify-center"
-                    activeClassName="active bg-blue-500 text-white"
+                    pageClassName="ha-page-item mx-1 border rounded-md"
+                    pageLinkClassName="ha-page-link px-3 py-2 hover:bg-gray-200 hover:rounded-full"
+                    previousClassName="ha-page-item mx-1 border rounded-md ml-0"
+                    previousLinkClassName="ha-page-link px-3 py-2 hover:bg-amber-500 bg-gray-800 text-white w-24"
+                    nextClassName="ha-page-item mx-1 border rounded-md mr-0"
+                    nextLinkClassName="ha-page-link px-3 py-2 hover:bg-amber-500 bg-gray-800 text-white w-24"
+                    breakClassName="ha-page-item mx-1 border rounded-md"
+                    breakLinkClassName="ha-page-link px-3 py-2 hover:bg-gray-200 hover:rounded-full"
+                    containerClassName="ha-pagination flex justify-center"
+                    activeClassName="ha-active bg-blue-500 text-white"
                     forcePage={currentPage}
                 />
             </div>
@@ -431,8 +433,8 @@ const ListCustomer = () => {
                 <ConfirmationPopup
                     message={
                         popupAction === "single"
-                            ? `Bạn có muốn xóa khách hàng ?`
-                            : "Bạn có muốn xóa những khách hàng đã chọn?"
+                            ? `Bạn có muốn xóa khách hàng ${customers.id}?`
+                            : `Bạn có muốn xóa những khách hàng đã chọn ?`
                     }
                     onConfirm={confirmDelete}
                     onCancel={cancelDelete}
@@ -443,6 +445,7 @@ const ListCustomer = () => {
                 <Modal customer={selectedCustomer} onClose={handleModalClose} />
             )}
         </div>
+
         </>
         };
         export default ListCustomer;

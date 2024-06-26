@@ -1,6 +1,6 @@
 import React from 'react';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
-import './detail.css';
+import '../../css/customer/detail.css';
 import {format, parseISO} from "date-fns";
 
 
