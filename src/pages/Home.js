@@ -133,7 +133,8 @@ const Home = () => {
         page,
         totalPage,
         objectPlanDisplay,
-        isAnimating
+        isAnimating,
+        handleLandingDisplay
     }
 
     return (
