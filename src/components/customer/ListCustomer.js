@@ -1,7 +1,7 @@
 import "../../css/customer/list.css";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import * as customerService from "../../services/CustomerService";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import ReactPaginate from "react-paginate";
 
 import {toast} from "react-toastify";
@@ -9,6 +9,8 @@ import ConfirmationPopup from "./ConfirmationPopup";
 import PopUpDelete from "./PopUpDelete";
 import Modal from "./Modal";
 import * as authService from '../../services/Authenticate/AuthService.js'
+import {AddIcon, DeleteAllIcon, SearchIcon} from "../employee/utils/Icons";
+import routes from "../../configs/routes";
 
 
 
@@ -147,35 +149,24 @@ const ListCustomer = () => {
 
     return  <>
 
-        <div  id="list-tt" className="container">
-            <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5 p-4">
-                <h1 className="text-center  text-4xl font-bold py-3 shadow-sm ">Danh Sách Khách
-                    Hàng</h1>
-
+        <div  id="list-tt" className="my-5">
+            <div className="overflow-hidden  mx-16 shadow-md m-5 ">
 
                 <div className="flex justify-between mb-4">
                     <div className="relative flex items-center">
                         <input
                             className="h-11 mr-2 w-80
-                             border-2 border-blue-200
-                             hover:border-blue-500 hover:border-2
-                             active:boder-red-500
-                             transition-all duration-300 ease-in-out
-                             rounded-xl px-3"
+                             border-1.5 border-blue-700 rounded-[4px]
+                        "
                             type="text"
                             name="name"
                             id="nameSearch"
                             placeholder="Nhập tên khách hàng"
                             onKeyDown={(e) => e.key === 'Enter' ? handleSearch() : null}
                         />
-                        <button onClick={() => handleSearch()}
-
-                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-                                 stroke="currentColor" className="w-6 h-6">
-                                <path strokeLinecap="round" strokeLinejoin="round"
-                                      d="M15.232 15.232l4.768 4.768M6.5 11a4.5 4.5 0 108 0 4.5 4.5 0 00-8 0z"/>
-                            </svg>
+                        <button className="bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                onClick={() => handleSearch()}>
+                            <SearchIcon/>
                         </button>
 
                         <button
@@ -203,24 +194,10 @@ const ListCustomer = () => {
                     </div>
                     <div className="flex gap-2">
 
-                        <button onClick={() => {
-                            navigate("/customer/create-customer")
-                        }} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className="w-6 h-6"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M12 6v12m6-6H6"
-                                />
-                            </svg>
-                        </button>
+                        <Link to={routes.createCustomer} className={"tw-add-button"}>
+                            <AddIcon/>
+                        </Link>
+
 
                         <button onClick={() => handleCheckSumCustomer()}
                                 className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
@@ -244,29 +221,17 @@ const ListCustomer = () => {
                                 />
                             </svg>
                         </button>
-                        <button onClick={handleDeleteIds}
-                                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className="w-6 h-6"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M4.5 4.5L19.5 19.5M19.5 4.5L4.5 19.5"
-                                />
-                            </svg>
+                        <button
+                            onClick={handleDeleteIds} className="tw-delete-all-button"
+                        >
+                            <DeleteAllIcon/>
                         </button>
 
                     </div>
 
                 </div>
                 {(customers && customers.length > 0) ?
-                <table className="w-full border-collapse block md:table bg-white text-left text-sm text-gray-500">
+                    <table className="w-full border-collapse block md:table bg-white text-left text-sm text-gray-500">
                     <thead className="block md:table-header-group bg-gray-50">
                     <tr className="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto md:relative">
                         <th
@@ -277,25 +242,25 @@ const ListCustomer = () => {
                         </th>
                         <th
                             scope="col"
-                            className="px-6 py-4 text-center font-medium text-gray-900 text-left block md:table-cell"
+                            className="px-6 py-4 text-center font-medium text-gray-900  block md:table-cell"
                         >
                             Tên khách hàng
                         </th>
                         <th
                             scope="col"
-                            className="px-6 py-4 text-center font-medium text-gray-900 text-left block md:table-cell"
+                            className="px-6 py-4 text-center font-medium text-gray-900  block md:table-cell"
                         >
                             Ngày Sinh
                         </th>
                         <th
                             scope="col"
-                            className="px-6 py-4 text-center font-medium text-gray-900 text-left block md:table-cell"
+                            className="px-6 py-4 text-center font-medium text-gray-900  block md:table-cell"
                         >
                             Giới Tính
                         </th>
                         <th
                             scope="col"
-                            className="px-6 py-4 text-center font-medium text-gray-900 text-left block md:table-cell"
+                            className="px-6 py-4 text-center font-medium text-gray-900  block md:table-cell"
                         >
                             Điện Thoại
                         </th>
@@ -380,7 +345,7 @@ const ListCustomer = () => {
                                             onClick={() => handleDelete(customer.id)}>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                              stroke-width="1.5" stroke="currentColor"
-                                             className="h-6 w-6 text-red-500 hover:scale-110  transform"
+                                             className="h-6 w-6 hover:scale-110  transform"
                                              x-tooltip="tooltip">
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                   d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"/>
@@ -390,7 +355,7 @@ const ListCustomer = () => {
                                         navigate(`/customer/edit-customer/${customer.id}`)}>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                              stroke-width="1.5" stroke="currentColor"
-                                             className="h-6 w-6 hover:scale-110 text-yellow-500"
+                                             className="h-6 w-6 hover:scale-110 "
                                              x-tooltip="tooltip">
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                   d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"/>
@@ -410,30 +375,30 @@ const ListCustomer = () => {
                 }
 
             </div>
-            <div className="pagination-container">
+            <div className=" relative mx-16">
+                <div className="absolute right-0">
+                    <div className="pagination-container">
 
-                <ReactPaginate
-                    id="ha"
-                    breakLabel="..."
-                    nextLabel="Kế Tiếp >"
-                    onPageChange={handlePageClick}
-                    pageRangeDisplayed={2}
-                    pageCount={totalPages}
-                    previousLabel="< Quay Lại"
-                    pageClassName="ha-page-item mx-1 border rounded-md"
-                    pageLinkClassName="ha-page-link px-3 py-2 hover:bg-gray-200 hover:rounded-full"
-                    previousClassName="ha-page-item mx-1 border rounded-md ml-0"
-                    previousLinkClassName="ha-page-link px-3 py-2 hover:bg-amber-500 bg-gray-800 text-white w-24"
-                    nextClassName="ha-page-item mx-1 border rounded-md mr-0"
-                    nextLinkClassName="ha-page-link px-3 py-2 hover:bg-amber-500 bg-gray-800 text-white w-24"
-                    breakClassName="ha-page-item mx-1 border rounded-md"
-                    breakLinkClassName="ha-page-link px-3 py-2 hover:bg-gray-200 hover:rounded-full"
-                    containerClassName="ha-pagination flex justify-center"
-                    activeClassName="ha-active bg-blue-500 text-white"
-                    forcePage={currentPage}
-                />
+                        <ReactPaginate
+                            id="ha"
+                            breakLabel="..."
+                            previousLabel={""}
+                            nextLabel={""}
+                            onPageChange={handlePageClick}
+                            pageRangeDisplayed={2}
+                            pageCount={totalPages}
+                            pageClassName="ha-page-item py-2 border rounded-md"
+                            pageLinkClassName="ha-page-link py-4 px-3"
+                            breakLinkClassName="ha-page-link px-3 py-2  "
+                            containerClassName="ha-pagination flex justify-center"
+                            activeClassName="ha-active bg-blue-700 text-white"
+                            forcePage={currentPage}
+                        />
+                    </div>
+                </div>
             </div>
-            {showPopup && (
+
+            {showPopup &&(
                 <ConfirmationPopup
                     message={
                         popupAction === "single"
@@ -446,10 +411,10 @@ const ListCustomer = () => {
             )}
 
             {selectedCustomer && (
-                <Modal customer={selectedCustomer} onClose={handleModalClose} />
+                <Modal customer={selectedCustomer} onClose={handleModalClose}/>
             )}
         </div>
 
-        </>
-        };
-        export default ListCustomer;
+    </>
+};
+export default ListCustomer;

@@ -6,12 +6,12 @@ body {
 
 }
 
-#table-ct button  {
-    padding: 5px 14px !important;
-    border-radius: 3px;
-    border: none;
-    text-align: left;
-}
+/*#table-ct button  {*/
+/*    padding: 5px 14px !important;*/
+/*    border-radius: 3px;*/
+/*    border: none;*/
+/*    text-align: left;*/
+/*}*/
 
 #table-ct table thead th {
     background: #eeeeee;

@@ -84,6 +84,23 @@ const Search = ({onSearch}) => {
         console.log(searchCriteria);
         onSearch(searchCriteria);
         setDropdownVisible(false);
+        setSearchCriteria({
+            code: '',
+            name: '',
+            dob: '',
+            dobFrom: '',
+            dobTo: '',
+            gender: '',
+            address: '',
+            phone: '',
+            email: '',
+            workDate: '',
+            workDateFrom: '',
+            workDateTo: '',
+            departmentId: '',
+            salaryRankId: '',
+            accountUsername: ''
+        });
     };
 
     //reset nhập liệu
@@ -112,8 +129,8 @@ const Search = ({onSearch}) => {
     const selectClassName = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500";
 
     return (
-        <div className="relative">
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={toggleDropdown}>
+        <div className="relative ">
+            <button className="bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={toggleDropdown}>
                 <SearchIcon/>
             </button>
 

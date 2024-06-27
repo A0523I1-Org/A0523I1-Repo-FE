@@ -120,13 +120,15 @@ input[type="number"]::-webkit-outer-spin-button {
     padding: 7px 14px;
     background-color: #888888;
 }
-#list__lading .pagination .page-link
+ .pagination {
+     display: flex;
+ }
 
-#list__lading .pagination .page-item.disabled .page-link {
+.pagination .page-item.disabled .page-link {
     color: #6c757d;
 }
 
-#list__lading .pagination .page-item.active .page-link {
+.pagination .page-item.active .page-link {
     color: #fff;
     background-color:rgb(29 78 216);
     border-color: #007bff;
@@ -134,16 +136,16 @@ input[type="number"]::-webkit-outer-spin-button {
     font-weight: 550;
     transition: all 0.3s ease-in-out;
 }
-#list__lading .pagination .page-link,
-#list__lading .pagination .button-page {
+ .pagination .page-link,
+ .pagination .button-page {
     padding: 7px 14px;
 }
 
-#list__lading .idNewLogo{
+.idNewLogo{
     color: #F44336;
 
 }
-#list__lading .pagination .button-page {
+ .pagination .button-page {
     background-color: #888888;
 
 }

@@ -467,19 +467,20 @@ const CreateEmployee = () => {
                                     className="text-red-500"> Lưu ý: Bạn phải nhập đầy đủ các ô được đánh dấu (*)</span>
                             </div>
                             <div className="w-full sm:w-1/2 lg:w-1/2 p-2 flex justify-end items-center space-x-2">
-                                <button onClick={checkAvatar} className="btn btn hover:bg-green-800 bg-green-600"
+                                <button onClick={checkAvatar}   className="text-white bg-blue-700 hover:bg-blue-800  focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
+                                        style={{backgroundColor: "#4CAF50"}}
                                         type={"submit"}>
                                     <span><i className="fi fi-rs-disk"/></span>
                                     <span> Lưu</span>
                                 </button>
-                                <button type={"reset"} className="btn hover:bg-blue-800 bg-blue-500"
+                                <button type={"reset"} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
                                         onClick={() => {
                                             setPreviewAvatar(null);
                                             setAvatar(null)
                                             setAvatarMessage("")
                                         }}>
                                     <span><i className="fi fi-rr-eraser"/></span>
-                                    <span> Làm mới</span>
+                                 Làm mới
                                 </button>
                             </div>
                         </div>
