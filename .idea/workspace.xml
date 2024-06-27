@@ -4,32 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="002c67c6-f2d1-417c-a274-743f7353f4d1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/employee/child_list/SearchNotFound.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/contract/CreateContract.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/contract/CreateContract.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/contract/ListContract.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/contract/ListContract.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/contract/NotFoundContract.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/contract/NotFoundContract.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/contract/NotFoundSearch.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/contract/NotFoundSearch.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/customer/CreateCustomer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/customer/CreateCustomer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/customer/ListCustomer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/customer/ListCustomer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/customer/Modal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/customer/Modal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/employee/CreateEmployee.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employee/CreateEmployee.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/employee/ListEmployee.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employee/ListEmployee.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/employee/child_list/EmployeeTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employee/child_list/EmployeeTable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/employee/child_list/Pagination.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employee/child_list/Pagination.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/employee/child_list/Search.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employee/child_list/Search.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/landing/ListLanding.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/landing/ListLanding.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/contract/listContract.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/contract/listContract.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/contract/paginationContract.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/contract/paginationContract.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/customer/create.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/customer/create.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/customer/detail.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/customer/detail.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/customer/list.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/customer/list.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/employee/createemployee.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/employee/createemployee.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/employee/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/employee/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/layouts/DefaultLayout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/DefaultLayout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/table/css/ListOfPremises.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/table/css/ListOfPremises.css" afterDir="false" />
-    </list>
+    <list default="true" id="002c67c6-f2d1-417c-a274-743f7353f4d1" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,19 +28,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Home/ListLanding-PhungPV",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.1.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Home/ListLanding-PhungPV&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2024.1.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -84,6 +59,7 @@
       <workItem from="1719409413197" duration="951000" />
       <workItem from="1719410744135" duration="1388000" />
       <workItem from="1719461510860" duration="16088000" />
+      <workItem from="1719479563492" duration="92000" />
     </task>
     <servers />
   </component>
