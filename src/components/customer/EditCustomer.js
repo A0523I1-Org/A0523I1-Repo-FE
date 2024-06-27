@@ -2,7 +2,7 @@ import '../../css/customer/EditCustomer.css';
 import axios from "axios";
 import {Field, Form, Formik, ErrorMessage} from "formik";
 import * as customerService from "../../services/CustomerService"
-import {useState, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import * as Yup from "yup";
 import {format, parseISO} from 'date-fns';
@@ -296,15 +296,21 @@ const EditCustomer = () => {
                             </div>
                             <div>
                                 <button
+                                    className="text-white bg-blue-700 hover:bg-blue-800  focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
                                     type="submit"
-                                    className="hover:shadow-form hover:scale-110 rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none"
+                                    style={{backgroundColor: "#4CAF50"}}
                                 >
-                                    Lưu
+                                              <span className="pr-1">
+                                                <i className="fi fi-rs-disk"/>
+                                              </span>
+                                    Cập nhật
                                 </button>
                                 <button
-                                    type="reset"
-                                    className="mx-3 hover:scale-110 hover:shadow-form rounded-md bg-green-500 py-3 px-3 text-center text-base font-semibold text-white outline-none"
-                                >
+                                    className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
+                                    type="reset">
+                                                    <span className="pr-1">
+                                                      <i className="fi fi-rr-eraser"/>
+                                                    </span>
                                     Làm mới
                                 </button>
                             </div>

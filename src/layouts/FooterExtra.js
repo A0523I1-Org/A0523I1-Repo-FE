@@ -6,7 +6,7 @@ const locationMapping = {
     contract: 'Hợp đồng',
     customer: 'Khách hàng',
     employee: 'Nhân viên',
-    landing: 'Mặt bằng'
+    landing: 'Mặt bằng',
 };
 
 const actionMapping = {
@@ -38,23 +38,30 @@ const FooterExtra = React.memo(({ nameLocation }) => {
         const firstPartLocation = partsLocation[1];
         const secondPartLocation = partsLocation[2];
 
-        // Đặt vị trí hiện tại dựa trên bản đồ
-        setLocationPresent(locationMapping[firstPartLocation] || "");
+        if(secondPartLocation === "personal-information"){
+            setLocationPresent("Tài khoản")
+            setLocationPresentOperation(false)
+        }else {
+            // Đặt vị trí hiện tại dựa trên bản đồ
+            setLocationPresent(locationMapping[firstPartLocation] || "");
 
-        if(secondPartLocation === undefined){
-           setIsLocationMargin(false)
+            if(secondPartLocation === undefined){
+                setIsLocationMargin(false)
+            }
+
+            if (secondPartLocation) {
+                const action = secondPartLocation.split('-')[0]
+
+                setIsLocationMargin(actionMapping.hasOwnProperty(action))
+                // Đặt hoạt động hiện tại dựa trên bản đồ
+                setLocationPresentOperation(actionMapping[action] || "");
+            } else {
+                // Mặc định là "Danh sách" nếu không tìm thấy hoạt động cụ thể
+                setLocationPresentOperation("Danh sách");
+            }
         }
 
-        if (secondPartLocation) {
-            const action = secondPartLocation.split('-')[0]
 
-            setIsLocationMargin(actionMapping.hasOwnProperty(action))
-            // Đặt hoạt động hiện tại dựa trên bản đồ
-            setLocationPresentOperation(actionMapping[action] || "");
-        } else {
-            // Mặc định là "Danh sách" nếu không tìm thấy hoạt động cụ thể
-            setLocationPresentOperation("Danh sách");
-        }
     };
 
     return (

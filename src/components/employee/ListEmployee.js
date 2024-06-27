@@ -75,14 +75,14 @@ const ListEmployee = () => {
                     <Search onSearch={handleSearch} />
                 </div>
                 <div className="flex gap-2">
-                    <button className="tw-delete-all-button">
-                        <DeleteAllIcon />
-                    </button>
                     <Link to = {routes.createEmployee}>
                         <button className="tw-add-button">
                             <AddIcon />
                         </button>
                     </Link>
+                    <button className="tw-delete-all-button">
+                        <DeleteAllIcon />
+                    </button>
                 </div>
             </div>
 
