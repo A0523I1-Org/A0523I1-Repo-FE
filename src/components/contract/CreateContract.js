@@ -258,11 +258,11 @@ const getLoginEmployee = async() => {
       display:
         isOpenModalConfirmPassword || isOpenModalLoading ? "none" : "block",
     }}
-    className="w-full h-[600px] mt-[20px] "
+    className="w-full h-auto mt-[20px] "
   >
-    <div className="h-full mx-16  flex gap-3">
+    <div className="h-full mx-16 pb-10 max-xl:mx-10 max-lg:mx-0  flex gap-3">
       <div className="w-full h-full box__shadow ">
-        <div className="w-full h-1/6 bg-[#fafafa] border-b-[1px] flex items-center ">
+        <div className="w-full h-[80px] bg-[#fafafa] border-b-[1px] flex items-center ">
           <span className="ml-5">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -295,15 +295,15 @@ const getLoginEmployee = async() => {
             return (
               <div className="w-full h-full  flex flex-col">
                 <Form>
-                  <div className="w-full h-5/6  flex">
-                    <div className="w-1/2 h-6/6 flex flex-col gap-9  ">
-                      <div className=" h-[40px] mx-5  mt-5 flex gap-3 ">
+                  <div className="w-full h-auto   flex flex-row max-lg:flex-col">
+                    <div className="w-1/2 h-6/6 max-lg:w-full flex flex-col gap-9  ">
+                      <div className=" h-[40px] mx-5   mt-5 flex gap-3 ">
                         <p className="w-4/12 h-full text-sm">
                           Khách Hàng{" "}
                           <span className="text-sm text-red-500">*</span>
                         </p>
                         <div className="w-8/12 h-full  ">
-                          <div className="flex h-full">
+                          <div className="flex h-full max-lg:w-full">
                             <span className="flex items-center bg-[#fafafa] py-3 px-4 border rounded-tl-[3px] rounded-tb-[3px] text-[#888] ">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -541,7 +541,7 @@ const getLoginEmployee = async() => {
                       </div>
                     </div>
 
-                      <div className="w-1/2 h-5/6 flex flex-col gap-9  ">
+                      <div className="w-1/2 max-lg:w-full h-5/6 flex flex-col gap-9  ">
                           <div className=" h-[40px] mx-5  mt-5 flex gap-3 ">
                           <p className="w-4/12 h-full text-sm">
                           Mặt Bằng{" "}
@@ -625,7 +625,7 @@ const getLoginEmployee = async() => {
                               fontSize: "13.4px",
                               color: "#888",
                             }}
-                            className="w-full h-full border-[#8887] px-3"
+                            className="w-full h-[40px] border-[#8887] px-3"
                             placeholder="Chưa Xác Định"
                           />
                         </div>
@@ -786,8 +786,8 @@ const getLoginEmployee = async() => {
                       </div>
                     </div>
                   </div>
-                  <div className="w-full h-1/6 ">
-                      <div className="w-full ml-3 my-5 h-10 ">
+                  <div className="w-full h-1/6  ">
+                      <div className="w-full ml-3 my-5 h-10 max-md:mt-14 ">
                           <button
                               className="text-white bg-blue-700 hover:bg-blue-800  focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
                               type="submit"

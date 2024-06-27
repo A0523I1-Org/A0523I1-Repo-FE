@@ -6,13 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="002c67c6-f2d1-417c-a274-743f7353f4d1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/contract/EditContract.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/contract/EditContract.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/customer/EditCustomer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/customer/EditCustomer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/customer/ListCustomer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/customer/ListCustomer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/employee/PersonalInformation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employee/PersonalInformation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/employee/child_list/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employee/child_list/Register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/customer/EditCustomer.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/customer/EditCustomer.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/layouts/FooterExtra.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/FooterExtra.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/contract/CreateContract.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/contract/CreateContract.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/contract/ListContract.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/contract/ListContract.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/contract/listContract.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/contract/listContract.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/table/css/ListOfPremises.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/table/css/ListOfPremises.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +72,7 @@
       <workItem from="1719461510860" duration="16088000" />
       <workItem from="1719479563492" duration="92000" />
       <workItem from="1719488333839" duration="422000" />
-      <workItem from="1719491855040" duration="7717000" />
+      <workItem from="1719491855040" duration="9626000" />
     </task>
     <servers />
   </component>
