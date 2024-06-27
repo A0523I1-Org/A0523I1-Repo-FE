@@ -472,10 +472,6 @@ const Header_child = ({menu}) => {
                                         className="absolute w-full h-[1px] bg-yellow-500 bottom-0 right-[-180px] group-hover:right-0 transition-all duration-1000"></span>
                                 </div>
 
-
-
-                                
-
                             </div>
                         </button>
                     }
