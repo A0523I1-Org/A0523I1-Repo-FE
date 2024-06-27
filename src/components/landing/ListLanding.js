@@ -11,6 +11,15 @@ import "react-toastify/dist/ReactToastify.css";
 import routes from "../../configs/routes";
 import "../../table/css/pagination.css";
 import ResponsivePagination from "react-responsive-pagination";
+import {
+  AddIcon,
+  CloseIcon,
+  DeleteAllIcon,
+  RefreshIcon,
+  SearchIcon,
+  SearchInputIcon,
+  SearchSubmitIcon
+} from "../employee/utils/Icons";
 
 const locationMapping = {
   fullyFurnished: "Đầy đủ nội thất",
@@ -64,6 +73,7 @@ const ListLanding = () => {
   const [isNotFound, setIsNotFound] = useState(false);
   const [updatedRecordId, setUpdatedRecordId] = useState(null);
   const [paginationVisible, setPaginationVisible] = useState(true);
+  const [dropdownVisibleSearch,setDropdownVisibleSearch] = useState(false)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -313,118 +323,152 @@ const ListLanding = () => {
       </div>
   )
 
+  const selectClassName = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500";
+  const inputClassName = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500";
 
   return (
       <>
         <div id="list__lading">
-          <div
-              className=" h-[90px] max-md:h-auto max-md:my-5 max-md:grid-cols-2 max-md:grid max-lg:mx-0 mx-16 flex gap-5 items-center">
-            <select
-                type="select"
-                className="w-1/5 h-1/2 max-md:w-full max-md:h-[40px]  border-b-[1px] pl-3 border-[#888]  rounded-tl-[3px] "
-                id="statusLanding"
-                name="statusLanding"
-                value={searchParams.statusLanding}
-                onChange={handleChange}
-                placeholder="Tìm theo trạng thái"
-            >
-              <option value="">Tìm theo trạng thái</option>
 
-              <option value="fullyFurnished">Đầy đủ nội thất</option>
-              <option value="partiallyFurnished">Nội thất một phần</option>
-              <option value="unfurnished">Không có nội thất</option>
-              <option value="readyToMoveIn">Sẵn sàng để dọn vào</option>
-              <option value="underConstruction">Đang xây dựng</option>
-              <option value="newlyRenovated">Mới được cải tạo</option>
-              <option value="basicAmenities">Tiện nghi cơ bản</option>
-              <option value="luxuryAmenities">Tiện nghi cao cấp</option>
-              <option value="ecoFriendly">Thân thiện với môi trường</option>
-              <option value="highTech">Công nghệ cao</option>
-            </select>
-            <input
-                type="text"
-                className="w-1/5 h-1/2 max-md:w-full max-md:h-[40px] border-b-[1px] pl-3 border-[#888]  rounded-tl-[3px] "
-                id="codeLanding"
-                name="codeLanding"
-                value={searchParams.codeLanding}
-                onChange={handleChange}
-                placeholder="Tìm theo mã mặt bằng"
-            />
-            <input
-                type="number"
-                className="w-1/5 h-1/2 max-md:w-full max-md:h-[40px] border-b-[1px] pl-3 border-[#888]  rounded-tl-[3px] "
-                name="areaLanding"
-                id="areaLanding"
-                value={searchParams.areaLanding}
-                onChange={handleChange}
-                placeholder="Tìm theo diện tích"
-            />
-            <select
-                type="select"
-                className="w-1/5 h-1/2 max-md:w-full max-md:h-[40px] border-b-[1px] pl-3 border-[#888]  rounded-tl-[3px] "
-                name="typeLanding"
-                id="typeLanding"
-                value={searchParams.typeLanding}
-                onChange={handleChange}
-                placeholder="Tìm theo loại mặt bằng"
-            >
-              <option value="">Tìm theo loại mặt bằng</option>
-              <option value="Apartment">Căn hộ</option>
-              <option value="Home">Nhà riêng</option>
-              <option value="Shop">Cửa hàng</option>
-              <option value="Office">Văn phòng</option>
-              <option value="Warehouse">Kho xưởng</option>
-              <option value="VacantLand">Đất trống</option>
-              <option value="Villa">Biệt thự</option>
-              <option value="Kiot">Kiot</option>
-              <option value="Serviced">Chung cư dịch vụ</option>
-              <option value="MotelRoom">Phòng trọ</option>
-              <option value="Restaurant">Nhà hàng</option>
-            </select>
-            <div className="w-1/5 h-1/2 max-md:w-full flex gap-3  ">
-              <button
-                  onClick={handleSubmit}
-                  className=" bg-blue-700 rounded-full max-md:p-2 w-11 h-11"
-              >
-                <i className="fa fa-search text-white"></i>
+          {/*search new*/}
+
+          <div className="relative max-lg:mx-0  mx-16 flex items-center h-20 ">
+            <div className="absolute left-0">
+              <button className="bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                      onClick={() => setDropdownVisibleSearch(!dropdownVisibleSearch)}>
+                <SearchIcon/>
               </button>
-              <button
-                  onClick={handleReset}
-                  className="rounded-full bg-blue-700 w-11 h-11 bg-[#2196f3]"
-              >
-                <i className="fa fa-refresh text-white"></i>
-              </button>
-            </div>
-          </div>
+              <div id="dropdownSearch"
+                   className={`z-10 ${dropdownVisibleSearch ? '' : 'hidden'} absolute top-full left-0 mt-2 bg-white rounded-lg shadow w-100 dark:bg-gray-700 overflow-y-auto`}
+                   style={{maxHeight: '400px', width: '300px'}}>
+                <div className="p-3">
+                  <label htmlFor="code" className="sr-only">Search</label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                      <SearchInputIcon/>
+                    </div>
+                    <select className={inputClassName}
+                            name="typeLanding"
+                            id="typeLanding"
+                            value={searchParams.typeLanding}
+                            onChange={handleChange}>
+                      <option value="">Loại mặt bằng</option>
+                      <option value="Apartment">Căn hộ</option>
+                      <option value="Home">Nhà riêng</option>
+                      <option value="Shop">Cửa hàng</option>
+                      <option value="Office">Văn phòng</option>
+                      <option value="Warehouse">Kho xưởng</option>
+                      <option value="VacantLand">Đất trống</option>
+                      <option value="Villa">Biệt thự</option>
+                      <option value="Kiot">Kiot</option>
+                      <option value="Serviced">Chung cư dịch vụ</option>
+                      <option value="MotelRoom">Phòng trọ</option>
+                      <option value="Restaurant">Nhà hàng</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="p-3">
+                  <label htmlFor="name" className="sr-only">Search</label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                      <SearchInputIcon/>
+                    </div>
+                    <input type="text" id="codeLanding"
+                           name="codeLanding"
+                           value={searchParams.codeLanding}
+                           onChange={handleChange} className={inputClassName} placeholder="Mã mặt bằng"
+                    />
+                  </div>
+                </div>
+                <div className="p-3">
+                  <label htmlFor="name" className="sr-only">Search</label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                      <SearchInputIcon/>
+                    </div>
+                    <input type="text" name="areaLanding"
+                           id="areaLanding"
+                           value={searchParams.areaLanding}
+                           onChange={handleChange}
+                           className={inputClassName} placeholder="Diện tích"
+                    />
+                  </div>
+                </div>
+                <div className="p-3">
+                  <label htmlFor="name" className="sr-only">Search</label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                      <SearchInputIcon/>
+                    </div>
+                    <select id="statusLanding"
+                            name="statusLanding"
+                            value={searchParams.statusLanding}
+                            onChange={handleChange} className={inputClassName}
+                    >
+                      <option value=""> Trạng thái</option>
 
-          <div className="w-full   h-20 ">
-            <div className="mx-16 max-lg:mx-0 h-full flex items-center  ">
-              <div className="id-button flex gap-3">
-                <Link to={routes.createLanding}>
-                  <button className=" bg-[#4CAF50] text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2  inline-flex items-center ">
-                    Thêm mới
-                  </button>
-                </Link>
+                      <option value="fullyFurnished">Đầy đủ nội thất</option>
+                      <option value="partiallyFurnished">Nội thất một phần</option>
+                      <option value="unfurnished">Không có nội thất</option>
+                      <option value="readyToMoveIn">Sẵn sàng để dọn vào</option>
+                      <option value="underConstruction">Đang xây dựng</option>
+                      <option value="newlyRenovated">Mới được cải tạo</option>
+                      <option value="basicAmenities">Tiện nghi cơ bản</option>
+                      <option value="luxuryAmenities">Tiện nghi cao cấp</option>
+                      <option value="ecoFriendly">Thân thiện với môi trường</option>
+                      <option value="highTech">Công nghệ cao</option>
+                    </select>
 
-                <select
-                    className="h-[36px] w-[80px] pl-2 border-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2  inline-flex items-center "
-                    name="floorLanding"
-                    value={searchParams.floorLanding}
-                    onChange={handleChange}
-                >
-                  <option value="" className="text-sm">Tầng</option>
-                  {floors.map((floor, index) => (
-                      <option key={index} value={floor.name}>
-                        {floor.name}
-                      </option>
-                  ))}
-                  index
-                </select>
+                  </div>
+                </div>
+                <div className="p-3 flex justify-around sticky bottom-0 bg-white dark:bg-gray-700">
+                  <div>
+                    <button onClick={handleSubmit}>
+                      <SearchSubmitIcon/>
+                    </button>
+                  </div>
+                  <div>
+                    <button onClick={handleReset}>
+                      <RefreshIcon/>
+                    </button>
+                  </div>
+                  <div>
+                    <button onClick={() => setDropdownVisibleSearch(!dropdownVisibleSearch)}>
+                      <CloseIcon/>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
+
+            <div className="id-button absolute right-0 flex gap-3">
+              <Link to={routes.createLanding}>
+                <button className="tw-add-button">
+                  <AddIcon/>
+                </button>
+              </Link>
+              <button className="tw-delete-all-button" disabled={listIdInput.length === 0} onClick={() => setModalDeleteMultiIsOpen(true)}>
+                <DeleteAllIcon/>
+              </button>
+              <select
+                  className="h-[36px] w-[80px] pl-2 border-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2  inline-flex items-center "
+                  name="floorLanding"
+                  value={searchParams.floorLanding}
+                  onChange={handleChange}
+              >
+                <option value="" className="text-sm">Tầng</option>
+                {floors.map((floor, index) => (
+                    <option key={index} value={floor.name}>
+                      {floor.name}
+                    </option>
+                ))}
+                index
+              </select>
+            </div>
           </div>
 
-          <div className="w-full h-[280px]  ">
+
+          <div className="w-full h-[280px] ">
             <div className="mx-16 h-full max-lg:mx-0 ">
               <table className=" table-auto lg:table-fixed min-w-full">
                 <thead className="border  ">
@@ -438,8 +482,8 @@ const ListLanding = () => {
                     />
                   </th>
                   <th className="max-lg:hidden">STT</th>
-                  <th className="max-md:hidden">Mã I Loại Mặt Bằng </th>
-                  <th >Diện tích</th>
+                  <th className="max-md:hidden">Mã I Loại Mặt Bằng</th>
+                  <th>Diện tích</th>
                   <th>Giá <span className="max-sm:hidden">bán</span></th>
                   <th className="max-md:hidden">Phí quản lý</th>
                   <th>Tầng</th>
@@ -495,7 +539,7 @@ const ListLanding = () => {
                         }`}
                     >
                       <td className="text-center w-[60px]">
-                        <input
+                      <input
                             type="checkbox"
                             value={landingItem.id}
                             name={landingItem.id}
@@ -715,34 +759,6 @@ const ListLanding = () => {
           </div>
 
           <div className=" h-[40px] my-5 relative mx-16 flex max-lg:mx-0 ">
-            {listIdInput.length > 0 && (
-                <button
-                    className="left-0 relative w-[40px] h-[40px] bg-red-500 flex items-center justify-center rounded-full"
-                    onClick={() => {
-                      setModalDeleteMultiIsOpen(true);
-                    }}
-                >
-            <span className="text-white">
-              <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  className="size-6"
-              >
-                <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
-                />
-              </svg>
-            </span>
-                  <span className="absolute top-0 right-[-5px] w-[15px] h-[15px] text-black font-bold text-[10px]">
-              {listIdInput.length}
-            </span>
-                </button>
-            )}
             <div className={`absolute  h-full right-0 ${paginationVisible ? '' : 'pagination-hidden'}`}>
               <ResponsivePagination
                   total={landing.totalPages}

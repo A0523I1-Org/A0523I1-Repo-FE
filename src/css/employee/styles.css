@@ -8,7 +8,7 @@
 }
 
 .tw-table-zone {
-    @apply overflow-hidden rounded-lg border border-gray-200 shadow-md p-4;
+    @apply overflow-hidden rounded-lg mx-16 max-xl:mx-0 border-gray-200 shadow-md;
 }
 
 /*employee table*/
@@ -25,7 +25,7 @@
 }
 
 .tw-custom-th {
-    @apply px-6 py-4 font-medium text-gray-900 text-left block md:table-cell;
+    @apply px-6 py-4 font-medium text-gray-900 text-center block md:table-cell;
 }
 
 .tw-custom-tbody {
@@ -85,7 +85,19 @@
 }
 
 .tw-custom-div-3 {
-    @apply flex justify-end gap-4;
+    @apply flex justify-center gap-4;
+}
+
+.tw-custom-td-center {
+    @apply text-center;
+}
+
+.tw-custom-td-buttons {
+    /*@apply flex justify-center;*/
+}
+
+.tw-custom-checkbox-container {
+    @apply flex justify-center;
 }
 
 /*employee detail*/

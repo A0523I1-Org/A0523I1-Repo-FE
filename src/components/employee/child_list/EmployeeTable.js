@@ -10,7 +10,7 @@ const EmployeeTable = ({employees, handleUserRegistration, handleOpenModal}) => 
 
     return (
         <>
-            <table className="tw-custom-table">
+            <table className="tw-custom-table ">
                 <thead className="tw-custom-thead">
                 <tr className="tw-custom-first-tr">
                     <th scope="col" className="tw-custom-th"> Lựa chọn </th>
@@ -25,7 +25,7 @@ const EmployeeTable = ({employees, handleUserRegistration, handleOpenModal}) => 
                 <tbody className="tw-custom-tbody">
                 {employees.map((employee) => (
                     <tr key={employee.id} className="tw-custom-second-tr">
-                        <td className="tw-custom-td">
+                        <td className="tw-custom-td tw-custom-td-center">
                             <input type="checkbox" className="tw-custom-checkbox" />
                         </td>
                         <td className="tw-custom-td-multi">
@@ -60,11 +60,11 @@ const EmployeeTable = ({employees, handleUserRegistration, handleOpenModal}) => 
                             <span className="tw-custom-span-1">Department</span>
                             <div>{capitalizeFirstLetter(employee.department)}</div>
                         </td>
-                        <td className="tw-custom-td">
+                        <td className="tw-custom-td tw-custom-td-center">
                             <span className="tw-custom-span-1">Salary Rank</span>
                             {employee.salaryRank}
                         </td>
-                        <td className="tw-custom-td">
+                        <td className="tw-custom-td tw-custom-td-buttons">
                             <div className="tw-custom-div-3">
                                 <a x-data="{ tooltip: 'Detail' }" href="#" onClick={() => handleOpenModal(employee)}>
                                     <DetailIcon />

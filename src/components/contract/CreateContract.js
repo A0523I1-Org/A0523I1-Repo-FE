@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import { ref,uploadBytes,getDownloadURL,deleteObject } from "firebase/storage";
 import { storage } from "../../configs/firebase";
@@ -503,38 +503,47 @@ const getLoginEmployee = async() => {
                       </div>
                       <div className=" h-[40px] mx-5  mb-5 flex gap-3 ">
                         <p className="w-4/12 h-full text-sm">H/A Hợp Đồng</p>
-                        <div className="w-6/12 h-full ">
-                          <input
-                            name="firebaseUrl"
-                            type="file"
-                            className=" border-none pt-1 h-full block "
-                            style={{border: "none"}}
-                            onChange={(e) =>{
-                              handleChangeFirebaseUrl(e, setFieldValue)
-                              onChangePicture(e)
-                            }                   
-                            }
-                          />
-                          <ErrorMessage
-                            className="pl-12 error-mess"
-                            name="firebaseUrl"
-                            component="span"
-                          />
-                        </div>
-                        {
-                          imgUpload !== null && imgUpload !== undefined  ?
-                          ((imgUpload.name.split(".")[imgUpload.name.split(".").length-1] === 'png'
-                          || imgUpload.name.split(".")[imgUpload.name.split(".").length-1] === 'jpg'
-                          || imgUpload.name.split(".")[imgUpload.name.split(".").length-1] === 'gif')
-                          ? <img  className="w-2/12 h-[100px] rounded-lg border-solid border-4 border-gray-600 "  src={imgData}/> : null) : null
-                        }
-                        
+                          <div className="w-6/12 h-full ">
+                              <label
+                                  htmlFor="upload_avt"
+                                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
+                              >
+                                  Chọn <div className="max-sm:hidden px-1"> ảnh</div>
+                              </label>
+                              <input
+                                  type="file"
+                                  name="firebaseUrl"
+                                  hidden
+                                  required="true"
+                                  id="upload_avt"
+                                  onChange={(e) => {
+                                      handleChangeFirebaseUrl(e, setFieldValue)
+                                      onChangePicture(e)
+                                  }}
+
+                              />
+                              <ErrorMessage
+                                  className="pl-12 error-mess"
+                                  name="firebaseUrl"
+                                  component="span"
+                              />
+                          </div>
+                          {
+                              imgUpload !== null && imgUpload !== undefined ?
+                                  ((imgUpload.name.split(".")[imgUpload.name.split(".").length - 1] === 'png'
+                                      || imgUpload.name.split(".")[imgUpload.name.split(".").length - 1] === 'jpg'
+                                      || imgUpload.name.split(".")[imgUpload.name.split(".").length - 1] === 'gif')
+                                      ? <img
+                                          className="w-2/12 h-[100px] rounded-lg border-solid border-[1px]"
+                                          src={imgData}/> : null) : null
+                          }
+
                       </div>
                     </div>
 
-                    <div className="w-1/2 h-5/6 flex flex-col gap-9  ">
-                      <div className=" h-[40px] mx-5  mt-5 flex gap-3 ">
-                        <p className="w-4/12 h-full text-sm">
+                      <div className="w-1/2 h-5/6 flex flex-col gap-9  ">
+                          <div className=" h-[40px] mx-5  mt-5 flex gap-3 ">
+                          <p className="w-4/12 h-full text-sm">
                           Mặt Bằng{" "}
                           <span className="text-lg text-red-500">*</span>
                         </p>
@@ -778,20 +787,27 @@ const getLoginEmployee = async() => {
                     </div>
                   </div>
                   <div className="w-full h-1/6 ">
-                    <div className="w-full ml-3 my-5 h-10 ">
-                      <button type="submit" className="btn bg-[#4CAF50] mr-2">
-                        <span className="pr-1">
-                          <i className="fi fi-rs-disk" />
-                        </span>
-                        <span className="pb-10"> Lưu</span>
-                      </button>
-                      <button type="reset" className="btn-2">
-                        <span className="pr-1">
-                          <i className="fi fi-rr-eraser" />
-                        </span>
-                        <span>Làm mới</span>
-                      </button>
-                    </div>
+                      <div className="w-full ml-3 my-5 h-10 ">
+                          <button
+                              className="text-white bg-blue-700 hover:bg-blue-800  focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
+                              type="submit"
+                              style={{backgroundColor: "#4CAF50"}}
+                          >
+                              <span className="pr-1">
+                                <i className="fi fi-rs-disk"/>
+                              </span>
+                              Lưu
+                          </button>
+
+                          <button
+                              className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
+                              type="reset">
+                                <span className="pr-1">
+                                  <i className="fi fi-rr-eraser"/>
+                                </span>
+                              Làm mới
+                          </button>
+                      </div>
                   </div>
                 </Form>
               </div>
@@ -802,26 +818,26 @@ const getLoginEmployee = async() => {
     </div>
   </div>
 
-  {isOpenModalLoading ? <ModalLoading /> : null}
+        {isOpenModalLoading ? <ModalLoading/> : null}
 
-  {isOpenModalConfirmPassword ? (
-    <Formik
-    initialValues={{password : ""}}
-    validationSchema={Yup.object({
-      password : Yup.string().required("----  Vui lòng nhập mật khẩu   ----")
-    })}
-    onSubmit={handleSubmitPassword}
-    >
-      {({setFieldValue}) => {
-   return  <main
-      style={{
-        position: "absolute",
-        display: "block",
-        top: "23%",
-        left: "33%",
-        right: "auto",
-        bottom: "auto",
-        marginRight: "-50%",
+        {isOpenModalConfirmPassword ? (
+            <Formik
+                initialValues={{password: ""}}
+                validationSchema={Yup.object({
+                    password: Yup.string().required("----  Vui lòng nhập mật khẩu   ----")
+                })}
+                onSubmit={handleSubmitPassword}
+            >
+                {({setFieldValue}) => {
+                    return <main
+                        style={{
+                            position: "absolute",
+                            display: "block",
+                            top: "23%",
+                            left: "33%",
+                            right: "auto",
+                            bottom: "auto",
+                            marginRight: "-50%",
         height: "50px",
       }}
       id="content"
@@ -880,7 +896,7 @@ const getLoginEmployee = async() => {
                 <button
                   type="submit"
                   onClick={() => setIsOpenModalConfirmPassword(false)}
-                  class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+                  className="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-700 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
                 >
                   Quay Lại
                 </button>
