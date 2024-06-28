@@ -1,19 +1,40 @@
 import axios from "axios";
-/** Call API */
-axios.interceptors.response.use(
+/** Config API */
+// Tạo instance Axios cho API login
+const loginAxios = axios.create();
+
+// Thêm interceptor cho instance loginAxios để bắt lỗi từ API login
+loginAxios.interceptors.response.use(
     response => response,
     error => {
-        if (error.response && error.response.status === 401) {
-            // Redirect to unauthorized page
-            window.location.href = '/unauthorized';
+        // Xử lý lỗi từ API login ở đây
+        if (error.response) {
+            // Ví dụ: Hiển thị thông báo lỗi
+            console.error('Login API Error:', error.response.data);
         }
         return Promise.reject(error);
     }
 );
 
+// Thêm interceptor chung cho tất cả các request ngoại trừ API login
+axios.interceptors.response.use(
+    response => response,
+    error => {
+        // Kiểm tra xem URL có phải là "/login" hay không
+        if (error.config.url && !error.config.url.includes('/login')) {
+            if (error.response && error.response.status === 401) {
+                // Chuyển hướng đến trang unauthorized
+                window.location.href = '/unauthorized';
+            }
+        }
+        return Promise.reject(error);
+    }
+);
+
+/** Call API */
 export async function login(username, password){
     try {
-        const response = await axios.post(`http://localhost:8080/login`, {username, password})
+        const response = await loginAxios.post(`http://localhost:8080/login`, {username, password})
         console.log(response)
         return response.data;
     } catch(err) {
@@ -43,7 +64,7 @@ export function isAuthenticated() {
     return !!token
 }
 export function isAdmin() {
-    const role = localStorage.getItem('role')
+    const role = localStorage.getItem('role') || sessionStorage.getItem('role')
     if (!role) {
         return false;
     }
@@ -58,4 +79,3 @@ export function getToken() {
     }
     return token;
 }
-

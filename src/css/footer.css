@@ -1,0 +1,10 @@
+/* LandingList.module.css */
+
+.highlight {
+    animation: highlightAnimation 0.5s ease-in-out 4;
+  }
+  
+  @keyframes highlightAnimation {
+    0%, 100% { background-color: #ffff99; }
+    50% { background-color: transparent; }
+  }

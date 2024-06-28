@@ -10,7 +10,7 @@ const EmployeeTable = ({employees, handleUserRegistration, handleOpenModal}) => 
 
     return (
         <>
-            <table className="tw-custom-table">
+            <table className="tw-custom-table ">
                 <thead className="tw-custom-thead">
                 <tr className="tw-custom-first-tr">
                     <th scope="col" className="tw-custom-th"> Lựa chọn </th>

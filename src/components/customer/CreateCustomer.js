@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import "../../css/customer/create.css";
 import {toast} from "react-toastify";
 import * as authService from '../../services/Authenticate/AuthService.js'
+import React from "react";
 
 const CreateCustomer = () => {
     const navigate = useNavigate();
@@ -81,10 +82,6 @@ const CreateCustomer = () => {
         <>
 
             <div id="create-tt" className="boss max-w-[1000px] max-h-[900px]  mx-auto ">
-                <h1 className=" text-center  text-4xl font-bold py-3 shadow-2xl text-shadow">
-                    Thêm Mới Khách Hàng
-                </h1>
-
                 <div class="flex items-center justify-center p-12 ">
                     <div class="mx-auto w-full max-w-[800px]">
                         <Formik
@@ -328,15 +325,15 @@ const CreateCustomer = () => {
                                 </div>
                                 <div>
                                     <button
-                                        type="submit"
-                                        className="hover:shadow-form hover:scale-110  rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none"
-                                    >
+                                        className="text-white bg-blue-700 hover:bg-blue-800  focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
+                                        style={{backgroundColor: "#4CAF50"}}
+                                        type={"submit"}>
+                                        <span><i className="fi fi-rs-disk"/></span>
                                         Lưu
                                     </button>
-                                    <button
-                                        type="reset"
-                                        className="mx-3 hover:scale-110  hover:shadow-form rounded-md bg-green-500 py-3 px-3 text-center text-base font-semibold text-white outline-none"
-                                    >
+                                    <button type={"reset"}
+                                            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center">
+                                        <span><i className="fi fi-rr-eraser"/></span>
                                         Làm mới
                                     </button>
                                 </div>

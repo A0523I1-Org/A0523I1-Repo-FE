@@ -23,11 +23,20 @@ const Modal = ({customer, onClose}) => {
     };
     return (
         <div id="detail-tt"
-             className="w-[750px] h-[650px] fixed  mx-auto mt-12 top-0 left-0 right-0 bottom-0 m flex items-center justify-center">
+             className="w-[750px] h-[600px] fixed  mx-auto mt-12 top-0 left-0 right-0 bottom-0 m flex items-center justify-center">
             <div className="mod rounded-lg p-8 mx-auto h-full w-full">
-        <h1 className="text-center text-amber-700 text-4xl font-bold mt-1 py-3 text-shadow">
-                    Thông tin khách hàng
-                </h1>
+                <div className="w-full h-auto relative">
+                    <h1 className=" text-3xl font-medium mt-1 py-3 left-0 ">
+                        Thông tin khách hàng
+                    </h1>
+                    <button
+                        className="absolute right-0 top-2.5 text-3xl "
+                        onClick={onClose}
+                    >
+                        &times;
+                    </button>
+                </div>
+
                 <Formik
                     initialValues={initialValues}
                     onSubmit={() => {
@@ -35,18 +44,12 @@ const Modal = ({customer, onClose}) => {
                     enableReinitialize
                 >
                     <Form className="relative">
-                        <button
-                            className="absolute top-[-100px] right-[-25px] text-6xl text-gray-400 hover:text-violet-700"
-                            onClick={onClose}
-                        >
-                            &times;
-                        </button>
                         <div className="-mx-3 flex flex-wrap">
-                            <div className="w-full px-3 sm:w-1/2">
+                            <div className="w-full px-3 py-0 sm:w-1/2">
 
                                 <div className="mb-5">
                                     <label htmlFor="name" className="mb-3 block text-base font-medium text-white">
-                                        Tên khách hàng 
+                                        Tên khách hàng
                                     </label>
                                     <Field
                                         type="text"

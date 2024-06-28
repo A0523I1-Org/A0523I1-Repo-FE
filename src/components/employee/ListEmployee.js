@@ -9,6 +9,7 @@ import EmployeeDetail from "./child_list/EmployeeDetail";
 import "../../css/employee/styles.css";
 import routes from "../../configs/routes";
 import * as authService from "../../services/Authenticate/AuthService"
+import SearchNotFound from "./child_list/SearchNotFound";
 
 const ListEmployee = () => {
 
@@ -40,6 +41,7 @@ const ListEmployee = () => {
         setTotalPages(data.totalPages);
     };
 
+
     const handleSearch = (criteria) => {
         setSearchCriteria(criteria);
         setCurrentPage(0);
@@ -68,19 +70,19 @@ const ListEmployee = () => {
 
     return (
         <>
-            <div className="flex justify-between mb-4">
+            <div className="flex justify-between mx-16 mb-4">
                 <div className="relative">
                     <Search onSearch={handleSearch} />
                 </div>
                 <div className="flex gap-2">
-                    <button className="tw-delete-all-button">
-                        <DeleteAllIcon />
-                    </button>
                     <Link to = {routes.createEmployee}>
                         <button className="tw-add-button">
                             <AddIcon />
                         </button>
                     </Link>
+                    <button className="tw-delete-all-button">
+                        <DeleteAllIcon />
+                    </button>
                 </div>
             </div>
 
@@ -91,18 +93,20 @@ const ListEmployee = () => {
                     handleUserRegistration={handleUserRegistration}
                     handleOpenModal={handleOpenModal}
                 />
-
-                {/* Pagination */}
-                <div>
-                    <Pagination
-                        currentPage={currentPage}
-                        totalPages={totalPages}
-                        onPageChange={handlePageChange}
-                        onPreviousPage={handlePreviousPage}
-                        onNextPage={handleNextPage}
-                    />
-                </div>
             </div>
+            {employees?.length === 0 && (
+                <div className=" mx-16 h-10 ">
+                    <SearchNotFound onFetchData={() => fetchData(1, {})}/>
+                </div>
+            )}
+
+            <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+                onPreviousPage={handlePreviousPage}
+                onNextPage={handleNextPage}
+            />
 
             {/*Modal Employee Detail*/}
             {selectedEmployee && (

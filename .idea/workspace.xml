@@ -1,360 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-<<<<<<< HEAD
-  <component name="ChangeListManager">
-
-    <list default="true" id="e8a00f42-9c9d-41b8-9819-a1b566e3f2ea" name="Default Changelist" comment="">
-
-    <list default="true" id="ba72b43a-c2b1-4ff5-8f84-ab2d5ccee82c" name="Changes" comment="">
-
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/customer/CreateCustomer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/customer/CreateCustomer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/customer/ListCustomer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/customer/ListCustomer.js" afterDir="false" />
-
-      <change afterPath="$PROJECT_DIR$/src/components/customer/DetailCustomer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/customer/Pagination.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/customer/create.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/customer/detail.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/customer/list.css" afterDir="false" />
-
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-
-      <change beforePath="$PROJECT_DIR$/src/components/customer/ListCustomer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/customer/ListCustomer.js" afterDir="false" />
-
-      <change beforePath="$PROJECT_DIR$/src/components/customer/CreateCustomer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/customer/CreateCustomer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/customer/ListCustomer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/customer/ListCustomer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/configs/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/configs/routes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/CustomerService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/CustomerService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/LandingService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/LandingService.js" afterDir="false" />
-
-=======
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba72b43a-c2b1-4ff5-8f84-ab2d5ccee82c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/PC.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.idea/src.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/auth/Unauthorize.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/contract/ErrorNotFound.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/contract/Loading.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/contract/ModalLoading.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/contract/ModalShowViewContract.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/contract/NotFoundContract.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/contract/NotFoundSearch.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/contract/PopupDelete.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/contract/PopupUpdate.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/contract/img/Dual Ring@1x-1.0s-200px-200px.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/employee/PersonalInformation.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/configs/menuSelect.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/configs/privateRoute.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/css/auth/login.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/css/auth/unauthorize.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/css/contract/createContract.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/css/contract/listContract.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/css/contract/paginationContract.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/css/employee/PersonalInformation.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/css/form.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/css/popupStyle.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/schema/ContractSchema.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/Authenticate/AuthService.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/HelperService.js" afterDir="false" />
+    <list default="true" id="002c67c6-f2d1-417c-a274-743f7353f4d1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_6_5_2024_6_48_PM_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_6_5_2024_6_48_PM_[Changes]1/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_6_5_2024_6_48_PM__Changes_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/img-search.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/employee/child_list/SearchNotFound.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/configs/fireBaseConfig.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/form/css/form_common.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/form/html/form_ground.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/js/app_home.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/table/css/EditOfPremises.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/table/css/ListOfPremises.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/table/css/pagination.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/table/css/table_list.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/table/html/table_list_mb.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/A0523I1-Repo-FE.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/A0523I1-Repo-FE.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/auth/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/Login.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/contract/CreateContract.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/contract/CreateContract.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/contract/EditContract.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/contract/EditContract.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/contract/ListContract.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/contract/ListContract.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/contract/NotFoundContract.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/contract/NotFoundContract.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/contract/NotFoundSearch.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/contract/NotFoundSearch.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/customer/CreateCustomer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/customer/CreateCustomer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/customer/EditCustomer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/customer/EditCustomer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/customer/ListCustomer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/customer/ListCustomer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/customer/Modal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/customer/Modal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/employee/CreateEmployee.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employee/CreateEmployee.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/employee/DeleteEmployee.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employee/DeleteEmployee.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/employee/ListEmployee.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employee/ListEmployee.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/employee/PersonalInformation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employee/PersonalInformation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/employee/child_list/EmployeeTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employee/child_list/EmployeeTable.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/employee/child_list/Pagination.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employee/child_list/Pagination.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/employee/child_list/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employee/child_list/Register.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/employee/child_list/Search.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employee/child_list/Search.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/configs/firebase.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/configs/firebase.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/configs/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/configs/routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/landing/CreateLanding.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/landing/CreateLanding.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/landing/EditLanding.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/landing/EditLanding.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/landing/ListLanding.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/landing/ListLanding.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/configs/privateRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/configs/privateRoute.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/auth/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/auth/login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/contract/listContract.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/contract/listContract.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/contract/paginationContract.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/contract/paginationContract.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/customer/EditCustomer.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/customer/EditCustomer.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/customer/create.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/customer/create.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/customer/detail.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/customer/detail.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/customer/list.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/customer/list.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/employee/createemployee.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/employee/createemployee.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/employee/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/employee/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/footer.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/footer.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/header.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/header.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/css/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/home.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/login.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/layouts/DefaultLayout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/DefaultLayout.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/layouts/Footer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/Footer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layouts/FooterExtra.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/FooterExtra.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/layouts/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/Header.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/NotFound.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/NotFound.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/AccountService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/AccountService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/ContractService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/ContractService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/CustomerService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/CustomerService.js" afterDir="false" />
-<<<<<<< HEAD
->>>>>>> List/CreateContract-HoaiNT
-=======
-      <change beforePath="$PROJECT_DIR$/src/services/DepartmentService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/DepartmentService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/EmployeeService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/EmployeeService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/Authenticate/AuthService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/Authenticate/AuthService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/BuildingService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/BuildingService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/FloorService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/FloorService.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/services/LandingService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/LandingService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/SalaryRankService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/SalaryRankService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test.txt" afterDir="false" />
->>>>>>> Login-DatCT
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-<<<<<<< HEAD
-
-
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
-=======
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
->>>>>>> List/CreateContract-HoaiNT
-        <option value="CSS File" />
       </list>
     </option>
   </component>
-<<<<<<< HEAD
-
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="List/EditLanding-ThienLC" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="2hmTYsiisy8yWwK3XwW8uNVyuzg" />
-=======
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="ProjectId" id="2hSRP0zsDi3CE454w3SHS9CoD3l" />
->>>>>>> List/CreateContract-HoaiNT
+  <component name="ProjectId" id="2iQ4LCpUPNo0uHk7PoKzRqFNvwt" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;List/CreateCustomer-ThongNQ&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/workspace/A0523I1-Org/A0523I1-Repo-FE&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2024.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-
-=======
->>>>>>> Login-DatCT
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-<<<<<<< HEAD
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.path.for.package.eslint" value="project" />
-    <property name="node.js.path.for.package.tslint" value="project" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Module_6\Project_House\A0523I1-Repo-FE\public" />
-      <recent name="D:\Module_6\Project_House\A0523I1-Repo-FE\src" />
-      <recent name="D:\Module_6\Project_House\A0523I1-Repo-FE\src\layouts" />
-      <recent name="D:\Module_6\Project_House\A0523I1-Repo-FE\src\components\customer" />
-    </key>
-  </component>
-  <component name="SvnConfiguration">
-    <configuration />
-
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "List/CreateCustomer-ThongNQ",
-    "last_opened_file_path": "D:/workspace/customer-module6",
-=======
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/workspace/A0523I1-Org/A0523I1-Repo-FE",
->>>>>>> List/CreateContract-HoaiNT
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.standard": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.standard": "",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
-<<<<<<< HEAD
-
-  }
-}</component>
-=======
-  }
-}]]></component>
->>>>>>> List/CreateContract-HoaiNT
-=======
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.standard" value="true" />
-    <property name="node.js.path.for.package.eslint" value="project" />
-    <property name="node.js.path.for.package.standard" value="project" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.standard" value="" />
-  </component>
->>>>>>> Login-DatCT
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-WS-241.14494.235" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-WS-241.17011.90" />
       </set>
     </attachedChunks>
-<<<<<<< HEAD
-
   </component>
-  <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="e8a00f42-9c9d-41b8-9819-a1b566e3f2ea" name="Default Changelist" comment="" />
-      <created>1718198303922</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-
-      <updated>1718198303922</updated>
-      <workItem from="1718198325432" duration="4646000" />
-      <workItem from="1718351815512" duration="596000" />
-      <workItem from="1718356613167" duration="1229000" />
-
-=======
-  </component>
-  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="ba72b43a-c2b1-4ff5-8f84-ab2d5ccee82c" name="Changes" comment="" />
-      <created>1717585463801</created>
+      <changelist id="002c67c6-f2d1-417c-a274-743f7353f4d1" name="Changes" comment="" />
+      <created>1719409410412</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
->>>>>>> List/CreateContract-HoaiNT
-      <updated>1717585463801</updated>
-      <workItem from="1717585465010" duration="11560000" />
-      <workItem from="1717735595941" duration="11149000" />
-      <workItem from="1717853344969" duration="1118000" />
-      <workItem from="1717854547344" duration="8386000" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-      <workItem from="1718200003643" duration="236000" />
-      <workItem from="1718200417854" duration="649000" />
-      <workItem from="1718201084380" duration="6248000" />
-      <workItem from="1718240995286" duration="13837000" />
-      <workItem from="1718343516252" duration="405000" />
-
-      <workItem from="1718344017134" duration="15528000" />
-      <workItem from="1718365672465" duration="4768000" />
-      <workItem from="1718418079648" duration="1166000" />
-      <workItem from="1718454998603" duration="604000" />
-      <workItem from="1718504562994" duration="10000" />
-      <workItem from="1718623014031" duration="1034000" />
-
-      <workItem from="1718344017134" duration="9788000" />
-
-=======
->>>>>>> List/CreateContract-HoaiNT
-=======
-      <workItem from="1719400098113" duration="3155000" />
->>>>>>> Login-DatCT
+      <updated>1719409410412</updated>
+      <workItem from="1719409413197" duration="951000" />
+      <workItem from="1719410744135" duration="1388000" />
+      <workItem from="1719461510860" duration="16088000" />
+      <workItem from="1719479563492" duration="92000" />
+      <workItem from="1719488333839" duration="422000" />
+      <workItem from="1719491855040" duration="9626000" />
+      <workItem from="1719506382933" duration="1200000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-<<<<<<< HEAD
-<<<<<<< HEAD
     <option name="version" value="2" />
-  </component>
-
-  <component name="WindowStateProjectService">
-    <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1718198387220">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1718198387220" />
-
-=======
-    <option name="version" value="3" />
-=======
-    <option name="version" value="2" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="637" y="318" key="#ESLint" timestamp="1719401001123">
-      <screen x="0" y="0" width="1536" height="816" />
-    </state>
-    <state x="637" y="318" key="#ESLint/0.0.1536.816@0.0.1536.816" timestamp="1719401001123" />
->>>>>>> Login-DatCT
-  </component>
->>>>>>> List/CreateContract-HoaiNT
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/layouts/Header.js</url>
-<<<<<<< HEAD
-<<<<<<< HEAD
-          <line>44</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/components/customer/CreateCustomer.js</url>
-          <line>255</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/components/customer/ListCustomer.js</url>
-          <line>354</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/configs/routes.js</url>
-          <line>14</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-=======
-          <line>10</line>
-=======
-          <line>1</line>
->>>>>>> Login-DatCT
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
->>>>>>> List/CreateContract-HoaiNT
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

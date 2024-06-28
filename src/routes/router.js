@@ -25,12 +25,11 @@ import UnauthorizedPage from "../components/auth/Unauthorize";
 const publicRoutes = [
     {path : routes.login ,component : Home},
     {path : routes.home ,component : Home},
-    {path: routes.unAuthorized, component: UnauthorizedPage},
 ]
 
 const privateRoutes = [
 
-
+    {path: routes.unAuthorized, component: UnauthorizedPage},
     {path : routes.listContract, component : ListContract},
     {path : routes.createContract, component : CreateContract},
     {path : routes.editContract, component : EditContract , id : ':id'},

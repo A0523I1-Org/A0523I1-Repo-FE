@@ -83,6 +83,7 @@ export async function getMyProfile(token) {
         const response = await axios.get(`http://localhost:8080/api/employee/my-info`, {
             headers: {Authorization: `Bearer ${token}`}
         })
+        console.log(response)
         return response.data;
     } catch (err) {
         throw err;
