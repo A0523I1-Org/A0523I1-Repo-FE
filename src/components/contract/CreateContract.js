@@ -174,7 +174,7 @@ const onChangePicture = e => {
         
   }
 
-// format VND
+// format VND (Hoai NT)
 
 const numberFormatter = new Intl.NumberFormat('vi-VN', {
   style: 'decimal',
