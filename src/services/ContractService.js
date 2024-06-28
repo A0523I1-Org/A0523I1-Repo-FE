@@ -63,6 +63,7 @@ export const findAllContract = async(page,customeName,landingCode,startDate,endD
 }
 // Hoài NT
 export const createContract = async(contract,confirmPassword, token) => {
+    console.log(contract);
     try {
         await axios.post(`http://localhost:8080/api/contract/${confirmPassword}`,contract, {
             headers: {Authorization : `Bearer ${token}`}

@@ -22,7 +22,8 @@ const CreateContract = () => {
   const [customers, setCustomers] = useState([]);
   const [term,setTerm] = useState(0);
   const [deposit,setDeposit] = useState(0);
-  const [currentFee,setCurrentFee] = useState(0)
+  const [totalMoney,setTotalMoney]=useState(0)
+;  const [currentFee,setCurrentFee] = useState(0)
   const [startDate,setStartDate] = useState("");
   const [landing,setLanding] = useState({});
   const[imgUpload,setImgUpload] = useState(null);
@@ -65,12 +66,18 @@ const CreateContract = () => {
                         .test("a","Vui lòng cung cấp file hình ảnh !",value => {
                           let arr = value.split(".");
                           if( arr[arr.length-1] === 'png' || arr[arr.length-1] === 'jpg' || arr[arr.length-1] === 'gif'  ){
-                                
+                              
                                 return true;
                           }else {
                             return false;
                           }
-                      } )  ,
+                      } ) 
+                      .test(
+                        'a',
+                        "Kích thước tệp quá lớn (tối đa 2MB)",
+                        () => !imgUpload || (imgUpload && imgUpload.size <= 2048 * 1024)
+                    ),
+                        
       landingId :  Yup.string().required("Vui lòng chọn mặt bằng !")   ,
       deposit   : Yup.number()
                         .typeError("Vui lòng nhập số !")
@@ -121,6 +128,7 @@ const onChangePicture = e => {
 
 // thêm mới  contract (Hoai NT)
   const createContract = async (url,values,imageRef) => {
+    
     const token = authService.getToken();
     values.firebaseUrl = url;
     values.term = +values.term;
@@ -166,6 +174,15 @@ const onChangePicture = e => {
         
   }
 
+// format VND
+
+const numberFormatter = new Intl.NumberFormat('vi-VN', {
+  style: 'decimal',
+  useGrouping: true,
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 2
+});
+
   // xử lý form (hoaiNT) : 
   const handleChangeLanding = (e,setFieldValue) => {
     setLanding(JSON.parse(e.target.value))
@@ -176,6 +193,7 @@ const onChangePicture = e => {
   }
   //
   const handleChangeFirebaseUrl = (e,setFieldValue) => {
+      
       setImgUpload(e.target.files[0]);
       e.target.value ? setFieldValue('firebaseUrl',e.target.files[0].name)
                       : setFieldValue('firebaseUrl',"")
@@ -203,6 +221,7 @@ const onChangePicture = e => {
   }
   //
   const handleChangeDeposit = (e,setFieldValue) => {
+    console.log(numberFormatter.format(e.target.value));
     setDeposit(+e.target.value);
     setFieldValue('deposit',e.target.value);
   }
@@ -502,7 +521,7 @@ const getLoginEmployee = async() => {
                         </div>
                       </div>
                       <div className=" h-[40px] mx-5  mb-5 flex gap-3 ">
-                        <p className="w-4/12 h-full text-sm">H/A Hợp Đồng</p>
+                        <p className="w-4/12 h-full text-sm">Hình Ảnh H/Đ</p>
                         <div className="w-6/12 h-full ">
                           <input
                             name="firebaseUrl"
@@ -589,6 +608,8 @@ const getLoginEmployee = async() => {
                         <p className="w-4/12 h-full text-sm">
                           Phí Hiện Tại{" "}
                           <span className="text-sm text-red-500">(VNĐ)</span>
+                          <br></br>
+                          {currentFee && currentFee > 0 ? <i style={{color : 'blue',fontSize :'12px'}} >{numberFormatter.format(currentFee) + " đ"}</i> : null }
                         </p>
                         <div className="w-8/12 h-full  flex">
                           <span className="flex items-center bg-[#fafafa] py-3 px-4 border rounded-tl-[3px] rounded-tb-[3px] text-[#888] ">
@@ -626,7 +647,10 @@ const getLoginEmployee = async() => {
                         <p className="w-4/12 h-full text-sm">
                           Tiền Đặt Cọc{" "}
                           <span className="text-lg text-red-500">* (VNĐ)</span>
+                          <br></br>
+                          {deposit && deposit > 0 ? <i style={{color : 'blue',fontSize :'12px'}} >{numberFormatter.format(deposit) + " đ"}</i> : null }
                         </p>
+                        
                         <div className="w-8/12 h-full  ">
                           <div className="flex h-full ">
                             <span className="flex items-center bg-[#fafafa] py-3 px-4  rounded-tl-[3px] rounded-tb-[3px] text-[#888] ">
@@ -666,6 +690,8 @@ const getLoginEmployee = async() => {
                       <div className=" h-[40px] mx-5  flex gap-3 ">
                         <p className="w-4/12 h-full text-sm">Tổng Tiền 
                         <span className="text-lg text-red-500"> (VNĐ)</span>
+                        <br></br>
+                          {deposit && term && currentFee && deposit > 0 && term > 0 && currentFee > 0 ? <i style={{color : 'blue',fontSize :'12px'}} >{numberFormatter.format(currentFee*term-deposit) + " đ"}</i> : null }
                         </p>
                         <div className="w-8/12 h-full  flex">
                           <span className="flex items-center bg-[#fafafa] py-3 px-4 border rounded-tl-[3px] rounded-tb-[3px] text-[#888] ">
@@ -704,6 +730,7 @@ const getLoginEmployee = async() => {
                                 ? ""
                                 : currentFee * term - deposit
                             }
+                           
                             className="w-full h-full border-[#8887] px-3"
                             placeholder="Chưa Xác Định"
                           />
