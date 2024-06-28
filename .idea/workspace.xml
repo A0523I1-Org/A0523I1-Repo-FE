@@ -5,73 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba72b43a-c2b1-4ff5-8f84-ab2d5ccee82c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/PC.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.idea/src.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/auth/Unauthorize.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/contract/ErrorNotFound.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/contract/Loading.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/contract/ModalLoading.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/contract/ModalShowViewContract.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/contract/NotFoundContract.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/contract/NotFoundSearch.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/contract/PopupDelete.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/contract/PopupUpdate.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/contract/img/Dual Ring@1x-1.0s-200px-200px.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/employee/PersonalInformation.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/configs/menuSelect.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/configs/privateRoute.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/css/auth/login.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/css/auth/unauthorize.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/css/contract/createContract.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/css/contract/listContract.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/css/contract/paginationContract.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/css/employee/PersonalInformation.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/css/form.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/css/popupStyle.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/schema/ContractSchema.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/Authenticate/AuthService.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/HelperService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/A0523I1-Repo-FE.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/A0523I1-Repo-FE.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/auth/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/contract/CreateContract.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/contract/CreateContract.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/contract/EditContract.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/contract/EditContract.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/contract/ListContract.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/contract/ListContract.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/employee/CreateEmployee.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employee/CreateEmployee.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/employee/DeleteEmployee.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employee/DeleteEmployee.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/employee/ListEmployee.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employee/ListEmployee.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/employee/child_list/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employee/child_list/Register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/employee/child_list/Search.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employee/child_list/Search.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/configs/firebase.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/configs/firebase.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/configs/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/configs/routes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/home.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/login.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/layouts/DefaultLayout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/DefaultLayout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/layouts/Footer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/Footer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/layouts/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/NotFound.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/NotFound.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/AccountService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/AccountService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/ContractService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/ContractService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/CustomerService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/CustomerService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/DepartmentService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/DepartmentService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/EmployeeService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/EmployeeService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/LandingService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/LandingService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/SalaryRankService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/SalaryRankService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/employee/createemployee.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/employee/createemployee.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/Authenticate/AuthService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/Authenticate/AuthService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,6 +33,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../addupdate/A0523I1-Repo-FE" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -126,7 +63,8 @@
       <workItem from="1717735595941" duration="11149000" />
       <workItem from="1717853344969" duration="1118000" />
       <workItem from="1717854547344" duration="8386000" />
-      <workItem from="1719400098113" duration="3155000" />
+      <workItem from="1719400098113" duration="7698000" />
+      <workItem from="1719503741167" duration="60000" />
     </task>
     <servers />
   </component>
@@ -138,6 +76,10 @@
       <screen x="0" y="0" width="1536" height="816" />
     </state>
     <state x="637" y="318" key="#ESLint/0.0.1536.816@0.0.1536.816" timestamp="1719401001123" />
+    <state x="548" y="162" key="FileChooserDialogImpl" timestamp="1719503768055">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state x="548" y="162" key="FileChooserDialogImpl/0.0.1536.816@0.0.1536.816" timestamp="1719503768055" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

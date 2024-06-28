@@ -1,8 +1,8 @@
 #ce_main {
     box-sizing: border-box;
     border-radius: 10px;
-    background: url("https://images.unsplash.com/photo-1428908728789-d2de25dbd4e2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D") no-repeat;
-    background-size: cover;
+    /*background: url("https://images.unsplash.com/photo-1428908728789-d2de25dbd4e2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D") no-repeat;*/
+    /*background-size: cover;*/
     /*position: relative;*/
 }
 
