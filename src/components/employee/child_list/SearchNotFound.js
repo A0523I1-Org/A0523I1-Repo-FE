@@ -1,5 +1,4 @@
 import React from "react";
-import routes from "../../../configs/routes";
 
 function SearchNotFound({onFetchData}) {
     return (
