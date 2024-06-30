@@ -174,9 +174,9 @@ input[type="number"]::-webkit-outer-spin-button {
 
 #list__lading table thead th {
     background: #eeeeee;
-    font-size: 16px;
+    font-size: 13.5px;
     color: #222;
-    font-weight: 550;
+    font-weight: 500;
     border: 1px solid #ddd;
 }
 

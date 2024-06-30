@@ -33,6 +33,7 @@ function DefaultLayout ({children})  {
                     </div>
                 </div>
             }
+
         </>
     )
 }

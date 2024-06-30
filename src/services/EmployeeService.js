@@ -20,25 +20,34 @@ export const fetchEmployees = async (page, criteria = null, token) => {
     }
 };
 
-//VTTR
-export const addEmployee = async (employeeReqDTO, token) => {
+export async function getMyProfile(token) {
     try {
-        await axios.post("http://localhost:8080/api/employee/add", employeeReqDTO,
-            {
-                headers: {Authorization: `Bearer ${token}`}
-            }
-        )
-        return true;
-    } catch (e) {
-        console.log("Error at EmployeeService/addEmployee:" + e)
-        return false;
+        const response = await axios.get(`http://localhost:8080/api/employee/my-info`, {
+            headers: {Authorization: `Bearer ${token}`}
+        })
+        console.log(response)
+        return response.data;
+    } catch (err) {
+        throw err;
     }
 }
 
 
+//VTTR
+export const addEmployee = async (employeeReqDTO, token) => {
+    try {
+        const response = await axios.post("http://localhost:8080/api/employee/add", employeeReqDTO, {
+            headers: {Authorization: `Bearer ${token}`}
+        });
+        return response.status === 201;
+    } catch (e) {
+        console.log("Error at EmployeeService/addEmployee:", e.message);
+        return false;
+    }
+}
+
 export const findEmployeeById = async (id, token) => {
     try {
-
         let employee = await axios.get(`http://localhost:8080/api/employee/${id}`,
             {
                 headers: {Authorization: `Bearer ${token}`}
@@ -52,15 +61,15 @@ export const findEmployeeById = async (id, token) => {
 
 export const deleteEmployeeById = async (id, token) => {
     try {
-        await axios.put(`http://localhost:8080/api/employee/delete/${id}`,{},
+        let res = await axios.put(`http://localhost:8080/api/employee/delete/${id}`, {},
             {
                 headers: {Authorization: `Bearer ${token}`}
             }
         )
-        return true
+        return res.status === 200
     } catch (e) {
-        console.log("Error at EmployeeService/deleteEmployeeById:" + e)
-        return false
+        console.log("Error at EmployeeService/deleteEmployeeById:", e.message);
+        return false;
     }
 }
 
@@ -78,13 +87,35 @@ export const getAllExistEmail = async (token) => {
     }
 }
 
-export async function getMyProfile(token) {
+export const getEmployeeUpdate = async (id, token) => {
     try {
-        const response = await axios.get(`http://localhost:8080/api/employee/my-info`, {
-            headers: {Authorization: `Bearer ${token}`}
-        })
-        return response.data;
-    } catch (err) {
-        throw err;
+
+        let response = await axios.get(`http://localhost:8080/api/employee/getUpdate/${id}`,
+            {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+        )
+        if (response.status === 200) {
+            return response.data
+        } else {
+            return null;
+        }
+    } catch (e) {
+        console.log("Error at EmployeeService/getEmployeeUpdate:", e.message);
+        return null;
+    }
+};
+
+export const updateEmployee = async (employeeReqDTO, token) => {
+    try {
+        let response = await axios.put(`http://localhost:8080/api/employee/update`, employeeReqDTO,
+            {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+        )
+        return response.status === 200;
+    } catch (e) {
+        console.log("Error at EmployeeService/updateEmployee:", e.message);
+        return false;
     }
 }

@@ -207,8 +207,8 @@ a {
     left: 0;
     width: 100%;
     height: 100%;
-    border: none;
-    outline: none;
+    border-color: transparent !important;
+    outline: none !important;
     background: none;
     padding: 0.1rem 0.75rem;
     font-size: 1.2rem;
@@ -216,6 +216,11 @@ a {
     transition: 0.3s;
 }
 
+#Login-DatCT .form__input:focus{
+    outline: none;
+    box-shadow: none;
+    border:1px solid #c0bebe;
+}
 
 #Login-DatCT .form__check {
     display: flex;

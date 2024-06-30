@@ -10,9 +10,12 @@ import "../../css/employee/styles.css";
 import routes from "../../configs/routes";
 import * as authService from "../../services/Authenticate/AuthService"
 import SearchNotFound from "./child_list/SearchNotFound";
+import DeleteEmployeeModal from "./child_list/DeleteEmployeeModal";
 
 const ListEmployee = () => {
-
+    // VTTR
+    const [employeeDelete, setEmployeeDelete] = useState(null);
+    // VVN
     const [employees, setEmployees] = useState([]);
     const [searchCriteria, setSearchCriteria] = useState(null);
     const [currentPage, setCurrentPage] = useState(0);
@@ -30,9 +33,19 @@ const ListEmployee = () => {
         );
     };
 
+    //Cập nhật hiển thị cho nhân viên sau khi xóa thành công
+    const handleEmployeeDeleted = (employeeId) => {
+        const newEmployees = employees.filter(employee => employee.id !== employeeId);
+        setEmployees(newEmployees);
+    };
+
     //Modal xem chi tiết nhân viên
     const handleOpenModal = (employee) => setSelectedEmployee(employee);
     const handleCloseModal = () => setSelectedEmployee(null);
+
+    // VTTR
+    const handleOpenModalDelete = (employee) => setEmployeeDelete(employee);
+    const handleCloseModalDelete = () => setEmployeeDelete(null);
 
     // Lấy dữ liệu
     const fetchData = async (page, criteria) => {
@@ -40,7 +53,6 @@ const ListEmployee = () => {
         setEmployees(data.content || []);
         setTotalPages(data.totalPages);
     };
-
 
     const handleSearch = (criteria) => {
         setSearchCriteria(criteria);
@@ -68,21 +80,25 @@ const ListEmployee = () => {
         fetchData(currentPage, searchCriteria);
     }, [currentPage]);
 
+    // useEffect(() => {
+    //     fetchData(currentPage, searchCriteria)
+    // }, [employeeDelete])
+
     return (
         <>
-            <div className="flex justify-between mx-16 mb-4" id="vu_nv">
+            <div className="flex justify-between mx-16 mb-4">
                 <div className="relative">
-                    <Search onSearch={handleSearch} />
+                    <Search onSearch={handleSearch}/>
                 </div>
                 <div className="flex gap-2">
-                    <button className="tw-delete-all-button">
-                        <DeleteAllIcon />
-                    </button>
-                    <Link to = {routes.createEmployee}>
+                    <Link to={routes.createEmployee}>
                         <button className="tw-add-button">
-                            <AddIcon />
+                            <AddIcon/>
                         </button>
                     </Link>
+                    <button className="tw-delete-all-button">
+                        <DeleteAllIcon/>
+                    </button>
                 </div>
             </div>
 
@@ -92,6 +108,7 @@ const ListEmployee = () => {
                     employees={employees}
                     handleUserRegistration={handleUserRegistration}
                     handleOpenModal={handleOpenModal}
+                    handleOpenModalDelete={handleOpenModalDelete}
                 />
             </div>
             {employees?.length === 0 && (
@@ -114,6 +131,17 @@ const ListEmployee = () => {
                     employee={selectedEmployee}
                     isOpen={!!selectedEmployee}
                     onClose={handleCloseModal}
+                />
+            )}
+
+
+            {/*VTTR*/}
+            {employeeDelete && (
+                <DeleteEmployeeModal
+                    employee={employeeDelete}
+                    isOpen={!!employeeDelete}
+                    onClose={handleCloseModalDelete}
+                    onEmployeeDeleted={handleEmployeeDeleted}
                 />
             )}
         </>

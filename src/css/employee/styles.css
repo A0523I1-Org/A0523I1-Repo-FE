@@ -13,7 +13,7 @@
 
 /*employee table*/
 .tw-custom-table {
-    @apply w-full border-collapse block md:table bg-white text-left text-sm text-gray-500
+    @apply w-full border-collapse block md:table bg-white text-left text-sm text-gray-500;
 }
 
 .tw-custom-thead {
@@ -25,7 +25,7 @@
 }
 
 .tw-custom-th {
-    @apply px-6 py-4 font-medium text-gray-900 text-left block md:table-cell border-0;
+    @apply px-6 py-4 font-medium text-gray-900 text-left block md:table-cell;
 }
 
 .tw-custom-tbody {
@@ -90,7 +90,8 @@
 
 /*employee detail*/
 .tw-custom-modal {
-    @apply fixed inset-0 z-10 overflow-y-auto;
+    /*@apply fixed inset-0 z-10 overflow-y-auto;*/
+    @apply fixed inset-0 z-10 overflow-y-auto flex items-center justify-center;
 }
 
 .tw-custom-div-4 {
@@ -102,7 +103,8 @@
 }
 
 .tw-custom-modal-panel {
-    @apply inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full;
+    /*@apply inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full;*/
+    @apply inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-screen-sm sm:w-full;
 }
 
 .tw-custom-div-5 {
@@ -251,8 +253,4 @@
 
 .tw-custom-reset-button {
     @apply block mb-2 w-full select-none rounded-lg bg-gradient-to-tr from-gray-600 to-gray-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-600/10 transition-all hover:shadow-lg hover:shadow-gray-600/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none;
-}
-
-.tw-custom-label-container {
-    @apply absolute top-0 left-0 z-10 w-full h-full pointer-events-none flex items-center;
 }

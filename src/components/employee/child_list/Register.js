@@ -54,107 +54,69 @@ const Register = ({ employeeId, onUserRegistered }) => {
             });
     };
 
-    const customInput =
-        "w-full h-full px-3 py-3 font-sans text-sm font-normal transition-all bg-transparent border rounded-md peer border-blue-gray-200 border-t-transparent text-blue-gray-700 outline outline-0 placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-blue-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 border-t-2";
-
-    const customLabel =
-        "text-xs font-normal leading-tight text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:leading-4 peer-placeholder-shown:text-blue-gray-500 peer-focus:text-xs peer-focus:leading-tight peer-focus:text-blue-500";
-
     return (
         <div id="register_vu">
-            <span
-                className="tw-custom-span-register cursor-pointer"
-                onClick={openDialog}
-            >
+            <span className="tw-custom-span-register cursor-pointer" onClick={openDialog}>
                 <span className="h-1.5 w-1.5 rounded-full bg-red-600"></span>
                 Đăng ký tài khoản
             </span>
 
             {isDialogOpen && (
-                <div
-                    className="tw-custom-modal-overlay"
-                    onClick={closeDialog}
-                >
-                    <div
-                        onClick={(e) => e.stopPropagation()}
-                        className="tw-custom-modal-content"
-                    >
-                        <button
-                            onClick={closeDialog}
-                            className="tw-custom-close-button"
-                            aria-label="Close"
-                        >
+                <div className="tw-custom-modal-overlay">
+                    <div onClick={(e) => e.stopPropagation()} className="tw-custom-modal-content">
+                        <button onClick={closeDialog} className="tw-custom-close-button" aria-label="Close">
                             <svg className="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18 17.94 6M18 18 6.06 6" />
                             </svg>
                         </button>
                         <div className="tw-custom-modal-inner">
-                            <h4 className="tw-custom-h4">
-                                Đăng ký tài khoản nhân viên
-                            </h4>
-                            <p className="tw-custom-p">
-                                Nhập chi tiết tài khoản để đăng ký.
-                            </p>
-                            <Formik
-                                initialValues={initialValues}
-                                validationSchema={validationSchema}
-                                onSubmit={handleSubmit}
-                            >
+                            <h4 className="tw-custom-h4">Đăng ký tài khoản nhân viên</h4>
+                            <p className="tw-custom-p">Nhập chi tiết tài khoản để đăng ký.</p>
+                            <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
                                 {({ isSubmitting, resetForm, values }) => (
-                                    <Form>
-                                        <h6 className="tw-custom-h6">
-                                            Tài khoản
-                                        </h6>
-                                        <div className="tw-custom-field">
+                                    <Form className="space-y-6">
+                                        <div className="space-y-1">
+                                            <label htmlFor="username" className="mb-2 dark:text-gray-400 text-lg">Tài khoản</label>
                                             <Field
-                                                type="text"
+                                                id="username"
                                                 name="username"
-                                                placeholder=""
-                                                className={customInput}
+                                                type="text"
+                                                placeholder="Tài khoản"
+                                                className="border p-3 dark:bg-indigo-700 dark:text-gray-300 dark:border-gray-700 shadow-md placeholder:text-base focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
                                             />
-                                            <div className="tw-custom-label-container">
-                                                <label className={`${customLabel} ${values.username && "top-[-0.5rem] text-blue-500"}`}>
-                                                    Tài khoản
-                                                </label>
+                                            <div className="h-2">
+                                                <ErrorMessage name="username" component="div" className="tw-custom-error" />
                                             </div>
-                                            <ErrorMessage name="username" component="div" className="tw-custom-error" />
                                         </div>
 
-                                        <h6 className="tw-custom-h6">
-                                            Mật khẩu
-                                        </h6>
-                                        <div className="tw-custom-field">
+                                        <div className="space-y-1">
+                                            <label htmlFor="password" className="mb-2 dark:text-gray-400 text-lg">Mật khẩu</label>
                                             <Field
-                                                type="password"
+                                                id="password"
                                                 name="password"
-                                                placeholder=""
-                                                className={customInput}
+                                                type="password"
+                                                placeholder="Mật khẩu"
+                                                className="border p-3 dark:bg-indigo-700 dark:text-gray-300 dark:border-gray-700 shadow-md placeholder:text-base focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
                                             />
-                                            <div className="tw-custom-label-container">
-                                                <label className={`${customLabel} ${values.password && "top-[-0.5rem] text-blue-500"}`}>
-                                                    Mật khẩu
-                                                </label>
+                                            <div className="h-2">
+                                                <ErrorMessage name="password" component="div" className="tw-custom-error" />
                                             </div>
-                                            <ErrorMessage name="password" component="div" className="tw-custom-error" />
                                         </div>
 
-                                        <h6 className="tw-custom-h6">
-                                            Xác nhận mật khẩu
-                                        </h6>
-                                        <div className="tw-custom-field">
+                                        <div className="space-y-1">
+                                            <label htmlFor="confirmPassword" className="mb-2 dark:text-gray-400 text-lg">Xác nhận mật khẩu</label>
                                             <Field
-                                                type="password"
+                                                id="confirmPassword"
                                                 name="confirmPassword"
-                                                placeholder=""
-                                                className={customInput}
+                                                type="password"
+                                                placeholder="Xác nhận mật khẩu"
+                                                className="border p-3 dark:bg-indigo-700 dark:text-gray-300 dark:border-gray-700 shadow-md placeholder:text-base focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
                                             />
-                                            <div className="tw-custom-label-container">
-                                                <label className={`${customLabel} ${values.confirmPassword && "top-[-0.5rem] text-blue-500"}`}>
-                                                    Xác nhận mật khẩu
-                                                </label>
+                                            <div className="h-2">
+                                                <ErrorMessage name="confirmPassword" component="div" className="tw-custom-error" />
                                             </div>
-                                            <ErrorMessage name="confirmPassword" component="div" className="tw-custom-error" />
                                         </div>
+
                                         <div className="tw-custom-button-container">
                                             <button
                                                 type="submit"

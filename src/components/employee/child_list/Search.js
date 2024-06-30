@@ -3,7 +3,7 @@ import {CloseIcon, RefreshIcon, SearchIcon, SearchInputIcon, SearchSubmitIcon} f
 import {capitalizeFirstLetter} from "../utils/Utils";
 import {getAllDepartments} from "../../../services/DepartmentService";
 import {getAllSalaryRanks} from "../../../services/SalaryRankService";
-import * as authService from "../../../services/Authenticate/AuthService";
+import * as authService from "../../../services/Authenticate/AuthService"
 
 const Search = ({onSearch}) => {
     const token = authService.getToken();
@@ -84,6 +84,23 @@ const Search = ({onSearch}) => {
         console.log(searchCriteria);
         onSearch(searchCriteria);
         setDropdownVisible(false);
+        setSearchCriteria({
+            code: '',
+            name: '',
+            dob: '',
+            dobFrom: '',
+            dobTo: '',
+            gender: '',
+            address: '',
+            phone: '',
+            email: '',
+            workDate: '',
+            workDateFrom: '',
+            workDateTo: '',
+            departmentId: '',
+            salaryRankId: '',
+            accountUsername: ''
+        });
     };
 
     //reset nhập liệu

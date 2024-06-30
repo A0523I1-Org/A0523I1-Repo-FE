@@ -11,6 +11,8 @@ import * as Yup from "yup"
 import {useNavigate} from "react-router";
 import * as authService from "../services/Authenticate/AuthService"
 import { toast } from 'react-toastify';
+import * as employeeService from "../services/EmployeeService";
+import ModalLogout from "../components/auth/ModalLogout";
 
 const Header = () => {
     const [showMenuSelect, setShowMenuSelect] = useState(false);
@@ -72,6 +74,7 @@ const Header = () => {
     const openLoginModal = () => {
         setIsNavigation(false)
         setLoginModalIsOpen(true);
+        setError(null);
     };
 
     const handleRememberMe = () => {
@@ -107,14 +110,18 @@ const Header = () => {
                         sessionStorage.setItem('role', JSON.stringify(userData.roles));
                     }
 
+                    const response = await employeeService.getMyProfile(userData.access_token);
+                    setUsernameDisplay(response.name);
+
                     setLoginModalIsOpen(false);
-                    navigate('/');
+                    navigate('/login');
 
                 } else {
-                    setError(userData.message);
+                    setError("Tài khoản hoặc mật khẩu sai.")
+                    // setError(userData.message);
                 }
-
             }
+
         } catch (error) {
             if (error.response) {
                 setError("Tài khoản hoặc mật khẩu sai.")
@@ -125,17 +132,35 @@ const Header = () => {
     }
 
     // ===================================== LOGOUT ======================================
+    const [modalLogoutIsOpen, setModalLogoutIsOpen] = useState(false);
+
+    const handleModalLogoutIsOpen = () => {
+        setModalLogoutIsOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setModalLogoutIsOpen(false);
+    };
+
     const handleLogoutClick = async () => {
         const token = authService.getToken();
         await authService.logout(token);
-        navigate("/")
+        navigate("/login")
     }
+
+    const handleConfirmLogout = () => {
+        setModalLogoutIsOpen(false);
+        // Add your logout logic here
+        handleLogoutClick();
+    };
 
 
     // ==================================
     const valueMenu = {
         showMenuSelect, setShowMenuSelect, setIsNavigation, isNavigation,
-        openLoginModal, handleLogoutClick,isShowMenuInfoEmployee,setIsShowMenuInfoEmployee
+        openLoginModal, handleLogoutClick,isShowMenuInfoEmployee,setIsShowMenuInfoEmployee,
+        location, usernameDisplay,
+        modalLogoutIsOpen, handleModalLogoutIsOpen, handleCloseModal, handleConfirmLogout
     }
     const navigation = {
         isNavigationChild, setIsNavigationChild, isNavigation
@@ -382,14 +407,16 @@ const Header_child = ({menu}) => {
 
 
                                 <div className={`w-[170px] left-0  h-auto absolute  bg-white border overflow-hidden top-[49px] rounded-[3px] z-30 ${menu.showMenuSelect ? '' : 'hidden'}`}>
-                                    <div
-                                        className="w-full h-[40px] relative group flex justify-center items-center font-normal text-black text-[15px]">
-                                        <Link to={'/employee'} className={"header-title"}>
-                                            Nhân viên
-                                        </Link>
-                                        <span
-                                            className="absolute w-full h-[1.5px] bg-yellow-500 bottom-0 left-[-180px] group-hover:left-0 transition-all duration-1000"></span>
-                                    </div>
+                                    {authService.isAdmin() &&
+                                        <div
+                                            className="w-full h-[40px] relative group flex justify-center items-center font-normal text-black text-[15px]">
+                                            <Link to={'/employee'} className={"header-title"}>
+                                                Nhân viên
+                                            </Link>
+                                            <span
+                                                className="absolute w-full h-[1.5px] bg-yellow-500 bottom-0 left-[-180px] group-hover:left-0 transition-all duration-1000"></span>
+                                        </div>
+                                    }
                                     <div
                                         className="w-full h-[40px] relative group flex justify-center items-center font-normal text-black text-[15px]">
                                         <Link to={'/contract'} className={"header-title"}>
@@ -423,7 +450,7 @@ const Header_child = ({menu}) => {
                     </div>
 
 
-                    {!authService.isAuthenticated() &&
+                    {(!authService.isAuthenticated() && menu.location.pathname === "/login") &&
                         <button className="absolute w-[119px] h-12 bg-[#2f2b36] hover:text-slate-900 hover:bg-white  hover:border-[1px] hover:border-black
                     rounded-[40px] flex items-center justify-center  right-5 text-slate-50  button-animation
                         " onClick={menu.openLoginModal}>
@@ -452,7 +479,7 @@ const Header_child = ({menu}) => {
                                 <path strokeLinecap="round" strokeLinejoin="round"
                                       d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
                             </svg>
-                            <span className="pl-1">Phan Phùng</span>
+                            {/*<span className="pl-1">{menu.usernameDisplay}</span>*/}
                             <div
                                 className={`${menu.isShowMenuInfoEmployee ? "block" : "hidden"} w-[170px] h-auto absolute  bg-white border overflow-hidden  top-[57px] rounded-[3px] z-30`}>
                                 <div
@@ -465,9 +492,21 @@ const Header_child = ({menu}) => {
                                 </div>
                                 <div
                                     className="w-full h-[40px] relative group flex justify-center items-center font-normal text-black text-[15px]">
-                                    <button onClick={menu.handleLogoutClick}
-                                            className="h-full w-full header-title">Đăng xuất
+                                    {/*<button onClick={menu.handleLogoutClick}*/}
+                                    {/*        className="h-full w-full header-title">Đăng xuất*/}
+                                    {/*</button>*/}
+
+
+                                    <button onClick={menu.handleModalLogoutIsOpen} className="h-full w-full header-title">
+                                        Đăng xuất
                                     </button>
+                                    <ModalLogout
+                                        appElement={document.getElementById('root')}
+                                        isOpen={menu.modalLogoutIsOpen}
+                                        onRequestClose={menu.handleCloseModal}
+                                        onConfirm={menu.handleConfirmLogout}
+                                    />
+
                                     <span
                                         className="absolute w-full h-[1px] bg-yellow-500 bottom-0 right-[-180px] group-hover:right-0 transition-all duration-1000"></span>
                                 </div>
