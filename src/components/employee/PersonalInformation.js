@@ -7,8 +7,11 @@ import {toast} from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
+import {useNavigate} from "react-router";
 
 const PersonalInformation = () => {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [showPassword, setShowPassword] = useState({
@@ -141,6 +144,7 @@ const PersonalInformation = () => {
             } else {
                 notify();
                 await authService.logout(token);
+                navigate("/login")
             }
         } catch (error) {
             console.log(error);
@@ -157,165 +161,118 @@ const PersonalInformation = () => {
 
     return (
         <div id="TanPN">
-            <div className="personal_form container mx-auto px-4">
-                <table className="table w-full mb-8 custom-spacing">
-                    <thead>
-                    <tr>
-                        <th colSpan="2" className="abc text-2xl font-bold mb-4">Thông tin cá nhân</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th className="table-cell py-2 text-left pl-16">Tài khoản:</th>
-                        <td className="table-cell">
-                            <input
-                                type="text"
-                                name="userName"
-                                value={formData.userName || ''}
-                                className="form-input w-full"
-                                readOnly
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <th className="table-cell py-2 text-left pl-16">Mật khẩu:</th>
-                        <td className="table-cell">
-                            <div className="flex items-center">
-                                <div className="mr-3">
-                                    <input type="password" value="******" className="form-input" readOnly/>
+            <div className="bg-white mx-16 overflow-hidden shadow rounded-lg border box">
+                <div className="px-4 py-5 sm:px-6">
+                    <div className="flex justify-between items-center">
+                        <h3 className="text-lg leading-6 font-medium text-gray-900">
+                            Thông tin tài khoản
+                        </h3>
+                        <button className="text-sm font-medium text-gray-500 mx-4">
+                            X
+                        </button>
+                    </div>
+                    <p className="mt-1 max-w-2xl text-sm text-red-600">
+                        **Không chia sẻ** thông tin tài khoản và mật khẩu của bạn với bất kỳ ai. Việc tiết lộ thông tin này có thể dẫn đến việc truy cập trái phép và rủi ro bảo mật nghiêm trọng.
+
+                    </p>
+                </div>
+                <div className="border-t border-gray-200 px-4 py-5 sm:p-0">
+                    <dl className="sm:divide-y sm:divide-gray-200">
+                        <div className="py-3 sm:py-5 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-6">
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-1">
+                                Tài khoản <br/>
+                                <span>{formData.userName.toUpperCase()}</span>
+                            </dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-1">
+                                <br/>
+                            </dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-1">
+                                <br/>
+                            </dd>
+
+                            <button className="text-2xl font-medium text-green-700">
+                                <i className='bx bx-check'></i>
+                            </button>
+                        </div>
+                        <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                Mật khẩu <br/>
+
+                                <div className="flex items-center ">
+                                    <div className="mr-3 ">
+                                        <input type="password" value="******" className="form-input rounded-[4px]" readOnly/>
+                                    </div>
                                 </div>
+                            </dd>
+                            <div className="w-full flex justify-center h-10 mt-5 ">
                                 <button
-                                    className="btn-change bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                    className=" bg-blue-700 hover:bg-blue-700 text-white px-5 py-2.5 font-bmedium  rounded"
                                     onClick={() => setShowModal(true)}>Đổi mật khẩu
                                 </button>
                             </div>
-                        </td>
-                    </tr>
 
-                    {/* Các trường thông tin khác */}
-
-                    <tr>
-                        <th className="table-cell py-2" className="text-left pl-16">Họ tên(<span
-                            className="text-red-500">*</span>):
-                        </th>
-                        <td className="table-cell">
-                            <input
-                                type="text"
-                                name="fullName"
-                                value={formData.name || ''}
-                                className="form-input w-full"
-                                readOnly
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <th className="table-cell py-2" class="text-left pl-16">Ngày sinh(<span
-                            className="text-red-500">*</span>):
-                        </th>
-                        <td className="table-cell">
-                            <input
-                                type="date"
-                                name="dob"
-                                value={formData.dob.slice(0, 10)}
-                                className="form-input w-full"
-                                readOnly
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <th className="table-cell py-2" class="text-left pl-16">Giới tính:</th>
-                        <td className="table-cell">
-                            <div className="flex items-center">
-                                <div className="form-check form-check-inline">
-                                    <input
-                                        type="radio"
-                                        id="nam"
-                                        name="gender"
-                                        value="nam"
-                                        checked={formData.gender === 'Nam'}
-                                        className="form-radio"
-                                        readOnly
-                                    />
-                                    <label htmlFor="nam" className="form-check-label ml-2">Nam</label>
-                                </div>
-                                <div className="form-check form-check-inline ml-4">
-                                    <input
-                                        type="radio"
-                                        id="nu"
-                                        name="gender"
-                                        value="nu"
-                                        checked={formData.gender === 'Nữ'}
-                                        className="form-radio"
-                                        readOnly
-                                    />
-                                    <label htmlFor="nu" className="form-check-label ml-2">Nữ</label>
-                                </div>
-                                <div className="form-check form-check-inline ml-4">
-                                    <input
-                                        type="radio"
-                                        id="chua"
-                                        name="gender"
-                                        value="chua"
-                                        checked={formData.gender === 'Chưa xác định'}
-                                        className="form-radio"
-                                        readOnly
-                                    />
-                                    <label htmlFor="chua" className="form-check-label ml-2">Chưa xác định</label>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th className="table-cell py-2" class="text-left pl-16">Địa chỉ(<span
-                            className="text-red-500">*</span>):
-                        </th>
-                        <td className="table-cell">
-                            <input
-                                type="text"
-                                name="address"
-                                value={formData.address || ''}
-                                className="form-input w-full"
-                                readOnly
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <th className="table-cell py-2" class="text-left pl-16">Số điện thoại:</th>
-                        <td className="table-cell">
-                            <input
-                                type="text"
-                                name="phone"
-                                value={formData.phone || ''}
-                                className="form-input w-full"
-                                readOnly
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <th className="table-cell py-2" class="text-left pl-16">Email(<span
-                            className="text-red-500">*</span>):
-                        </th>
-                        <td className="table-cell">
-                            <input
-                                type="email"
-                                name="email"
-                                value={formData.email || ''}
-                                className="form-input w-full"
-                                readOnly
-                            />
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td colSpan="2" className="text-center">
-                            <button
-                                className="btn-edit bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
-                                onClick={editPersonalInformation}>Chỉnh sửa
+                        </div>
+                        <div className="py-3 sm:py-5 sm:grid  sm:grid-cols-4 sm:gap-4 sm:px-6">
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-1">
+                                Họ và tên<br/>
+                                {formData.name || ""}
+                            </dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-1">
+                                Ngày sinh<br/>
+                                {formData.dob.slice(0, 10) || ""}
+                            </dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-1">
+                                Giới tính<br/>
+                                {formData.gender || ""}
+                            </dd>
+                            <button className="text-2xl font-medium text-green-700">
+                                <i className='bx bx-check'></i>
                             </button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                        </div>
+                        <div className="py-3 sm:py-5 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-6">
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-1">
+                                Địa chỉ <br/>
+                                {formData.address || ''}
+                            </dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-1">
+                                <br/>
+                            </dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-1">
+                                <br/>
+                            </dd>
+                            <button className="text-2xl font-medium text-green-700">
+                                <i className='bx bx-check'></i>
+                            </button>
+                        </div>
+                        <div className="py-3 sm:py-5 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-6">
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-1">
+                                Số điện thoại <br/>
+                                {formData.phone || ''}
+                            </dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-1">
+                                Số điện thoại <br/>
+                                {formData.email || ''}
+                            </dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-1">
+                                <br/>
+                            </dd>
+                            <button className="text-2xl  font-medium text-green-700">
+                                <i className='bx bx-check'></i>
+                            </button>
+                        </div>
+                        <div className="py-3 sm:py-5 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-6">
+                            <div className="w-full h-10 ">
+                                <button
+                                    className=" sm:col-span-1   bg-blue-700 hover:bg-blue600 text-white font-medium py-2 px-4 rounded"
+                                    onClick={editPersonalInformation}>Chỉnh sửa
+                                </button>
+                            </div>
+                        </div>
+
+                    </dl>
+                </div>
+            </div>
+
 
                 {showModal && (
                     <div className="fixed z-10 inset-0 overflow-y-auto">
@@ -420,11 +377,12 @@ const PersonalInformation = () => {
                                                     </div>
                                                     <div className="mt-5 sm:mt-6 sm:flex sm:flex-row-reverse">
                                                         <button type="submit"
-                                                                className="modal-btn-change w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium text-white sm:ml-3 sm:w-auto sm:text-sm">
+                                                                sty
+                                                                className=" w-full inline-flex bg-[#4CAF50] justify-center rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium text-white sm:ml-3 sm:w-auto sm:text-sm">
                                                             Đổi mật khẩu
                                                         </button>
                                                         <button type="button"
-                                                                className="modal-btn-cancel mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 sm:mt-0 sm:w-auto sm:text-sm"
+                                                                className=" mt-3 w-full inline-flex justify-center rounded-md border border-gray-500 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 sm:mt-0 sm:w-auto sm:text-sm"
                                                                 onClick={() => setShowModal(false)}>
                                                             Hủy
                                                         </button>
@@ -438,8 +396,6 @@ const PersonalInformation = () => {
                         </div>
                     </div>
                 )}
-            </div>
-
         </div>
     );
 };

@@ -13,7 +13,6 @@ import Home from "../pages/Home";
 import CreateLangding from "../components/landing/CreateLanding";
 import EditLanding from "../components/landing/EditLanding";
 import ListLanding from "../components/landing/ListLanding";
-import Login from "../components/auth/Login";
 import Register from "../components/employee/child_list/Register";
 import routes from "../configs/routes";
 import DeleteEmployee from "../components/employee/DeleteEmployee";
@@ -25,12 +24,11 @@ import UnauthorizedPage from "../components/auth/Unauthorize";
 const publicRoutes = [
     {path : routes.login ,component : Home},
     {path : routes.home ,component : Home},
-    {path: routes.unAuthorized, component: UnauthorizedPage},
 ]
 
 const privateRoutes = [
 
-
+    {path: routes.unAuthorized, component: UnauthorizedPage},
     {path : routes.listContract, component : ListContract},
     {path : routes.createContract, component : CreateContract},
     {path : routes.editContract, component : EditContract , id : ':id'},

@@ -78,6 +78,9 @@
     position: relative;
 }
 
+/*.absolute {*/
+/*    position: absolute;*/
+/*}*/
 #TanPN .absolute {
     position: absolute;
 }

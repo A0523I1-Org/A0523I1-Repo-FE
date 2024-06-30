@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import '../../configs/routes'
-import {ErrorMessage, Field, Form, Formik, useFormikContext,} from 'formik'
+import {ErrorMessage, Field, Form, Formik,} from 'formik'
 import '../../css/form.css'
 import {Link, useParams} from 'react-router-dom'
 import {getContractById,updateContract} from '../../services/ContractService'
 import Moment from "moment";
 import {storage} from "../../configs/firebase";
-import {ref,uploadBytesResumable,getDownloadURL,uploadBytes} from 'firebase/storage'
+import {ref,uploadBytesResumable,getDownloadURL,uploadBytes,deleteObject} from 'firebase/storage'
 import {v4} from 'uuid';
 import {contractSchema} from '../../schema/ContractSchema'
 import PopupUpdate from "./PopupUpdate";
@@ -137,6 +137,7 @@ const EditContract = () => {
             }
         }catch (e) {
             console.log(e)
+            // deleteObject(storageRef)
             setShowLoading(false);
         }
 
@@ -191,7 +192,7 @@ const EditContract = () => {
     }
     if (!initialValue) return <div>Loading...</div>
     return (
-        <div style={{width: '100%'}} class="w-full h-[600px] mt-[20px] " id="update-ct">
+        <div style={{width: '100%'}} class="w-full h-[630px] mt-[20px] " id="update-ct">
             <div className="h-full mx-16  flex gap-3" style={{position : 'relative'}}>
                 {showLoading && (
                     <div className="loading-overlay" style={{
@@ -364,18 +365,46 @@ const EditContract = () => {
                                             <div className=" h-1/5 mx-5  mb-5 flex gap-3 " >
                                                 <p className="w-4/12 h-full text-sm">H/A Hợp Đồng <span
                                                     className="text-lg text-red-500">*</span></p>
-                                                <div className="w-8/12 h-full " >
-                                                    <div className='flex' style={{    alignItems: 'center', gap: '10px'}}>
-                                                    <img src={previewUrl ? previewUrl : contract.fireBaseUrl } name='img' style={{height: '100px', width: '100px',borderRadius: "50%",objectFit : 'cover'}}/>
-                                                    <input type="file"
-                                                           className="border-none pt-1 h-full"
-                                                           onChange={(e) => {
-                                                               setFieldValue("img", e.target.files[0]);
-                                                               setPreviewUrl(URL.createObjectURL(e.target.files[0]));
-                                                           }}
+                                                <div className="w-8/12 h-full  relative ">
+                                                    <label
+                                                        htmlFor="upload_avt"
+                                                        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
+                                                    >
+                                                        Chọn <div className="max-sm:hidden px-1"> ảnh</div>
+                                                    </label>
+                                                    <input
+                                                        type="file"
+                                                        name="firebaseUrl"
+                                                        hidden
+                                                        required="true"
+                                                        id="upload_avt"
+                                                        onChange={(e) => {
+                                                            setFieldValue("img", e.target.files[0]);
+                                                            setPreviewUrl(URL.createObjectURL(e.target.files[0]));
+                                                        }}/>
+                                                    <ErrorMessage name="img" className={'p-2'} component="span"
+                                                                  style={{color: "red", fontSize: '12px'}}/>
+                                                    <img src={previewUrl ? previewUrl : contract.fireBaseUrl}
+                                                         className="w-2/12 h-[100px]  absolute right-0 top-0 rounded-lg border-solid border-[1px]"
                                                     />
-                                                    </div>
-                                                    <ErrorMessage name="img" className={'p-2'} component="span" style={{color: "red" , fontSize:'12px'}}/>
+                                                    {/*<div className='flex' style={{alignItems: 'center', gap: '10px'}}>*/}
+                                                    {/*    <img src={previewUrl ? previewUrl : contract.fireBaseUrl}*/}
+                                                    {/*         name='img' style={{*/}
+                                                    {/*        height: '100px',*/}
+                                                    {/*        width: '100px',*/}
+                                                    {/*        borderRadius: "50%",*/}
+                                                    {/*        objectFit: 'cover'*/}
+                                                    {/*    }}/>*/}
+                                                    {/*    <input type="file"*/}
+                                                    {/*           className="border-none pt-1 h-full"*/}
+                                                    {/*           onChange={(e) => {*/}
+                                                    {/*               setFieldValue("img", e.target.files[0]);*/}
+                                                    {/*               setPreviewUrl(URL.createObjectURL(e.target.files[0]));*/}
+                                                    {/*           }}*/}
+                                                    {/*    />*/}
+                                                    {/*</div>*/}
+
+
                                                 </div>
                                             </div>
 
@@ -387,7 +416,8 @@ const EditContract = () => {
                                                 <div className="w-8/12 h-full flex">
                                              <span
                                                  className="flex items-center bg-[#fafafa] py-3 px-4 border rounded-tl-[3px] rounded-tb-[3px] text-[#888] ">
-                                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+                                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    strokeWidth="1.5"
                                                     stroke="currentColor" className="w-4 h-4">
                                                       <path strokeLinecap="round" strokeLinejoin="round"
                                                             d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z"/>
@@ -552,14 +582,26 @@ const EditContract = () => {
                                     </div>
                                     <div className="w-full h-1/6">
                                         <div className="w-full ml-3  h-10 ">
-                                            <button type="submit" className="btn bg-[#2196e3] mr-2" >
-                                                <span className="pr-1"><i className="fi fi-rs-disk"/></span>
-                                                <span className="pb-10" > Update</span>
+                                            <button
+                                                className="text-white bg-blue-700 hover:bg-blue-800  focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
+                                                type="submit"
+                                                style={{backgroundColor: "#4CAF50"}}
+                                            >
+                                              <span className="pr-1">
+                                                <i className="fi fi-rs-disk"/>
+                                              </span>
+                                                Cập nhật
                                             </button>
+                                            <Link to="/contract">
 
-                                            <Link to="/contract" className="btn-2">
-                                                <span className="pr-1"><i className="fi fi-rr-eraser"/></span>
-                                                <span>Cancel</span>
+                                            <button
+                                                className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
+                                                type="reset">
+                                                    <span className="pr-1">
+                                                      <i className="fi fi-rr-eraser"/>
+                                                    </span>
+                                                Làm mới
+                                            </button>
                                             </Link>
                                         </div>
                                     </div>

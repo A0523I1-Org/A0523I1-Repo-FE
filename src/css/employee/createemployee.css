@@ -2,7 +2,9 @@
     box-sizing: border-box;
     border-radius: 10px;
     /*background: url("https://images.unsplash.com/photo-1428908728789-d2de25dbd4e2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D") no-repeat;*/
-    /*background-size: cover;*/
+    background-size: cover;
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
     /*position: relative;*/
 }
 

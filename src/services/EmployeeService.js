@@ -64,6 +64,22 @@ export const deleteEmployeeById = async (id, token) => {
     }
 }
 
+export const updateEmployee = async (id, token) => {
+    try {
+        await axios.put(`http://localhost:8080/api/employee/update`,employeeReqDTO ,
+            {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+        )
+        return true
+    } catch (e) {
+        console.log("Error at EmployeeService/updateEmployee:" + e)
+        return false
+    }
+}
+
+
+
 export const getAllExistEmail = async (token) => {
     try {
         const response = await axios.get("http://localhost:8080/api/employee/email",
@@ -83,6 +99,7 @@ export async function getMyProfile(token) {
         const response = await axios.get(`http://localhost:8080/api/employee/my-info`, {
             headers: {Authorization: `Bearer ${token}`}
         })
+        console.log(response)
         return response.data;
     } catch (err) {
         throw err;

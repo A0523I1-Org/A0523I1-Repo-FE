@@ -1,0 +1,61 @@
+/* Add these styles to your CSS file */
+.modal-logout {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 40px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    max-width: 90%;
+    text-align: center;
+    z-index: 1000;
+}
+
+
+.modal-logout h2 {
+    margin-top: 0;
+    font-size: 1.8em;
+    color: #333;
+}
+
+.modal-logout p {
+    font-size: 1.1em;
+    color: #666;
+    margin: 20px 0;
+}
+
+.modal-logout .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.modal-logout button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modal-logout button:first-of-type {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.modal-logout button:first-of-type:hover {
+    background-color: #218838;
+}
+
+.modal-logout button:last-of-type {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.modal-logout button:last-of-type:hover {
+    background-color: #c82333;
+}

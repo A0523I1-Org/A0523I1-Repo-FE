@@ -1,0 +1,4 @@
+.pagination-hidden {
+  opacity: 0.5; /* Hoặc thuộc tính CSS để làm mờ khác */
+  pointer-events: none; /* Không cho phép tương tác */
+}
