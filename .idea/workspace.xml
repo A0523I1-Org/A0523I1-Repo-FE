@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ba72b43a-c2b1-4ff5-8f84-ab2d5ccee82c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/employee/createemployee.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/employee/createemployee.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/Authenticate/AuthService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/Authenticate/AuthService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,13 +31,14 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../addupdate/A0523I1-Repo-FE" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../PROJECT/FE/A0523I1-Repo-FE" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.standard" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.standard" value="" />
+    <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -65,6 +64,7 @@
       <workItem from="1717854547344" duration="8386000" />
       <workItem from="1719400098113" duration="7698000" />
       <workItem from="1719503741167" duration="60000" />
+      <workItem from="1719757036123" duration="359000" />
     </task>
     <servers />
   </component>
@@ -76,10 +76,10 @@
       <screen x="0" y="0" width="1536" height="816" />
     </state>
     <state x="637" y="318" key="#ESLint/0.0.1536.816@0.0.1536.816" timestamp="1719401001123" />
-    <state x="548" y="162" key="FileChooserDialogImpl" timestamp="1719503768055">
+    <state x="548" y="162" key="FileChooserDialogImpl" timestamp="1719757406230">
       <screen x="0" y="0" width="1536" height="816" />
     </state>
-    <state x="548" y="162" key="FileChooserDialogImpl/0.0.1536.816@0.0.1536.816" timestamp="1719503768055" />
+    <state x="548" y="162" key="FileChooserDialogImpl/0.0.1536.816@0.0.1536.816" timestamp="1719757406230" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

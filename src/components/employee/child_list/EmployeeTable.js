@@ -6,32 +6,32 @@ import {Link} from "react-router-dom";
 import "../../../css/employee/styles.css";
 import routes from "../../../configs/routes";
 
-const EmployeeTable = ({employees, handleUserRegistration, handleOpenModal}) => {
+const EmployeeTable = ({employees, handleUserRegistration, handleOpenModal, handleOpenModalDelete}) => {
 
     return (
         <>
             <table className="tw-custom-table ">
                 <thead className="tw-custom-thead">
                 <tr className="tw-custom-first-tr">
-                    <th scope="col" className="tw-custom-th"> Lựa chọn </th>
-                    <th scope="col" className="tw-custom-th"> Nhân viên </th>
-                    <th scope="col" className="tw-custom-th"> Tài khoản </th>
-                    <th scope="col" className="tw-custom-th"> Liên hệ </th>
-                    <th scope="col" className="tw-custom-th"> Bộ phận </th>
-                    <th scope="col" className="tw-custom-th"> Cấp bậc lương </th>
-                    <th scope="col" className="tw-custom-th"> </th>
+                    <th scope="col" className="tw-custom-th"> Lựa chọn</th>
+                    <th scope="col" className="tw-custom-th"> Nhân viên</th>
+                    <th scope="col" className="tw-custom-th"> Tài khoản</th>
+                    <th scope="col" className="tw-custom-th"> Liên hệ</th>
+                    <th scope="col" className="tw-custom-th"> Bộ phận</th>
+                    <th scope="col" className="tw-custom-th"> Cấp bậc lương</th>
+                    <th scope="col" className="tw-custom-th"></th>
                 </tr>
                 </thead>
                 <tbody className="tw-custom-tbody">
                 {employees.map((employee) => (
                     <tr key={employee.id} className="tw-custom-second-tr">
                         <td className="tw-custom-td">
-                            <input type="checkbox" className="tw-custom-checkbox" />
+                            <input type="checkbox" className="tw-custom-checkbox"/>
                         </td>
                         <td className="tw-custom-td-multi">
                             <span className="tw-custom-span-1">Employee</span>
                             <div className="tw-custom-div-1">
-                                <img className="tw-custom-avatar" src={employee.firebaseUrl} alt="" />
+                                <img className="tw-custom-avatar" src={employee.firebaseUrl} alt=""/>
                                 <span className="tw-custom-span-2"></span>
                             </div>
                             <div className="tw-custom-div-2">
@@ -67,14 +67,16 @@ const EmployeeTable = ({employees, handleUserRegistration, handleOpenModal}) => 
                         <td className="tw-custom-td">
                             <div className="tw-custom-div-3">
                                 <a x-data="{ tooltip: 'Detail' }" href="#" onClick={() => handleOpenModal(employee)}>
-                                    <DetailIcon />
+                                    <DetailIcon/>
                                 </a>
-                                <Link to={routes.deleteEmployee + employee.id} x-data="{ tooltip: 'Delete' }">
-                                    <DeleteIcon />
-                                </Link>
-                                <a x-data="{ tooltip: 'Edit' }" href="#">
+                                {/*VTTR*/}
+                                <a x-data="{ tooltip: 'Delete' }" href="#"
+                                   onClick={() => handleOpenModalDelete(employee)}>
+                                    <DeleteIcon/>
+                                </a>
+                                <Link to={routes.editEmployee + employee.id} x-data="{ tooltip: 'Edit' }">
                                     <EditIcon/>
-                                </a>
+                                </Link>
                             </div>
                         </td>
                     </tr>

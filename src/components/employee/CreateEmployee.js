@@ -1,6 +1,6 @@
 import "../../css/employee/createemployee.css"
 import React, {useEffect, useState} from 'react'
-import {storage} from "../../configs/firebase"
+import {storage} from "../../configs/fireBaseConfig"
 import {ref, uploadBytesResumable, getDownloadURL} from 'firebase/storage'
 import {useNavigate} from 'react-router-dom'
 import {Field, ErrorMessage, Form, Formik} from 'formik'
@@ -10,6 +10,7 @@ import * as departmentService from "../../services/DepartmentService"
 import * as salaryRankService from "../../services/SalaryRankService"
 import * as employeeService from "../../services/EmployeeService"
 import * as authService from "../../services/Authenticate/AuthService"
+
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // CROP IMAGE
@@ -76,11 +77,15 @@ const CreateEmployee = () => {
         const allEmail = await employeeService.getAllExistEmail(token);
         setExistEmail(allEmail)
     }
-
     const handleChange = (event) => {
         if (event.target.files && event.target.files.length > 0) {
+            const file = event.target.files[0]
+            if (!file.type.startsWith('image/')) {
+                setAvatarMessage("Chỉ được chọn file ảnh !")
+                return
+            }
             const reader = new FileReader();
-            reader.readAsDataURL(event.target.files[0]);
+            reader.readAsDataURL(file);
             reader.addEventListener("load", () => {
                 setImage(reader.result);
             });
@@ -152,7 +157,7 @@ const CreateEmployee = () => {
                                 navigate("/employee")
                             } else {
                                 toast.warning("Đã xãy ra lỗi trong quá trình thêm mới !")
-                                navigate("/employee/create-employee")
+                                navigate("/employee")
                             }
                         })
                     });
@@ -466,20 +471,22 @@ const CreateEmployee = () => {
                                     className="text-red-500"> Lưu ý: Bạn phải nhập đầy đủ các ô được đánh dấu (*)</span>
                             </div>
                             <div className="w-full sm:w-1/2 lg:w-1/2 p-2 flex justify-end items-center space-x-2">
-                                <button onClick={checkAvatar}   className="text-white bg-blue-700 hover:bg-blue-800  focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
+                                <button onClick={checkAvatar}
+                                        className="text-white bg-blue-700 hover:bg-blue-800  focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
                                         style={{backgroundColor: "#4CAF50"}}
                                         type={"submit"}>
                                     <span><i className="fi fi-rs-disk"/></span>
                                     <span> Lưu</span>
                                 </button>
-                                <button type={"reset"} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
+                                <button type={"reset"}
+                                        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center"
                                         onClick={() => {
                                             setPreviewAvatar(null);
                                             setAvatar(null)
                                             setAvatarMessage("")
                                         }}>
                                     <span><i className="fi fi-rr-eraser"/></span>
-                                 Làm mới
+                                    Làm mới
                                 </button>
                             </div>
                         </div>
@@ -510,13 +517,6 @@ const CreateEmployee = () => {
                                 />
                             </div>
                             <div hidden>
-                                {/*                      <Slider
-                                        min={1}
-                                        max={3}
-                                        step={0.1}
-                                        value={zoom}
-                                        onChange={(e, zoom) => setZoom(zoom)}
-                                    />*/}
                                 <input className="slider"
                                        type="range"
                                        min={1}
