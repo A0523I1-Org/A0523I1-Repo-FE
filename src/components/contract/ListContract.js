@@ -377,34 +377,86 @@ const ListContract = () => {
                                         style={{
                                             backgroundColor:
                                                 state !== null && state.landingCode === contract.landingCode
-                                                    ? "#eee"
+                                                    ? "rgba(185, 195, 182, 1)"
                                                     : "white",
                                         }}
                                         key={contract.id}
                                         className=" h-[50px] "
                                     >
-                                        <td className="w-1/12 text-center  max-md:hidden">
-                                          <span className="block text-[#2196f3]">
-                                            {index + 1 + (currentPage - 1) * sizePage}
-                                          </span>
+                                        <td className="w-1/12 text-center">
+                                      <span
+                                          style={{
+                                              color:
+                                                  state !== null &&
+                                                  state.landingCode === contract.landingCode
+                                                      ? "white"
+                                                      : "#85937b",
+                                          }}
+                                          className="block text-[#2196f3]"
+                                      >
+                                        {index + 1 + (currentPage - 1) * sizePage}
+                                      </span>
                                         </td>
-                                        <td className="w-3/12 max-sm:w-4/12 text-center">
+                                        <td
+                                            style={{
+                                                color:
+                                                    state !== null &&
+                                                    state.landingCode === contract.landingCode
+                                                        ? "white"
+                                                        : "black",
+                                            }}
+                                            className="w-3/12 text-center"
+                                        >
                                             <span>{contract.customerName}</span>
                                         </td>
-                                        <td className="w-2/12 text-center max-sm:hidden">
+                                        <td
+                                            style={{
+                                                color:
+                                                    state !== null &&
+                                                    state.landingCode === contract.landingCode
+                                                        ? "white"
+                                                        : "black",
+                                            }}
+                                            className="w-2/12 text-center"
+                                        >
                                             <span>{contract.landingCode}</span>
                                         </td>
-                                        <td className="w-3/12 text-center">
+                                        <td
+                                            style={{
+                                                color:
+                                                    state !== null &&
+                                                    state.landingCode === contract.landingCode
+                                                        ? "white"
+                                                        : "black",
+                                            }}
+                                            className="w-3/12 text-center"
+                                        >
                                             <span>{contract.startDate}</span>
                                         </td>
-                                        <td className=" w-3/12 text-center px-3">
+                                        <td
+                                            style={{
+                                                color:
+                                                    state !== null &&
+                                                    state.landingCode === contract.landingCode
+                                                        ? "white"
+                                                        : "black",
+                                            }}
+                                            className=" w-3/12 text-center px-3 "
+                                        >
                                             <span>{contract.endDate}</span>
                                         </td>
                                         <td className="w-[80px] items-center relative flex justify-center h-full
                                         border-t-0 border-l-0 ">
                                             <button
+                                                style={{
+                                                    color:
+                                                        state !== null &&
+                                                        state.landingCode === contract.landingCode
+                                                            ? "white"
+                                                            : "black",
+                                                }}
                                                 onClick={() => handleSelectMenu(contract.id)}
-                                                class="flex justify-center btn_menublock_edc menu-button "
+                                                className="flex justify-center btn_menublock_edc menu-button "
                                                 id={`button-` + (index + 1)}
                                             >
                                                 <svg
@@ -413,7 +465,7 @@ const ListContract = () => {
                                                     viewBox="0 0 24 24"
                                                     stroke-width="1.5"
                                                     stroke="currentColor"
-                                                    class="w-6 h-6"
+                                                    className="w-6 h-6"
                                                 >
                                                     <path
                                                         stroke-linecap="round"
@@ -426,7 +478,7 @@ const ListContract = () => {
                                                 style={{
                                                     display: isOpenMenu[contract.id] ? "block" : "none",
                                                 }}
-                                                class="menu_edc w-[200px] h-auto absolute rounded-[3px] z-30 box_child_menu_edc bg-white right-7 menu "
+                                                className="menu_edc w-[200px] h-auto absolute rounded-[3px] z-30 box_child_menu_edc bg-white right-7 menu "
                                             >
                                                 <div className="w-full h-full ">
 
