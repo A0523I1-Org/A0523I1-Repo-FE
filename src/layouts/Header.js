@@ -13,6 +13,7 @@ import * as authService from "../services/Authenticate/AuthService"
 import { toast } from 'react-toastify';
 import * as employeeService from "../services/EmployeeService";
 import ModalLogout from "../components/auth/ModalLogout";
+import routes from "../configs/routes";
 
 const Header = () => {
     const [showMenuSelect, setShowMenuSelect] = useState(false);
@@ -62,7 +63,7 @@ const Header = () => {
 
     useEffect(() => {
         if (localStorage.token && loginModalIsOpen) {
-            navigate('/employee/personal-information')
+            navigate()
         }
     }, [loginModalIsOpen])
 
@@ -114,7 +115,7 @@ const Header = () => {
                     setUsernameDisplay(response.name);
 
                     setLoginModalIsOpen(false);
-                    navigate('/login');
+                    navigate(routes.login);
 
                 } else {
                     setError("Tài khoản hoặc mật khẩu sai.")
@@ -484,7 +485,7 @@ const Header_child = ({menu}) => {
                                 className={`${menu.isShowMenuInfoEmployee ? "block" : "hidden"} w-[170px] h-auto absolute  bg-white border overflow-hidden  top-[57px] rounded-[3px] z-30`}>
                                 <div
                                     className="w-full h-[40px] relative group flex justify-center items-center font-normal text-black  text-[16px]">
-                                    <Link to={'/employee/personal-information'} className={"header-title"}>
+                                    <Link to={routes.personalInformation} className={"header-title"}>
                                         Tài khoản
                                     </Link>
                                     <span

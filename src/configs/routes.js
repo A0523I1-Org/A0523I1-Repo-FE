@@ -18,7 +18,7 @@ const routes = {
     editEmployee : '/employee/edit-employee/',
     deleteEmployee : '/employee/delete-employee/',
     register : '/employee/register-an-account/',
-    personalInformation : '/employee/personal-information',
+    personalInformation : '/personal-information',
 
     listLanding : '/landing',
     createLanding : '/landing/create-landing',
