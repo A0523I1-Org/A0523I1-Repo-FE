@@ -4,6 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="002c67c6-f2d1-417c-a274-743f7353f4d1" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_6_5_2024_6_48_PM_[Changes]/shelved.patch" afterDir="false" />
@@ -71,6 +72,10 @@
       <change beforePath="$PROJECT_DIR$/src/services/BuildingService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/BuildingService.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/services/FloorService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/FloorService.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/services/LandingService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/LandingService.js" afterDir="false" />
+=======
+    <list default="true" id="ba72b43a-c2b1-4ff5-8f84-ab2d5ccee82c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+>>>>>>> Create/DeleteEmployee-ThienTV
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +106,17 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+<<<<<<< HEAD
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+=======
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../PROJECT/FE/A0523I1-Repo-FE" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.standard" value="" />
+>>>>>>> Create/DeleteEmployee-ThienTV
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="SharedIndexes">
@@ -120,6 +135,7 @@
       <created>1719409410412</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
+<<<<<<< HEAD
       <updated>1719409410412</updated>
       <workItem from="1719409413197" duration="951000" />
       <workItem from="1719410744135" duration="1388000" />
@@ -128,10 +144,44 @@
       <workItem from="1719488333839" duration="422000" />
       <workItem from="1719491855040" duration="9626000" />
       <workItem from="1719506382933" duration="1200000" />
+=======
+      <updated>1717585463801</updated>
+      <workItem from="1717585465010" duration="11560000" />
+      <workItem from="1717735595941" duration="11149000" />
+      <workItem from="1717853344969" duration="1118000" />
+      <workItem from="1717854547344" duration="8386000" />
+      <workItem from="1719400098113" duration="7698000" />
+      <workItem from="1719503741167" duration="60000" />
+      <workItem from="1719757036123" duration="359000" />
+>>>>>>> Create/DeleteEmployee-ThienTV
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
   </component>
+<<<<<<< HEAD
+=======
+  <component name="WindowStateProjectService">
+    <state x="637" y="318" key="#ESLint" timestamp="1719401001123">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state x="637" y="318" key="#ESLint/0.0.1536.816@0.0.1536.816" timestamp="1719401001123" />
+    <state x="548" y="162" key="FileChooserDialogImpl" timestamp="1719757406230">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state x="548" y="162" key="FileChooserDialogImpl/0.0.1536.816@0.0.1536.816" timestamp="1719757406230" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/layouts/Header.js</url>
+          <line>1</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+>>>>>>> Create/DeleteEmployee-ThienTV
 </project>

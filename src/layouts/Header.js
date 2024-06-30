@@ -309,49 +309,49 @@ const Navigate = ({isNavigation}) => {
                             </div>
                         </li>
                         {authService.isAuthenticated() &&
-                            <li className="opcion-con-desplegable">
-                                <div className="flex items-center justify-between p-2 hover:bg-gray-700">
-                                    <button className={"flex items-center"}
-                                            onClick={() => isNavigation.setIsNavigationChild(!isNavigation.isNavigationChild)}>
-                                        <div>
-                                            <i className="fas fa-file-alt mr-2"></i>
-                                            <span>Quản trị - hệ thống</span>
-                                        </div>
-                                        {/*<i className="fas fa-chevron-down text-xs"></i>*/}
-                                    </button>
+                        <li className="opcion-con-desplegable">
+                            <div className="flex items-center justify-between p-2 hover:bg-gray-700">
+                                <button className={"flex items-center"}
+                                        onClick={() => isNavigation.setIsNavigationChild(!isNavigation.isNavigationChild)}>
+                                    <div>
+                                        <i className="fas fa-file-alt mr-2"></i>
+                                        <span>Quản trị - hệ thống</span>
+                                    </div>
+                                    {/*<i className="fas fa-chevron-down text-xs"></i>*/}
+                                </button>
 
-                                </div>
-                                <ul className={`${isNavigation.isNavigationChild ? "block" : "hidden"} m-0 `}>
-                                    <li>
-                                        <Link to={'/employee'}
-                                              className="block  p-2 text-white hover:bg-gray-700 flex items-center">
-                                            <i className="fas fa-chevron-right mr-2 text-xs"></i>
-                                            Nhân viên
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to={"/contract"}
-                                              className="block text-white p-2 hover:bg-gray-700 flex items-center">
-                                            <i className="fas fa-chevron-right mr-2 text-xs"></i>
-                                            Hợp đồng
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to={"/landing"}
-                                              className="block text-white p-2 hover:bg-gray-700 flex items-center">
-                                            <i className="fas fa-chevron-right mr-2 text-xs"></i>
-                                            Mặt bằng
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to={"/customer"}
-                                              className="block text-white p-2 hover:bg-gray-700 flex items-center">
-                                            <i className="fas fa-chevron-right mr-2 text-xs"></i>
-                                            Khách hàng
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </li>
+                            </div>
+                            <ul className={`${isNavigation.isNavigationChild ? "block" : "hidden"} m-0 `}>
+                                <li>
+                                    <Link to={'/employee'}
+                                          className="block  p-2 text-white hover:bg-gray-700 flex items-center">
+                                        <i className="fas fa-chevron-right mr-2 text-xs"></i>
+                                        Nhân viên
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={"/contract"}
+                                          className="block text-white p-2 hover:bg-gray-700 flex items-center">
+                                        <i className="fas fa-chevron-right mr-2 text-xs"></i>
+                                        Hợp đồng
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={"/landing"}
+                                          className="block text-white p-2 hover:bg-gray-700 flex items-center">
+                                        <i className="fas fa-chevron-right mr-2 text-xs"></i>
+                                        Mặt bằng
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to={"/customer"}
+                                          className="block text-white p-2 hover:bg-gray-700 flex items-center">
+                                        <i className="fas fa-chevron-right mr-2 text-xs"></i>
+                                        Khách hàng
+                                    </Link>
+                                </li>
+                            </ul>
+                        </li>
                         }
 
                         <li className="opcion-con-desplegable">
@@ -393,11 +393,11 @@ const Header_child = ({menu}) => {
                         <a className="menu__item max-lg:hidden header-title">Giới thiệu</a>
                         <a className="menu__item header-title">Sự kiện</a>
                         {authService.isAuthenticated() &&
-                            <button onClick={() => menu.setShowMenuSelect(!menu.showMenuSelect)}
-                                    className=" inline-flex items-center relative header-title">
-                                Quản trị - hệ thống
-                                <span
-                                    className={`ml-1 transition ${menu.showMenuSelect ? 'rotate-[180deg]' : 'rotate-[0deg]'}`}>
+                        <button onClick={() => menu.setShowMenuSelect(!menu.showMenuSelect)}
+                                className=" inline-flex items-center relative header-title">
+                            Quản trị - hệ thống
+                            <span
+                                className={`ml-1 transition ${menu.showMenuSelect ? 'rotate-[180deg]' : 'rotate-[0deg]'}`}>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 22 22"
                                              strokeWidth="1.5"
                                              stroke="currentColor" className="w-3.5 h-3.5">
@@ -407,44 +407,44 @@ const Header_child = ({menu}) => {
                                 </span>
 
 
-                                <div className={`w-[170px] left-0  h-auto absolute  bg-white border overflow-hidden top-[49px] rounded-[3px] z-30 ${menu.showMenuSelect ? '' : 'hidden'}`}>
-                                    {authService.isAdmin() &&
-                                        <div
-                                            className="w-full h-[40px] relative group flex justify-center items-center font-normal text-black text-[15px]">
-                                            <Link to={'/employee'} className={"header-title"}>
-                                                Nhân viên
-                                            </Link>
-                                            <span
-                                                className="absolute w-full h-[1.5px] bg-yellow-500 bottom-0 left-[-180px] group-hover:left-0 transition-all duration-1000"></span>
-                                        </div>
-                                    }
-                                    <div
-                                        className="w-full h-[40px] relative group flex justify-center items-center font-normal text-black text-[15px]">
-                                        <Link to={'/contract'} className={"header-title"}>
-                                            Hợp đồng
-                                        </Link>
-                                        <span
-                                            className="absolute w-full h-[1.5px] bg-yellow-500 bottom-0 right-[-180px] group-hover:right-0 transition-all duration-1000"></span>
-                                    </div>
-                                    <div
-                                        className="w-full h-[40px] relative group flex items-center justify-center font-normal text-black text-[15px]">
-                                        <Link to={'/landing'} className={"header-title"}>
-                                            Mặt bằng
-                                        </Link>
-                                        <span
-                                            className="absolute w-full h-[1.5px] bg-yellow-500 bottom-0 left-[-180px] group-hover:left-0 transition-all duration-1000"></span>
-                                    </div>
-                                    <div
-                                        className="w-full h-[40px] relative group flex justify-center items-center font-normal text-black text-[15px]">
-                                        <Link to={'/customer'} className={"header-title"}>
-                                            Khách hàng
-                                        </Link>
-                                        <span
-                                            className="absolute w-full h-[1.5px] bg-yellow-500 bottom-0 right-[-180px] group-hover:right-0 transition-all duration-1000"></span>
-                                    </div>
+                            <div className={`w-[170px] left-0  h-auto absolute  bg-white border overflow-hidden top-[49px] rounded-[3px] z-30 ${menu.showMenuSelect ? '' : 'hidden'}`}>
+                                {authService.isAdmin() &&
+                                <div
+                                    className="w-full h-[40px] relative group flex justify-center items-center font-normal text-black text-[15px]">
+                                    <Link to={'/employee'} className={"header-title"}>
+                                        Nhân viên
+                                    </Link>
+                                    <span
+                                        className="absolute w-full h-[1.5px] bg-yellow-500 bottom-0 left-[-180px] group-hover:left-0 transition-all duration-1000"></span>
                                 </div>
+                                }
+                                <div
+                                    className="w-full h-[40px] relative group flex justify-center items-center font-normal text-black text-[15px]">
+                                    <Link to={'/contract'} className={"header-title"}>
+                                        Hợp đồng
+                                    </Link>
+                                    <span
+                                        className="absolute w-full h-[1.5px] bg-yellow-500 bottom-0 right-[-180px] group-hover:right-0 transition-all duration-1000"></span>
+                                </div>
+                                <div
+                                    className="w-full h-[40px] relative group flex items-center justify-center font-normal text-black text-[15px]">
+                                    <Link to={'/landing'} className={"header-title"}>
+                                        Mặt bằng
+                                    </Link>
+                                    <span
+                                        className="absolute w-full h-[1.5px] bg-yellow-500 bottom-0 left-[-180px] group-hover:left-0 transition-all duration-1000"></span>
+                                </div>
+                                <div
+                                    className="w-full h-[40px] relative group flex justify-center items-center font-normal text-black text-[15px]">
+                                    <Link to={'/customer'} className={"header-title"}>
+                                        Khách hàng
+                                    </Link>
+                                    <span
+                                        className="absolute w-full h-[1.5px] bg-yellow-500 bottom-0 right-[-180px] group-hover:right-0 transition-all duration-1000"></span>
+                                </div>
+                            </div>
 
-                            </button>
+                        </button>
 
                         }
                         <a className="menu__item header-title">Liên hệ</a>
@@ -452,11 +452,11 @@ const Header_child = ({menu}) => {
 
 
                     {(!authService.isAuthenticated() && menu.location.pathname === "/login") &&
-                        <button className="absolute w-[119px] h-12 bg-[#2f2b36] hover:text-slate-900 hover:bg-white  hover:border-[1px] hover:border-black
+                    <button className="absolute w-[119px] h-12 bg-[#2f2b36] hover:text-slate-900 hover:bg-white  hover:border-[1px] hover:border-black
                     rounded-[40px] flex items-center justify-center  right-5 text-slate-50  button-animation
                         " onClick={menu.openLoginModal}>
-                            Đăng nhập
-                        </button>
+                        Đăng nhập
+                    </button>
                     }
 
                     <button onClick={() => menu.setIsNavigation(!menu.isNavigation)}
@@ -469,51 +469,51 @@ const Header_child = ({menu}) => {
                     </button>
 
                     {authService.isAuthenticated() &&
-                        <button onClick={() => (
-                            menu.setIsShowMenuInfoEmployee(!menu.isShowMenuInfoEmployee),
-                                menu.setIsNavigation(false)
-                        )}
-                                className={"absolute w-[119px] h-12 border-black border transition rounded-[40px]  flex items-center justify-center right-5 "}>
+                    <button onClick={() => (
+                        menu.setIsShowMenuInfoEmployee(!menu.isShowMenuInfoEmployee),
+                            menu.setIsNavigation(false)
+                    )}
+                            className={"absolute w-[119px] h-12 border-black border transition rounded-[40px]  flex items-center justify-center right-5 "}>
 
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-                                 stroke="currentColor" className="size-6">
-                                <path strokeLinecap="round" strokeLinejoin="round"
-                                      d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-                            </svg>
-                            {/*<span className="pl-1">{menu.usernameDisplay}</span>*/}
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+                             stroke="currentColor" className="size-6">
+                            <path strokeLinecap="round" strokeLinejoin="round"
+                                  d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                        </svg>
+                        {/*<span className="pl-1">{menu.usernameDisplay}</span>*/}
+                        <div
+                            className={`${menu.isShowMenuInfoEmployee ? "block" : "hidden"} w-[170px] h-auto absolute  bg-white border overflow-hidden  top-[57px] rounded-[3px] z-30`}>
                             <div
-                                className={`${menu.isShowMenuInfoEmployee ? "block" : "hidden"} w-[170px] h-auto absolute  bg-white border overflow-hidden  top-[57px] rounded-[3px] z-30`}>
-                                <div
-                                    className="w-full h-[40px] relative group flex justify-center items-center font-normal text-black  text-[16px]">
-                                    <Link to={routes.personalInformation} className={"header-title"}>
-                                        Tài khoản
-                                    </Link>
-                                    <span
-                                        className="absolute w-full h-[1px] bg-yellow-500 bottom-0 left-[-180px] group-hover:left-0 transition-all duration-1000"></span>
-                                </div>
-                                <div
-                                    className="w-full h-[40px] relative group flex justify-center items-center font-normal text-black text-[15px]">
-                                    {/*<button onClick={menu.handleLogoutClick}*/}
-                                    {/*        className="h-full w-full header-title">Đăng xuất*/}
-                                    {/*</button>*/}
-
-
-                                    <button onClick={menu.handleModalLogoutIsOpen} className="h-full w-full header-title">
-                                        Đăng xuất
-                                    </button>
-                                    <ModalLogout
-                                        appElement={document.getElementById('root')}
-                                        isOpen={menu.modalLogoutIsOpen}
-                                        onRequestClose={menu.handleCloseModal}
-                                        onConfirm={menu.handleConfirmLogout}
-                                    />
-
-                                    <span
-                                        className="absolute w-full h-[1px] bg-yellow-500 bottom-0 right-[-180px] group-hover:right-0 transition-all duration-1000"></span>
-                                </div>
-
+                                className="w-full h-[40px] relative group flex justify-center items-center font-normal text-black  text-[16px]">
+                                <Link to={routes.personalInformation} className={"header-title"}>
+                                    Tài khoản
+                                </Link>
+                                <span
+                                    className="absolute w-full h-[1px] bg-yellow-500 bottom-0 left-[-180px] group-hover:left-0 transition-all duration-1000"></span>
                             </div>
-                        </button>
+                            <div
+                                className="w-full h-[40px] relative group flex justify-center items-center font-normal text-black text-[15px]">
+                                {/*<button onClick={menu.handleLogoutClick}*/}
+                                {/*        className="h-full w-full header-title">Đăng xuất*/}
+                                {/*</button>*/}
+
+
+                                <button onClick={menu.handleModalLogoutIsOpen} className="h-full w-full header-title">
+                                    Đăng xuất
+                                </button>
+                                <ModalLogout
+                                    appElement={document.getElementById('root')}
+                                    isOpen={menu.modalLogoutIsOpen}
+                                    onRequestClose={menu.handleCloseModal}
+                                    onConfirm={menu.handleConfirmLogout}
+                                />
+
+                                <span
+                                    className="absolute w-full h-[1px] bg-yellow-500 bottom-0 right-[-180px] group-hover:right-0 transition-all duration-1000"></span>
+                            </div>
+
+                        </div>
+                    </button>
                     }
                 </nav>
             </header>
