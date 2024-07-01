@@ -5,15 +5,18 @@ import * as employeeService from "../../../services/EmployeeService"
 import {toast} from 'react-toastify'
 import * as authService from "../../../services/Authenticate/AuthService"
 
-const DeleteEmployeeModal = ({employee, isOpen, onClose}) => {
+const DeleteEmployeeModal = ({employee, isOpen, onClose, onEmployeeDeleted}) => {
     const token = authService.getToken();
     const deleteEmployee = async () => {
         await employeeService.deleteEmployeeById(employee.id, token)
             .then((success) => {
                 if (success) {
                     toast.success("Bạn đã xóa thành công nhân viên: " + employee.name)
+                    if (onEmployeeDeleted) {
+                        onEmployeeDeleted(employee.id); // Gọi callback để cập nhật danh sách nhân viên sau khi đã xóa thành công
+                    }
                 } else {
-                    toast.warning("Qúa trình xóa thất bại, vui lòng kiểm tra lại !");
+                    toast.warning("Quá trình xóa thất bại, vui lòng kiểm tra lại !");
                 }
             })
     }

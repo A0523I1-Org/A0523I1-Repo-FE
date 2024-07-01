@@ -37,6 +37,7 @@ const ListEmployee = () => {
     const handleEmployeeDeleted = (employeeId) => {
         const newEmployees = employees.filter(employee => employee.id !== employeeId);
         setEmployees(newEmployees);
+        fetchData(currentPage, searchCriteria); // Cập nhật lại danh sách nhân viên
     };
 
     //Modal xem chi tiết nhân viên
