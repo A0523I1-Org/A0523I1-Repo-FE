@@ -91,13 +91,26 @@ const CreateLangding = () => {
     const file = e.target.files[0];
 
     if (!file) return;
+
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    if (!allowedTypes.includes(file.type)) {
+        alert('Vui lòng chọn một tệp ảnh hợp lệ (JPEG, PNG, GIF)');
+        return;
+    }
+
+    const maxSize = 5 * 1024 * 1024;
+    if (file.size > maxSize) {
+        alert('Kích thước tệp quá lớn. Vui lòng chọn tệp nhỏ hơn 5MB');
+        return;
+    }
+
     const reader = new FileReader();
     reader.onloadend = () => {
-      setImageUrl(reader.result);
+        setImageUrl(reader.result);
     };
     reader.readAsDataURL(file);
     setImageUrlUpload(file);
-  };
+};
 
   const validate = {
     floor: Yup.string().required("Vui lòng chọn tầng"),
@@ -137,7 +150,7 @@ const CreateLangding = () => {
           return !isNaN(parseFloat(value)) && !/[^a-zA-Z0-9]/.test(value);
         }
       )
-      .test("is-positive", "Diện tích quá lớn.", (value) => {
+      .test("is-positive", "Diện tích quá lớn,< 1.000.000", (value) => {
         if (!isNaN(parseFloat(value))) {
           return parseFloat(value) < 1000000;
         }
@@ -164,7 +177,7 @@ const CreateLangding = () => {
           return !isNaN(parseFloat(value)) && !/[^a-zA-Z0-9]/.test(value);
         }
       )
-      .test("is-positive", "Giá tiền quá lớn.", (value) => {
+      .test("is-positive", "Giá tiền quá lớn, < 1.000.000.000.000đ", (value) => {
         if (!isNaN(parseFloat(value))) {
           return parseFloat(value) < 1000000000000;
         }
@@ -191,7 +204,7 @@ const CreateLangding = () => {
           return !isNaN(parseFloat(value)) && !/[^a-zA-Z0-9]/.test(value);
         }
       )
-      .test("is-positive", "Phí quản lí quá lớn.", (value) => {
+      .test("is-positive", "Phí quản lí quá lớn,< 1.000.000.000đ", (value) => {
         if (!isNaN(parseFloat(value))) {
           return parseFloat(value) < 1000000000;
         }
@@ -199,7 +212,6 @@ const CreateLangding = () => {
       }),
 
     description: Yup.string().max(200, "Chú thích có độ dài tối đa 200 ký tự"),
-    
   };
 
   const initialValues = {
@@ -337,21 +349,22 @@ const CreateLangding = () => {
                             <input
                                 type="file"
                                 hidden
-                                required="true"
+                                name="firebaseUrl"
                                 id="upload_avt"
                                 onChange={(e) => handleChangeFileImg(e)}
-
                             />
                           </div>
                           <div className="w-[100px] h-[100px] mt-[-10px]">
                             <img name="firebaseUrl" id="firebaseUrl"
                                  className="w-full h-full object-cover"
                                  src={imageUrl}
-                                 alt="anh ko hien thi"
+                                 alt="Chọn ảnh"
                                  accept="image/!*"
                             />
                           </div>
                         </div>
+                        <ErrorMessage name="firebaseUrl" component="span"
+                                      className="text-[12px] text-red-500" />
                       </div>
                     </div>
                   </div>
