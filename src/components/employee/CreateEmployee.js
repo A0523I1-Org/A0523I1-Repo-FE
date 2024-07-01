@@ -170,7 +170,7 @@ const CreateEmployee = () => {
         name: Yup.string().required("Vui lòng nhập tên nhân viên !")
             .max(100, "Tên nhân viên không được dài quá 100 ký tự !")
             .min(5, "Tên nhân viên không được ngắn hơn 5 ký tự !")
-            .matches(/^[A-ZÀ-Ỹ][a-zà-ỹ]+(\s[A-ZÀ-Ỹ][a-zà-ỹ]+)+$/
+            .matches(/^[A-ZÀÁẢÃẠÂẦẤẨẪẬĂẰẮẲẴẶÈÉẺẼẸÊỀẾỂỄỆÌÍỈĨỊÒÓỎÕỌÔỒỐỔỖỘƠỜỚỞỠỢÙÚỦŨỤƯỪỨỬỮỰỲÝỶỸỴĐ][a-zà-ỹ]+(\s[A-ZÀÁẢÃẠÂẦẤẨẪẬĂẰẮẲẴẶÈÉẺẼẸÊỀẾỂỄỆÌÍỈĨỊÒÓỎÕỌÔỒỐỔỖỘƠỜỚỞỠỢÙÚỦŨỤƯỪỨỬỮỰỲÝỶỸỴĐ][a-zà-ỹ]+)+$/
                 , "Tên nhân viên không chứa ký tự đặc biệt và viết hoa chữ cái đầu tiên !"),
         dob: Yup.date().required("Vui lòng nhập ngày sinh của nhân viên !")
             .max(new Date(), "Ngày sinh phải là một ngày trong quá khứ !")
