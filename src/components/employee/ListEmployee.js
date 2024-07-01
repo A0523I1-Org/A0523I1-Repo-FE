@@ -33,6 +33,12 @@ const ListEmployee = () => {
         );
     };
 
+    //Cập nhật hiển thị cho nhân viên sau khi xóa thành công
+    const handleEmployeeDeleted = (employeeId) => {
+        const newEmployees = employees.filter(employee => employee.id !== employeeId);
+        setEmployees(newEmployees);
+    };
+
     //Modal xem chi tiết nhân viên
     const handleOpenModal = (employee) => setSelectedEmployee(employee);
     const handleCloseModal = () => setSelectedEmployee(null);
@@ -74,9 +80,9 @@ const ListEmployee = () => {
         fetchData(currentPage, searchCriteria);
     }, [currentPage]);
 
-    useEffect(() => {
-        fetchData(currentPage, searchCriteria)
-    }, [employeeDelete])
+    // useEffect(() => {
+    //     fetchData(currentPage, searchCriteria)
+    // }, [employeeDelete])
 
     return (
         <>
@@ -133,8 +139,9 @@ const ListEmployee = () => {
             {employeeDelete && (
                 <DeleteEmployeeModal
                     employee={employeeDelete}
-                    isOpen={employeeDelete}
+                    isOpen={!!employeeDelete}
                     onClose={handleCloseModalDelete}
+                    onEmployeeDeleted={handleEmployeeDeleted}
                 />
             )}
         </>
