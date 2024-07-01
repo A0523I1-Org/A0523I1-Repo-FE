@@ -473,7 +473,7 @@ const Header_child = ({menu}) => {
                         menu.setIsShowMenuInfoEmployee(!menu.isShowMenuInfoEmployee),
                             menu.setIsNavigation(false)
                     )}
-                            className={"absolute w-[119px] h-12 border-black border transition rounded-[40px]  flex items-center justify-center right-5 "}>
+                            className={"absolute w-[119px] h-12 transition rounded-[40px] flex items-center justify-center right-5 "}>
 
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                              stroke="currentColor" className="size-6">
