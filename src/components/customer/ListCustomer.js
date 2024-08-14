@@ -13,8 +13,6 @@ import {AddIcon, DeleteAllIcon, SearchIcon} from "../employee/utils/Icons";
 import routes from "../../configs/routes";
 
 
-
-
 const ListCustomer = () => {
     const [customers, setCustomers] = useState([]);
     const navigate = useNavigate();
@@ -24,7 +22,6 @@ const ListCustomer = () => {
     const [currentPage, setCurrentPage] = useState(0);
 
     const [isSearching, setIsSearching] = useState(false);
-    
 
     const handleReset = () => {
         getListPage(0);
@@ -386,27 +383,34 @@ const ListCustomer = () => {
                         <ReactPaginate
                             id="ha"
                             breakLabel="..."
-                            previousLabel={""}
-                            nextLabel={""}
+                            nextLabel=">>"
                             onPageChange={handlePageClick}
                             pageRangeDisplayed={2}
                             pageCount={totalPages}
-                            pageClassName="ha-page-item py-2 border rounded-md"
-                            pageLinkClassName="ha-page-link py-4 px-3"
-                            breakLinkClassName="ha-page-link px-3 py-2  "
+                            previousLabel="<<"
+                            pageClassName="ha-page-item mx-1 border rounded-md"
+                            pageLinkClassName="ha-page-link px-2 py-2 hover:bg-gray-200 hover:rounded-full"
+                            previousClassName="ha-page-item mx-1  rounded-md ml-0"
+                            previousLinkClassName="ha-page-link px-3 py-2 hover:bg-white-900 bg-white-600 text-black w-24"
+                            nextClassName="ha-page-item mx-1 rounded-md mr-0"
+                            nextLinkClassName="ha-page-link px-3 py-2 hover:bg-white-900 bg-white-600 w-24"
+                            breakClassName="ha-page-item mx-1 border rounded-md"
+                            breakLinkClassName="ha-page-link px-3 py-2 hover:bg-gray-200 hover:rounded-full"
                             containerClassName="ha-pagination flex justify-center"
-                            activeClassName="ha-active bg-blue-700 text-white"
+                            activeClassName="ha-active bg-blue-500 text-white"
                             forcePage={currentPage}
                         />
                     </div>
                 </div>
             </div>
 
+
+
             {showPopup &&(
                 <ConfirmationPopup
                     message={
                         popupAction === "single"
-                            ? `Bạn có muốn xóa khách hàng ${customers.id}?`
+                            ? `Bạn có muốn xóa khách hàng này ?`
                             : `Bạn có muốn xóa những khách hàng đã chọn ?`
                     }
                     onConfirm={confirmDelete}

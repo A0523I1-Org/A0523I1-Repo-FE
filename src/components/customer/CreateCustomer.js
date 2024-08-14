@@ -82,6 +82,7 @@ const CreateCustomer = () => {
         <>
 
             <div id="create-tt" className="boss max-w-[1000px] max-h-[900px]  mx-auto ">
+                <h1 className="text-center text-4xl font-bold py-3 shadow-2xl">Thêm Mới Khách Hàng</h1>
                 <div class="flex items-center justify-center p-12 ">
                     <div class="mx-auto w-full max-w-[800px]">
                         <Formik

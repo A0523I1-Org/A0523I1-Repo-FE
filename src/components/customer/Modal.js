@@ -48,7 +48,7 @@ const Modal = ({customer, onClose}) => {
                             <div className="w-full px-3 py-0 sm:w-1/2">
 
                                 <div className="mb-5">
-                                    <label htmlFor="name" className="mb-3 block text-base font-medium text-white">
+                                    <label htmlFor="name" className="mb-3 block text-base font-medium">
                                         Tên khách hàng
                                     </label>
                                     <Field
@@ -63,7 +63,7 @@ const Modal = ({customer, onClose}) => {
                             <div className="w-full px-3 sm:w-1/2">
                                 <div className="mb-5">
                                     <label htmlFor="address"
-                                           className="mb-3 block text-base font-medium text-white">
+                                           className="mb-3 block text-base font-medium">
                                         Địa chỉ
                                     </label>
                                     <Field
@@ -80,7 +80,7 @@ const Modal = ({customer, onClose}) => {
                             <div className="w-full px-3 sm:w-1/2">
                                 <div className="mb-5">
                                     <label htmlFor="dob"
-                                           className="mb-3 block text-base font-medium text-white">
+                                           className="mb-3 block text-base font-medium">
                                         Ngày sinh
                                     </label>
                                     <Field
@@ -94,7 +94,7 @@ const Modal = ({customer, onClose}) => {
                             <div className="w-full px-3 sm:w-1/2">
                                 <div className="mb-5">
                                     <label htmlFor="phone"
-                                           className="mb-3 block text-base font-medium text-white">
+                                           className="mb-3 block text-base font-medium">
                                         Số điện thoại
                                     </label>
                                     <Field
@@ -111,7 +111,7 @@ const Modal = ({customer, onClose}) => {
                             <div className="w-full px-3 sm:w-1/2">
                                 <div className="mb-5">
                                     <label htmlFor="email"
-                                           className="mb-3 block text-base font-medium text-white">
+                                           className="mb-3 block text-base font-medium">
                                         Email
                                     </label>
                                     <Field
@@ -126,7 +126,7 @@ const Modal = ({customer, onClose}) => {
                             <div className="w-full px-3 sm:w-1/2">
                                 <div className="mb-5">
                                     <label htmlFor="idCard"
-                                           className="mb-3 block text-base font-medium text-white">
+                                           className="mb-3 block text-base font-medium">
                                         Căn cước công dân
                                     </label>
                                     <Field
@@ -143,7 +143,7 @@ const Modal = ({customer, onClose}) => {
                             <div className="w-full px-3 sm:w-1/2">
                                 <div className="mb-5">
                                     <label htmlFor="companyName"
-                                           className="mb-3 block text-base font-medium text-white">
+                                           className="mb-3 block text-base font-medium">
                                         Tên công ty
                                     </label>
                                     <Field
@@ -158,7 +158,7 @@ const Modal = ({customer, onClose}) => {
                             <div className="w-full px-3 sm:w-1/2">
                                 <div className="mb-5">
                                     <label htmlFor="website"
-                                           className="mb-3 block text-base font-medium text-white">
+                                           className="mb-3 block text-base font-medium">
                                         Website
                                     </label>
                                     <Field
@@ -172,7 +172,7 @@ const Modal = ({customer, onClose}) => {
                             </div>
                         </div>
                         <div className="mb-5">
-                            <label className="mb-3 block text-base font-medium text-white">
+                            <label className="mb-3 block text-base font-medium">
                                 Giới tính
 
                             </label>
