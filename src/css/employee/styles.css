@@ -1,0 +1,254 @@
+/*list employee*/
+.tw-delete-all-button {
+    @apply bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded;
+}
+
+.tw-add-button {
+    @apply bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded;
+}
+
+.tw-table-zone {
+    @apply overflow-hidden rounded-lg mx-16 max-xl:mx-0 border-gray-200 shadow-md ;
+}
+
+/*employee table*/
+.tw-custom-table {
+    @apply w-full border-collapse block md:table bg-white text-left text-sm text-gray-500;
+}
+
+.tw-custom-thead {
+    @apply block md:table-header-group bg-gray-50;
+}
+
+.tw-custom-first-tr {
+    @apply border border-gray-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto md:relative;
+}
+
+.tw-custom-th {
+    @apply px-6 py-4 font-medium text-gray-900 text-left block md:table-cell;
+}
+
+.tw-custom-tbody {
+    @apply block md:table-row-group divide-y divide-gray-100 border-t border-gray-100;
+}
+
+.tw-custom-second-tr {
+    @apply hover:bg-gray-50 bg-white md:border-none block md:table-row;
+}
+
+.tw-custom-td {
+    @apply px-6 py-4 md:border md:border-gray-200 text-left block md:table-cell;
+}
+
+.tw-custom-checkbox {
+    @apply w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded;
+}
+
+.tw-custom-td-multi {
+    @apply flex gap-3 px-6 py-4 font-normal text-gray-900 md:border md:border-gray-200 text-left block md:table-cell;
+}
+
+.tw-custom-span-1 {
+    @apply inline-block w-1/3 md:hidden font-bold;
+}
+
+.tw-custom-div-1 {
+    @apply relative h-10 w-10;
+}
+
+.tw-custom-avatar {
+    @apply h-full w-full rounded-full object-cover object-center;
+}
+
+.tw-custom-span-2 {
+    @apply absolute right-0 bottom-0 h-2 w-2 rounded-full bg-green-400 ring ring-white;
+}
+
+.tw-custom-div-2 {
+    @apply text-sm;
+}
+
+.tw-custom-div-2-child-1 {
+    @apply font-medium text-gray-700;
+}
+
+.tw-custom-div-2-child-2 {
+    @apply text-gray-400;
+}
+
+.tw-custom-span-3 {
+    @apply inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600;
+}
+
+.tw-custom-span-4 {
+    @apply h-1.5 w-1.5 rounded-full bg-green-600;
+}
+
+.tw-custom-div-3 {
+    @apply flex justify-end gap-4;
+}
+
+/*employee detail*/
+.tw-custom-modal {
+    @apply fixed inset-0 z-10 overflow-y-auto;
+}
+
+.tw-custom-div-4 {
+    @apply flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0;
+}
+
+.tw-background-overlay {
+    @apply fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity;
+}
+
+.tw-custom-modal-panel {
+    @apply inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full;
+}
+
+.tw-custom-div-5 {
+    @apply bg-white px-4 py-5 sm:p-6;
+}
+
+.tw-custom-div-6 {
+    @apply flex items-center justify-between;
+}
+
+.tw-custom-div-7 {
+    @apply relative h-12 w-12;
+}
+
+.tw-custom-div-8 {
+    @apply mt-4;
+}
+
+.tw-custom-div-9 {
+    @apply text-lg font-semibold leading-6 text-gray-900;
+}
+
+.tw-custom-div-10 {
+    @apply mt-3 grid grid-cols-1 sm:grid-cols-2 gap-4;
+}
+
+.tw-custom-div-11 {
+    @apply text-sm text-gray-500;
+}
+
+.tw-custom-p-1 {
+    @apply mt-2;
+}
+
+.tw-custom-span-5 {
+    @apply font-semibold;
+}
+
+.tw-custom-div-12 {
+    @apply bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse;
+}
+
+.tw-custom-close-modal {
+    @apply mt-3 w-full inline-flex justify-center rounded-md bg-white px-4 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto;
+}
+
+/*pagination*/
+.tw-custom-nav {
+    @apply flex justify-center mt-4;
+}
+
+.tw-custom-ul {
+    @apply flex items-center -space-x-px h-8 text-sm;
+}
+
+.tw-custom-button-prev,
+.tw-custom-button-next,
+.tw-custom-button-page {
+    @apply flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white;
+}
+
+.tw-custom-button-prev {
+    @apply ms-0 rounded-s-lg;
+}
+
+.tw-custom-button-next {
+    @apply rounded-e-lg;
+}
+
+.tw-custom-span-6 {
+    @apply sr-only;
+}
+
+.tw-custom-svg {
+    @apply w-2.5 h-2.5 rtl:rotate-180;
+}
+
+.tw-custom-li {
+    @apply flex items-center justify-center;
+}
+
+.tw-custom-button-active {
+    @apply z-10 text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white;
+}
+
+.tw-custom-disabled {
+    @apply cursor-not-allowed opacity-50;
+}
+
+/*register*/
+.tw-custom-span-register {
+    @apply inline-flex items-center gap-1 rounded-full bg-red-50 px-2 py-1 text-xs font-semibold text-red-600 transition duration-300 ease-in-out hover:bg-red-100 hover:text-green-700 hover:shadow-md;
+}
+
+.tw-custom-modal-overlay {
+    @apply fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 backdrop-blur-sm transition-opacity duration-300;
+}
+
+.tw-custom-modal-content {
+    @apply relative mx-auto flex w-full max-w-[24rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md;
+}
+
+.tw-custom-close-button {
+    @apply absolute top-4 right-4 flex items-center justify-center w-6 h-6 text-gray-800 dark:text-white;
+}
+
+.tw-custom-modal-inner {
+    @apply flex flex-col gap-4 p-6;
+}
+
+.tw-custom-h4 {
+    @apply block font-sans text-2xl antialiased font-semibold leading-snug tracking-normal text-gray-900;
+}
+
+.tw-custom-p {
+    @apply block mb-3 font-sans text-base antialiased font-normal leading-relaxed text-gray-700;
+}
+
+.tw-custom-h6 {
+    @apply block mb-2 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit;
+}
+
+.tw-custom-field {
+    @apply relative mb-4 h-11 w-full min-w-[200px];
+}
+
+/*.tw-custom-input {*/
+/*    @apply w-full h-full px-3 py-3 font-sans text-sm font-normal transition-all bg-transparent border rounded-md peer border-blue-gray-200 border-t-transparent text-blue-gray-700 outline outline-0 placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50;*/
+/*}*/
+
+/*.tw-custom-label {*/
+/*    @apply before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500;*/
+/*}*/
+
+.tw-custom-error {
+    @apply text-red-500;
+}
+
+.tw-custom-button-container {
+    @apply flex justify-between;
+}
+
+.tw-custom-submit-button {
+    @apply block mb-2 w-full select-none rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none;
+}
+
+.tw-custom-reset-button {
+    @apply block mb-2 w-full select-none rounded-lg bg-gradient-to-tr from-gray-600 to-gray-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-600/10 transition-all hover:shadow-lg hover:shadow-gray-600/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none;
+}

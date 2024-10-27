@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+<<<<<<< HEAD
+    <list default="true" id="002c67c6-f2d1-417c-a274-743f7353f4d1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_6_5_2024_6_48_PM_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_6_5_2024_6_48_PM_[Changes]1/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_6_5_2024_6_48_PM__Changes_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/img-search.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/employee/child_list/SearchNotFound.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/configs/fireBaseConfig.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/form/css/form_common.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/form/html/form_ground.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/js/app_home.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/table/css/EditOfPremises.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/table/css/ListOfPremises.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/table/css/pagination.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/table/css/table_list.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/table/html/table_list_mb.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/A0523I1-Repo-FE.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/A0523I1-Repo-FE.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/contract/CreateContract.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/contract/CreateContract.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/contract/EditContract.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/contract/EditContract.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/contract/ListContract.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/contract/ListContract.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/contract/NotFoundContract.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/contract/NotFoundContract.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/contract/NotFoundSearch.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/contract/NotFoundSearch.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/customer/CreateCustomer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/customer/CreateCustomer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/customer/EditCustomer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/customer/EditCustomer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/customer/ListCustomer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/customer/ListCustomer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/customer/Modal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/customer/Modal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/employee/CreateEmployee.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employee/CreateEmployee.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/employee/ListEmployee.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employee/ListEmployee.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/employee/PersonalInformation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employee/PersonalInformation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/employee/child_list/EmployeeTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employee/child_list/EmployeeTable.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/employee/child_list/Pagination.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employee/child_list/Pagination.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/employee/child_list/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employee/child_list/Register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/employee/child_list/Search.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employee/child_list/Search.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/landing/CreateLanding.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/landing/CreateLanding.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/landing/EditLanding.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/landing/EditLanding.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/landing/ListLanding.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/landing/ListLanding.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/configs/privateRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/configs/privateRoute.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/auth/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/auth/login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/contract/listContract.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/contract/listContract.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/contract/paginationContract.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/contract/paginationContract.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/customer/EditCustomer.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/customer/EditCustomer.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/customer/create.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/customer/create.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/customer/detail.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/customer/detail.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/customer/list.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/customer/list.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/employee/createemployee.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/employee/createemployee.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/employee/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/employee/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/footer.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/footer.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/header.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/header.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/home.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layouts/DefaultLayout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/DefaultLayout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layouts/Footer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/Footer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layouts/FooterExtra.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/FooterExtra.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layouts/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/Header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/router.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/Authenticate/AuthService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/Authenticate/AuthService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/BuildingService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/BuildingService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/FloorService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/FloorService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/LandingService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/LandingService.js" afterDir="false" />
+=======
+    <list default="true" id="ba72b43a-c2b1-4ff5-8f84-ab2d5ccee82c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+>>>>>>> Create/DeleteEmployee-ThienTV
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="List/EditLanding-ThienLC" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2iQ4LCpUPNo0uHk7PoKzRqFNvwt" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+<<<<<<< HEAD
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+=======
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../PROJECT/FE/A0523I1-Repo-FE" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.standard" value="" />
+>>>>>>> Create/DeleteEmployee-ThienTV
+    <property name="nodejs_package_manager_path" value="npm" />
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-WS-241.17011.90" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="002c67c6-f2d1-417c-a274-743f7353f4d1" name="Changes" comment="" />
+      <created>1719409410412</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+<<<<<<< HEAD
+      <updated>1719409410412</updated>
+      <workItem from="1719409413197" duration="951000" />
+      <workItem from="1719410744135" duration="1388000" />
+      <workItem from="1719461510860" duration="16088000" />
+      <workItem from="1719479563492" duration="92000" />
+      <workItem from="1719488333839" duration="422000" />
+      <workItem from="1719491855040" duration="9626000" />
+      <workItem from="1719506382933" duration="1200000" />
+=======
+      <updated>1717585463801</updated>
+      <workItem from="1717585465010" duration="11560000" />
+      <workItem from="1717735595941" duration="11149000" />
+      <workItem from="1717853344969" duration="1118000" />
+      <workItem from="1717854547344" duration="8386000" />
+      <workItem from="1719400098113" duration="7698000" />
+      <workItem from="1719503741167" duration="60000" />
+      <workItem from="1719757036123" duration="359000" />
+>>>>>>> Create/DeleteEmployee-ThienTV
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+<<<<<<< HEAD
+=======
+  <component name="WindowStateProjectService">
+    <state x="637" y="318" key="#ESLint" timestamp="1719401001123">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state x="637" y="318" key="#ESLint/0.0.1536.816@0.0.1536.816" timestamp="1719401001123" />
+    <state x="548" y="162" key="FileChooserDialogImpl" timestamp="1719757406230">
+      <screen x="0" y="0" width="1536" height="816" />
+    </state>
+    <state x="548" y="162" key="FileChooserDialogImpl/0.0.1536.816@0.0.1536.816" timestamp="1719757406230" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/layouts/Header.js</url>
+          <line>1</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+>>>>>>> Create/DeleteEmployee-ThienTV
+</project>

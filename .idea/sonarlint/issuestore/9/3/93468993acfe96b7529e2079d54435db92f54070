@@ -1,0 +1,12 @@
+
+Tjavascript:S1481"8Remove the declaration of the unused 'setForm' variable.(Ê×‰¶
+Qjavascript:S1854"5Remove this useless assignment to variable "setForm".(Ê×‰¶
+Tjavascript:S1481\"8Remove the declaration of the unused 'percent' variable.(•¾
+Qjavascript:S1854\"5Remove this useless assignment to variable "percent".(•¾
+qjavascript:S3776£"TRefactor this function to reduce its Cognitive Complexity from 19 to the 15 allowed.(ªÇĞİ
+ajavascript:S3358«"DExtract this nested ternary operation into an independent statement.(‰¸¹Ñ
+ajavascript:S3358³"DExtract this nested ternary operation into an independent statement.(×ÒÂù
+fjavascript:S3358Í"DExtract this nested ternary operation into an independent statement.(êúíìúÿÿÿÿ
+`javascript:S3358Õ"DExtract this nested ternary operation into an independent statement.(öãj
+fjavascript:S3358İ"DExtract this nested ternary operation into an independent statement.(¬¢¤øşÿÿÿÿ
+fjavascript:S3358å"DExtract this nested ternary operation into an independent statement.(ñïØÏúÿÿÿÿ

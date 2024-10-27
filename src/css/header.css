@@ -1,0 +1,12 @@
+
+header .header-title{
+    text-decoration: none !important;
+    color: #2f2b36 !important;
+    font-size: 17px !important;
+    font-weight: 500 !important;
+    font-family: var(--body-font);
+
+}
+header button {
+    transition: all 0.3s ease-in-out;
+}
